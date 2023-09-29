@@ -31,7 +31,7 @@ public class ImageEditor {
         this.currentImg = img;
         editorFrame = new JFrame();
         editorFrame.setTitle(title);
-        editorPanel = new JPanel(); //do gridlayout
+        editorPanel = new JPanel(); //do gridlayout to add compoemnets onto editor
         this.title = title;
         editorFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         editorFrame.setJMenuBar(menuPanel.getMenuBar());

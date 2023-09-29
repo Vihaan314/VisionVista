@@ -43,6 +43,8 @@ public class Main {
     public ArrayList<Effect> effect_sequence = new ArrayList<Effect>();
     public int currentImage = 0;
 
+    public EffectHistory effectHistory = new EffectHistory();
+
     ImageTimeline imageTimeline;
 
     public Main() {
@@ -90,9 +92,9 @@ public class Main {
         mainFrame.setVisible(true);
     }
 
-    public BufferedImage getLastImage(ArrayList<Effect> effect_sequence) {
-        return effect_sequence.get(effect_sequence.size() - 1).run();
-    }
+//    public BufferedImage getLastImage(ArrayList<Effect> effect_sequence) {
+//        return effect_sequence.get(effect_sequence.size() - 1).run();
+//    }
 
     private void openImage(ActionEvent e) {
         effect_sequence = new ArrayList<Effect>();
@@ -102,21 +104,26 @@ public class Main {
             File selectedFile = fileChooser.getSelectedFile();
             String file_name_raw = selectedFile.getName();
             file_name_broken = file_name_raw.split("[.]");
+
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
                 Effect image_original = new Effect(image) {
                     @Override
                     public BufferedImage run() {
-                        return image;
+                        return this.image;
                     }
                     public String toString() { return "Original image"; }
                 };
-                effect_sequence.add(image_original);
-                System.out.println(effect_sequence);
-                editor = new ImageEditor("Image editor", effect_sequence.get(0).run(), setupMenuPanel(effect_sequence.get(0).run()));
+//                effect_sequence.add(image_original);
+//                System.out.println(effect_sequence);
+                effectHistory.add(image_original);
+
+//                editor = new ImageEditor("Image editor", effect_sequence.get(0).run(), setupMenuPanel(effect_sequence.get(0).run()));
+                editor = new ImageEditor("Image editor", effectHistory.getFirstImage(), setupMenuPanel(effectHistory.getFirstImage()));
                 editor.show();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(mainFrame, "Error loading image.");
+                ex.printStackTrace();
             }
         }
     }
@@ -144,14 +151,18 @@ public class Main {
                     file_name_broken = urlField.getText().split("[/]");
                     file_name_broken = file_name_broken[file_name_broken.length-1].split("[.]");
                     BufferedImage image = ImageIO.read(img_url);
-                    effect_sequence.add(new Effect(image) {
+                    Effect selectedImage = new Effect(image) {
                         @Override
                         public BufferedImage run() {
                             return image;
                         }
                         public String toString() { return "Original image"; }
-                    });
-                    editor = new ImageEditor("Image editor", effect_sequence.get(0).run(), setupMenuPanel(effect_sequence.get(0).run()));
+                    };
+//                    effect_sequence.add(selectedImage);
+
+                    effectHistory.add(selectedImage);
+                    editor = new ImageEditor("Image editor", effectHistory.getFirstImage(), setupMenuPanel(effectHistory.getFirstImage()));
+//                    editor = new ImageEditor("Image editor", effect_sequence.get(0).run(), setupMenuPanel(effect_sequence.get(0).run()));
                     editor.show();
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -323,18 +334,23 @@ public class Main {
     }
 
     public void printEffectSequence() {
-        System.out.println(currentImage);
-        effect_sequence.stream().forEach(System.out::print);
+        effectHistory.printSequence();
+//        System.out.println(currentImage);
+//        effect_sequence.stream().forEach(System.out::print);
     }
 
     public void updateEffectSequence(Effect effect) {
-        effect_sequence.add(effect);
-
-        if (currentImage+1 != effect_sequence.size()-1) {
-            currentImage = effect_sequence.size()-1;
+        effectHistory.add(effect);
+//        effect_sequence.add(effect);
+//
+//        if (currentImage+1 != effect_sequence.size()-1) {
+        if (effectHistory.currentImage+1 != effectHistory.getSize()-1) {
+//            currentImage = effect_sequence.size()-1;
+            effectHistory.setCurrentImage(effectHistory.getSize()-1);
         }
         else {
-            currentImage += 1;
+//            currentImage += 1;
+            effectHistory.updateCurrentImage(1);
         }
     }
 
@@ -409,8 +425,8 @@ public class Main {
         inputsWindow.show();
     }
 
-    public void showTimeline(ArrayList<Effect> effect_sequence, int currentImage) {
-        imageTimeline = new ImageTimeline(effect_sequence, currentImage, this);
+    public void showTimeline(EffectHistory effectHistory) {
+        imageTimeline = new ImageTimeline(effectHistory, this);
         imageTimeline.show();
     }
 
@@ -425,14 +441,14 @@ public class Main {
         menuPanel.addItemToMenu("File", "Save", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editor.saveImage(img, file_name_broken, false, effect_sequence);
+                editor.saveImage(img, file_name_broken, false, effectHistory.getEffectSequence());
             }
         });
 
         menuPanel.addItemToMenu("File", "Save with Text", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editor.saveImage(img, file_name_broken, true, effect_sequence);
+                editor.saveImage(img, file_name_broken, true, effectHistory.getEffectSequence());
             }
         });
 
@@ -441,7 +457,7 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 String directory = getSerializeDirectory();
                 try {
-                    editor.saveImageSequence(effect_sequence, directory, file_name_broken[0]);
+                    editor.saveImageSequence(effectHistory.getEffectSequence(), directory, file_name_broken[0]);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -452,34 +468,37 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 printEffectSequence();
-                if (currentImage > 0) {
-                    currentImage -= 1;
+                if (effectHistory.getCurrentIndex() > 0) {
+//                    currentImage -= 1;
+                    effectHistory.updateCurrentImage(-1);
                 }
-                updateEditor(effect_sequence.get(currentImage).run(), "Image Editor");
+                updateEditor(effectHistory.getCurrentImage(), "Image Editor");
             }
         });
         menuPanel.addItemToMenu("Edit", "Redo", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 printEffectSequence();
-                if (currentImage < effect_sequence.size()-1) {
-                    currentImage += 1;
+                if (effectHistory.getCurrentIndex() < effectHistory.getSize()-1) {
+//                    effect += 1;
+                    effectHistory.updateCurrentImage(1);
                 }
-                updateEditor(effect_sequence.get(currentImage).run(), "Image editor");
+                updateEditor(effectHistory.getCurrentImage(), "Image editor");
             }
         });
         menuPanel.addItemToMenu("Edit", "Timeline", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showTimeline(effect_sequence, currentImage);
+                showTimeline(effectHistory);
             }
         });
         menuPanel.addItemToMenu("Edit", "Reset", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                effect_sequence = new ArrayList<Effect>(effect_sequence.subList(0, 1));
-                currentImage = 0;
-                updateEditor(effect_sequence.get(0).run(), "Image editor");
+//                effect_sequence = new ArrayList<Effect>(effect_sequence.subList(0, 1));
+//                currentImage = 0;
+                effectHistory.resetHistory();
+                updateEditor(effectHistory.getFirstImage(), "Image editor");
             }
         });
 
@@ -605,7 +624,7 @@ public class Main {
         menuPanel.addItemToMenu("Transformation", ButtonPanelConstants.FLIP_V_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect verticalImg = getEffect(getLastImage(effect_sequence), EffectType.FLIP_VERTICAL);
+                Effect verticalImg = getEffect(img, EffectType.FLIP_VERTICAL);
                 editedImage = verticalImg.run();
                 updateEffectSequence(verticalImg);
                 updateEditor(editedImage, "New flipped (vertical) image");

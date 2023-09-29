@@ -28,10 +28,10 @@ public class ImageTimeline {
         return frame;
     };
 
-    public void refreshTimeline(Main mainRef) {
+    public void refreshTimeline() {
         if (timelineFrame.isVisible()) {
             timelineFrame.dispose();
-            mainRef.showTimeline(mainRef.effect_sequence, mainRef.currentImage);
+            mainReference.showTimeline(mainReference.effectHistory);
         }
     }
 
@@ -45,9 +45,9 @@ public class ImageTimeline {
             effectButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    mainReference.currentImage = finalI;
+                    mainReference.effectHistory.setCurrentImage(finalI);
                     mainReference.editor.updateImage(effect_sequence.get(finalI).run(), "Effect");
-                    refreshTimeline(mainReference);
+                    refreshTimeline();
                 }
             });
 
@@ -74,10 +74,10 @@ public class ImageTimeline {
         this.timelineFrame.setVisible(vis);
     }
 
-    public ImageTimeline(ArrayList<Effect> effect_sequence, int currentImage, Main mainReference) {
-        this.effect_sequence = effect_sequence;
-        this.effectLength = effect_sequence.size();
-        this.currentImage = currentImage;
+    public ImageTimeline(EffectHistory effectHistory, Main mainReference) {
+        this.effect_sequence = effectHistory.getEffectSequence();
+        this.effectLength = effectHistory.getSize();
+        this.currentImage = effectHistory.getCurrentIndex();
         this.timelinePanel = new JPanel(new GridLayout(this.effectLength, this.effectLength));
         this.timelineFrame = setupTimelineFrame();
         this.mainReference = mainReference;
