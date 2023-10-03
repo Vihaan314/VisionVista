@@ -1,3 +1,5 @@
+package Effects;
+
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
@@ -13,5 +15,9 @@ public class ImageHelper {
 
         String directory = String.valueOf(f.getSelectedFile());
         return directory;
+    }
+
+    public static int getRandomParameter(int min, int max){
+        return (int) Math.floor(Math.random() * (max - min + 1) + min);
     }
 }

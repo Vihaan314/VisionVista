@@ -1,20 +1,11 @@
-import Effects.Contrast;
 import Effects.Effect;
-import Effects.EffectType;
+import Effects.ImageHelper;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.lang.reflect.Array;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.*;
-import java.util.List;
 
 public class ImagePanel extends MenuPanel {
     BufferedImage img;

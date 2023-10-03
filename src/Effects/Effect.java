@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
-import java.util.Objects;
 
 public abstract class Effect implements Serializable
 {
@@ -15,6 +14,8 @@ public abstract class Effect implements Serializable
     }
 
     public abstract BufferedImage run();
+
+//    public abstract BufferedImage getRandomInstance();
 
     public static BufferedImage getEmptyImage(BufferedImage image) {
         return new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);

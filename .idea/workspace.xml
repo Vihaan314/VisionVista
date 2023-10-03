@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50f16d06-8528-47f9-a0bb-8efb31b90a8b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/VisionVista.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EffectHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EffectHistory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ImageEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImageEditor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ImageTimeline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImageTimeline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Effects/Brightness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Brightness.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Effects/Effect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Effect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ImageHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/ImageHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ImagePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImagePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

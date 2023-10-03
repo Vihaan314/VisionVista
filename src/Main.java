@@ -49,12 +49,19 @@ public class Main {
 
     public Main() {
         mainFrame = new JFrame("Image Editor");
-        JPanel mainPanel = new JPanel(new GridLayout(2, 2));
+        JPanel mainPanel = new JPanel();
 
         JButton newImageButton = new JButton("New Blank Image");
         JButton urlButton = new JButton("Load URL");
         JButton openButton = new JButton("Open Image");
         JButton templateButton = new JButton("Choose Template");
+
+        Dimension buttonDimension = new Dimension(400, 400);
+
+        newImageButton.setPreferredSize(buttonDimension);
+        urlButton.setPreferredSize(buttonDimension);
+        openButton.setPreferredSize(buttonDimension);
+        templateButton.setPreferredSize(buttonDimension);
 
         mainPanel.add(newImageButton);
         mainPanel.add(openButton);
@@ -64,39 +71,39 @@ public class Main {
         openButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                openImage(evt);
-
+                openImage();
+                mainFrame.dispose();
             }
         });
 
         urlButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                openImageFromUrl(evt);
+                openImageFromUrl();
+                mainFrame.dispose();
             }
         });
 
         newImageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                createNewImage(evt);
+                createNewImage();
+                mainFrame.dispose();
             }
         });
 
-        mainPanel.add(openButton);
+//        mainFrame.add(openButton);
+//        mainFrame.add(buttonPanel);
+//        mainFrame.add(buttonPanel, BorderLayout.CENTER);
         mainFrame.add(mainPanel);
 
-        mainFrame.setSize(300, 300);
+        mainFrame.setSize(1200, 800);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
     }
 
-//    public BufferedImage getLastImage(ArrayList<Effect> effect_sequence) {
-//        return effect_sequence.get(effect_sequence.size() - 1).run();
-//    }
-
-    private void openImage(ActionEvent e) {
+    private void openImage() {
         effect_sequence = new ArrayList<Effect>();
         JFileChooser fileChooser = new JFileChooser();
         int returnValue = fileChooser.showOpenDialog(mainFrame);
@@ -128,7 +135,7 @@ public class Main {
         }
     }
 
-    private void openImageFromUrl(ActionEvent e) {
+    private void openImageFromUrl() {
         JFrame urlFrame = new JFrame();
         urlFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         urlFrame.setLocationRelativeTo(null);
@@ -178,7 +185,7 @@ public class Main {
         urlFrame.setVisible(true);
     }
 
-    private void createNewImage(ActionEvent e) {
+    private void createNewImage() {
         //TODO
         BufferedImage blankImg = ImageHelper.createBlankImage();
         editor = new ImageEditor("Image editor - Draw", blankImg, setupMenuPanel(blankImg));
@@ -437,6 +444,25 @@ public class Main {
 
     public MenuPanel setupMenuPanel(BufferedImage img) {
         MenuPanel menuPanel = new MenuPanel();
+
+        menuPanel.addItemToMenu("File", "Open Image", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openImage();
+            }
+        });
+        menuPanel.addItemToMenu("File", "Open URL", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openImageFromUrl();
+            }
+        });
+        menuPanel.addItemToMenu("File", "Blank Image", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createNewImage();
+            }
+        });
 
         menuPanel.addItemToMenu("File", "Save", new ActionListener() {
             @Override
