@@ -92,9 +92,6 @@ public class Main {
             }
         });
 
-//        mainFrame.add(openButton);
-//        mainFrame.add(buttonPanel);
-//        mainFrame.add(buttonPanel, BorderLayout.CENTER);
         mainFrame.add(mainPanel);
 
         mainFrame.setSize(1200, 800);
@@ -121,11 +118,8 @@ public class Main {
                     }
                     public String toString() { return "Original image"; }
                 };
-//                effect_sequence.add(image_original);
-//                System.out.println(effect_sequence);
                 effectHistory.add(image_original);
 
-//                editor = new ImageEditor("Image editor", effect_sequence.get(0).run(), setupMenuPanel(effect_sequence.get(0).run()));
                 editor = new ImageEditor("Image editor", effectHistory.getFirstImage(), setupMenuPanel(effectHistory.getFirstImage()));
                 editor.show();
             } catch (Exception ex) {
@@ -165,11 +159,9 @@ public class Main {
                         }
                         public String toString() { return "Original image"; }
                     };
-//                    effect_sequence.add(selectedImage);
 
                     effectHistory.add(selectedImage);
                     editor = new ImageEditor("Image editor", effectHistory.getFirstImage(), setupMenuPanel(effectHistory.getFirstImage()));
-//                    editor = new ImageEditor("Image editor", effect_sequence.get(0).run(), setupMenuPanel(effect_sequence.get(0).run()));
                     editor.show();
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -342,21 +334,14 @@ public class Main {
 
     public void printEffectSequence() {
         effectHistory.printSequence();
-//        System.out.println(currentImage);
-//        effect_sequence.stream().forEach(System.out::print);
     }
 
     public void updateEffectSequence(Effect effect) {
         effectHistory.add(effect);
-//        effect_sequence.add(effect);
-//
-//        if (currentImage+1 != effect_sequence.size()-1) {
         if (effectHistory.currentImage+1 != effectHistory.getSize()-1) {
-//            currentImage = effect_sequence.size()-1;
             effectHistory.setCurrentImage(effectHistory.getSize()-1);
         }
         else {
-//            currentImage += 1;
             effectHistory.updateCurrentImage(1);
         }
     }
@@ -495,7 +480,6 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 printEffectSequence();
                 if (effectHistory.getCurrentIndex() > 0) {
-//                    currentImage -= 1;
                     effectHistory.updateCurrentImage(-1);
                 }
                 updateEditor(effectHistory.getCurrentImage(), "Image Editor");
@@ -506,7 +490,6 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 printEffectSequence();
                 if (effectHistory.getCurrentIndex() < effectHistory.getSize()-1) {
-//                    effect += 1;
                     effectHistory.updateCurrentImage(1);
                 }
                 updateEditor(effectHistory.getCurrentImage(), "Image editor");
@@ -521,8 +504,6 @@ public class Main {
         menuPanel.addItemToMenu("Edit", "Reset", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                effect_sequence = new ArrayList<Effect>(effect_sequence.subList(0, 1));
-//                currentImage = 0;
                 effectHistory.resetHistory();
                 updateEditor(effectHistory.getFirstImage(), "Image editor");
             }
@@ -544,10 +525,11 @@ public class Main {
         menuPanel.addItemToMenu("Apply", "Random", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //apply a random filter
-//                editor.openSequenceInput();
+                Effect randomEffect = new RandomImage(img).getRandomImage();
+                updateEffectSequence(randomEffect);
+                updateEditor(randomEffect.run(), "New image");
             }
-        });
+        }); 
 
 
         menuPanel.addItemToMenu("Effects", ButtonPanelConstants.CONTRAST_TITLE, new ActionListener() {

@@ -10,6 +10,9 @@ public enum EffectType {
     TEMPERATURE("Temperature"), //Filter
     SEPIA("Sepia"), //Filter
     GAUSSIAN_BLUR("Gaussian Blur"),
+    GLOW("Glow"),
+    PIXELATE("Pixelate"),
+    VIGNETTE("Vignette"),
 
     HUE("Hue"),
 
@@ -26,12 +29,9 @@ public enum EffectType {
     SPLIT_TONE("Split tone"),
     HEAT_MAP("Heat map"),
     INFRARED("Infrared"),
-    PIXELATE("Pixelate"),
-    VIGNETTE("Vignette"),
     TILT_SHIFT("Tilt Shift"),
     HALFTONE("Halftone"),
     PENCIL_SKETCH("Pencil Sketch"),
-    GLOW("Glow"),
     ;
 
     private String effectLabel;
@@ -65,8 +65,6 @@ public enum EffectType {
                 throw new IllegalArgumentException("Unknown effect label: " + effectLabel);
         }
     }
-
-
 
     public String toString() {
         return this.effectLabel;

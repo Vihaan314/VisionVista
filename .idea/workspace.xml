@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="50f16d06-8528-47f9-a0bb-8efb31b90a8b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Brightness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Brightness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Effect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Effect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ImageHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/ImageHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ImagePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImagePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Effects/EffectType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/EffectType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RandomImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RandomImage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,5 +66,20 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/Main.java</url>
+          <line>374</line>
+          <properties class="Main" method="colorPickerEffect">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
