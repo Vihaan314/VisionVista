@@ -528,9 +528,10 @@ public class Main {
                 Effect randomEffect = new RandomImage(img).getRandomImage();
                 updateEffectSequence(randomEffect);
                 updateEditor(randomEffect.run(), "New image");
+                EffectTextBox randomEffectBox = new EffectTextBox(randomEffect);
+                randomEffectBox.show();
             }
-        }); 
-
+        });
 
         menuPanel.addItemToMenu("Effects", ButtonPanelConstants.CONTRAST_TITLE, new ActionListener() {
             @Override

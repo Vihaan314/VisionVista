@@ -1,5 +1,7 @@
 package Effects;
 
+import Effects.Filters.Glow;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -39,5 +41,9 @@ public class Contrast extends Effect{
             }
         }
         return contrast_img;
+    }
+
+    public static Contrast getRandomInstance(BufferedImage image) {
+        return new Contrast(image, ImageHelper.getRandomParameter(1, 100));
     }
 }

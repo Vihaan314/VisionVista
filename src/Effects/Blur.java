@@ -35,4 +35,8 @@ public class Blur extends Effect{
 
         return blurredImg;
     }
+
+    public static Blur getRandomInstance(BufferedImage image) {
+        return new Blur(image, ImageHelper.getRandomParameter(1, 10));
+    }
 }

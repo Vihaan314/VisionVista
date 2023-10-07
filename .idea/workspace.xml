@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50f16d06-8528-47f9-a0bb-8efb31b90a8b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/EffectTextBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/EffectType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/EffectType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EffectHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EffectHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Effects/Blur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Blur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Effects/Contrast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Contrast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Glow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Glow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RandomImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RandomImage.java" afterDir="false" />
     </list>
@@ -14,6 +18,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

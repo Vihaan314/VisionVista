@@ -3,6 +3,7 @@ package Effects.Filters;
 import Blending.ColorDodge;
 import Effects.Brightness;
 import Effects.GaussBlur;
+import Effects.ImageHelper;
 
 import java.awt.image.BufferedImage;
 
@@ -25,5 +26,9 @@ public class Glow extends Filter {
         BufferedImage blendImg = new ColorDodge(image, blurImg).blend();
         BufferedImage correctedBlend = new Brightness(blendImg, -10*intensity).run();
         return correctedBlend;
+    }
+
+    public static Glow getRandomInstance(BufferedImage image) {
+        return new Glow(image, ImageHelper.getRandomParameter(1, 10));
     }
 }

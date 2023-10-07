@@ -2,6 +2,7 @@ import Effects.Effect;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class EffectHistory {
     ArrayList<Effect> effectSequence = new ArrayList<>();
@@ -49,7 +50,9 @@ public class EffectHistory {
     }
 
     public void printSequence() {
-        this.effectSequence.stream().forEach(System.out::print);
+//        this.effectSequence.stream().forEach(System.out::print);
+        effectSequence.stream().map(Object::toString)
+                .collect(Collectors.joining(", "));
     }
 
     @Override public String toString() {
