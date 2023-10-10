@@ -42,6 +42,10 @@ public class Sharpen extends Effect{
 
         return sharpenedImg;
     }
+
+    public static Sharpen getRandomInstance(BufferedImage image) {
+        return new Sharpen(image, ImageHelper.getRandomParameter(1, 100));
+    }
 }
 
 

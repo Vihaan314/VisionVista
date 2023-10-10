@@ -1,5 +1,7 @@
 package Effects;
 
+import Effects.Filters.Temperature;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -36,5 +38,9 @@ public class Hue extends Effect{
             }
         }
         return hue_img;
+    }
+
+    public static Hue getRandomInstance(BufferedImage image) {
+        return new Hue(image, new Color(ImageHelper.getRandomParameter(1, 256),ImageHelper.getRandomParameter(1, 256),ImageHelper.getRandomParameter(1, 256)));
     }
 }

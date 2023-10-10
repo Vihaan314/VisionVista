@@ -40,4 +40,8 @@ public class Solarize extends Filter {
         }
         return image_solarized;
     }
+
+    public static Solarize getRandomInstance(BufferedImage image) {
+        return new Solarize(image);
+    }
 }

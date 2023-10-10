@@ -53,4 +53,8 @@ public class GaussBlur extends Effect{
             return blurredImg;
         }
     }
+
+    public static GaussBlur getRandomInstance(BufferedImage image) {
+        return new GaussBlur(image, ImageHelper.getRandomParameter(1, 10));
+    }
 }

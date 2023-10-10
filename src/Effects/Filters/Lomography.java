@@ -33,4 +33,8 @@ public class Lomography extends Filter {
         }
         return lomography_image;
     }
+
+    public static Lomography getRandomInstance(BufferedImage image) {
+        return new Lomography(image);
+    }
 }

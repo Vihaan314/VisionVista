@@ -3,6 +3,7 @@ package Effects.Filters;
 import Effects.Brightness;
 import Effects.Effect;
 import Effects.Helper;
+import Effects.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -41,5 +42,9 @@ public class Sepia extends Filter {
         sepia_img = new Brightness(sepia_1, -intensity).run();
 
         return sepia_img;
+    }
+
+    public static Sepia getRandomInstance(BufferedImage image) {
+        return new Sepia(image, ImageHelper.getRandomParameter(1, 100));
     }
 }

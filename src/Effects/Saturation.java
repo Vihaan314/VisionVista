@@ -38,4 +38,8 @@ public class Saturation extends Effect{
         }
         return sat_img;
     }
+
+    public static Saturation getRandomInstance(BufferedImage image) {
+        return new Saturation(image, ImageHelper.getRandomParameter(1, 100));
+    }
 }

@@ -33,4 +33,8 @@ public class Posterize extends Filter {
         }
         return image_posterize;
     }
+
+    public static Posterize getRandomInstance(BufferedImage image) {
+        return new Posterize(image);
+    }
 }

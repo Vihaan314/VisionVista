@@ -1,6 +1,7 @@
 package Effects;
 
 import Effects.Filters.Filter;
+import Effects.Filters.Heatmap;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,5 +29,9 @@ public class Negative extends Filter {
             }
         }
         return image_negative;
+    }
+
+    public static Negative getRandomInstance(BufferedImage image) {
+        return new Negative(image);
     }
 }

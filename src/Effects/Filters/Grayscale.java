@@ -36,4 +36,8 @@ public class Grayscale extends Filter {
         }
         return grayscaleImg;
     }
+
+    public static Grayscale getRandomInstance(BufferedImage image) {
+        return new Grayscale(image);
+    }
 }

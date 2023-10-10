@@ -2,6 +2,7 @@ package Effects.Filters;
 
 import Effects.Contrast;
 import Effects.Effect;
+import Effects.ImageHelper;
 import Effects.Saturation;
 
 import java.awt.*;
@@ -25,5 +26,9 @@ public class Temperature extends Filter {
         BufferedImage con_img = new Contrast(sat_img, amount*0.5).run();
 
         return con_img;
+    }
+
+    public static Temperature getRandomInstance(BufferedImage image) {
+        return new Temperature(image, ImageHelper.getRandomParameter(1, 100));
     }
 }

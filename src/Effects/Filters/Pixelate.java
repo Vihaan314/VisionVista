@@ -3,6 +3,7 @@ package Effects.Filters;
 import Effects.Brightness;
 import Effects.Effect;
 import Effects.Helper;
+import Effects.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -61,5 +62,9 @@ public class Pixelate extends Filter {
         }
 
         return pixelatedImage;
+    }
+
+    public static Pixelate getRandomInstance(BufferedImage image) {
+        return new Pixelate(image, ImageHelper.getRandomParameter(1, 50));
     }
 }

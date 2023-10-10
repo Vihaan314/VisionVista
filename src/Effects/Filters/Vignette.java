@@ -3,6 +3,7 @@ package Effects.Filters;
 import Effects.Brightness;
 import Effects.Effect;
 import Effects.Helper;
+import Effects.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -47,5 +48,9 @@ public class Vignette extends Filter {
         }
 
         return vignetteImage;
+    }
+
+    public static Vignette getRandomInstance(BufferedImage image) {
+        return new Vignette(image, ImageHelper.getRandomParameter(1, 10));
     }
 }

@@ -37,4 +37,8 @@ public class Infrared extends Filter {
         }
         return image_infrared;
     }
+
+    public static Infrared getRandomInstance(BufferedImage image) {
+        return new Infrared(image);
+    }
 }

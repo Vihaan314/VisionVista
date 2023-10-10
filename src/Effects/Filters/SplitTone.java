@@ -38,4 +38,8 @@ public class SplitTone extends Filter {
         }
         return image_split;
     }
+
+    public static SplitTone getRandomInstance(BufferedImage image) {
+        return new SplitTone(image);
+    }
 }

@@ -24,4 +24,8 @@ public class PencilSketch extends Filter {
         BufferedImage correctedBlend = new Brightness(blendImage, -20).run();
         return correctedBlend;
     }
+
+    public static PencilSketch getRandomInstance(BufferedImage image) {
+        return new PencilSketch(image);
+    }
 }

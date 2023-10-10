@@ -75,4 +75,8 @@ public class Vibrance extends Effect{
         }
         return img_vibrance;
     }
+
+    public static Vibrance getRandomInstance(BufferedImage image) {
+        return new Vibrance(image, ImageHelper.getRandomParameter(1, 10));
+    }
 }

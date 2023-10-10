@@ -37,4 +37,8 @@ public class Heatmap extends Filter {
         }
         return image_map;
     }
+
+    public static Heatmap getRandomInstance(BufferedImage image) {
+        return new Heatmap(image);
+    }
 }

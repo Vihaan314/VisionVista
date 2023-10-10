@@ -51,20 +51,56 @@ public class Main {
         mainFrame = new JFrame("Image Editor");
         JPanel mainPanel = new JPanel();
 
+        JLabel openingText = new JLabel("Vision Vista", SwingConstants.LEFT);
+        openingText.setFont(new Font("Aria", Font.BOLD, 20));
+
         JButton newImageButton = new JButton("New Blank Image");
+
+        JLabel padding1 = new JLabel("");
+        JLabel padding2 = new JLabel("");
+        JLabel padding3 = new JLabel("");
+        JLabel padding4 = new JLabel("");
+        JLabel padding5 = new JLabel("");
+        JLabel padding6 = new JLabel("");
+        JLabel padding7 = new JLabel("");
+        padding1.setBackground(new Color(238, 238, 238));
+        padding2.setBackground(new Color(238, 238, 238));
+        padding3.setBackground(new Color(238, 238, 238));
+        padding4.setBackground(new Color(238, 238, 238));
+        padding5.setBackground(new Color(238, 238, 238));
+        padding6.setBackground(new Color(238, 238, 238));
+        padding7.setBackground(new Color(238, 238, 238));
+
         JButton urlButton = new JButton("Load URL");
         JButton openButton = new JButton("Open Image");
         JButton templateButton = new JButton("Choose Template");
 
-        Dimension buttonDimension = new Dimension(400, 400);
+        Dimension buttonDimension = new Dimension(250, 250);
 
         newImageButton.setPreferredSize(buttonDimension);
+        padding1.setPreferredSize(buttonDimension);
+        padding2.setPreferredSize(buttonDimension);
+        padding3.setPreferredSize(buttonDimension);
+        padding4.setPreferredSize(buttonDimension);
+        padding5.setPreferredSize(buttonDimension);
+        padding6.setPreferredSize(buttonDimension);
+        padding7.setPreferredSize(buttonDimension);
+
         urlButton.setPreferredSize(buttonDimension);
         openButton.setPreferredSize(buttonDimension);
         templateButton.setPreferredSize(buttonDimension);
 
+        mainPanel.add(padding5);
+        mainPanel.add(padding6);
+//        mainPanel.add(padding7);
+        mainPanel.add(openingText);
+        mainPanel.add(padding4);
+        mainPanel.add(padding2);
+        mainPanel.add(padding1);
         mainPanel.add(newImageButton);
         mainPanel.add(openButton);
+        mainPanel.add(padding7);
+//        mainPanel.add(padding3);
         mainPanel.add(urlButton);
         mainPanel.add(templateButton);
 

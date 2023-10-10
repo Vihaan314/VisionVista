@@ -3,6 +3,7 @@ package Effects.Filters;
 import Effects.Brightness;
 import Effects.Effect;
 import Effects.Helper;
+import Effects.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -32,5 +33,9 @@ public class CrossProcess extends Filter {
             }
         }
         return cross_image;
+    }
+
+    public static CrossProcess getRandomInstance(BufferedImage image) {
+        return new CrossProcess(image);
     }
 }

@@ -11,12 +11,6 @@ public class Brightness extends Effect{
         this.intensity = intensity;
     }
 
-     public BufferedImage getRandomInstance() {
-        int randomIntensity = ImageHelper.getRandomParameter(10, 100);
-        this.intensity = randomIntensity;
-        return this.run();
-    }
-
     @Override public String toString() {
         return "Applied Brightness. Intensity: " + this.intensity;
     }
@@ -42,6 +36,9 @@ public class Brightness extends Effect{
         return brightened_img;
     }
 
+    public static Brightness getRandomInstance(BufferedImage image) {
+        return new Brightness(image, ImageHelper.getRandomParameter(1, 100));
+    }
 
     public String encodeAsString() {
         return "Brightness" + Double.toString(this.intensity);
