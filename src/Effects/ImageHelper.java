@@ -20,4 +20,20 @@ public class ImageHelper {
     public static int getRandomParameter(int min, int max){
         return (int) Math.floor(Math.random() * (max - min + 1) + min);
     }
+
+    public static boolean isBlankImage(BufferedImage image) {
+        BufferedImage blankImage = createBlankImage();
+
+        if (image.getWidth() == blankImage.getWidth() && image.getHeight() == blankImage.getHeight()) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                for (int y = 0; y < image.getHeight(); y++) {
+                    if (image.getRGB(x, y) != blankImage.getRGB(x, y))
+                        return false;
+                }
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
 }

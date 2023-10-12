@@ -51,11 +51,12 @@ public class Main {
         mainFrame = new JFrame("Image Editor");
         JPanel mainPanel = new JPanel();
 
-        JLabel openingText = new JLabel("Vision Vista", SwingConstants.LEFT);
+//        OutlineText openingText = new OutlineText("Vision Vista", Color.BLUE, Color.YELLOW, new Font("Arial", Font.PLAIN, 24));
+        JLabel openingText = new JLabel("Vision Vista");
         openingText.setFont(new Font("Aria", Font.BOLD, 20));
 
         JButton newImageButton = new JButton("New Blank Image");
-
+        
         JLabel padding1 = new JLabel("");
         JLabel padding2 = new JLabel("");
         JLabel padding3 = new JLabel("");

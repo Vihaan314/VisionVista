@@ -1,6 +1,7 @@
 import Effects.Contrast;
 import Effects.Effect;
 import Effects.EffectType;
+import Effects.ImageHelper;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,6 +28,8 @@ public class ImageEditor {
     private PlaceholderTextField effectSequenceField;
     private JButton submitSequence;
 
+    private boolean isBlankImage = false;
+
     public ImageEditor(String title, BufferedImage img, MenuPanel menuPanel) {
         this.currentImg = img;
         editorFrame = new JFrame();
@@ -36,10 +39,12 @@ public class ImageEditor {
         editorFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
         imageLabel = new JLabel(new ImageIcon(img));
-
-//
+        if (ImageHelper.isBlankImage(img)) {
+            this.isBlankImage = true;
+        }
+        System.out.println(isBlankImage );
     }
-    
+
     public String getSequenceInput() {
         return effectSequenceField.getText();
     }
@@ -62,6 +67,10 @@ public class ImageEditor {
 
     public void updateMenuPanel(MenuPanel menuPanel) {
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
+    }
+
+    public void updateButtonPanel(ButtonPanel buttonPanel) {
+
     }
 
     public BufferedImage getCurrentImage() {

@@ -5,31 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50f16d06-8528-47f9-a0bb-8efb31b90a8b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/OutlineText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/VisionVista.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/VisionVista.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EffectTextBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EffectTextBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Brightness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Brightness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/CrossProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/CrossProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Grayscale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Grayscale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Heatmap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Heatmap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Infrared.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Infrared.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Lomography.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Lomography.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Negative.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Negative.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/PencilSketch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/PencilSketch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Pixelate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Pixelate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Posterize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Posterize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Sepia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Sepia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Solarize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Solarize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/SplitTone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/SplitTone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Temperature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Temperature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Filters/Vignette.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Filters/Vignette.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/GaussBlur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/GaussBlur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Hue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Hue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Saturation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Saturation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Sharpen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Sharpen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Effects/Vibrance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/Vibrance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Effects/ImageHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Effects/ImageHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ImageEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ImageEditor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RandomImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RandomImage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
