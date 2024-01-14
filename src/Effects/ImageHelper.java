@@ -1,11 +1,28 @@
 package Effects;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ImageHelper {
+//    @Override
+//    protected void paintComponent(Graphics g) {
+//        BufferedImage blankImage = createBlankImageBing();
+//        super.paintComponent(g);
+//        Graphics2D graphics = blankImage.createGraphics();
+//        graphics.setPaint(new Color(255, 255, 255));
+//        graphics.fillRect(0, 0, blankImage.getWidth(), blankImage.getHeight());
+//    }
+
+
+//    public static void createBlankImage() {
+//        BufferedImage blankImage = new BufferedImage(900, 600, BufferedImage.TYPE_INT_ARGB);
+//
+//    }
+
     public static BufferedImage createBlankImage() {
-        return new BufferedImage(1200, 800, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage blankImage = new BufferedImage(900, 600, BufferedImage.TYPE_INT_ARGB);
+        return blankImage;
     }
 
     public static String getSerializeDirectory() {

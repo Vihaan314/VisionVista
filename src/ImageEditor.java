@@ -30,6 +30,8 @@ public class ImageEditor {
 
     private boolean isBlankImage = false;
 
+    private ButtonPanel buttonPanel;
+
     public ImageEditor(String title, BufferedImage img, MenuPanel menuPanel) {
         this.currentImg = img;
         editorFrame = new JFrame();
@@ -65,12 +67,17 @@ public class ImageEditor {
         editorPanel.add(submitSequence);
     }
 
+    public void addButtonPanel(ButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+        JPanel panelButton = buttonPanel.getButtonPanel();
+        editorPanel.add(panelButton);
+    }
     public void updateMenuPanel(MenuPanel menuPanel) {
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
     }
 
     public void updateButtonPanel(ButtonPanel buttonPanel) {
-
+        this.buttonPanel = buttonPanel;
     }
 
     public BufferedImage getCurrentImage() {

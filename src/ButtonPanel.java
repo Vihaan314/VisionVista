@@ -8,15 +8,19 @@ public class ButtonPanel {
     private ArrayList<JButton> panelButtons;
 
     public ButtonPanel() {
-        buttonPanel = new JPanel(new GridLayout(4, 9));
+        buttonPanel = new JPanel(); //new GridLayout(4, 9)
         panelButtons = new ArrayList<>();
     }
 
     public void addButtonToPanel(String title, ActionListener actionListener) {
         JButton newButton = new JButton(title);
         newButton.addActionListener(actionListener);
-        this.buttonPanel.add(newButton);
+        this.buttonPanel.add(newButton, BorderLayout.SOUTH);
         this.panelButtons.add(newButton);
+    }
+
+    public void updatePanelLayout(int rows, int cols) {
+        this.buttonPanel.setLayout(new GridLayout(rows, cols));
     }
 
     public JPanel getButtonPanel() {

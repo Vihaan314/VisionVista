@@ -26,6 +26,20 @@ public abstract class Effect implements Serializable
         return this.run();
     }
 
+    public static Effect imageToEffect(BufferedImage image) {
+        return new Effect(image) {
+            @Override
+            public BufferedImage run() {
+                return this.image;
+            }
+
+            @Override
+            public String toString() {
+                return "Applied fill.";
+            }
+        };
+    }
+
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();  // serialize other fields
 

@@ -93,7 +93,6 @@ public class Main {
 
         mainPanel.add(padding5);
         mainPanel.add(padding6);
-//        mainPanel.add(padding7);
         mainPanel.add(openingText);
         mainPanel.add(padding4);
         mainPanel.add(padding2);
@@ -101,7 +100,6 @@ public class Main {
         mainPanel.add(newImageButton);
         mainPanel.add(openButton);
         mainPanel.add(padding7);
-//        mainPanel.add(padding3);
         mainPanel.add(urlButton);
         mainPanel.add(templateButton);
 
@@ -201,6 +199,7 @@ public class Main {
                     editor = new ImageEditor("Image editor", effectHistory.getFirstImage(), setupMenuPanel(effectHistory.getFirstImage()));
                     editor.show();
                 } catch (IOException ex) {
+
                     ex.printStackTrace();
                 }
             }
@@ -217,131 +216,13 @@ public class Main {
     private void createNewImage() {
         //TODO
         BufferedImage blankImg = ImageHelper.createBlankImage();
+        ImageHelper.createBlankImage();
         editor = new ImageEditor("Image editor - Draw", blankImg, setupMenuPanel(blankImg));
-        editor.show();//        showNewEditor("Default Blank Template", blank_img, true);
+        editor.addButtonPanel(setupButtonPanel(blankImg));
+        editor.show();
 //        inputValuesEffect(new ImageEdit(blank_img), "Blank", new String[]{"Width", "Height"});
     }
 
-    public Effect getEffect(BufferedImage image, EffectType effect, double effectParam) {
-        Effect newEffect;
-
-        switch (effect) {
-            case CONTRAST:
-                newEffect = new Contrast(image, effectParam);
-                break;
-            case BRIGHTNESS:
-                newEffect = new Brightness(image, effectParam);
-                break;
-            case BLUR:
-                newEffect = new Blur(image, (int) effectParam);
-                break;
-            case SATURATION:
-                newEffect = new Saturation(image, effectParam);
-                break;
-            case VIBRANCE:
-                newEffect = new Vibrance(image, effectParam);
-                break;
-            case SHARPEN:
-                newEffect = new Sharpen(image, effectParam);
-                break;
-            case TEMPERATURE:
-                newEffect = new Temperature(image, effectParam);
-                break;
-            case SEPIA:
-                newEffect = new Sepia(image, effectParam);
-                break;
-            case GAUSSIAN_BLUR:
-                newEffect = new GaussBlur(image, effectParam);
-                break;
-            case PIXELATE:
-                newEffect = new Pixelate(image, (int) effectParam);
-                break;
-            case VIGNETTE:
-                newEffect = new Vignette(image, (int) effectParam);
-                break;
-            case GLOW:
-                newEffect = new Glow(image, effectParam);
-                break;
-            default:
-                throw new IllegalArgumentException(effect + " is not currently recognized as an effect");
-        }
-
-        return newEffect;
-    }
-
-    public Effect getEffect(BufferedImage image, EffectType effect, Color color) {
-        Effect newEffect;
-
-        switch(effect) {
-            case HUE:
-                newEffect = new Hue(image, color);
-                break;
-            default:
-                throw new IllegalArgumentException(effect + "is not currently recognized as an effect for colors");
-        }
-        return newEffect;
-    }
-
-    public Effect getEffect(BufferedImage image, EffectType effect, String[] textInputs) {
-        Effect newEffect;
-        switch (effect) {
-            case RESIZE:
-                newEffect = new Resize(image, (int) Double.parseDouble(textInputs[0]), (int) Double.parseDouble(textInputs[1]));
-                break;
-            default:
-                throw new IllegalArgumentException(effect + " is not recognized as a text input effect");
-        }
-        return newEffect;
-    }
-
-    public Effect getEffect(BufferedImage image, EffectType effect) {
-        Effect newEffect;
-
-        switch(effect) {
-            case FLIP_VERTICAL:
-                newEffect = new FlipVertical(image);
-                break;
-            case FLIP_HORIZONTAL:
-                newEffect = new FlipHorizontal(image);
-                break;
-            case NEGATIVE:
-                newEffect = new Negative(image);
-                break;
-            case GRAYSCALE:
-                newEffect = new Grayscale(image);
-                break;
-            case POSTERIZE:
-                newEffect = new Posterize(image);
-                break;
-            case CROSS_PROCESS:
-                newEffect = new CrossProcess(image);
-                break;
-            case LOMOGRAPHY:
-                newEffect = new Lomography(image);
-                break;
-            case SOLARIZE:
-                newEffect = new Solarize(image);
-                break;
-            case SPLIT_TONE:
-                newEffect = new SplitTone(image);
-                break;
-            case HEAT_MAP:
-                newEffect = new Heatmap(image);
-                break;
-            case INFRARED:
-                newEffect = new Infrared(image);
-                break;
-            case TILT_SHIFT:
-                newEffect = new TiltShift(image);
-                break;
-            case PENCIL_SKETCH:
-                newEffect = new PencilSketch(image);
-                break;
-            default:
-                throw new IllegalArgumentException(effect + " is not currently recognized as an effect for colors");
-        }
-        return newEffect;
-    }
 
     public String getSerializeDirectory() {
         JFileChooser f = new JFileChooser();
@@ -398,7 +279,7 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 sliderWindow.getSliderFrame().dispose();
                 double effectAmount = sliderWindow.getEffectAmount();
-                Effect chosenEffect = getEffect(image, effect, effectAmount);
+                Effect chosenEffect = effect.getEffect(image, effectAmount);
                 editedImage = chosenEffect.run();
                 updateEffectSequence(chosenEffect);
                 updateEditor(editedImage, "New " + effect.toString() + " image");
@@ -419,7 +300,7 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 colorWindow.getSliderFrame().dispose();
                 Color chosenColor = colorWindow.getColor();
-                Effect chosenEffect = getEffect(image, effect, chosenColor);
+                Effect chosenEffect = effect.getEffect(image, chosenColor);
                 editedImage = chosenEffect.run();
                 updateEffectSequence(chosenEffect);
                 updateEditor(editedImage, "New " + effect.toString() + " image" );
@@ -437,7 +318,7 @@ public class Main {
         ActionListener submitActionListener =  new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect chosenEffect = getEffect(image, effect, inputsWindow.getValues());
+                Effect chosenEffect = effect.getEffect(image, inputsWindow.getValues());
                 editedImage = chosenEffect.run();
                 inputsWindow.getInputFrame().dispose();
                 if (!newImage) {
@@ -459,9 +340,24 @@ public class Main {
         imageTimeline.show();
     }
 
-    public ImagePanel setupImagePanel(BufferedImage img) {
-        ImagePanel imagePanel = new ImagePanel(img, editor, file_name_broken, effect_sequence);
-        return imagePanel;
+//    public ImagePanel setupImagePanel(BufferedImage img) {
+//        ImagePanel imagePanel = new ImagePanel(img, editor, file_name_broken, effect_sequence);
+//        return imagePanel;
+//    }
+
+    public ButtonPanel setupButtonPanel(BufferedImage img) {
+        ButtonPanel buttonPanel = new ButtonPanel();
+
+        buttonPanel.addButtonToPanel("Fill (BG)", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                updateEditor(img, "Filled drawing");
+            }
+        });
+
+        buttonPanel.updatePanelLayout(1, 3);
+
+        return buttonPanel;
     }
 
     public MenuPanel setupMenuPanel(BufferedImage img) {
@@ -479,7 +375,7 @@ public class Main {
                 openImageFromUrl();
             }
         });
-        menuPanel.addItemToMenu("File", "Blank Image", new ActionListener() {
+        menuPanel.addItemToMenu("File", "New Blank Image", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createNewImage();
@@ -570,7 +466,7 @@ public class Main {
             }
         });
 
-        menuPanel.addItemToMenu("Effects", ButtonPanelConstants.CONTRAST_TITLE, new ActionListener() {
+        menuPanel.addItemToMenu("Effects", EffectType.CONTRAST.toString(), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sliderValuesEffect(img, EffectType.CONTRAST, -100, 100);
@@ -650,7 +546,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.GRAYSCALE_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect grayscaledImg = getEffect(img, EffectType.GRAYSCALE);
+                Effect grayscaledImg = EffectType.GRAYSCALE.getEffect(img);
                 editedImage = grayscaledImg.run();
                 updateEffectSequence(grayscaledImg);
                 updateEditor(editedImage, "New grayscale image");
@@ -660,7 +556,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.NEGATIVE_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect negativeImg = getEffect(img, EffectType.NEGATIVE);
+                Effect negativeImg = EffectType.NEGATIVE.getEffect(img);
                 editedImage = negativeImg.run();
                 updateEffectSequence(negativeImg);
                 updateEditor(editedImage, "New negative image");
@@ -670,7 +566,7 @@ public class Main {
         menuPanel.addItemToMenu("Transformation", ButtonPanelConstants.FLIP_V_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect verticalImg = getEffect(img, EffectType.FLIP_VERTICAL);
+                Effect verticalImg = EffectType.FLIP_VERTICAL.getEffect(img);
                 editedImage = verticalImg.run();
                 updateEffectSequence(verticalImg);
                 updateEditor(editedImage, "New flipped (vertical) image");
@@ -680,7 +576,7 @@ public class Main {
         menuPanel.addItemToMenu("Transformation", ButtonPanelConstants.FLIP_H_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect horizontalImg = getEffect(img, EffectType.FLIP_HORIZONTAL);
+                Effect horizontalImg = EffectType.FLIP_HORIZONTAL.getEffect(img);
                 editedImage = horizontalImg.run();
                 updateEffectSequence(horizontalImg);
                 updateEditor(editedImage, "New flipped (horizontally) image");
@@ -697,7 +593,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.POSTERIZE_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect posterizeImg = getEffect(img, EffectType.POSTERIZE);
+                Effect posterizeImg = EffectType.POSTERIZE.getEffect(img);
                 editedImage = posterizeImg.run();
                 updateEffectSequence(posterizeImg);
                 updateEditor(editedImage, "New posterized image");
@@ -707,7 +603,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.CROSS_PROCESS_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect crossProcessImg = getEffect(img, EffectType.CROSS_PROCESS);
+                Effect crossProcessImg = EffectType.CROSS_PROCESS.getEffect(img);
                 editedImage = crossProcessImg.run();
                 updateEffectSequence(crossProcessImg);
                 updateEditor(editedImage, "New cross-processed image");
@@ -717,7 +613,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.LOMOGRAPHY_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect lomographyImg = getEffect(img, EffectType.LOMOGRAPHY);
+                Effect lomographyImg = EffectType.LOMOGRAPHY.getEffect(img);
                 editedImage = lomographyImg.run();
                 updateEffectSequence(lomographyImg);
                 updateEditor(editedImage, "New lomography image");
@@ -727,7 +623,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.SOLARIZE_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect solarizeImg = getEffect(img, EffectType.SOLARIZE);
+                Effect solarizeImg = EffectType.SOLARIZE.getEffect(img);
                 editedImage = solarizeImg.run();
                 updateEffectSequence(solarizeImg);
                 updateEditor(editedImage, "New solarized image");
@@ -737,7 +633,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.SPLIT_TONE_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect splitToneImg = getEffect(img, EffectType.SPLIT_TONE);
+                Effect splitToneImg = EffectType.SPLIT_TONE.getEffect(img);
                 editedImage = splitToneImg.run();
                 updateEffectSequence(splitToneImg);
                 updateEditor(editedImage, "New split-tone image");
@@ -747,7 +643,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.HEAT_MAP_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect heatmapImg = getEffect(img, EffectType.HEAT_MAP);
+                Effect heatmapImg = EffectType.HEAT_MAP.getEffect(img);
                 editedImage = heatmapImg.run();
                 updateEffectSequence(heatmapImg);
                 updateEditor(editedImage, "New heatmap image");
@@ -757,7 +653,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.INFRARED_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect infraredImg = getEffect(img, EffectType.INFRARED);
+                Effect infraredImg = EffectType.INFRARED.getEffect(img);
                 editedImage = infraredImg.run();
                 updateEffectSequence(infraredImg);
                 updateEditor(editedImage, "New infrared image");
@@ -781,7 +677,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.TILT_SHIFT_TITLE, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect tiltShiftImg = getEffect(img, EffectType.TILT_SHIFT);
+                Effect tiltShiftImg = EffectType.TILT_SHIFT.getEffect(img);
                 editedImage = tiltShiftImg.run();
                 updateEffectSequence(tiltShiftImg);
                 updateEditor(editedImage, "New tilt-shifted image");
@@ -791,7 +687,7 @@ public class Main {
         menuPanel.addItemToMenu("Filters", ButtonPanelConstants.PENCIL_SKETCH, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect pencilSketchImg = getEffect(img, EffectType.PENCIL_SKETCH);
+                Effect pencilSketchImg = EffectType.PENCIL_SKETCH.getEffect(img);
                 editedImage = pencilSketchImg.run();
                 updateEffectSequence(pencilSketchImg);
                 updateEditor(editedImage, "New pencil-sketched image");
