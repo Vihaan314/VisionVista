@@ -39,7 +39,7 @@ public class Main {
 
     public EffectHistory effectHistory = new EffectHistory();
 
-//    ImageTimeline imageTimeline;
+    ImageTimeline imageTimeline;
 
     public Main() {
         mainFrame = new JFrame("Image Editor");
@@ -154,26 +154,10 @@ public class Main {
         effectHistory.printSequence();
     }
 
-//    public void updateEffectSequence(Effect effect) {
-//        effectHistory.add(effect);
-//        if (effectHistory.currentImage+1 != effectHistory.getSize()-1) {
-//            effectHistory.setCurrentImage(effectHistory.getSize()-1);
-//        }
-//        else {
-//            effectHistory.updateCurrentImage(1);
-//        }
-//    }
-
-//    public void updateEditor(BufferedImage newImg, String title) {
-//        editor.updateMenuPanel(setupMenuPanel(newImg));
-//        editor.updateImage(newImg, title);
-//        printEffectSequence();
-//    }
-//
-//    public void showTimeline(EffectHistory effectHistory) {
-//        imageTimeline = new ImageTimeline(effectHistory, this);
-//        imageTimeline.show();
-//    }
+    public void showTimeline(EffectHistory effectHistory) {
+        imageTimeline = new ImageTimeline(effectHistory, this);
+        imageTimeline.show();
+    }
 
 //    public com.visionvista.ImagePanel setupImagePanel(BufferedImage img) {
 //        com.visionvista.ImagePanel imagePanel = new com.visionvista.ImagePanel(img, editor, file_name_broken, effect_sequence);

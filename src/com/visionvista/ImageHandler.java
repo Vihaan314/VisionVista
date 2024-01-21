@@ -18,7 +18,6 @@ public class ImageHandler {
     public ImageEditor editor;
     public JFrame mainFrame;
 
-    public String file_name_raw;
     public String file_name_broken[];
 
     private MenuPanel menuPanel = new MenuPanel();
@@ -30,17 +29,25 @@ public class ImageHandler {
     }
 
     public void openImage() {
+        //TODO PROBLEM STILL IS that imageeditor and menupanel still depend on each other
+        //TODO BUT EDITOR DOESN't NEED MENU PANEL ANYMORE
+
         JFileChooser fileChooser = new JFileChooser();
         int returnValue = fileChooser.showOpenDialog(mainFrame);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String file_name_raw = selectedFile.getName();
+            //Splits by necessary parts of file name - name and extension
             file_name_broken = file_name_raw.split("[.]");
 
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
+                //Set the original image to be displayed
                 EditorState.getInstance().setImage(image);
+                //Add and keep to effect history
                 effectHistory.add(null, image);
+                EditorState.getInstance().setEffectHistory(effectHistory);
+
                 editor = new ImageEditor("Image editor", menuPanel.setupMenuPanel());
                 editor.show();
             } catch (Exception ex) {
@@ -69,15 +76,19 @@ public class ImageHandler {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    //Process URL to necessary file parts
                     URL img_url = new URL(urlField.getText());
                     file_name_broken = urlField.getText().split("[/]");
                     file_name_broken = file_name_broken[file_name_broken.length-1].split("[.]");
+                    //Setup program
                     BufferedImage image = ImageIO.read(img_url);
+                    EditorState.getInstance().setImage(image);
                     effectHistory.add(null, image);
+                    EditorState.getInstance().setEffectHistory(effectHistory);
+
                     editor = new ImageEditor("Image editor", menuPanel.setupMenuPanel());
                     editor.show();
                 } catch (IOException ex) {
-
                     ex.printStackTrace();
                 }
             }

@@ -64,7 +64,6 @@ public class EffectHistory {
     }
 
     public void printSequence() {
-//        this.effectSequence.stream().forEach(System.out::print);
         effectSequence.stream().map(Object::toString)
                 .collect(Collectors.joining(", "));
     }

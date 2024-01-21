@@ -59,7 +59,8 @@ public class MenuPanel {
         return this.menuBar;
     }
 
-    public void setMenuParameters(ImageEditor editor) {
+
+    public void setEditor(ImageEditor editor) {
         this.editor = editor;
     }
 
@@ -106,18 +107,18 @@ public class MenuPanel {
             }
         });
 
-//        addItemToMenu("File", "Save Effect Sequence", new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Serializer serializer = new Serializer();
-//                String directory = serializer.getSerializeDirectory();
-//                try {
-//                    serializer.saveImageSequence(effectHistory.getEffectSequence(), directory, file_name_broken[0]);
-//                } catch (IOException ex) {
-//                    throw new RuntimeException(ex);
-//                }
-//            }
-//        });
+        addItemToMenu("File", "Save Effect Sequence", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Serializer serializer = new Serializer();
+                String directory = serializer.getSerializeDirectory();
+                try {
+                    serializer.saveImageSequence(effectHistory.getEffectSequence(), directory, file_name_broken[0]);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
         addItemToMenu("Edit", "Undo", new ActionListener() {
             @Override
@@ -157,14 +158,17 @@ public class MenuPanel {
 
     public void setupSliderMenuItems() {
         EffectHistory effectHistory = EditorState.getInstance().getEffectHistory();
+        //Loop through all slider effects
         for (EffectType effect : EffectType.getSliderEffects().keySet()) {
+            //Get bounds associated with each effect
             int lower = EffectType.getSliderEffects().get(effect).getLeft();
             int upper = EffectType.getSliderEffects().get(effect).getRight();
             System.out.println("EDITOR " + editor);
             SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effect, lower, upper, editor); //Slider component with the extracted bounds
+            //Get category label for effect
             String effectCategory = effect.getClass().getSuperclass().getName(); //Get the name of the super class which will be the category for the effect
             System.out.println(effectHistory);
-            ActionListener effectActionListener = sliderEffectWindow.sliderValuesEffect(effectHistory);
+            ActionListener effectActionListener = sliderEffectWindow.sliderValuesEffect();
             System.out.println("yo");
             addItemToMenu(effectCategory, effect.toString(), effectActionListener); //Add effect to category in menu with corresponding action listener to apply the effect
         }

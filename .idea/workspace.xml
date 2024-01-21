@@ -5,51 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61be1baa-d2af-4601-81e5-39379323f518" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/visionvista/EditorState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/EditorState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/EditorState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/EffectHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/EffectHistory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageEditor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImagePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImagePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageSaver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageTimeline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageTimeline.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/MenuPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/MenuPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/ColorEffectWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/ColorEffectWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/InputEffectWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/InputEffectWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/Serializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/SliderEffectWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/SliderEffectWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Blur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Blur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Brightness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Brightness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Contrast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Contrast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Effect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Effect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/EffectType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/EffectType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/GaussBlur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/GaussBlur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Hue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Hue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Saturation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Saturation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Sharpen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Sharpen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Vibrance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Vibrance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/CrossProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/CrossProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Filter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Glow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Glow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Grayscale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Grayscale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Heatmap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Heatmap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Infrared.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Infrared.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Lomography.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Lomography.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Negative.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Negative.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/PencilSketch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/PencilSketch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Pixelate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Pixelate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Posterize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Posterize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Sepia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Sepia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Solarize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Solarize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/SplitTone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/SplitTone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Temperature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Temperature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/TiltShift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/TiltShift.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Vignette.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Vignette.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/FlipHorizontal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/FlipHorizontal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/FlipVertical.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/FlipVertical.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Resize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Resize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Transformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Transformation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,15 +62,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/vihaa/Desktop/VisionVista&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/vihaa/Desktop/VisionVista"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.visionvista.effects.Filters" />
@@ -130,5 +97,16 @@
       <updated>1705266504884</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/visionvista/Main.java</url>
+          <line>156</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

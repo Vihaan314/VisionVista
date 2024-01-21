@@ -1,7 +1,5 @@
 package com.visionvista;
 
-import com.visionvista.effects.EffectType;
-
 import java.awt.image.BufferedImage;
 
 

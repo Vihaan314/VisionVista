@@ -3,6 +3,7 @@ package com.visionvista;
 import com.visionvista.effects.Effect;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class Serializer {
         return directory;
     }
 
-    public void saveImageSequence(ArrayList<Effect> effectSequence, String directory, String file_name) throws IOException {
+    public void saveImageSequence(ArrayList<Pair<Effect, BufferedImage>> effectSequence, String directory, String file_name) throws IOException {
 
         File effectSerialize = new File(directory + File.separator + file_name.split("[.]")[0] + "-sequence.dat");
         try {

@@ -26,6 +26,7 @@ public class SliderEffectWindow {
     final int[] effect_amount = {0};
     ImageEditor editor;
 
+
     public JFrame setupSliderFrame(EffectType effect) {
         JFrame sliderFrame = new JFrame(effect.toString() + " slider");
 
@@ -36,15 +37,31 @@ public class SliderEffectWindow {
         return sliderFrame;
     }
 
+    public SliderEffectWindow(EffectType effect, int lower, int upper, ImageEditor editor) {
+        this.effect = effect;
+        this.lower = lower;
+        this.upper = upper;
+        this.editor = editor;
+        System.out.println("EDITOR IN CONSTRUCOTOR " + editor);
+        if (editor != null) {
+            this.sliderFrame = editor.getEditorFrame();
+        }
+        else {
+            this.sliderFrame = setupSliderFrame(effect);
+        }
+        this.slider = setupSlider(lower, upper);
+    }
+
+
     public JSlider setupSlider(int lower, int upper) {
-        JLabel status = new JLabel("Choose "+ effect, JLabel.CENTER);
-        lower = 0;
+        JLabel status = new JLabel("Choose " + effect, JLabel.CENTER);
         JSlider slider = new JSlider(lower, upper, 0);
         slider.setMinorTickSpacing(10);
         slider.setPaintTicks(true);
 
         slider.setPaintLabels(true);
 
+        //Setup slider markings
         Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
         if (upper % 10 == 0) {
             for (int i = lower; i < (3*upper/2); i+= upper/2) {
@@ -83,33 +100,25 @@ public class SliderEffectWindow {
         this.submitButton = submitEffect;
     }
 
-    public SliderEffectWindow(EffectType effect, int lower, int upper, ImageEditor editor) {
-        this.effect = effect;
-        this.lower = lower;
-        this.upper = upper;
-        this.editor = editor;
-        if (editor != null) {
-            this.sliderFrame = editor.getEditorFrame();
-
-        }
-        else {
-            this.sliderFrame = setupSliderFrame(effect);
-        }
-        this.slider = setupSlider(lower, upper);
-    }
-
-    public ActionListener createSubmitActionListener(EffectHistory effectHistory) {
+    public ActionListener createSubmitActionListener() {
+        EffectHistory effectHistory = EditorState.getInstance().getEffectHistory();
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Close slider when submit pressed
                 getSliderFrame().dispose();
                 double effectAmount = getEffectAmount();
+                //Get instance of effect with parameter
                 Effect chosenEffect = effect.getEffect(effectAmount);
+                //Get the current image in the editor and apply the effect to it
                 BufferedImage currentImage = EditorState.getInstance().getImage();
                 BufferedImage editedImage = chosenEffect.run(currentImage);
+                //Update effect history and in state
                 effectHistory.add(chosenEffect, editedImage);
+                EditorState.getInstance().setEffectHistory(effectHistory);
                 System.out.println(effectHistory);
                 System.out.println(editor);
+                //Update editor with new image
                 editor.updateEditor(editedImage, "New " + effect.toString() + " image");
             }
         };
@@ -124,12 +133,12 @@ public class SliderEffectWindow {
         sliderFrame.setVisible(true);
     }
 
-    public ActionListener sliderValuesEffect(EffectHistory effectHistory) {
+    public ActionListener sliderValuesEffect() {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame.setDefaultLookAndFeelDecorated(true);
-                setupSubmitButton(createSubmitActionListener(effectHistory));
+                setupSubmitButton(createSubmitActionListener());
                 show();
             }
         };

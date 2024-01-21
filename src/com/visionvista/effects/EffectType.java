@@ -15,18 +15,18 @@ interface EffectConstructor {
 
 
 public enum EffectType {
-    BLUR("Blur", 1, 10, EffectUIType.SLIDER, (param) -> new Blur((Double) param)),
-    BRIGHTNESS("Brightness", 1, 100, EffectUIType.SLIDER, (param) -> new Brightness((Double) param)),
-    CONTRAST("Contrast", 1, 100, EffectUIType.SLIDER, (param) -> new Contrast((Double) param)),
-    SATURATION("Saturation", 1, 100, EffectUIType.SLIDER, (param) -> new Saturation((Double) param)),
-    VIBRANCE("Vibrance", 1, 10, EffectUIType.SLIDER, (param) -> new Vibrance((Double) param)),
-    SHARPEN("Sharpen", 1, 10, EffectUIType.SLIDER, (param) -> new Sharpen((Double) param)),
-    GAUSSIAN_BLUR("Gaussian Blur", 1, 10, EffectUIType.SLIDER, (param) -> new GaussBlur((Double) param)),
-    TEMPERATURE("Temperature", 1, 100, EffectUIType.SLIDER, (param) -> new Temperature((Double) param)),
-    SEPIA("Sepia", 1, 100, EffectUIType.SLIDER, (param) -> new Sepia((Double) param)),
-    GLOW("Glow", 1, 10, EffectUIType.SLIDER, (param) -> new Glow((Double) param)),
-    VIGNETTE("Vignette", 1, 10, EffectUIType.SLIDER, (param) -> new Vignette((Double) param)),
-    PIXELATE("Pixelate", 1, 50, EffectUIType.SLIDER, (param) -> new Pixelate((Integer) param)),
+    BLUR("Blur", 0, 10, EffectUIType.SLIDER, (param) -> new Blur((Double) param)),
+    BRIGHTNESS("Brightness", 0, 100, EffectUIType.SLIDER, (param) -> new Brightness((Double) param)),
+    CONTRAST("Contrast", 0, 100, EffectUIType.SLIDER, (param) -> new Contrast((Double) param)),
+    SATURATION("Saturation", 0, 100, EffectUIType.SLIDER, (param) -> new Saturation((Double) param)),
+    VIBRANCE("Vibrance", 0, 10, EffectUIType.SLIDER, (param) -> new Vibrance((Double) param)),
+    SHARPEN("Sharpen", 0, 10, EffectUIType.SLIDER, (param) -> new Sharpen((Double) param)),
+    GAUSSIAN_BLUR("Gaussian Blur", 0, 10, EffectUIType.SLIDER, (param) -> new GaussBlur((Double) param)),
+    TEMPERATURE("Temperature", 0, 100, EffectUIType.SLIDER, (param) -> new Temperature((Double) param)),
+    SEPIA("Sepia", 0, 100, EffectUIType.SLIDER, (param) -> new Sepia((Double) param)),
+    GLOW("Glow", 0, 10, EffectUIType.SLIDER, (param) -> new Glow((Double) param)),
+    VIGNETTE("Vignette", 0, 10, EffectUIType.SLIDER, (param) -> new Vignette((Double) param)),
+    PIXELATE("Pixelate", 0, 50, EffectUIType.SLIDER, (param) -> new Pixelate((Integer) param)),
 
     HUE("Hue", EffectUIType.COLOR_CHOOSER, (param) -> new Hue((Color) param)),
 
@@ -78,11 +78,14 @@ public enum EffectType {
         return EffectType.valueOf(processedLabel);
     }
 
+
     public Effect getEffect(Object param) {
+        //Return instance of effect with single parameter
         return effectConstructor.construct(param);
     }
 
     public Effect getEffect() {
+        //Return instance of effect with no parameters
         return effectConstructor.construct(null);
     }
 
@@ -92,6 +95,7 @@ public enum EffectType {
 
     public static Map<EffectType, Pair<Integer, Integer>> getSliderEffects() {
         Map<EffectType, Pair<Integer, Integer>> sliderEntries = new HashMap<>();
+        //Process all effects that utilize the slider component
         for (EffectType effect : EffectType.values()) {
             if (effect.getUIType() == EffectUIType.SLIDER) {
                 sliderEntries.put(effect, effect.getSliderBounds());
@@ -99,7 +103,6 @@ public enum EffectType {
         }
         return sliderEntries;
     }
-
 
     public String toString() {
         return this.effectLabel;
