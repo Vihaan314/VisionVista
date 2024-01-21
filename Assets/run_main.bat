@@ -1,2 +1,2 @@
-javac Main.java
-java Main
+javac com.visionvista.Main.java
+java com.visionvista.Main
