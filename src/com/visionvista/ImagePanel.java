@@ -24,36 +24,36 @@ public class ImagePanel extends MenuPanel {
         this.effectSequence = effectSequence;
     }
 
-    public MenuPanel setupMenuPanel() {
-        menuPanel.addItemToMenu("File", "Save", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ImageSaver imageSaver = new ImageSaver(img, file_name_broken, false, effectHistory.getEffectSequence());
-                imageSaver.saveImage();
-            }
-        });
-
-        menuPanel.addItemToMenu("File", "Save with Text", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ImageSaver imageSaver = new ImageSaver(img, file_name_broken, true, effectHistory.getEffectSequence());
-                imageSaver.saveImage();
-            }
-        });
-
-        menuPanel.addItemToMenu("File", "Save Effect Sequence", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Serializer serializer = new Serializer();
-                String directory = serializer.getSerializeDirectory();
-                try {
-                    serializer.saveImageSequence(effectSequence, directory, file_name_broken[0]);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
-
-        return menuPanel;
-    }
+//    public MenuPanel setupMenuPanel() {
+//        menuPanel.addItemToMenu("File", "Save", new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                ImageSaver imageSaver = new ImageSaver(img, file_name_broken, false, effectHistory.getEffectSequence());
+//                imageSaver.saveImage();
+//            }
+//        });
+//
+//        menuPanel.addItemToMenu("File", "Save with Text", new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                ImageSaver imageSaver = new ImageSaver(img, file_name_broken, true, effectHistory.getEffectSequence());
+//                imageSaver.saveImage();
+//            }
+//        });
+//
+//        menuPanel.addItemToMenu("File", "Save Effect Sequence", new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Serializer serializer = new Serializer();
+//                String directory = serializer.getSerializeDirectory();
+//                try {
+//                    serializer.saveImageSequence(effectSequence, directory, file_name_broken[0]);
+//                } catch (IOException ex) {
+//                    throw new RuntimeException(ex);
+//                }
+//            }
+//        });
+//
+//        return menuPanel;
+//    }
 }

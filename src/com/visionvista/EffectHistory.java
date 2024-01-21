@@ -7,60 +7,60 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class EffectHistory {
-    ArrayList<Effect> effectSequence = new ArrayList<>();
-    int currentImage = 0;
+    ArrayList<Pair<Effect, BufferedImage>> effectSequence;
+
+    public EffectHistory() {
+        effectSequence = new ArrayList<>();
+    }
+
+    int currentImageIndex = 0;
 
     public void resetHistory() {
-        this.currentImage = 0;
+        this.currentImageIndex = 0;
         this.effectSequence = new ArrayList<>(effectSequence.subList(0, 1));
     }
 
-    public void add(Effect effect) {
-        effectSequence.add(effect);
-    }
-
-
-    public void updateEffectSequence(Effect effect) {
-        effectSequence.add(effect);
-        if (this.currentImage+1 != this.getSize()-1) {
-            this.setCurrentImage(this.getSize()-1);
+    public void add(Effect effect, BufferedImage image) {
+        Pair<Effect, BufferedImage> imageEntry = new Pair<>(effect, image);
+        effectSequence.add(imageEntry);
+        if (this.currentImageIndex +1 != this.getSize()-1) {
+            this.setCurrentImageIndex(this.getSize()-1);
         }
         else {
             this.updateCurrentImage(1);
         }
     }
 
-
     public void updateCurrentImage(int change) {
-        this.currentImage += change;
+        this.currentImageIndex += change;
     }
 
     public int getSize() {
         return effectSequence.size();
     }
 
-    public void setCurrentImage(int amount) {
-        this.currentImage = amount;
+    public void setCurrentImageIndex(int amount) {
+        this.currentImageIndex = amount;
     }
 
     public BufferedImage getFirstImage() {
-        return this.effectSequence.get(currentImage).run();
+        return this.effectSequence.get(currentImageIndex).getRight();
     }
 
     public BufferedImage getLastImage() {
-        return this.effectSequence.get(effectSequence.size()-1).run();
+        return this.effectSequence.get(effectSequence.size()-1).getRight();
     }
 
-    public ArrayList<Effect> getEffectSequence() {
+    public ArrayList<Pair<Effect, BufferedImage>> getEffectSequence() {
         return this.effectSequence;
     }
 
     public int getCurrentIndex() {
-        return this.currentImage;
+        return this.currentImageIndex;
     }
 
     public BufferedImage getCurrentImage() {
-        return this.effectSequence.get(currentImage).run();
+        return this.effectSequence.get(currentImageIndex).getRight();
     }
 
     public void printSequence() {
@@ -71,6 +71,6 @@ public class EffectHistory {
 
     @Override public String toString() {
         printSequence();
-        return "Current Image: " + this.currentImage + this.effectSequence;
+        return "Current Image: " + this.currentImageIndex + this.effectSequence;
     }
 }

@@ -23,8 +23,8 @@ public class ImageHandler {
 
     private MenuPanel menuPanel = new MenuPanel();
 
-    public ImageHandler(EffectHistory effectHistory, ImageEditor editor, JFrame mainFrame) {
-        this.effectHistory = effectHistory;
+    public ImageHandler(ImageEditor editor, JFrame mainFrame) {
+        this.effectHistory = new EffectHistory();
         this.editor = editor;
         this.mainFrame = mainFrame;
     }
@@ -39,16 +39,9 @@ public class ImageHandler {
 
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
-                Effect image_original = new Effect(image) {
-                    @Override
-                    public BufferedImage run() {
-                        return this.image;
-                    }
-                    public String toString() { return "Original image"; }
-                };
-                effectHistory.add(image_original);
-                menuPanel.setMenuParameters(effectHistory);
-                editor = new ImageEditor("Image editor", effectHistory.getLastImage(), menuPanel.setupMenuPanel(effectHistory.getLastImage()));
+                EditorState.getInstance().setImage(image);
+                effectHistory.add(null, image);
+                editor = new ImageEditor("Image editor", menuPanel.setupMenuPanel());
                 editor.show();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(mainFrame, "Error loading image.");
@@ -80,16 +73,8 @@ public class ImageHandler {
                     file_name_broken = urlField.getText().split("[/]");
                     file_name_broken = file_name_broken[file_name_broken.length-1].split("[.]");
                     BufferedImage image = ImageIO.read(img_url);
-                    Effect selectedImage = new Effect(image) {
-                        @Override
-                        public BufferedImage run() {
-                            return image;
-                        }
-                        public String toString() { return "Original image"; }
-                    };
-
-                    effectHistory.add(selectedImage);
-                    editor = new ImageEditor("Image editor", effectHistory.getFirstImage(), menuPanel.setupMenuPanel(effectHistory.getFirstImage()));
+                    effectHistory.add(null, image);
+                    editor = new ImageEditor("Image editor", menuPanel.setupMenuPanel());
                     editor.show();
                 } catch (IOException ex) {
 
@@ -112,7 +97,7 @@ public class ImageHandler {
         ImageHelper.createBlankImage();
         MenuPanel menuPanel = new MenuPanel();
         ButtonPanel buttonPanel = new ButtonPanel();
-        editor = new ImageEditor("Image editor - Draw", blankImg, menuPanel.setupMenuPanel(blankImg));
+        editor = new ImageEditor("Image editor - Draw", menuPanel.setupMenuPanel());
         editor.addButtonPanel(buttonPanel.setupButtonPanel(blankImg));
         editor.show();
 //        inputValuesEffect(new ImageEdit(blank_img), "Blank", new String[]{"Width", "Height"});

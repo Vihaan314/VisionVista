@@ -8,8 +8,7 @@ import java.awt.image.BufferedImage;
 public class Brightness extends Effect{
     private double intensity;
 
-    public Brightness(BufferedImage image, double intensity) {
-        super(image);
+    public Brightness(double intensity) {
         this.intensity = intensity;
     }
 
@@ -17,7 +16,7 @@ public class Brightness extends Effect{
         return "Applied Brightness. Intensity: " + this.intensity;
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Changing brightness");
         BufferedImage brightened_img = getEmptyImage(image);
 
@@ -40,7 +39,7 @@ public class Brightness extends Effect{
 
     public static Brightness getRandomInstance(BufferedImage image) {
         Pair<Integer, Integer> bounds = EffectType.BRIGHTNESS.getSliderBounds();
-        return new Brightness(image, ImageHelper.getRandomParameter(bounds));
+        return new Brightness(ImageHelper.getRandomParameter(bounds));
     }
 
     public String encodeAsString() {

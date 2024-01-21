@@ -7,15 +7,15 @@ import java.awt.image.BufferedImage;
 
 
 public class Negative extends Filter {
-    public Negative(BufferedImage image) {
-        super(image);
+    public Negative() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied negative";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         BufferedImage image_negative = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
@@ -31,6 +31,6 @@ public class Negative extends Filter {
     }
 
     public static Negative getRandomInstance(BufferedImage image) {
-        return new Negative(image);
+        return new Negative();
     }
 }

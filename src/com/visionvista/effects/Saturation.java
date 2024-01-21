@@ -8,8 +8,8 @@ import java.awt.image.BufferedImage;
 public class Saturation extends Effect{
     private double amount;
 
-    public Saturation(BufferedImage image, double amount) {
-        super(image);
+    public Saturation(double amount) {
+        super();
         this.amount = amount;
     }
 
@@ -17,7 +17,7 @@ public class Saturation extends Effect{
         return "Applied Saturation. Amount: " + this.amount;
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Changing saturation");
         BufferedImage sat_img = getEmptyImage(image);
 
@@ -44,6 +44,6 @@ public class Saturation extends Effect{
 
     public static Saturation getRandomInstance(BufferedImage image) {
         Pair<Integer, Integer> bounds = EffectType.SATURATION.getSliderBounds();
-        return new Saturation(image, ImageHelper.getRandomParameter(bounds));
+        return new Saturation(ImageHelper.getRandomParameter(bounds));
     }
 }

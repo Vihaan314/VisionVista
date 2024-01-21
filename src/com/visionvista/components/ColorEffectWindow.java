@@ -102,10 +102,10 @@ public class ColorEffectWindow {
             public void actionPerformed(ActionEvent e) {
                 colorWindow.getSliderFrame().dispose();
                 Color chosenColor = colorWindow.getColor();
-                Effect chosenEffect = effect.getEffect(image, chosenColor);
-                BufferedImage editedImage = chosenEffect.run();
-                effectHistory.updateEffectSequence(chosenEffect);
-                editor.updateEditor(editedImage, "New " + effect.toString() + " image", effectHistory);
+                Effect chosenEffect = effect.getEffect(chosenColor);
+                BufferedImage editedImage = chosenEffect.run(image);
+                effectHistory.add(chosenEffect, editedImage);
+                editor.updateEditor(editedImage, "New " + effect.toString() + " image");
 
             }
         };

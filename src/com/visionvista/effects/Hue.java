@@ -9,8 +9,8 @@ import com.visionvista.Pair;
 public class Hue extends Effect{
     private Color color;
 
-    public Hue(BufferedImage image, Color color) {
-        super(image);
+    public Hue(Color color) {
+        super();
         this.color = color;
     }
 
@@ -18,7 +18,7 @@ public class Hue extends Effect{
         return "Applied Hue. Color: " + "#"+Integer.toHexString(this.color.getRGB()).substring(2).toUpperCase();
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Adding hue");
         BufferedImage hue_img = getEmptyImage(image);
 
@@ -45,6 +45,6 @@ public class Hue extends Effect{
     }
 
     public static Hue getRandomInstance(BufferedImage image) {
-        return new Hue(image, new Color(ImageHelper.getRandomParameter(getColorBounds()),ImageHelper.getRandomParameter(getColorBounds()),ImageHelper.getRandomParameter(getColorBounds())));
+        return new Hue(new Color(ImageHelper.getRandomParameter(getColorBounds()),ImageHelper.getRandomParameter(getColorBounds()),ImageHelper.getRandomParameter(getColorBounds())));
     }
 }

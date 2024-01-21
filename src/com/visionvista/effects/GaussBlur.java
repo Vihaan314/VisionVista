@@ -9,8 +9,8 @@ import java.awt.image.Kernel;
 public class GaussBlur extends Effect{
     private double intensity; //sigma
 
-    public GaussBlur (BufferedImage image, double intensity) {
-        super(image);
+    public GaussBlur (double intensity) {
+        super();
         this.intensity = intensity;
     }
 
@@ -24,7 +24,7 @@ public class GaussBlur extends Effect{
         return multiple*exponential;
     }
 
-    public BufferedImage run() {
+    public BufferedImage run(BufferedImage image) {
         System.out.println("Gauss Blurring image");
         if (intensity == 0) {
             return image;
@@ -53,6 +53,6 @@ public class GaussBlur extends Effect{
 
     public static GaussBlur getRandomInstance(BufferedImage image) {
         Pair<Integer, Integer> bounds = EffectType.GAUSSIAN_BLUR.getSliderBounds();
-        return new GaussBlur(image, ImageHelper.getRandomParameter(bounds));
+        return new GaussBlur(ImageHelper.getRandomParameter(bounds));
     }
 }

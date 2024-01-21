@@ -6,15 +6,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Infrared extends Filter {
-    public Infrared(BufferedImage image) {
-        super(image);
+    public Infrared() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied infrared";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         BufferedImage image_infrared = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
@@ -37,6 +37,6 @@ public class Infrared extends Filter {
     }
 
     public static Infrared getRandomInstance(BufferedImage image) {
-        return new Infrared(image);
+        return new Infrared();
     }
 }

@@ -9,8 +9,7 @@ import java.awt.image.Kernel;
 public class Blur extends Effect{
     private int intensity;
 
-    public Blur(BufferedImage image, double intensity) {
-        super(image);
+    public Blur(double intensity) {
         this.intensity = (int) intensity;
     }
 
@@ -18,7 +17,7 @@ public class Blur extends Effect{
         return "Applied Blur. Intensity: " + this.intensity;
     }
 
-    public BufferedImage run() {
+    public BufferedImage run(BufferedImage image) {
         System.out.println("Blurring image");
 
         BufferedImage blurredImg;
@@ -40,6 +39,6 @@ public class Blur extends Effect{
 
     public static Blur getRandomInstance(BufferedImage image) {
         Pair<Integer, Integer> bounds = EffectType.BLUR.getSliderBounds();
-        return new Blur(image, ImageHelper.getRandomParameter(bounds));
+        return new Blur(ImageHelper.getRandomParameter(bounds));
     }
 }

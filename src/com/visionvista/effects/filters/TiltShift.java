@@ -3,15 +3,15 @@ package com.visionvista.effects.filters;
 import java.awt.image.BufferedImage;
 
 public class TiltShift extends Filter {
-    public TiltShift(BufferedImage image) {
-        super(image);
+    public TiltShift() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied tilt-shift";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
         float center = height / 2.0f;

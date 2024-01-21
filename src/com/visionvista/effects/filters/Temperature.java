@@ -11,8 +11,8 @@ import java.awt.image.BufferedImage;
 public class Temperature extends Filter {
     private double amount;
 
-    public Temperature(BufferedImage image, double amount) {
-        super(image);
+    public Temperature(double amount) {
+        super();
         this.amount = amount;
     }
 
@@ -20,16 +20,16 @@ public class Temperature extends Filter {
         return "Applied Temperature. Amount: " + this.amount;
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Changing Temperature");
-        BufferedImage sat_img = new Saturation(image, amount*0.5).run();
-        BufferedImage con_img = new Contrast(sat_img, amount*0.5).run();
+        BufferedImage saturatedImg = new Saturation(amount*0.5).run(image);
+        BufferedImage contrastedImg = new Contrast(amount*0.5).run(saturatedImg);
 
-        return con_img;
+        return contrastedImg;
     }
 
     public static Temperature getRandomInstance(BufferedImage image) {
         Pair<Integer, Integer> bounds = EffectType.TEMPERATURE.getSliderBounds();
-        return new Temperature(image, ImageHelper.getRandomParameter(bounds));
+        return new Temperature(ImageHelper.getRandomParameter(bounds));
     }
 }

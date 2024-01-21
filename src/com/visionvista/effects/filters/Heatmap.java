@@ -6,15 +6,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Heatmap extends Filter {
-    public Heatmap(BufferedImage image) {
-        super(image);
+    public Heatmap() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied heatmap";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         BufferedImage image_map = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
@@ -37,6 +37,6 @@ public class Heatmap extends Filter {
     }
 
     public static Heatmap getRandomInstance(BufferedImage image) {
-        return new Heatmap(image);
+        return new Heatmap();
     }
 }

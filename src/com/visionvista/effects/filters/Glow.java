@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 public class Glow extends Filter {
     private double intensity;
 
-    public Glow(BufferedImage image, double intensity) {
-        super(image);
+    public Glow(double intensity) {
+        super();
         this.intensity = intensity;
     }
 
@@ -20,16 +20,16 @@ public class Glow extends Filter {
     }
 
     @Override
-    public BufferedImage run() {
-        BufferedImage blurImg = new GaussBlur(image, intensity).run();
+    public BufferedImage run(BufferedImage image) {
+        BufferedImage blurImg = new GaussBlur(intensity).run(image);
         BufferedImage blendImg = new ColorDodge(image, blurImg).blend();
-        BufferedImage correctedBlend = new Brightness(blendImg, -10*intensity).run();
+        BufferedImage correctedBlend = new Brightness(-10*intensity).run(blendImg);
         return correctedBlend;
     }
 
 
     public static Glow getRandomInstance(BufferedImage image) {
         Pair<Integer, Integer> bounds = EffectType.GLOW.getSliderBounds();
-        return new Glow(image, ImageHelper.getRandomParameter(bounds));
+        return new Glow(ImageHelper.getRandomParameter(bounds));
     }
 }

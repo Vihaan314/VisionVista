@@ -6,15 +6,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Lomography extends Filter {
-    public Lomography(BufferedImage image) {
-        super(image);
+    public Lomography() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied lomography";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         BufferedImage lomography_image = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
@@ -33,6 +33,6 @@ public class Lomography extends Filter {
     }
 
     public static Lomography getRandomInstance(BufferedImage image) {
-        return new Lomography(image);
+        return new Lomography();
     }
 }

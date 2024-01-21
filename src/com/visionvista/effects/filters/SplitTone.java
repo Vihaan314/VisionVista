@@ -6,15 +6,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SplitTone extends Filter {
-    public SplitTone(BufferedImage image) {
-        super(image);
+    public SplitTone() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied split-tone";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         BufferedImage image_split = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
@@ -38,6 +38,6 @@ public class SplitTone extends Filter {
     }
 
     public static SplitTone getRandomInstance(BufferedImage image) {
-        return new SplitTone(image);
+        return new SplitTone();
     }
 }

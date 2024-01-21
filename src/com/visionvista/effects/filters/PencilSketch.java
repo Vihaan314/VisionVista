@@ -6,24 +6,24 @@ import com.visionvista.blending.ColorDodge;
 import java.awt.image.BufferedImage;
 
 public class PencilSketch extends Filter {
-    public PencilSketch(BufferedImage image) {
-        super(image);
+    public PencilSketch() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied pencil-sketch";
     }
 
-    @Override public BufferedImage run() {
-        BufferedImage grayscaleImg = new Grayscale(image).run();
-        BufferedImage invertImg = new Negative(grayscaleImg).run();
-        BufferedImage blurImg = new GaussBlur(invertImg, 5).run();
+    @Override public BufferedImage run(BufferedImage image) {
+        BufferedImage grayscaleImg = new Grayscale().run(image);
+        BufferedImage invertImg = new Negative().run(grayscaleImg);
+        BufferedImage blurImg = new GaussBlur(5).run(invertImg);
         BufferedImage blendImage = new ColorDodge(grayscaleImg, blurImg).blend();
-        BufferedImage correctedBlend = new Brightness(blendImage, -20).run();
+        BufferedImage correctedBlend = new Brightness(-20).run(blendImage);
         return correctedBlend;
     }
 
     public static PencilSketch getRandomInstance(BufferedImage image) {
-        return new PencilSketch(image);
+        return new PencilSketch();
     }
 }

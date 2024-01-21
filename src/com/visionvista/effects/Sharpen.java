@@ -11,8 +11,8 @@ import java.util.Arrays;
 public class Sharpen extends Effect{
     private double amount;
 
-    public Sharpen(BufferedImage image, double amount) {
-        super(image);
+    public Sharpen(double amount) {
+        super();
         this.amount = amount;
     }
 
@@ -20,7 +20,7 @@ public class Sharpen extends Effect{
         return "Applied Sharpen. Amount: " + this.amount;
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Sharpening image");
         BufferedImage sharpenedImg = getEmptyImage(image);
 
@@ -46,7 +46,7 @@ public class Sharpen extends Effect{
 
     public static Sharpen getRandomInstance(BufferedImage image) {
         Pair<Integer, Integer> bounds = EffectType.SHARPEN.getSliderBounds();
-        return new Sharpen(image, ImageHelper.getRandomParameter(bounds));
+        return new Sharpen(ImageHelper.getRandomParameter(bounds));
     }
 }
 

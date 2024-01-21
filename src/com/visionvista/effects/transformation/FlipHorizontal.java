@@ -3,15 +3,15 @@ package com.visionvista.effects.transformation;
 import java.awt.image.BufferedImage;
 
 public class FlipHorizontal extends Transformation {
-    public FlipHorizontal (BufferedImage image) {
-        super(image);
+    public FlipHorizontal () {
+        super();
     }
 
     @Override public String toString() {
         return "Flipped horizontally";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Flipping horizontally");
         BufferedImage horizontal_img;
         horizontal_img = image;

@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
 public class Pixelate extends Filter {
     private int pixelSize;
 
-    public Pixelate(BufferedImage image, int pixelSize) {
-        super(image);
+    public Pixelate(int pixelSize) {
+        super();
         this.pixelSize = pixelSize;
     }
 
@@ -46,7 +46,7 @@ public class Pixelate extends Filter {
         }
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
 
@@ -65,6 +65,6 @@ public class Pixelate extends Filter {
 
     public static Pixelate getRandomInstance(BufferedImage image) {
         Pair<Integer, Integer> bounds = EffectType.PIXELATE.getSliderBounds();
-        return new Pixelate(image, ImageHelper.getRandomParameter(bounds));
+        return new Pixelate(ImageHelper.getRandomParameter(bounds));
     }
 }

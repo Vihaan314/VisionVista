@@ -6,15 +6,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Solarize extends Filter {
-    public Solarize(BufferedImage image) {
-        super(image);
+    public Solarize() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied solarizing";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         BufferedImage image_solarized = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
@@ -40,6 +40,6 @@ public class Solarize extends Filter {
     }
 
     public static Solarize getRandomInstance(BufferedImage image) {
-        return new Solarize(image);
+        return new Solarize();
     }
 }

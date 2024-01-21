@@ -1,5 +1,6 @@
 package com.visionvista.components;
 
+import com.visionvista.EditorState;
 import com.visionvista.effects.*;
 import com.visionvista.ImageEditor;
 import com.visionvista.EffectHistory;
@@ -82,11 +83,10 @@ public class SliderEffectWindow {
         this.submitButton = submitEffect;
     }
 
-    public SliderEffectWindow(BufferedImage image, EffectType effect, int lower, int upper, ImageEditor editor) {
+    public SliderEffectWindow(EffectType effect, int lower, int upper, ImageEditor editor) {
         this.effect = effect;
         this.lower = lower;
         this.upper = upper;
-        this.image = image;
         this.editor = editor;
         if (editor != null) {
             this.sliderFrame = editor.getEditorFrame();
@@ -104,12 +104,13 @@ public class SliderEffectWindow {
             public void actionPerformed(ActionEvent e) {
                 getSliderFrame().dispose();
                 double effectAmount = getEffectAmount();
-                Effect chosenEffect = effect.getEffect(image, effectAmount);
-                BufferedImage editedImage = chosenEffect.run();
-                effectHistory.updateEffectSequence(chosenEffect);
+                Effect chosenEffect = effect.getEffect(effectAmount);
+                BufferedImage currentImage = EditorState.getInstance().getImage();
+                BufferedImage editedImage = chosenEffect.run(currentImage);
+                effectHistory.add(chosenEffect, editedImage);
                 System.out.println(effectHistory);
                 System.out.println(editor);
-                editor.updateEditor(editedImage, "New " + effect.toString() + " image", effectHistory);
+                editor.updateEditor(editedImage, "New " + effect.toString() + " image");
             }
         };
     }

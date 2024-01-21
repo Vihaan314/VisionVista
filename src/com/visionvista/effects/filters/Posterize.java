@@ -6,15 +6,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Posterize extends Filter {
-    public Posterize(BufferedImage image) {
-        super(image);
+    public Posterize() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied posterizing";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         BufferedImage image_posterize = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
@@ -33,6 +33,6 @@ public class Posterize extends Filter {
     }
 
     public static Posterize getRandomInstance(BufferedImage image) {
-        return new Posterize(image);
+        return new Posterize();
     }
 }

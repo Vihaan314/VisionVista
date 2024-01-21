@@ -18,7 +18,7 @@ public class ImageSaver {
     private boolean withText;
     ArrayList<Effect> effectSequence;
 
-    public ImageSaver(BufferedImage img, String[] file_name_broken, boolean withText, ArrayList<Effect> effectSequence) {
+    public ImageSaver(BufferedImage img, String[] file_name_broken, boolean withText) {
         image = img;
         fileNameBroken = file_name_broken;
         this.withText = withText;
@@ -52,9 +52,9 @@ public class ImageSaver {
 
         List<String> effectVV = new ArrayList<>();
 
-        for (int i = 0; i < effectSequence.size(); i ++) {
-            effectVV.add(effectSequence.get(i).getEffectInitials());
-        }
+//        for (int i = 0; i < effectSequence.size(); i ++) {
+//            effectVV.add(effectSequence.get(i).getEffectInitials());
+//        }
         imageLogs.add("Copiable Effect Sequence: " + "[" + effectVV.toString().substring(3));
         imageLogs.add("");
         for (int i = 0; i <effectSequence.size(); i++) {

@@ -4,15 +4,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Grayscale extends Filter {
-    public Grayscale(BufferedImage image) {
-        super(image);
+    public Grayscale() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied grayscaling";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Grayscaling");
         BufferedImage grayscaleImg = getEmptyImage(image);
 
@@ -34,6 +34,6 @@ public class Grayscale extends Filter {
     }
 
     public static Grayscale getRandomInstance(BufferedImage image) {
-        return new Grayscale(image);
+        return new Grayscale();
     }
 }

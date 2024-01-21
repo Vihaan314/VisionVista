@@ -10,8 +10,8 @@ import static com.visionvista.effects.Helper.*;
 public class Vibrance extends Effect{
     private double intensity;
 
-    public Vibrance(BufferedImage image, double amount) {
-        super(image);
+    public Vibrance(double amount) {
+        super();
         this.intensity = intensity;
     }
 
@@ -63,7 +63,7 @@ public class Vibrance extends Effect{
     }
 
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Changing vibrance");
         BufferedImage img_vibrance = getEmptyImage(image);
 
@@ -79,6 +79,6 @@ public class Vibrance extends Effect{
 
     public static Vibrance getRandomInstance(BufferedImage image) {
         Pair<Integer, Integer> bounds = EffectType.VIBRANCE.getSliderBounds();
-        return new Vibrance(image, ImageHelper.getRandomParameter(bounds));
+        return new Vibrance(ImageHelper.getRandomParameter(bounds));
     }
 }

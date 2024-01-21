@@ -6,15 +6,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class CrossProcess extends Filter {
-    public CrossProcess(BufferedImage image) {
-        super(image);
+    public CrossProcess() {
+        super();
     }
 
     @Override public String toString() {
         return "Applied cross-processing";
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         BufferedImage cross_image = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
@@ -33,6 +33,6 @@ public class CrossProcess extends Filter {
     }
 
     public static CrossProcess getRandomInstance(BufferedImage image) {
-        return new CrossProcess(image);
+        return new CrossProcess();
     }
 }

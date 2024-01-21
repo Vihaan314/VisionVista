@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
 public class Vignette extends Filter {
     private double intensity;
 
-    public Vignette (BufferedImage image, double intensity) {
-        super(image);
+    public Vignette (double intensity) {
+        super();
         this.intensity = intensity;
     }
 
@@ -19,7 +19,7 @@ public class Vignette extends Filter {
         return "Applied Vignette. Intensity: " + this.intensity;
     }
 
-    @Override public BufferedImage run() {
+    @Override public BufferedImage run(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
 
@@ -51,6 +51,6 @@ public class Vignette extends Filter {
 
     public static Vignette getRandomInstance(BufferedImage image) {
         Pair<Integer, Integer> bounds = EffectType.VIGNETTE.getSliderBounds();
-        return new Vignette(image, ImageHelper.getRandomParameter(bounds));
+        return new Vignette(ImageHelper.getRandomParameter(bounds));
     }
 }

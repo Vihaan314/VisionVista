@@ -103,12 +103,12 @@ public class InputEffectWindow {
         ActionListener submitActionListener =  new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect chosenEffect = effect.getEffect(image, inputsWindow.getValues());
-                BufferedImage editedImage = chosenEffect.run();
+                Effect chosenEffect = effect.getEffect(inputsWindow.getValues());
+                BufferedImage editedImage = chosenEffect.run(image);
                 inputsWindow.getInputFrame().dispose();
 //                if (!newImage) {
-                    effectHistory.updateEffectSequence(chosenEffect);
-                    editor.updateEditor(editedImage, (!newImage) ? "New " + effect.toString() + " image" : "Image Editor - " + effect.toString() + " image", effectHistory);
+                    effectHistory.add(chosenEffect, editedImage);
+                    editor.updateEditor(editedImage, (!newImage) ? "New " + effect.toString() + " image" : "Image Editor - " + effect.toString() + " image");
 //                } else {
 //                    updateEffectSequence(chosenEffect);
 //                    updateEditor(editedImage, "Image Editor - " + effect.toString() + " image");
