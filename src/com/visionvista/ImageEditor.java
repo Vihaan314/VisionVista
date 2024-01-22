@@ -40,8 +40,8 @@ public class ImageEditor {
         //Create panel for components
         editorPanel = new JPanel(); //do gridlayout to add compoemnets onto editor
         //Add image viewer component and add to frame
+        //TODO potentially fix does it make sense for component of panel to take in panel
         imageDisplay = new ImageDisplay(editorPanel);
-        editorPanel.add(imageDisplay.getImage());
         editorFrame.add(editorPanel);
         //Create menu panel and make menu panel part of editor
         menuPanel = new MenuPanel(imageDisplay);
@@ -50,7 +50,6 @@ public class ImageEditor {
     }
 
     public void show() {
-//        editorFrame.add(editorPanel);
         editorFrame.pack();
         editorFrame.setVisible(true);
     }

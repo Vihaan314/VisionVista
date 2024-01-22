@@ -46,7 +46,6 @@ public class ImageHandler {
                 EditorState.getInstance().setImage(image);
                 //Add and keep to effect history
                 effectHistory.add(null, image);
-                System.out.println("EFFECT HISTORY HANDLER " + effectHistory);
                 EditorState.getInstance().setEffectHistory(effectHistory);
 
                 editor = new ImageEditor("Image editor");

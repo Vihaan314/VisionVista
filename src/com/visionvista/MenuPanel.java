@@ -166,7 +166,5 @@ public class MenuPanel {
     public void setupMenuPanel() {
         setDefaultMenuItems();
         setupSliderMenuItems();
-
-//        return this;
     }
 }

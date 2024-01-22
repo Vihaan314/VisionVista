@@ -7,7 +7,6 @@ public class ImageDisplay {
     private JLabel imageLabel;
     private JPanel imagePanel;
 
-    //TODO FIX
     public ImageDisplay(JPanel editorPanel) {
         this.imageLabel = new JLabel(new ImageIcon(EditorState.getInstance().getImage()));
         editorPanel.add(imageLabel);
