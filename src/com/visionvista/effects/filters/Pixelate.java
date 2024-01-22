@@ -10,9 +10,9 @@ import java.awt.image.BufferedImage;
 public class Pixelate extends Filter {
     private int pixelSize;
 
-    public Pixelate(int pixelSize) {
+    public Pixelate(double pixelSize) {
         super();
-        this.pixelSize = pixelSize;
+        this.pixelSize = (int) pixelSize;
     }
 
     @Override public String toString() {

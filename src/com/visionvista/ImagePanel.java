@@ -16,12 +16,8 @@ public class ImagePanel extends MenuPanel {
     String[] file_name_broken;
     ArrayList<Effect> effectSequence;
 
-    public ImagePanel(BufferedImage img, ImageEditor editor, String[] file_name_broken, ArrayList<Effect> effectSequence) {
-        this.img = img;
-        this.editor = editor;
-        this.menuPanel = new MenuPanel();
-        this.file_name_broken = file_name_broken;
-        this.effectSequence = effectSequence;
+    public ImagePanel(ImageDisplay imageDisplay) {
+        super(imageDisplay);
     }
 
 //    public MenuPanel setupMenuPanel() {

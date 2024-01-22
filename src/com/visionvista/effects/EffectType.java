@@ -26,7 +26,7 @@ public enum EffectType {
     SEPIA("Sepia", 0, 100, EffectUIType.SLIDER, (param) -> new Sepia((Double) param)),
     GLOW("Glow", 0, 10, EffectUIType.SLIDER, (param) -> new Glow((Double) param)),
     VIGNETTE("Vignette", 0, 10, EffectUIType.SLIDER, (param) -> new Vignette((Double) param)),
-    PIXELATE("Pixelate", 0, 50, EffectUIType.SLIDER, (param) -> new Pixelate((Integer) param)),
+    PIXELATE("Pixelate", 0, 50, EffectUIType.SLIDER, (param) -> new Pixelate((Double) param)),
 
     HUE("Hue", EffectUIType.COLOR_CHOOSER, (param) -> new Hue((Color) param)),
 
@@ -81,6 +81,7 @@ public enum EffectType {
 
     public Effect getEffect(Object param) {
         //Return instance of effect with single parameter
+        //Construct treats lambda as implementation of construct and therefore takes in param for instance of effect
         return effectConstructor.construct(param);
     }
 
@@ -93,11 +94,12 @@ public enum EffectType {
         return new Pair<>(lowerBound, upperBound);
     }
 
-    public static Map<EffectType, Pair<Integer, Integer>> getSliderEffects() {
+    //TODO MAKE MAP FROM UI ENUM TO EFFECTYTPE MANUALLY
+    public static Map<EffectType, Pair<Integer, Integer>> getEffectTypeFromComponent(EffectUIType uiType) {
         Map<EffectType, Pair<Integer, Integer>> sliderEntries = new HashMap<>();
         //Process all effects that utilize the slider component
         for (EffectType effect : EffectType.values()) {
-            if (effect.getUIType() == EffectUIType.SLIDER) {
+            if (effect.getUIType() == uiType) {
                 sliderEntries.put(effect, effect.getSliderBounds());
             }
         }

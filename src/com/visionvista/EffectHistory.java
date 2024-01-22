@@ -33,6 +33,7 @@ public class EffectHistory {
 
     public void updateCurrentImage(int change) {
         this.currentImageIndex += change;
+        EditorState.getInstance().setImage(getCurrentImage());
     }
 
     public int getSize() {
@@ -41,6 +42,7 @@ public class EffectHistory {
 
     public void setCurrentImageIndex(int amount) {
         this.currentImageIndex = amount;
+        EditorState.getInstance().setImage(getCurrentImage());
     }
 
     public BufferedImage getFirstImage() {
@@ -70,6 +72,6 @@ public class EffectHistory {
 
     @Override public String toString() {
         printSequence();
-        return "Current Image: " + this.currentImageIndex + this.effectSequence;
+        return "Current image index: " + this.currentImageIndex + ", Size: " + effectSequence.size();
     }
 }

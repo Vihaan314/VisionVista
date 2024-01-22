@@ -97,7 +97,7 @@ public class Main {
         mainPanel.add(urlButton);
         mainPanel.add(templateButton);
 
-        ImageHandler imageHandler = new ImageHandler(editor, mainFrame);
+        ImageHandler imageHandler = new ImageHandler();
         openButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -154,10 +154,6 @@ public class Main {
         effectHistory.printSequence();
     }
 
-    public void showTimeline(EffectHistory effectHistory) {
-        imageTimeline = new ImageTimeline(effectHistory, this);
-        imageTimeline.show();
-    }
 
 //    public com.visionvista.ImagePanel setupImagePanel(BufferedImage img) {
 //        com.visionvista.ImagePanel imagePanel = new com.visionvista.ImagePanel(img, editor, file_name_broken, effect_sequence);
@@ -518,11 +514,11 @@ public class Main {
 //        return menuPanel;
 //    }
 
-    public MenuPanel setupMenuPanelDraw(BufferedImage img) {
-        MenuPanel menuPanel = new MenuPanel();
-
-        return menuPanel;
-    }
+//    public MenuPanel setupMenuPanelDraw(BufferedImage img) {
+//        MenuPanel menuPanel = new MenuPanel();
+//
+//        return menuPanel;
+//    }
 
     public ButtonPanel setupButtonPanelNew(BufferedImage img) {
         ButtonPanel buttonPanel = new ButtonPanel();

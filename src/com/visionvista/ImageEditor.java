@@ -16,69 +16,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImageEditor {
-    private JFrame editorFrame;
-    private JPanel editorPanel;
-    private JLabel imageLabel;
-    private BufferedImage currentImg;
-    private String title;
+    private final JFrame editorFrame;
+    private final JPanel editorPanel;
+    private final ImageDisplay imageDisplay;
 
     private boolean isBlankImage = false;
 
     private ButtonPanel buttonPanel;
-    private MenuPanel menuPanel;
+    private final MenuPanel menuPanel;
 
-    public ImageEditor(String title, MenuPanel menuPanel) {
-        this.currentImg = EditorState.getInstance().getImage();
+    public ImageEditor(String title) {
+        /*
+            Image Editor
+             /\      /\
+         MenuPanel EditorPanel
+                   /\       /\
+            Image display Other components (e.g. slider)
+         */
+        //Initialize frame
         editorFrame = new JFrame();
         editorFrame.setTitle(title);
-        editorPanel = new JPanel(); //do gridlayout to add compoemnets onto editor
         editorFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //Make menu panel part of editor
-        menuPanel = new MenuPanel().setupMenuPanel();
+        //Create panel for components
+        editorPanel = new JPanel(); //do gridlayout to add compoemnets onto editor
+        //Add image viewer component and add to frame
+        imageDisplay = new ImageDisplay(editorPanel);
+        editorPanel.add(imageDisplay.getImage());
+        editorFrame.add(editorPanel);
+        //Create menu panel and make menu panel part of editor
+        menuPanel = new MenuPanel(imageDisplay);
+        menuPanel.setupMenuPanel();
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
-        imageLabel = new JLabel(new ImageIcon(currentImg));
-        if (ImageHelper.isBlankImage(currentImg)) {
-            this.isBlankImage = true;
-        }
-        System.out.println(isBlankImage);
-    }
-
-    public void updateEditor(BufferedImage newImg, String title) {
-        //Update image
-        //Wait it doesn't need to take newImg just read from the editor state get image
-        this.updateImage(newImg, title);
-    }
-
-    public void addButtonPanel(ButtonPanel buttonPanel) {
-        this.buttonPanel = buttonPanel;
-        JPanel panelButton = buttonPanel.getButtonPanel();
-        editorPanel.add(panelButton);
-    }
-
-    public void updateMenuPanel(MenuPanel menuPanel) {
-        editorFrame.setJMenuBar(menuPanel.getMenuBar());
-    }
-
-    public void updateImage(BufferedImage img, String title) {
-        //Process new title
-        this.title = title;
-        editorFrame.setTitle(title);
-        //Set currently displayed image to new image
-        imageLabel.setIcon(new ImageIcon(img));
-        //Set as current image
-        EditorState.getInstance().setImage(img);
-        editorFrame.pack();
     }
 
     public void show() {
-        editorPanel.add(imageLabel);
-        editorFrame.add(editorPanel);
+//        editorFrame.add(editorPanel);
         editorFrame.pack();
         editorFrame.setVisible(true);
     }
-
-    public JFrame getEditorFrame() {
-        return this.editorFrame;
-    }
-
 }

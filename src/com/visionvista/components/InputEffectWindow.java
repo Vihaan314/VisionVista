@@ -1,5 +1,7 @@
 package com.visionvista.components;
 
+import com.visionvista.EditorState;
+import com.visionvista.ImageDisplay;
 import com.visionvista.effects.*;
 import com.visionvista.ImageEditor;
 import com.visionvista.EffectHistory;
@@ -22,15 +24,17 @@ public class InputEffectWindow {
     private ArrayList<JLabel> fieldLabels;
     private int labelLength;
 
-    public InputEffectWindow(BufferedImage image, EffectType effect, String[] paramLabels) {
+    private ImageDisplay imageDisplay;
+
+    public InputEffectWindow(ImageDisplay imageDisplay, EffectType effect, String[] paramLabels) {
         this.effect = effect;
-        this.image = image;
         this.inputFrame = setupInputFrame(effect);
         this.paramLabels = paramLabels;
         this.labelLength = paramLabels.length;
         this.inputPanel = new JPanel(new GridLayout(this.labelLength+1, this.labelLength));
         this.textFields = new ArrayList<>(this.labelLength);
         this.fieldLabels = new ArrayList<>(this.labelLength);
+        this.imageDisplay = imageDisplay;
         setupTextFields();
     }
 
@@ -96,19 +100,19 @@ public class InputEffectWindow {
         this.submitButton = submitEffect;
     }
 
-    public void inputValuesEffect(boolean newImage, ImageEditor editor, EffectHistory effectHistory) {
+    public void inputValuesEffect() {
         JFrame.setDefaultLookAndFeelDecorated(true);
 
-        InputEffectWindow inputsWindow = new InputEffectWindow(image, effect, paramLabels);
         ActionListener submitActionListener =  new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Effect chosenEffect = effect.getEffect(inputsWindow.getValues());
+                Effect chosenEffect = effect.getEffect(getValues());
                 BufferedImage editedImage = chosenEffect.run(image);
-                inputsWindow.getInputFrame().dispose();
+                getInputFrame().dispose();
 //                if (!newImage) {
-                    effectHistory.add(chosenEffect, editedImage);
-                    editor.updateEditor(editedImage, (!newImage) ? "New " + effect.toString() + " image" : "Image Editor - " + effect.toString() + " image");
+                    EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
+                    EditorState.getInstance().setImage(editedImage);
+                    imageDisplay.updateEditorFromState();
 //                } else {
 //                    updateEffectSequence(chosenEffect);
 //                    updateEditor(editedImage, "Image Editor - " + effect.toString() + " image");
@@ -116,8 +120,8 @@ public class InputEffectWindow {
             }
         };
 
-        inputsWindow.setupSubmitButton(submitActionListener);
-        inputsWindow.show();
+        setupSubmitButton(submitActionListener);
+        show();
     }
 
     public void show() {

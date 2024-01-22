@@ -1,8 +1,8 @@
 package com.visionvista.components;
 
 import com.visionvista.EditorState;
+import com.visionvista.ImageDisplay;
 import com.visionvista.effects.*;
-import com.visionvista.ImageEditor;
 import com.visionvista.EffectHistory;
 
 import javax.swing.*;
@@ -24,7 +24,8 @@ public class SliderEffectWindow {
     private BufferedImage image;
     private JPanel sliderPanel = new JPanel();
     final int[] effect_amount = {0};
-    ImageEditor editor;
+
+    private ImageDisplay imageDisplay;
 
 
     public JFrame setupSliderFrame(EffectType effect) {
@@ -37,18 +38,17 @@ public class SliderEffectWindow {
         return sliderFrame;
     }
 
-    public SliderEffectWindow(EffectType effect, int lower, int upper, ImageEditor editor) {
+    public SliderEffectWindow(EffectType effect, int lower, int upper, ImageDisplay imageDisplay) {
         this.effect = effect;
         this.lower = lower;
         this.upper = upper;
-        this.editor = editor;
-        System.out.println("EDITOR IN CONSTRUCOTOR " + editor);
-        if (editor != null) {
-            this.sliderFrame = editor.getEditorFrame();
-        }
-        else {
+        this.imageDisplay = imageDisplay;
+//        if (editor != null) {
+//            this.sliderFrame = editor.getEditorFrame();
+//        }
+//        else {
             this.sliderFrame = setupSliderFrame(effect);
-        }
+//        }
         this.slider = setupSlider(lower, upper);
     }
 
@@ -116,10 +116,10 @@ public class SliderEffectWindow {
                 //Update effect history and in state
                 effectHistory.add(chosenEffect, editedImage);
                 EditorState.getInstance().setEffectHistory(effectHistory);
-                System.out.println(effectHistory);
-                System.out.println(editor);
+                EditorState.getInstance().setImage(editedImage);
+                System.out.println("EFFECT HISTORY IN SLIDER " + effectHistory);
                 //Update editor with new image
-                editor.updateEditor(editedImage, "New " + effect.toString() + " image");
+                imageDisplay.updateEditorFromState();
             }
         };
     }
@@ -142,19 +142,5 @@ public class SliderEffectWindow {
                 show();
             }
         };
-//        SliderEffectWindow sliderWindow = new SliderEffectWindow(image, effect, lower, upper, null);
-//
-//        ActionListener submitEffectListener = new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                getSliderFrame().dispose();
-//                double effectAmount = getEffectAmount();
-//                Effect chosenEffect = effect.getEffect(image, effectAmount);
-//                BufferedImage editedImage = chosenEffect.run();
-//                effectHistory.updateEffectSequence(chosenEffect);
-//                editor.updateEditor(editedImage, "New " + effect.toString() + " image");
-//            }
-//        };
-
-        }
     }
+}

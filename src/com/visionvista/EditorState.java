@@ -11,7 +11,6 @@ public class EditorState {
     private EffectHistory effectHistory;
 
     private EditorState() {
-
     }
 
     public void setImage(BufferedImage image) {

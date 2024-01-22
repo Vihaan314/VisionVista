@@ -11,22 +11,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ImageTimeline {
-    private Main mainReference;
-    private ArrayList<Pair<Effect, BufferedImage>> effect_sequence;
-    private int currentImage;
+    private ImageDisplay imageDisplay;
+    private EffectHistory effectHistory;
+    private ArrayList<Pair<Effect, BufferedImage>> effectSequence;
+    private int currentImageIndex;
     private JFrame timelineFrame;
     private JPanel timelinePanel;
     private int effectLength;
     private ArrayList<JButton> effectButtons;
     private ArrayList<JLabel> effectLabels;
 
-    public ImageTimeline(EffectHistory effectHistory, Main mainReference) {
-        this.effect_sequence = effectHistory.getEffectSequence();
+    public ImageTimeline(ImageDisplay imageDisplay) {
+        this.imageDisplay = imageDisplay;
+        this.effectHistory = EditorState.getInstance().getEffectHistory();
+        this.effectSequence = effectHistory.getEffectSequence();
         this.effectLength = effectHistory.getSize();
-        this.currentImage = effectHistory.getCurrentIndex();
+        this.currentImageIndex = EditorState.getInstance().getEffectHistory().getCurrentIndex();
         this.timelinePanel = new JPanel(new GridLayout(this.effectLength, this.effectLength));
         this.timelineFrame = setupTimelineFrame();
-        this.mainReference = mainReference;
+//        this.mainReference = mainReference;
         this.effectButtons = new ArrayList<>(effectLength);
         this.effectLabels = new ArrayList<>(effectLength);
         setupEffectComponents();
@@ -42,27 +45,21 @@ public class ImageTimeline {
         return frame;
     };
 
-    public void refreshTimeline() {
-        if (timelineFrame.isVisible()) {
-            timelineFrame.dispose();
-            mainReference.showTimeline(mainReference.effectHistory);
-        }
-    }
-
     public void setupEffectComponents() {
         //Loop through all effect history
+        System.out.println(effectHistory);
         for (int i = 0; i < effectLength; i++) {
             //Add button for each effect along with label
             JButton effectButton = new JButton("Effect " + (i+1));
-            String label = effect_sequence.get(i).toString() + " ";
-            JLabel effectLabel = new JLabel((i == currentImage) ? label + "- CURRENT " : label);
+            String label = (i == 0) ? "Original image " : effectSequence.get(i).getLeft().toString() + " ";
+            JLabel effectLabel = new JLabel((i == currentImageIndex) ? label + "- CURRENT " : label);
 
             int finalI = i;
             effectButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    mainReference.effectHistory.setCurrentImageIndex(finalI);
-                    mainReference.editor.updateImage(effect_sequence.get(finalI).getRight(), "Effect");
+                    effectHistory.setCurrentImageIndex(finalI);
+                    imageDisplay.updateEditorFromState();
                     refreshTimeline();
                 }
             });
@@ -78,6 +75,16 @@ public class ImageTimeline {
             timelinePanel.add(effectLabels.get(i));
         }
     }
+
+    public void refreshTimeline() {
+        if (timelineFrame.isVisible()) {
+            dispose();
+            ImageTimeline imageTimeline = new ImageTimeline(imageDisplay);
+            imageTimeline.show();
+        }
+    }
+
+
 
     public void dispose() {
         timelineFrame.dispose();

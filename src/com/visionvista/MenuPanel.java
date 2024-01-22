@@ -2,6 +2,7 @@ package com.visionvista;
 
 import com.visionvista.components.SliderEffectWindow;
 import com.visionvista.effects.EffectType;
+import com.visionvista.effects.EffectUIType;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,13 +16,13 @@ public class MenuPanel {
     private JMenuBar menuBar;
     private Map<String, JMenuItem> menuItems = new HashMap<String, JMenuItem>();
 
-    JFrame mainFrame;
-    ImageEditor editor;
     String[] file_name_broken;
-    Main main;
 
-    public MenuPanel() {
+    private ImageDisplay imageDisplay;
+
+    public MenuPanel(ImageDisplay imageDisplay) {
         menuBar = new JMenuBar();
+        this.imageDisplay = imageDisplay;
     }
 
     public void addItemToMenu(String title, String menuItemTitle, ActionListener actionListener) {
@@ -41,10 +42,6 @@ public class MenuPanel {
         return menuItems.get(menuItemTitle);
     }
 
-    public String getItemName(JMenuItem menuItem) {
-        return "hi";
-    }
-
     //Returns the specific sub-menu of a JMenu
     private JMenu getMenu(String title) {
         for (int i = 0; i < menuBar.getMenuCount(); i++) {
@@ -59,32 +56,27 @@ public class MenuPanel {
         return this.menuBar;
     }
 
-
-    public void setEditor(ImageEditor editor) {
-        this.editor = editor;
-    }
-
     public void setDefaultMenuItems() {
         EffectHistory effectHistory = EditorState.getInstance().getEffectHistory();
         BufferedImage image = EditorState.getInstance().getImage();
         addItemToMenu("File", "Open Image", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ImageHandler imageHandler = new ImageHandler(editor, mainFrame);
+                ImageHandler imageHandler = new ImageHandler();
                 imageHandler.openImage();
             }
         });
         addItemToMenu("File", "Open URL", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ImageHandler imageHandler = new ImageHandler(editor, mainFrame);
+                ImageHandler imageHandler = new ImageHandler();
                 imageHandler.openImageFromUrl();
             }
         });
         addItemToMenu("File", "New Blank Image", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ImageHandler imageHandler = new ImageHandler(editor, mainFrame);
+                ImageHandler imageHandler = new ImageHandler();
                 imageHandler.createNewImage();
             }
         });
@@ -123,61 +115,58 @@ public class MenuPanel {
         addItemToMenu("Edit", "Undo", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                printEffectSequence();
                 if (effectHistory.getCurrentIndex() > 0) {
                     effectHistory.updateCurrentImage(-1);
+                    //ask about automatic effectype getter
                 }
-                editor.updateEditor(effectHistory.getCurrentImage(), "Image Editor");
+                imageDisplay.updateEditorFromState();
             }
         });
         addItemToMenu("Edit", "Redo", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                printEffectSequence();
                 if (effectHistory.getCurrentIndex() < effectHistory.getSize()-1) {
                     effectHistory.updateCurrentImage(1);
                 }
-                editor.updateEditor(effectHistory.getCurrentImage(), "Image editor");
+                imageDisplay.updateEditorFromState();
             }
         });
-//        addItemToMenu("Edit", "Timeline", new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                ImageTimeline imageTimeline = new ImageTimeline(effectHistory, main);
-//                imageTimeline.show();
-//            }
-//        });
+        addItemToMenu("Edit", "Timeline", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageTimeline imageTimeline = new ImageTimeline(imageDisplay);
+                imageTimeline.show();
+            }
+        });
         addItemToMenu("Edit", "Reset", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 effectHistory.resetHistory();
-                editor.updateEditor(effectHistory.getFirstImage(), "Image editor");
+                imageDisplay.updateEditorFromState();
             }
         });
     }
 
     public void setupSliderMenuItems() {
-        EffectHistory effectHistory = EditorState.getInstance().getEffectHistory();
+        //Adding all effects that use slider UI to menu panel
         //Loop through all slider effects
-        for (EffectType effect : EffectType.getSliderEffects().keySet()) {
+        Map<EffectType, Pair<Integer, Integer>> sliderEffects = EffectType.getEffectTypeFromComponent(EffectUIType.SLIDER);
+        for (EffectType effect : sliderEffects.keySet()) {
             //Get bounds associated with each effect
-            int lower = EffectType.getSliderEffects().get(effect).getLeft();
-            int upper = EffectType.getSliderEffects().get(effect).getRight();
-            System.out.println("EDITOR " + editor);
-            SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effect, lower, upper, editor); //Slider component with the extracted bounds
+            int lower = sliderEffects.get(effect).getLeft();
+            int upper = sliderEffects.get(effect).getRight();
+            SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effect, lower, upper, imageDisplay); //Slider component with the extracted bounds
             //Get category label for effect
-            String effectCategory = effect.getClass().getSuperclass().getName(); //Get the name of the super class which will be the category for the effect
-            System.out.println(effectHistory);
+            String effectCategory = effect.getEffect((lower + upper) / 2.0).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             ActionListener effectActionListener = sliderEffectWindow.sliderValuesEffect();
-            System.out.println("yo");
             addItemToMenu(effectCategory, effect.toString(), effectActionListener); //Add effect to category in menu with corresponding action listener to apply the effect
         }
     }
 
-    public MenuPanel setupMenuPanel() {
+    public void setupMenuPanel() {
         setDefaultMenuItems();
         setupSliderMenuItems();
 
-        return this;
+//        return this;
     }
 }

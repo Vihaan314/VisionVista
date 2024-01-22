@@ -16,24 +16,24 @@ import java.net.URL;
 public class ImageHandler {
     public EffectHistory effectHistory;
     public ImageEditor editor;
-    public JFrame mainFrame;
 
     public String file_name_broken[];
 
-    private MenuPanel menuPanel = new MenuPanel();
-
-    public ImageHandler(ImageEditor editor, JFrame mainFrame) {
+    public ImageHandler() {
         this.effectHistory = new EffectHistory();
-        this.editor = editor;
-        this.mainFrame = mainFrame;
     }
 
     public void openImage() {
         //TODO PROBLEM STILL IS that imageeditor and menupanel still depend on each other
         //TODO BUT EDITOR DOESN't NEED MENU PANEL ANYMORE
+        //TODO DOENS"T IT AMKE SENSE TO HAVE AN IMAGE AS THE CONSTRUCTOR OF THE IMAGE EDITOR
+        //TODO MENU PANEL STILL NEEDS EDITOR HOW TO DO
 
+        //TODO MAYBE EVERYTIME I UPDATE EDITOR I INSTEAD UPDATE WITH IMAGE FROM EDITOR STATE AND ENSURE BEFORE THAT THAT EDITOSTATE IS SET WITH NEW IMAGE
+        //TODO CURRENT PROBLEM LIES WITH ACTIONLISTENER NOT STORING LATEST VARIABLE
+        //TODO TABS ABOVE IMAGE EDITOR SO EDITOR TABS
         JFileChooser fileChooser = new JFileChooser();
-        int returnValue = fileChooser.showOpenDialog(mainFrame);
+        int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String file_name_raw = selectedFile.getName();
@@ -46,12 +46,13 @@ public class ImageHandler {
                 EditorState.getInstance().setImage(image);
                 //Add and keep to effect history
                 effectHistory.add(null, image);
+                System.out.println("EFFECT HISTORY HANDLER " + effectHistory);
                 EditorState.getInstance().setEffectHistory(effectHistory);
 
-                editor = new ImageEditor("Image editor", menuPanel.setupMenuPanel());
+                editor = new ImageEditor("Image editor");
                 editor.show();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(mainFrame, "Error loading image.");
+                JOptionPane.showMessageDialog(null, "Error loading image.");
                 ex.printStackTrace();
             }
         }
@@ -86,7 +87,7 @@ public class ImageHandler {
                     effectHistory.add(null, image);
                     EditorState.getInstance().setEffectHistory(effectHistory);
 
-                    editor = new ImageEditor("Image editor", menuPanel.setupMenuPanel());
+                    editor = new ImageEditor("Image editor");
                     editor.show();
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -106,10 +107,10 @@ public class ImageHandler {
         //TODO
         BufferedImage blankImg = ImageHelper.createBlankImage();
         ImageHelper.createBlankImage();
-        MenuPanel menuPanel = new MenuPanel();
+//        MenuPanel menuPanel = new MenuPanel();
         ButtonPanel buttonPanel = new ButtonPanel();
-        editor = new ImageEditor("Image editor - Draw", menuPanel.setupMenuPanel());
-        editor.addButtonPanel(buttonPanel.setupButtonPanel(blankImg));
+        editor = new ImageEditor("Image editor - Draw");
+//        editor.addButtonPanel(buttonPanel.setupButtonPanel(blankImg));
         editor.show();
 //        inputValuesEffect(new ImageEdit(blank_img), "Blank", new String[]{"Width", "Height"});
     }

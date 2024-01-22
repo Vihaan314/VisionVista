@@ -49,18 +49,6 @@ public class ImageSaver {
         imageLogs.add("Directory saving in: " + textFile.getParent());
         imageLogs.add("File type: " + file_extension);
         imageLogs.add("Edited file name: " + textFile.getName().replace("_log", ""));
-
-        List<String> effectVV = new ArrayList<>();
-
-//        for (int i = 0; i < effectSequence.size(); i ++) {
-//            effectVV.add(effectSequence.get(i).getEffectInitials());
-//        }
-        imageLogs.add("Copiable Effect Sequence: " + "[" + effectVV.toString().substring(3));
-        imageLogs.add("");
-        for (int i = 0; i <effectSequence.size(); i++) {
-            String label = effectSequence.get(i).toString();
-            imageLogs.add("Effect " + (i+1) + ((i == 0) ? ": " : " (" + effectVV.get(i) + "): ") + label);
-        }
         try {
             Files.write(textFile.toPath(), imageLogs, StandardCharsets.UTF_8);
         } catch (Exception e) {
@@ -87,8 +75,6 @@ public class ImageSaver {
         File directory_chosen = new File(String.valueOf(f.getSelectedFile()));
         String directory = directory_chosen.getAbsolutePath();
         saveImgToFile(directory, file_name, file_extension);
-        if (withText) {
-            saveTextToFile(directory, file_name, file_extension);
-        }
+        if (withText) saveTextToFile(directory, file_name, file_extension);
     }
 }
