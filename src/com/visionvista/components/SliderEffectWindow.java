@@ -21,7 +21,6 @@ public class SliderEffectWindow {
     private EffectType effect;
     public int lower;
     public int upper;
-    private BufferedImage image;
     private JPanel sliderPanel = new JPanel();
     final int[] effect_amount = {0};
 
@@ -75,7 +74,7 @@ public class SliderEffectWindow {
         }
 
         slider.setLabelTable(position);
-
+        
         slider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 effect_amount[0] = ((JSlider)e.getSource()).getValue();
@@ -84,11 +83,11 @@ public class SliderEffectWindow {
                 Effect chosenEffect = effect.getEffect((double) effect_amount[0]);
                 BufferedImage currentImage = EditorState.getInstance().getImage();
                 BufferedImage editedImage = chosenEffect.run(currentImage);
-                EffectHistory effectHistory = EditorState.getInstance().getEffectHistory();
-                effectHistory.add(chosenEffect, editedImage);
-                EditorState.getInstance().setEffectHistory(effectHistory);
+//                EffectHistory effectHistory = EditorState.getInstance().getEffectHistory();
+//                effectHistory.add(chosenEffect, editedImage);
+//                EditorState.getInstance().setEffectHistory(effectHistory);
                 EditorState.getInstance().setImage(editedImage);
-                imageDisplay.updateEditorFromState();
+                imageDisplay.updateImageFromState();
             }
         });
         sliderPanel.add(status);
@@ -116,19 +115,19 @@ public class SliderEffectWindow {
             public void actionPerformed(ActionEvent e) {
                 //Close slider when submit pressed
                 getSliderFrame().dispose();
-                double effectAmount = getEffectAmount();
-                //Get instance of effect with parameter
-                Effect chosenEffect = effect.getEffect(effectAmount);
-                //Get the current image in the editor and apply the effect to it
-                BufferedImage currentImage = EditorState.getInstance().getImage();
-                BufferedImage editedImage = chosenEffect.run(currentImage);
-                //Update effect history and in state
-                effectHistory.add(chosenEffect, editedImage);
-                EditorState.getInstance().setEffectHistory(effectHistory);
-                EditorState.getInstance().setImage(editedImage);
-                System.out.println("EFFECT HISTORY IN SLIDER " + effectHistory);
-                //Update editor with new image
-                imageDisplay.updateEditorFromState();
+//                double effectAmount = getEffectAmount();
+//                //Get instance of effect with parameter
+//                Effect chosenEffect = effect.getEffect(effectAmount);
+//                //Get the current image in the editor and apply the effect to it
+//                BufferedImage currentImage = EditorState.getInstance().getImage();
+//                BufferedImage editedImage = chosenEffect.run(currentImage);
+//                //Update effect history and in state
+//                effectHistory.add(chosenEffect, editedImage);
+//                EditorState.getInstance().setEffectHistory(effectHistory);
+//                EditorState.getInstance().setImage(editedImage);
+//                System.out.println("EFFECT HISTORY IN SLIDER " + effectHistory);
+//                //Update editor with new image
+//                imageDisplay.updateImageFromState();
             }
         };
     }

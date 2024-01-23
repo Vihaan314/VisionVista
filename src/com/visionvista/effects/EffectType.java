@@ -16,6 +16,7 @@ interface EffectConstructor {
 
 
 public enum EffectType {
+    //Slider
     BLUR("Blur", 0, 10, EffectUIType.SLIDER, (param) -> new Blur((Double) param)),
     BRIGHTNESS("Brightness", -50, 50, EffectUIType.SLIDER, (param) -> new Brightness((Double) param)),
     CONTRAST("Contrast", 0, 100, EffectUIType.SLIDER, (param) -> new Contrast((Double) param)),
@@ -29,12 +30,19 @@ public enum EffectType {
     VIGNETTE("Vignette", 0, 10, EffectUIType.SLIDER, (param) -> new Vignette((Double) param)),
     PIXELATE("Pixelate", 0, 50, EffectUIType.SLIDER, (param) -> new Pixelate((Double) param)),
 
+    //Color chooser
     HUE("Hue", EffectUIType.COLOR_CHOOSER, (param) -> new Hue((Color) param)),
 
+    //Text field
+    RESIZE("Resize", new String[]{"Width", "Height"}, EffectUIType.TEXT_FIELD, (params) -> new Resize((int) Double.parseDouble(((String[]) params)[0]), (int) Double.parseDouble(((String[]) params)[1]))),
+
+    //None
+
+    //Transformations
     FLIP_VERTICAL("Flip vertical", (param) -> new FlipVertical()),
     FLIP_HORIZONTAL("Flip horizontal", (param) -> new FlipHorizontal()),
-    RESIZE("Resize", (params) -> new Resize(Integer.parseInt(((String[]) params)[0]), Integer.parseInt(((String[]) params)[1]))),
 
+    //Filters
     GRAYSCALE("Grayscale", (param) -> new Grayscale()),
     NEGATIVE("Negative", (param) -> new Negative()),
     POSTERIZE("Posterize", (param) -> new Posterize()),
@@ -51,21 +59,31 @@ public enum EffectType {
     private final String effectLabel;
     private final int lowerBound;
     private final int upperBound;
+    private final String[] textFieldLabels;
     private final EffectUIType uiType;
     private final EffectConstructor effectConstructor;
 
     EffectType(String effectLabel, EffectConstructor effectConstructor) {
-        this(effectLabel, 0, 0, EffectUIType.NONE, effectConstructor);
+        this(effectLabel, 0, 0, new String[]{}, EffectUIType.NONE, effectConstructor);
     }
 
     EffectType(String effectLabel, EffectUIType effectUIType, EffectConstructor effectConstructor) {
-        this(effectLabel, 0, 0, effectUIType, effectConstructor);
+        this(effectLabel, 0, 0, new String[]{}, effectUIType, effectConstructor);
     }
 
-    EffectType(String effectLabel, int lowerBound, int upperBound, EffectUIType uiType, EffectConstructor effectConstructor) {
+    EffectType(String effectLabel, int lower, int upper, EffectUIType effectUIType, EffectConstructor effectConstructor) {
+        this(effectLabel, lower, upper, new String[]{}, effectUIType, effectConstructor);
+    }
+
+    EffectType(String effectLabel, String[] paramLabels, EffectUIType effectUIType, EffectConstructor effectConstructor) {
+        this(effectLabel, 0, 0, paramLabels, effectUIType, effectConstructor);
+    }
+
+    EffectType(String effectLabel, int lowerBound, int upperBound, String[] textFieldLabels, EffectUIType uiType, EffectConstructor effectConstructor) {
         this.effectLabel = effectLabel;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
+        this.textFieldLabels = textFieldLabels;
         this.uiType = uiType;
         this.effectConstructor = effectConstructor;
     }
@@ -95,23 +113,21 @@ public enum EffectType {
         return new Pair<>(lowerBound, upperBound);
     }
 
-    //TODO MAKE MAP FROM UI ENUM TO EFFECTYTPE MANUALLY
-    public static Map<EffectType, Pair<Integer, Integer>> getEffectTypeFromComponent(EffectUIType uiType) {
-        Map<EffectType, Pair<Integer, Integer>> sliderEntries = new HashMap<>();
+    public String[] getTextFieldParams() {
+        return textFieldLabels;
+    }
+
+    //TODO MAKE MAP FROM UI ENUM TO EFFECTYTPE MANUALLY BRO SAID CONSTANTS FILE
+    public static ArrayList<EffectType> getEffectTypeFromComponent(EffectUIType uiType) {
         ArrayList<EffectType> effectEntries = new ArrayList<>();
 
         //Process all effects that utilize the slider component
         for (EffectType effect : EffectType.values()) {
             if (effect.getUIType() == uiType) {
-                switch (uiType) {
-                    case SLIDER:
-                        sliderEntries.put(effect, effect.getSliderBounds());
-                    default:
-                        effectEntries.add(effect);
-                }
+                effectEntries.add(effect);
             }
         }
-        return sliderEntries;
+        return effectEntries;
     }
 
     public String toString() {

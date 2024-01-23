@@ -3,8 +3,6 @@ package com.visionvista.components;
 import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
 import com.visionvista.effects.*;
-import com.visionvista.ImageEditor;
-import com.visionvista.EffectHistory;
 
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
@@ -20,7 +18,6 @@ public class ColorEffectWindow {
     private JColorChooser colorChooser;
     private JButton submitButton;
     private EffectType effect;
-    private BufferedImage image;
     private JPanel colorPanel = new JPanel();
     final Color[] chosenColor = {null};
 
@@ -59,6 +56,12 @@ public class ColorEffectWindow {
             public void stateChanged(ChangeEvent e) {
                 chosenColor[0] = colorChooser.getColor();
                 colorLabel.setForeground(chosenColor[0]);
+
+                Effect chosenEffect = effect.getEffect(chosenColor[0]);
+                BufferedImage currentImage = EditorState.getInstance().getImage();
+                BufferedImage editedImage = chosenEffect.run(currentImage);
+                EditorState.getInstance().setImage(editedImage);
+                imageDisplay.updateImageFromState();
             }
         });
 
@@ -73,9 +76,8 @@ public class ColorEffectWindow {
         this.submitButton = submitEffect;
     }
 
-    public ColorEffectWindow(BufferedImage image, EffectType effect, ImageDisplay imageDisplay) {
+    public ColorEffectWindow(EffectType effect, ImageDisplay imageDisplay) {
         this.effect = effect;
-        this.image = image;
         this.colorFrame = setupColorFrame(effect);
         this.colorChooser = setupColorChooser();
         this.imageDisplay = imageDisplay;
@@ -95,26 +97,34 @@ public class ColorEffectWindow {
         return this.colorFrame;
     }
 
-
-    public void colorPickerEffect() {
-        JFrame.setDefaultLookAndFeelDecorated(true);
-
+    public ActionListener createSubmitActionListener() {
         ActionListener submitEffectListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Dispose of color picker window
                 getColorFrame().dispose();
-                //Get chosenc color and create effect
-                Color chosenColor = getColor();
-                Effect chosenEffect = effect.getEffect(chosenColor);
-                BufferedImage editedImage = chosenEffect.run(image);
-                EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
-                EditorState.getInstance().setImage(editedImage);
-                imageDisplay.updateEditorFromState();
+//                //Get chosenc color and create effect
+//                Color chosenColor = getColor();
+//                Effect chosenEffect = effect.getEffect(chosenColor);
+//                BufferedImage currentImage = EditorState.getInstance().getImage();
+//                BufferedImage editedImage = chosenEffect.run(currentImage);
+//                EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
+//                EditorState.getInstance().setImage(editedImage);
+//                imageDisplay.updateImageFromState();
 
             }
         };
-        setupSubmitButton(submitEffectListener);
-        show();
+        return submitEffectListener;
+    }
+
+    public ActionListener colorPickerEffect() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame.setDefaultLookAndFeelDecorated(true);
+                setupSubmitButton(createSubmitActionListener());
+                show();
+            }
+        };
     }
 }

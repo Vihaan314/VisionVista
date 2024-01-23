@@ -10,6 +10,7 @@ import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Helper {
@@ -99,6 +100,12 @@ public class Helper {
 
         String directory = String.valueOf(f.getSelectedFile());
         return directory;
+    }
+
+    public static String[] createZerosArray(int length) {
+        String[] dummy = new String[length];
+        Arrays.fill(dummy, "0");
+        return dummy;
     }
 
     public static void addChangeListener(JTextComponent text, ChangeListener changeListener) {

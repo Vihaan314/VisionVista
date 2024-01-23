@@ -60,7 +60,7 @@ public class ImageTimeline {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     effectHistory.setCurrentImageIndex(finalI);
-                    imageDisplay.updateEditorFromState();
+                    imageDisplay.updateImageFromState();
                     refreshTimeline();
                 }
             });

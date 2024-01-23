@@ -16,7 +16,6 @@ public class InputEffectWindow {
     private JFrame inputFrame;
     private JButton submitButton;
     private EffectType effect;
-    private BufferedImage image;
     private JPanel inputPanel;
     private String[] paramLabels;
     private ArrayList<PlaceholderTextField> textFields;
@@ -25,7 +24,7 @@ public class InputEffectWindow {
 
     private ImageDisplay imageDisplay;
 
-    public InputEffectWindow(ImageDisplay imageDisplay, EffectType effect, String[] paramLabels) {
+    public InputEffectWindow(EffectType effect, String[] paramLabels, ImageDisplay imageDisplay) {
         this.effect = effect;
         this.inputFrame = setupInputFrame(effect);
         this.paramLabels = paramLabels;
@@ -69,6 +68,7 @@ public class InputEffectWindow {
     }
 
     public ArrayList<PlaceholderTextField> addFieldListeners(ArrayList<PlaceholderTextField> inputFields) {
+        BufferedImage image = EditorState.getInstance().getImage();
         Helper.addChangeListener(inputFields.get(0), e -> {
                 if (!inputFields.get(0).equals("")) {
                     try {
@@ -99,28 +99,36 @@ public class InputEffectWindow {
         this.submitButton = submitEffect;
     }
 
-    public void inputValuesEffect() {
-        JFrame.setDefaultLookAndFeelDecorated(true);
-
-        ActionListener submitActionListener =  new ActionListener() {
+    public ActionListener createSubmitActionListener() {
+        return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Effect chosenEffect = effect.getEffect(getValues());
-                BufferedImage editedImage = chosenEffect.run(image);
+                BufferedImage currentImage = EditorState.getInstance().getImage();
+                BufferedImage editedImage = chosenEffect.run(currentImage);
                 getInputFrame().dispose();
 //                if (!newImage) {
-                    EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
-                    EditorState.getInstance().setImage(editedImage);
-                    imageDisplay.updateEditorFromState();
+                EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
+                EditorState.getInstance().setImage(editedImage);
+                imageDisplay.updateImageFromState();
 //                } else {
 //                    updateEffectSequence(chosenEffect);
 //                    updateEditor(editedImage, "Image Editor - " + effect.toString() + " image");
 //                }
             }
         };
+    }
 
-        setupSubmitButton(submitActionListener);
-        show();
+    public ActionListener inputValuesEffect() {
+        ActionListener submitActionListener =  new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame.setDefaultLookAndFeelDecorated(true);
+                setupSubmitButton(createSubmitActionListener());
+                show();
+            }
+        };
+        return submitActionListener;
     }
 
     public void show() {

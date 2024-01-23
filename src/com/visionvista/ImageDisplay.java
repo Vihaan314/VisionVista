@@ -1,5 +1,7 @@
 package com.visionvista;
 
+import com.visionvista.effects.Effect;
+
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
@@ -12,9 +14,17 @@ public class ImageDisplay {
         editorPanel.add(imageLabel);
     }
 
-    public void updateEditorFromState() {
+    public void updateImageFromState() {
         BufferedImage currentImage = EditorState.getInstance().getImage();
         //Set currently displayed image to new image
+        imageLabel.setIcon(new ImageIcon(currentImage));
+    }
+
+    public void updateImageByEffect(Effect effect) {
+        BufferedImage currentImage = EditorState.getInstance().getImage();
+        currentImage = effect.run(currentImage);
+        EditorState.getInstance().getEffectHistory().add(effect, currentImage);
+        EditorState.getInstance().setImage(currentImage);
         imageLabel.setIcon(new ImageIcon(currentImage));
     }
 
