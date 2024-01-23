@@ -80,6 +80,15 @@ public class SliderEffectWindow {
             public void stateChanged(ChangeEvent e) {
                 effect_amount[0] = ((JSlider)e.getSource()).getValue();
                 status.setText(effect + ": " + ((JSlider)e.getSource()).getValue());
+
+                Effect chosenEffect = effect.getEffect((double) effect_amount[0]);
+                BufferedImage currentImage = EditorState.getInstance().getImage();
+                BufferedImage editedImage = chosenEffect.run(currentImage);
+                EffectHistory effectHistory = EditorState.getInstance().getEffectHistory();
+                effectHistory.add(chosenEffect, editedImage);
+                EditorState.getInstance().setEffectHistory(effectHistory);
+                EditorState.getInstance().setImage(editedImage);
+                imageDisplay.updateEditorFromState();
             }
         });
         sliderPanel.add(status);

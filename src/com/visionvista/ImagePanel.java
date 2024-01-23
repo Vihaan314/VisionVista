@@ -1,12 +1,8 @@
 package com.visionvista;
 
 import com.visionvista.effects.Effect;
-import com.visionvista.effects.ImageHelper;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.*;
 import java.util.ArrayList;
 
 public class ImagePanel extends MenuPanel {

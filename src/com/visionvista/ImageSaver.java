@@ -16,13 +16,11 @@ public class ImageSaver {
     private BufferedImage image;
     private final String[] fileNameBroken;
     private boolean withText;
-    ArrayList<Effect> effectSequence;
 
     public ImageSaver(BufferedImage img, String[] file_name_broken, boolean withText) {
         image = img;
         fileNameBroken = file_name_broken;
         this.withText = withText;
-        this.effectSequence = effectSequence;
     }
 
     private int getPower(int counter) {

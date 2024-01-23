@@ -2,18 +2,17 @@ package com.visionvista;
 
 import com.visionvista.effects.*;
 import com.visionvista.effects.filters.*;
-import com.visionvista.effects.transformation.*;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
 
-public class RandomImage {
+public class RandomEffect {
     BufferedImage image;
-    public RandomImage(BufferedImage image) {
-        this.image = image;
+    public RandomEffect() {
+        this.image = EditorState.getInstance().getImage();
     }
 
-    public Effect getRandomImage() {
+    public Effect getRandomEffect() {
         Class<?>[] effectClasses = {
                 Glow.class, Contrast.class, Blur.class, Brightness.class, GaussBlur.class, Saturation.class, Sharpen.class,
                 Vibrance.class, CrossProcess.class, Grayscale.class, Heatmap.class, Infrared.class, Lomography.class, Negative.class,

@@ -1,4 +1,4 @@
-package com.visionvista;
+package com.visionvista.utils;
 
 public class Pair<L,R> {
     private final L left;

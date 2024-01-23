@@ -1,8 +1,5 @@
-package com.visionvista.effects;
+package com.visionvista.utils;
 
-import com.visionvista.Pair;
-
-import javax.swing.*;
 import java.awt.image.BufferedImage;
 
 public class ImageHelper {

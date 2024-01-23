@@ -1,11 +1,14 @@
 package com.visionvista.effects;
 
-import com.visionvista.Pair;
+import com.visionvista.utils.Pair;
+import com.visionvista.utils.Helper;
+import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Brightness extends Effect{
+public class Brightness extends Effect implements Serializable {
     private double intensity;
 
     public Brightness(double intensity) {

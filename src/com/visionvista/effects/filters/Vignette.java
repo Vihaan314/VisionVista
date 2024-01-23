@@ -1,8 +1,9 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.Pair;
+import com.visionvista.utils.Pair;
 import com.visionvista.effects.EffectType;
-import com.visionvista.effects.ImageHelper;
+import com.visionvista.utils.Helper;
+import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -38,9 +39,9 @@ public class Vignette extends Filter {
                 double distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
                 double factor = intensity * Math.max(0, (distance - 0) / (maxDistance - 0));
 
-                int red = (int) (color.getRed() * (1 - factor));
-                int green = (int) (color.getGreen() * (1 - factor));
-                int blue = (int) (color.getBlue() * (1 - factor));
+                int red = Helper.truncate(color.getRed() * (1 - factor));
+                int green = Helper.truncate(color.getGreen() * (1 - factor));
+                int blue = Helper.truncate(color.getBlue() * (1 - factor));
 
                 vignetteImage.setRGB(x, y, new Color(red, green, blue).getRGB());
             }

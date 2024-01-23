@@ -1,19 +1,6 @@
 package com.visionvista;
 
-import com.visionvista.components.PlaceholderTextField;
-import com.visionvista.effects.Effect;
-import com.visionvista.effects.ImageHelper;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ImageEditor {
     private final JFrame editorFrame;

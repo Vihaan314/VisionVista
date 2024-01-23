@@ -1,7 +1,6 @@
 package com.visionvista;
 
-import com.visionvista.effects.Effect;
-import com.visionvista.effects.ImageHelper;
+import com.visionvista.utils.ImageHelper;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

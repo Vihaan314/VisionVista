@@ -1,4 +1,4 @@
-package com.visionvista.effects;
+package com.visionvista.utils;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -33,6 +33,13 @@ public class Helper {
         if (value > 255) return 255;
         if (value < 0) return 0;
         return value;
+    }
+
+    public static int truncate(double value) {
+        int newVal = (int) value;
+        if (newVal > 255) return 255;
+        if (newVal < 0) return 0;
+        return newVal;
     }
 
     public static int get_rgb(BufferedImage image, String color, int x, int y) {
@@ -74,6 +81,24 @@ public class Helper {
             }
         }
         return blank_image;
+    }
+
+    public static String chooseDirectory() {
+        JFileChooser f = new JFileChooser();
+        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        f.showSaveDialog(null);
+
+        String directory = String.valueOf(f.getSelectedFile());
+        return directory;
+    }
+
+    public static String chooseFile() {
+        JFileChooser f = new JFileChooser();
+        f.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        f.showSaveDialog(null);
+
+        String directory = String.valueOf(f.getSelectedFile());
+        return directory;
     }
 
     public static void addChangeListener(JTextComponent text, ChangeListener changeListener) {

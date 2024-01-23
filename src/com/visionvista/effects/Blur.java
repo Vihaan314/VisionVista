@@ -1,12 +1,14 @@
 package com.visionvista.effects;
 
-import com.visionvista.Pair;
+import com.visionvista.utils.Pair;
+import com.visionvista.utils.ImageHelper;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.io.Serializable;
 
-public class Blur extends Effect{
+public class Blur extends Effect implements Serializable {
     private int intensity;
 
     public Blur(double intensity) {

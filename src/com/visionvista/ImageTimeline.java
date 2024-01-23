@@ -1,6 +1,7 @@
 package com.visionvista;
 
 import com.visionvista.effects.Effect;
+import com.visionvista.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,7 +68,7 @@ public class ImageTimeline {
             effectButtons.add(effectButton);
             effectLabels.add(effectLabel);
         }
-        //So that effects are displayed from top to bottom in first to last applied
+        //So that effects are displayed from top to bottom in last to first applied
         Collections.reverse(effectButtons);
         Collections.reverse(effectLabels);
         for (int i = 0; i < effectLength; i++) {

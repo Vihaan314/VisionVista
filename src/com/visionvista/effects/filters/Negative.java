@@ -1,6 +1,6 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.effects.Helper;
+import com.visionvista.utils.Helper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

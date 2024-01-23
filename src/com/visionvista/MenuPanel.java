@@ -1,14 +1,17 @@
 package com.visionvista;
 
+import com.visionvista.components.EffectTextBox;
 import com.visionvista.components.SliderEffectWindow;
+import com.visionvista.effects.Effect;
 import com.visionvista.effects.EffectType;
 import com.visionvista.effects.EffectUIType;
+import com.visionvista.utils.Pair;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,7 +89,6 @@ public class MenuPanel {
             public void actionPerformed(ActionEvent e) {
                 ImageSaver imageSaver = new ImageSaver(image, file_name_broken, false);
                 imageSaver.saveImage();
-//                editor.saveImage(img, file_name_broken, false, effectHistory.getEffectSequence());
             }
         });
 
@@ -95,20 +97,6 @@ public class MenuPanel {
             public void actionPerformed(ActionEvent e) {
                 ImageSaver imageSaver = new ImageSaver(image, file_name_broken, true);
                 imageSaver.saveImage();
-//                editor.saveImage(img, file_name_broken, true, effectHistory.getEffectSequence());
-            }
-        });
-
-        addItemToMenu("File", "Save Effect Sequence", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Serializer serializer = new Serializer();
-                String directory = serializer.getSerializeDirectory();
-                try {
-                    serializer.saveImageSequence(effectHistory.getEffectSequence(), directory, file_name_broken[0]);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
             }
         });
 
@@ -145,6 +133,63 @@ public class MenuPanel {
                 imageDisplay.updateEditorFromState();
             }
         });
+
+
+        addItemToMenu("Image", "Save Effect Sequence", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EffectSerializer effectSerializer = new EffectSerializer();
+                effectSerializer.serializeEffects("cheesetest" + "-effects" + "-VV");
+            }
+        });
+
+        addItemToMenu("Image", "Load Effect Sequence", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EffectSerializer effectSerializer = new EffectSerializer();
+                effectSerializer.readSerializedEffects();
+                ArrayList<Effect> serializedEffect = new ArrayList<>(effectSerializer.getEffectsList().subList(1, effectSerializer.getEffectsList().size()));
+                BufferedImage currentImage = EditorState.getInstance().getImage();
+                for (Effect effect : serializedEffect) {
+                    currentImage = effect.run(currentImage);
+                    EditorState.getInstance().setImage(image);
+                    EditorState.getInstance().getEffectHistory().add(effect, currentImage);
+                    imageDisplay.updateEditorFromState();
+                }
+                imageDisplay.updateEditorFromState();
+                System.out.println(EditorState.getInstance().getEffectHistory());
+            }
+        });
+
+        addItemToMenu("Image", "Save Image Sequence", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageSerializer imageSerializer = new ImageSerializer();
+                imageSerializer.serializeImages("cheesetest" + "-sequence" + "-VV");
+            }
+        });
+
+        addItemToMenu("Image", "Load Image Sequence", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageSerializer imageSerializer = new ImageSerializer();
+                imageSerializer.readSerializedImages();
+            }
+        });
+
+        addItemToMenu("Apply", "Random effect", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BufferedImage currentImage = EditorState.getInstance().getImage();
+                Effect randomEffect = new RandomEffect().getRandomEffect();
+                currentImage = randomEffect.run(currentImage);
+                effectHistory.add(randomEffect, currentImage);
+                EditorState.getInstance().setImage(currentImage);
+                imageDisplay.updateEditorFromState();
+                EffectTextBox randomEffectBox = new EffectTextBox(randomEffect);
+                randomEffectBox.show();
+            }
+        });
     }
 
     public void setupSliderMenuItems() {
@@ -161,6 +206,10 @@ public class MenuPanel {
             ActionListener effectActionListener = sliderEffectWindow.sliderValuesEffect();
             addItemToMenu(effectCategory, effect.toString(), effectActionListener); //Add effect to category in menu with corresponding action listener to apply the effect
         }
+    }
+
+    public void setupColorMenuItems() {
+        Map<EffectType, Pair<Integer, Integer>> sliderEffects = EffectType.getEffectTypeFromComponent(EffectUIType.COLOR_CHOOSER);
     }
 
     public void setupMenuPanel() {

@@ -1,6 +1,7 @@
 package com.visionvista.effects;
 
-import com.visionvista.Pair;
+import com.visionvista.utils.Pair;
+import com.visionvista.utils.ImageHelper;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;

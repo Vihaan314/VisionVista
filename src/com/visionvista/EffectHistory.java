@@ -1,6 +1,7 @@
 package com.visionvista;
 
 import com.visionvista.effects.Effect;
+import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

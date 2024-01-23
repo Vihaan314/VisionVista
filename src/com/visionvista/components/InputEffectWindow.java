@@ -3,8 +3,7 @@ package com.visionvista.components;
 import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
 import com.visionvista.effects.*;
-import com.visionvista.ImageEditor;
-import com.visionvista.EffectHistory;
+import com.visionvista.utils.Helper;
 
 import javax.swing.*;
 import java.awt.*;

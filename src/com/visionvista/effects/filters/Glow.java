@@ -1,8 +1,9 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.Pair;
+import com.visionvista.utils.Pair;
 import com.visionvista.blending.ColorDodge;
 import com.visionvista.effects.*;
+import com.visionvista.utils.ImageHelper;
 
 import java.awt.image.BufferedImage;
 

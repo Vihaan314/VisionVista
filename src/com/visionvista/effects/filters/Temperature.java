@@ -1,9 +1,9 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.Pair;
+import com.visionvista.utils.Pair;
 import com.visionvista.effects.Contrast;
 import com.visionvista.effects.EffectType;
-import com.visionvista.effects.ImageHelper;
+import com.visionvista.utils.ImageHelper;
 import com.visionvista.effects.Saturation;
 
 import java.awt.image.BufferedImage;

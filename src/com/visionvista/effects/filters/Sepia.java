@@ -1,10 +1,10 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.Pair;
+import com.visionvista.utils.Pair;
 import com.visionvista.effects.Brightness;
 import com.visionvista.effects.EffectType;
-import com.visionvista.effects.Helper;
-import com.visionvista.effects.ImageHelper;
+import com.visionvista.utils.Helper;
+import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

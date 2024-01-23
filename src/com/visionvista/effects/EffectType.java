@@ -1,11 +1,12 @@
 package com.visionvista.effects;
 
 
-import com.visionvista.Pair;
+import com.visionvista.utils.Pair;
 import com.visionvista.effects.transformation.*;
 import com.visionvista.effects.filters.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ interface EffectConstructor {
 
 public enum EffectType {
     BLUR("Blur", 0, 10, EffectUIType.SLIDER, (param) -> new Blur((Double) param)),
-    BRIGHTNESS("Brightness", 0, 100, EffectUIType.SLIDER, (param) -> new Brightness((Double) param)),
+    BRIGHTNESS("Brightness", -50, 50, EffectUIType.SLIDER, (param) -> new Brightness((Double) param)),
     CONTRAST("Contrast", 0, 100, EffectUIType.SLIDER, (param) -> new Contrast((Double) param)),
     SATURATION("Saturation", 0, 100, EffectUIType.SLIDER, (param) -> new Saturation((Double) param)),
     VIBRANCE("Vibrance", 0, 10, EffectUIType.SLIDER, (param) -> new Vibrance((Double) param)),
@@ -97,10 +98,17 @@ public enum EffectType {
     //TODO MAKE MAP FROM UI ENUM TO EFFECTYTPE MANUALLY
     public static Map<EffectType, Pair<Integer, Integer>> getEffectTypeFromComponent(EffectUIType uiType) {
         Map<EffectType, Pair<Integer, Integer>> sliderEntries = new HashMap<>();
+        ArrayList<EffectType> effectEntries = new ArrayList<>();
+
         //Process all effects that utilize the slider component
         for (EffectType effect : EffectType.values()) {
             if (effect.getUIType() == uiType) {
-                sliderEntries.put(effect, effect.getSliderBounds());
+                switch (uiType) {
+                    case SLIDER:
+                        sliderEntries.put(effect, effect.getSliderBounds());
+                    default:
+                        effectEntries.add(effect);
+                }
             }
         }
         return sliderEntries;

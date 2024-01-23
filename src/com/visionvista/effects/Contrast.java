@@ -3,7 +3,9 @@ package com.visionvista.effects;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import com.visionvista.Pair;
+import com.visionvista.utils.Pair;
+import com.visionvista.utils.Helper;
+import com.visionvista.utils.ImageHelper;
 
 
 public class Contrast extends Effect{
