@@ -47,7 +47,7 @@ public class ImageHandler {
                 effectHistory.add(null, image);
                 EditorState.getInstance().setEffectHistory(effectHistory);
 
-                editor = new ImageEditor("Image editor");
+                editor = new ImageEditor("Image editor", file_name_broken);
                 editor.show();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error loading image.");
@@ -85,7 +85,7 @@ public class ImageHandler {
                     effectHistory.add(null, image);
                     EditorState.getInstance().setEffectHistory(effectHistory);
 
-                    editor = new ImageEditor("Image editor");
+                    editor = new ImageEditor("Image editor", file_name_broken);
                     editor.show();
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -107,7 +107,7 @@ public class ImageHandler {
         ImageHelper.createBlankImage();
 //        MenuPanel menuPanel = new MenuPanel();
         ButtonPanel buttonPanel = new ButtonPanel();
-        editor = new ImageEditor("Image editor - Draw");
+        editor = new ImageEditor("Image editor - Draw", null);
 //        editor.addButtonPanel(buttonPanel.setupButtonPanel(blankImg));
         editor.show();
 //        inputValuesEffect(new ImageEdit(blank_img), "Blank", new String[]{"Width", "Height"});

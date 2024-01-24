@@ -17,7 +17,7 @@ import java.util.Hashtable;
 public class SliderEffectWindow {
     private JFrame sliderFrame;
     private JSlider slider;
-    private JButton submitButton;
+    private JButton submitButton= new JButton("Enter");;
     private EffectType effect;
     public int lower;
     public int upper;
@@ -42,12 +42,8 @@ public class SliderEffectWindow {
         this.lower = lower;
         this.upper = upper;
         this.imageDisplay = imageDisplay;
-//        if (editor != null) {
-//            this.sliderFrame = editor.getEditorFrame();
-//        }
-//        else {
-            this.sliderFrame = setupSliderFrame(effect);
-//        }
+        this.sliderFrame = setupSliderFrame(effect);
+//      sliderFrame.setVisible(false);
         this.slider = setupSlider(lower, upper);
     }
 
@@ -74,7 +70,7 @@ public class SliderEffectWindow {
         }
 
         slider.setLabelTable(position);
-        
+
         slider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 effect_amount[0] = ((JSlider)e.getSource()).getValue();
@@ -83,9 +79,7 @@ public class SliderEffectWindow {
                 Effect chosenEffect = effect.getEffect((double) effect_amount[0]);
                 BufferedImage currentImage = EditorState.getInstance().getImage();
                 BufferedImage editedImage = chosenEffect.run(currentImage);
-//                EffectHistory effectHistory = EditorState.getInstance().getEffectHistory();
-//                effectHistory.add(chosenEffect, editedImage);
-//                EditorState.getInstance().setEffectHistory(effectHistory);
+//                EffectHistory effectHistory = EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
                 EditorState.getInstance().setImage(editedImage);
                 imageDisplay.updateImageFromState();
             }
@@ -103,9 +97,7 @@ public class SliderEffectWindow {
     }
 
     public void setupSubmitButton(ActionListener submitEffectListener) {
-        JButton submitEffect = new JButton("Enter");
-        submitEffect.addActionListener(submitEffectListener);
-        this.submitButton = submitEffect;
+        submitButton.addActionListener(submitEffectListener);
     }
 
     public ActionListener createSubmitActionListener() {
@@ -115,19 +107,19 @@ public class SliderEffectWindow {
             public void actionPerformed(ActionEvent e) {
                 //Close slider when submit pressed
                 getSliderFrame().dispose();
-//                double effectAmount = getEffectAmount();
-//                //Get instance of effect with parameter
-//                Effect chosenEffect = effect.getEffect(effectAmount);
+                double effectAmount = getEffectAmount();
+                //Get instance of effect with parameter
+                Effect chosenEffect = effect.getEffect(effectAmount);
 //                //Get the current image in the editor and apply the effect to it
 //                BufferedImage currentImage = EditorState.getInstance().getImage();
 //                BufferedImage editedImage = chosenEffect.run(currentImage);
+                BufferedImage editedImage = EditorState.getInstance().getImage();
 //                //Update effect history and in state
 //                effectHistory.add(chosenEffect, editedImage);
-//                EditorState.getInstance().setEffectHistory(effectHistory);
+                EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
 //                EditorState.getInstance().setImage(editedImage);
-//                System.out.println("EFFECT HISTORY IN SLIDER " + effectHistory);
 //                //Update editor with new image
-//                imageDisplay.updateImageFromState();
+                imageDisplay.updateImageFromState();
             }
         };
     }

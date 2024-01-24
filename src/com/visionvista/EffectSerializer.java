@@ -13,7 +13,6 @@ public class EffectSerializer implements Serializable {
 
     public void extractEffectList() {
         ArrayList<Pair<Effect, BufferedImage>> effectHistory = EditorState.getInstance().getEffectHistory().getEffectSequence();
-        System.out.println("SERIALIZER " + EditorState.getInstance().getEffectHistory());
         for (Pair<Effect, BufferedImage> entry : effectHistory) {
             effectsList.add(entry.getLeft());
         }
@@ -44,7 +43,9 @@ public class EffectSerializer implements Serializable {
     public void serializeEffects(String filename) {
         extractEffectList();
         String directory = Helper.chooseDirectory();
-        File effectSerialize = new File(directory + File.separator + filename.split("[.]")[0] + "-sequence.dat");
+        filename = directory + File.separator + Helper.getEditedFile(directory, filename, "dat", "_effects-sequence").getName();
+        System.out.println(filename);
+        File effectSerialize = new File(filename);
         try {
             FileOutputStream effectOutputFile = new FileOutputStream(effectSerialize.getAbsoluteFile());
             ObjectOutputStream effectOut = new ObjectOutputStream(effectOutputFile);

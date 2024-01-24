@@ -28,7 +28,7 @@ public class ColorEffectWindow {
         colorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         colorFrame.setSize(650, 400);
         colorFrame.setLocationRelativeTo(null);
-        colorFrame.setVisible(true);
+//        colorFrame.setVisible(false);
         return colorFrame;
     }
 
@@ -50,7 +50,7 @@ public class ColorEffectWindow {
         for(int i = 0; i < panels.length - 1; i++){
             colorChooser.removeChooserPanel(panels[i]);
         }
-
+        BufferedImage currentImage;
         colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -60,6 +60,7 @@ public class ColorEffectWindow {
                 Effect chosenEffect = effect.getEffect(chosenColor[0]);
                 BufferedImage currentImage = EditorState.getInstance().getImage();
                 BufferedImage editedImage = chosenEffect.run(currentImage);
+//                EditorState.getInstance().getEffectHistory().add(effect, editedImage);
                 EditorState.getInstance().setImage(editedImage);
                 imageDisplay.updateImageFromState();
             }
@@ -103,12 +104,13 @@ public class ColorEffectWindow {
             public void actionPerformed(ActionEvent e) {
                 //Dispose of color picker window
                 getColorFrame().dispose();
-//                //Get chosenc color and create effect
-//                Color chosenColor = getColor();
-//                Effect chosenEffect = effect.getEffect(chosenColor);
+                //Get chosenc color and create effect
+                Color chosenColor = getColor();
+                Effect chosenEffect = effect.getEffect(chosenColor);
 //                BufferedImage currentImage = EditorState.getInstance().getImage();
 //                BufferedImage editedImage = chosenEffect.run(currentImage);
-//                EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
+                BufferedImage editedImage = EditorState.getInstance().getImage();
+                EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
 //                EditorState.getInstance().setImage(editedImage);
 //                imageDisplay.updateImageFromState();
 

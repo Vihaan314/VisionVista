@@ -15,7 +15,7 @@ public class Resize extends Transformation {
     }
 
     @Override public String toString() {
-        return "Resized - (Width: " + this.targetWidth + " Height: " + this.targetHeight;
+        return "Resized - {Width: " + this.targetWidth + " Height: " + this.targetHeight + "}";
     }
 
     @Override public BufferedImage run(BufferedImage image) {

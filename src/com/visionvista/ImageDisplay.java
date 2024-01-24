@@ -9,6 +9,8 @@ public class ImageDisplay {
     private JLabel imageLabel;
     private JPanel imagePanel;
 
+    private String[] fileNameBroken;
+
     public ImageDisplay(JPanel editorPanel) {
         this.imageLabel = new JLabel(new ImageIcon(EditorState.getInstance().getImage()));
         editorPanel.add(imageLabel);
@@ -30,5 +32,13 @@ public class ImageDisplay {
 
     public JLabel getImage() {
         return this.imageLabel;
+    }
+
+    public void setFileDetails(String[] fileNameBroken) {
+        this.fileNameBroken = fileNameBroken;
+    }
+
+    public String[] getFileNameDetails() {
+        return this.fileNameBroken;
     }
 }

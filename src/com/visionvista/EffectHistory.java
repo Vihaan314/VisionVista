@@ -3,18 +3,24 @@ package com.visionvista;
 import com.visionvista.effects.Effect;
 import com.visionvista.utils.Pair;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class EffectHistory {
-    ArrayList<Pair<Effect, BufferedImage>> effectSequence;
+public class EffectHistory implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private transient ArrayList<Pair<Effect, BufferedImage>> effectSequence;
+    int currentImageIndex = 0;
 
     public EffectHistory() {
         effectSequence = new ArrayList<>();
     }
-
-    int currentImageIndex = 0;
 
     public void resetHistory() {
         this.currentImageIndex = 0;
@@ -74,5 +80,25 @@ public class EffectHistory {
     @Override public String toString() {
         printSequence();
         return "Current image index: " + this.currentImageIndex + ", Size: " + effectSequence.size();
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject(); // Writes currentImageIndex
+        out.writeInt(effectSequence.size());
+        for (Pair<Effect, BufferedImage> pair : effectSequence) {
+            out.writeObject(pair.getLeft()); // Serialize Effect
+            ImageIO.write(pair.getRight(), "png", out); // Serialize BufferedImage
+        }
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject(); // Reads currentImageIndex
+        int size = in.readInt();
+        effectSequence = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Effect effect = (Effect) in.readObject(); // Deserialize Effect
+            BufferedImage image = ImageIO.read(in); // Deserialize BufferedImage
+            effectSequence.add(new Pair<>(effect, image));
+        }
     }
 }

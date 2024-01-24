@@ -23,8 +23,6 @@ public class MenuPanel {
     private JMenuBar menuBar;
     private Map<String, JMenuItem> menuItems = new HashMap<String, JMenuItem>();
 
-    String[] file_name_broken;
-
     private ImageDisplay imageDisplay;
 
     public MenuPanel(ImageDisplay imageDisplay) {
@@ -91,7 +89,7 @@ public class MenuPanel {
         addItemToMenu("File", "Save", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ImageSaver imageSaver = new ImageSaver(image, file_name_broken, false);
+                ImageSaver imageSaver = new ImageSaver(image, imageDisplay.getFileNameDetails(), false);
                 imageSaver.saveImage();
             }
         });
@@ -99,7 +97,7 @@ public class MenuPanel {
         addItemToMenu("File", "Save with Text", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ImageSaver imageSaver = new ImageSaver(image, file_name_broken, true);
+                ImageSaver imageSaver = new ImageSaver(image, imageDisplay.getFileNameDetails(), true);
                 imageSaver.saveImage();
             }
         });
@@ -111,6 +109,7 @@ public class MenuPanel {
                     effectHistory.updateCurrentImage(-1);
                     //ask about automatic effectype getter
                 }
+                EditorState.getInstance().setEffectHistory(effectHistory);
                 imageDisplay.updateImageFromState();
             }
         });
@@ -120,6 +119,7 @@ public class MenuPanel {
                 if (effectHistory.getCurrentIndex() < effectHistory.getSize()-1) {
                     effectHistory.updateCurrentImage(1);
                 }
+                EditorState.getInstance().setEffectHistory(effectHistory);
                 imageDisplay.updateImageFromState();
             }
         });
@@ -143,7 +143,7 @@ public class MenuPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EffectSerializer effectSerializer = new EffectSerializer();
-                effectSerializer.serializeEffects("cheesetest" + "-effects" + "-VV");
+                effectSerializer.serializeEffects(imageDisplay.getFileNameDetails()[0]);
             }
         });
 
@@ -161,23 +161,27 @@ public class MenuPanel {
                     imageDisplay.updateImageFromState();
                 }
                 imageDisplay.updateImageFromState();
-                System.out.println(EditorState.getInstance().getEffectHistory());
             }
         });
 
         addItemToMenu("Image", "Save Image Sequence", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ImageSerializer imageSerializer = new ImageSerializer();
-                imageSerializer.serializeImages("cheesetest" + "-sequence" + "-VV");
+                EffectHistorySerializer effectHistorySerializer = new EffectHistorySerializer();
+                effectHistorySerializer.serializeImages(imageDisplay.getFileNameDetails()[0]);
             }
         });
 
         addItemToMenu("Image", "Load Image Sequence", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ImageSerializer imageSerializer = new ImageSerializer();
-                imageSerializer.readSerializedImages();
+                EffectHistorySerializer effectHistorySerializer = new EffectHistorySerializer();
+                effectHistorySerializer.readSerializedImages();
+                EffectHistory serializedEffectHistory = effectHistorySerializer.getEffectHistory();
+                EditorState.getInstance().setEffectHistory(serializedEffectHistory);
+                EditorState.getInstance().setImage(serializedEffectHistory.getCurrentImage());
+                imageDisplay.updateImageFromState();
+                System.out.println(EditorState.getInstance().getEffectHistory());
             }
         });
 

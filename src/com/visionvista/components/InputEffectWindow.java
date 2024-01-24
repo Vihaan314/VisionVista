@@ -75,7 +75,6 @@ public class InputEffectWindow {
                         double ratio = Double.parseDouble(inputFields.get(0).getText()) / image.getWidth();
                         inputFields.get(1).setText(String.valueOf(ratio * image.getHeight()));
                     } catch (NumberFormatException ex) {
-                        ex.printStackTrace();
                         System.out.println("Please enter a number");
                     }
                 }
@@ -88,7 +87,7 @@ public class InputEffectWindow {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(650, 400);
         frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+//        frame.setVisible(true);
 
         return frame;
     }
