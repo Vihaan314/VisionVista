@@ -43,7 +43,7 @@ public class LandingWindow {
 
         JButton urlButton = new JButton("Load URL");
         JButton openButton = new JButton("Open Image");
-        JButton templateButton = new JButton("Choose Template");
+        JButton recentButton = new JButton("Open recent");
 
         Dimension buttonDimension = new Dimension(250, 250);
 
@@ -58,7 +58,7 @@ public class LandingWindow {
 
         urlButton.setPreferredSize(buttonDimension);
         openButton.setPreferredSize(buttonDimension);
-        templateButton.setPreferredSize(buttonDimension);
+        recentButton.setPreferredSize(buttonDimension);
 
         landingPanel.add(padding5);
         landingPanel.add(padding6);
@@ -70,7 +70,7 @@ public class LandingWindow {
         landingPanel.add(openButton);
         landingPanel.add(padding7);
         landingPanel.add(urlButton);
-        landingPanel.add(templateButton);
+        landingPanel.add(recentButton);
 
         ImageHandler imageHandler = new ImageHandler();
         openButton.addActionListener(new ActionListener() {
@@ -93,6 +93,14 @@ public class LandingWindow {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 imageHandler.createNewImage();
+                landingFrame.dispose();
+            }
+        });
+
+        recentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                imageHandler.openRecentProject();
                 landingFrame.dispose();
             }
         });

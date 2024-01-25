@@ -15,8 +15,6 @@ import com.visionvista.components.LandingWindow;
 
 
 public class Main {
-    public static String[] file_name_broken;
-
     public static void main(String[] args) {
         LandingWindow landingWindow = new LandingWindow();
         landingWindow.show();

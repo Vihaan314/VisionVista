@@ -134,6 +134,7 @@ public class MenuPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 effectHistory.resetHistory();
+                EditorState.getInstance().setEffectHistory(effectHistory);
                 imageDisplay.updateImageFromState();
             }
         });
@@ -168,7 +169,7 @@ public class MenuPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EffectHistorySerializer effectHistorySerializer = new EffectHistorySerializer();
-                effectHistorySerializer.serializeImages(imageDisplay.getFileNameDetails()[0]);
+                effectHistorySerializer.serializeEffects(imageDisplay.getFileNameDetails()[0]);
             }
         });
 
@@ -176,8 +177,13 @@ public class MenuPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EffectHistorySerializer effectHistorySerializer = new EffectHistorySerializer();
-                effectHistorySerializer.readSerializedImages();
-                EffectHistory serializedEffectHistory = effectHistorySerializer.getEffectHistory();
+                effectHistorySerializer.readSerializedEffects();
+                BufferedImage initialImage = effectHistorySerializer.getInitialImage();
+                ArrayList<Effect> effectsList = effectHistorySerializer.getEffectsList();
+                System.out.println("INTIIAL IAMGE " + initialImage);
+                System.out.println(effectsList);
+                EffectHistory serializedEffectHistory = new EffectHistory();
+                serializedEffectHistory.setEffectSequence(effectsList, initialImage);
                 EditorState.getInstance().setEffectHistory(serializedEffectHistory);
                 EditorState.getInstance().setImage(serializedEffectHistory.getCurrentImage());
                 imageDisplay.updateImageFromState();

@@ -61,7 +61,7 @@ public class EffectSerializer implements Serializable {
     }
 
     public void readSerializedEffects() {
-        String filename = Helper.chooseFile();
+        String filename = Helper.chooseFile(".dat");
         File effectSerialize = new File(filename);
         try {
             FileInputStream effectInFile = new FileInputStream(effectSerialize.getAbsoluteFile());

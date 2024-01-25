@@ -58,6 +58,7 @@ public class ColorEffectWindow {
                 colorLabel.setForeground(chosenColor[0]);
 
                 Effect chosenEffect = effect.getEffect(chosenColor[0]);
+
                 BufferedImage currentImage = EditorState.getInstance().getImage();
                 BufferedImage editedImage = chosenEffect.run(currentImage);
 //                EditorState.getInstance().getEffectHistory().add(effect, editedImage);

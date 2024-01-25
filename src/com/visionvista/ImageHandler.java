@@ -1,5 +1,6 @@
 package com.visionvista;
 
+import com.visionvista.effects.Effect;
 import com.visionvista.utils.ImageHelper;
 
 import javax.imageio.ImageIO;
@@ -9,8 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ImageHandler {
     public EffectHistory effectHistory;
@@ -99,6 +103,44 @@ public class ImageHandler {
 
         urlFrame.add(urlPanel);
         urlFrame.setVisible(true);
+    }
+
+    public void openRecentProject() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.addChoosableFileFilter(new SerializedFileFilter(".dat", "Serialized Vision Vista edits"));
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String file_name_raw = selectedFile.getName();
+            //Splits by necessary parts of file name - name and extension
+            file_name_broken = file_name_raw.split("[.]");
+
+            try {
+                FileInputStream imageInFile = new FileInputStream(selectedFile.getAbsoluteFile());
+                ObjectInputStream imageIn = new ObjectInputStream(imageInFile);
+
+                EffectHistorySerializer deserialized = (EffectHistorySerializer) imageIn.readObject();
+                ArrayList<Effect> effectsList = deserialized.getEffectsList();
+                BufferedImage initialImage = deserialized.getInitialImage();
+                effectHistory = new EffectHistory();
+                effectHistory.setEffectSequence(effectsList, initialImage);
+                EditorState.getInstance().setEffectHistory(effectHistory);
+                editor = new ImageEditor("Image editor", file_name_broken);
+                editor.show();
+//                BufferedImage image = ImageIO.read(selectedFile);
+//                //Set the original image to be displayed
+//                EditorState.getInstance().setImage(image);
+//                //Add and keep to effect history
+//                effectHistory.add(null, image);
+//                EditorState.getInstance().setEffectHistory(effectHistory);
+//
+//                editor = new ImageEditor("Image editor", file_name_broken);
+//                editor.show();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error loading image.");
+                ex.printStackTrace();
+            }
+        }
     }
 
     public void createNewImage() {

@@ -1,10 +1,13 @@
 package com.visionvista.utils;
 
+import com.visionvista.SerializedFileFilter;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
@@ -119,12 +122,13 @@ public class Helper {
         return directory;
     }
 
-    public static String chooseFile() {
+    public static String chooseFile(String extension) {
         JFileChooser f = new JFileChooser();
-        f.setFileSelectionMode(JFileChooser.FILES_ONLY);
         f.showSaveDialog(null);
+        FileFilter fileFilter = new SerializedFileFilter(extension, "Serialized Vision Vista edits");
+        f.addChoosableFileFilter(fileFilter);
 
-        String directory = String.valueOf(f.getSelectedFile());
+        String directory = f.getSelectedFile().getAbsolutePath();
         return directory;
     }
 

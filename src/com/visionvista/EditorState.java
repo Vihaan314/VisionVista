@@ -19,6 +19,7 @@ public class EditorState {
 
     public void setEffectHistory(EffectHistory effectHistory) {
         this.effectHistory = effectHistory;
+        this.image = effectHistory.getCurrentImage();
     }
 
     public BufferedImage getImage() {

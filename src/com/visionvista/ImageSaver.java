@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import com.visionvista.utils.Pair;
 
 public class ImageSaver {
     private BufferedImage image;
@@ -31,6 +32,11 @@ public class ImageSaver {
         imageLogs.add("Directory saving in: " + textFile.getParent());
         imageLogs.add("File type: " + file_extension);
         imageLogs.add("Edited file name: " + textFile.getName().replace("_log", ""));
+        imageLogs.add("\nEdits log:");
+        for (Pair<Effect, BufferedImage> edit: EditorState.getInstance().getEffectHistory().getEffectSequence()) {
+            Effect effect = edit.getLeft();
+            if (effect != null) imageLogs.add(effect.toString());
+        }
         try {
             Files.write(textFile.toPath(), imageLogs, StandardCharsets.UTF_8);
         } catch (Exception e) {
@@ -52,7 +58,6 @@ public class ImageSaver {
         f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         f.showSaveDialog(null);
         String file_name = fileNameBroken[0];
-        System.out.println(file_name);
         String file_extension = fileNameBroken[1];
         File directory_chosen = new File(String.valueOf(f.getSelectedFile()));
         String directory = directory_chosen.getAbsolutePath();
