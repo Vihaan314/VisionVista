@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Hashtable;
+import com.visionvista.ImageTimeline;
 
 public class SliderEffectWindow {
     private JFrame sliderFrame;
@@ -25,7 +26,7 @@ public class SliderEffectWindow {
     final int[] effect_amount = {0};
 
     private ImageDisplay imageDisplay;
-
+    private ImageTimeline imageTimeline;
 
     public JFrame setupSliderFrame(EffectType effect) {
         JFrame sliderFrame = new JFrame(effect.toString() + " slider");
@@ -37,11 +38,12 @@ public class SliderEffectWindow {
         return sliderFrame;
     }
 
-    public SliderEffectWindow(EffectType effect, int lower, int upper, ImageDisplay imageDisplay) {
+    public SliderEffectWindow(EffectType effect, int lower, int upper, ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
         this.effect = effect;
         this.lower = lower;
         this.upper = upper;
         this.imageDisplay = imageDisplay;
+        this.imageTimeline = imageTimeline;
         this.sliderFrame = setupSliderFrame(effect);
 //      sliderFrame.setVisible(false);
         this.slider = setupSlider(lower, upper);
@@ -120,6 +122,7 @@ public class SliderEffectWindow {
 //                EditorState.getInstance().setImage(editedImage);
 //                //Update editor with new image
                 imageDisplay.updateImageFromState();
+                imageTimeline.refreshTimeline();
             }
         };
     }

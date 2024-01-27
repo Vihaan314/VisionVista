@@ -54,13 +54,14 @@ public class ImageSaver {
     }
 
     public void saveImage() {
-        JFileChooser f = new JFileChooser();
-        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        f.showSaveDialog(null);
+//        JFileChooser f = new JFileChooser();
+//        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        f.showSaveDialog(null);
         String file_name = fileNameBroken[0];
         String file_extension = fileNameBroken[1];
-        File directory_chosen = new File(String.valueOf(f.getSelectedFile()));
-        String directory = directory_chosen.getAbsolutePath();
+        String directory = Helper.chooseDirectory();
+//        File directory_chosen = new File(String.valueOf(f.getSelectedFile()));
+//        String directory = directory_chosen.getAbsolutePath();
         saveImgToFile(directory, file_name, file_extension);
         if (withText) saveTextToFile(directory, file_name, file_extension);
     }

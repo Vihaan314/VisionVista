@@ -14,7 +14,7 @@ import com.visionvista.components.LandingWindow;
 //JMenu
 
 
-public class Main {
+public class Main { 
     public static void main(String[] args) {
         LandingWindow landingWindow = new LandingWindow();
         landingWindow.show();

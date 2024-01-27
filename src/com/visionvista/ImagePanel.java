@@ -12,8 +12,8 @@ public class ImagePanel extends MenuPanel {
     String[] file_name_broken;
     ArrayList<Effect> effectSequence;
 
-    public ImagePanel(ImageDisplay imageDisplay) {
-        super(imageDisplay);
+    public ImagePanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
+        super(imageDisplay, imageTimeline);
     }
 
 //    public MenuPanel setupMenuPanel() {

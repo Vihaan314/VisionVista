@@ -3,15 +3,18 @@ package com.visionvista;
 import javax.swing.*;
 
 public class ImageEditor {
+    //For main frame
     private final JFrame editorFrame;
+    private final MenuPanel menuPanel;
+
+    //Panel components
     private final JPanel editorPanel;
     private final ImageDisplay imageDisplay;
+    private final ImageTimeline imageTimeline;
 
+    //Other
     private final String[] fileNameBroken;
-
     private boolean isBlankImage = false;
-
-    private final MenuPanel menuPanel;
 
     public ImageEditor(String title, String[] fileNameBroken) {
         /*
@@ -31,11 +34,15 @@ public class ImageEditor {
         editorPanel = new JPanel(); //do gridlayout to add compoemnets onto editor
         //Add image viewer component and add to frame
         //TODO potentially fix does it make sense for component of panel to take in panel
+        //Initialize image display component
         imageDisplay = new ImageDisplay(editorPanel);
         imageDisplay.setFileDetails(fileNameBroken);
+
+        imageTimeline = new ImageTimeline(imageDisplay);
+
         editorFrame.add(editorPanel);
         //Create menu panel and make menu panel part of editor
-        menuPanel = new MenuPanel(imageDisplay);
+        menuPanel = new MenuPanel(imageDisplay, imageTimeline);
         menuPanel.setupMenuPanel();
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
     }

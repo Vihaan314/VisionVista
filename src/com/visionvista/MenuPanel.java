@@ -24,10 +24,12 @@ public class MenuPanel {
     private Map<String, JMenuItem> menuItems = new HashMap<String, JMenuItem>();
 
     private ImageDisplay imageDisplay;
+    private ImageTimeline imageTimeline;
 
-    public MenuPanel(ImageDisplay imageDisplay) {
+    public MenuPanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
         menuBar = new JMenuBar();
         this.imageDisplay = imageDisplay;
+        this.imageTimeline = imageTimeline;
     }
 
     public void addItemToMenu(String title, String menuItemTitle, ActionListener actionListener) {
@@ -107,10 +109,10 @@ public class MenuPanel {
             public void actionPerformed(ActionEvent e) {
                 if (effectHistory.getCurrentIndex() > 0) {
                     effectHistory.updateCurrentImage(-1);
-                    //ask about automatic effectype getter
                 }
                 EditorState.getInstance().setEffectHistory(effectHistory);
                 imageDisplay.updateImageFromState();
+                imageTimeline.refreshTimeline();
             }
         });
         addItemToMenu("Edit", "Redo", new ActionListener() {
@@ -121,12 +123,13 @@ public class MenuPanel {
                 }
                 EditorState.getInstance().setEffectHistory(effectHistory);
                 imageDisplay.updateImageFromState();
+                imageTimeline.refreshTimeline();
             }
         });
         addItemToMenu("Edit", "Timeline", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ImageTimeline imageTimeline = new ImageTimeline(imageDisplay);
+                imageTimeline = new ImageTimeline(imageDisplay);
                 imageTimeline.show();
             }
         });
@@ -136,6 +139,7 @@ public class MenuPanel {
                 effectHistory.resetHistory();
                 EditorState.getInstance().setEffectHistory(effectHistory);
                 imageDisplay.updateImageFromState();
+                imageTimeline.refreshTimeline();
             }
         });
 
@@ -160,8 +164,10 @@ public class MenuPanel {
                     EditorState.getInstance().setImage(image);
                     EditorState.getInstance().getEffectHistory().add(effect, currentImage);
                     imageDisplay.updateImageFromState();
+                    imageTimeline.refreshTimeline();
                 }
                 imageDisplay.updateImageFromState();
+                imageTimeline.refreshTimeline();
             }
         });
 
@@ -180,14 +186,11 @@ public class MenuPanel {
                 effectHistorySerializer.readSerializedEffects();
                 BufferedImage initialImage = effectHistorySerializer.getInitialImage();
                 ArrayList<Effect> effectsList = effectHistorySerializer.getEffectsList();
-                System.out.println("INTIIAL IAMGE " + initialImage);
-                System.out.println(effectsList);
                 EffectHistory serializedEffectHistory = new EffectHistory();
                 serializedEffectHistory.setEffectSequence(effectsList, initialImage);
                 EditorState.getInstance().setEffectHistory(serializedEffectHistory);
                 EditorState.getInstance().setImage(serializedEffectHistory.getCurrentImage());
                 imageDisplay.updateImageFromState();
-                System.out.println(EditorState.getInstance().getEffectHistory());
             }
         });
 
@@ -200,6 +203,7 @@ public class MenuPanel {
                 effectHistory.add(randomEffect, currentImage);
                 EditorState.getInstance().setImage(currentImage);
                 imageDisplay.updateImageFromState();
+                imageTimeline.refreshTimeline();
                 EffectTextBox randomEffectBox = new EffectTextBox(randomEffect);
                 randomEffectBox.show();
             }
@@ -215,7 +219,7 @@ public class MenuPanel {
             Pair<Integer, Integer> sliderEffectBounds = effect.getSliderBounds();
             int lower = sliderEffectBounds.getLeft();
             int upper = sliderEffectBounds.getRight();
-            SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effect, lower, upper, imageDisplay); //Slider component with the extracted bounds
+            SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effect, lower, upper, imageDisplay, imageTimeline); //Slider component with the extracted bounds
             //Get category label for effect
             String effectCategory = effect.getEffect((lower + upper) / 2.0).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             ActionListener effectActionListener = sliderEffectWindow.sliderValuesEffect();
@@ -248,6 +252,7 @@ public class MenuPanel {
         ArrayList<EffectType> noParamEffects = EffectType.getEffectTypeFromComponent(EffectUIType.NONE);
         for (EffectType effect : noParamEffects) {
             String effectCategory = effect.getEffect().getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
+            //effectActionLsitener is common put in class
             ActionListener effectActionListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -257,6 +262,7 @@ public class MenuPanel {
                     EditorState.getInstance().getEffectHistory().add(chosenEffect, currentImage);
                     EditorState.getInstance().setImage(currentImage);
                     imageDisplay.updateImageFromState();
+                    imageTimeline.refreshTimeline();
                 }
             };
             addItemToMenu(effectCategory, effect.toString(), effectActionListener);
@@ -268,7 +274,7 @@ public class MenuPanel {
     Effect effect = new Effect();
     BufferedImage currentImage = EditorState.getInstance().getImage();
     currentImage = effect.run(currentImage);
-    EditorState.getInstance().add((effect, currentImage);
+    EditorState.getInstance().getEffectHistory().add((effect, currentImage);
     EditorState.getInstance().setImage(currentImage);
     imageDisplay.updateImageFromState();
      */
