@@ -30,6 +30,10 @@ public class EffectHistory implements Serializable {
     public void add(Effect effect, BufferedImage image) {
         Pair<Effect, BufferedImage> imageEntry = new Pair<>(effect, image);
         effectSequence.add(imageEntry);
+        //TODO
+        if (this.currentImageIndex != this.getSize()-2) {
+            effectSequence = new ArrayList<>(effectSequence.subList(0, currentImageIndex+1));
+        }
         if (this.currentImageIndex +1 != this.getSize()-1) {
             this.setCurrentImageIndex(this.getSize()-1);
         }

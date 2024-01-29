@@ -143,6 +143,45 @@ public class MenuPanel {
             }
         });
 
+        addItemToMenu("Edit", "Undo", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (effectHistory.getCurrentIndex() > 0) {
+                    effectHistory.updateCurrentImage(-1);
+                }
+                EditorState.getInstance().setEffectHistory(effectHistory);
+                imageDisplay.updateImageFromState();
+                imageTimeline.refreshTimeline();
+            }
+        });
+        addItemToMenu("Edit", "Redo", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (effectHistory.getCurrentIndex() < effectHistory.getSize()-1) {
+                    effectHistory.updateCurrentImage(1);
+                }
+                EditorState.getInstance().setEffectHistory(effectHistory);
+                imageDisplay.updateImageFromState();
+                imageTimeline.refreshTimeline();
+            }
+        });
+        addItemToMenu("Edit", "Timeline", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                imageTimeline = new ImageTimeline(imageDisplay);
+                imageTimeline.show();
+            }
+        });
+        addItemToMenu("Edit", "Reset", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                effectHistory.resetHistory();
+                EditorState.getInstance().setEffectHistory(effectHistory);
+                imageDisplay.updateImageFromState();
+                imageTimeline.refreshTimeline();
+            }
+        });
+
 
         addItemToMenu("Image", "Save Effect Sequence", new ActionListener() {
             @Override
