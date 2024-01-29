@@ -11,15 +11,20 @@ public class ImageDisplay {
 
     private String[] fileNameBroken;
 
-    public ImageDisplay(JPanel editorPanel) {
+    public ImageDisplay() {
         this.imageLabel = new JLabel(new ImageIcon(EditorState.getInstance().getImage()));
-        editorPanel.add(imageLabel);
     }
 
     public void updateImageFromState() {
         BufferedImage currentImage = EditorState.getInstance().getImage();
         //Set currently displayed image to new image
         imageLabel.setIcon(new ImageIcon(currentImage));
+    }
+
+    public void displayTemporaryImage(BufferedImage tempImage) {
+        //Temporarily display image without adding it to history (for effect previews)
+        imageLabel.setIcon(new ImageIcon(tempImage));
+        EditorState.getInstance().setImage(tempImage);
     }
 
     public void updateImageByEffect(Effect effect) {
@@ -30,7 +35,7 @@ public class ImageDisplay {
         imageLabel.setIcon(new ImageIcon(currentImage));
     }
 
-    public JLabel getImage() {
+    public JLabel getImageLabel() {
         return this.imageLabel;
     }
 

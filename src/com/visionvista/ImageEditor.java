@@ -12,8 +12,6 @@ public class ImageEditor {
     private final ImageDisplay imageDisplay;
     private final ImageTimeline imageTimeline;
 
-    //Other
-    private final String[] fileNameBroken;
     private boolean isBlankImage = false;
 
     public ImageEditor(String title, String[] fileNameBroken) {
@@ -28,19 +26,20 @@ public class ImageEditor {
         editorFrame = new JFrame();
         editorFrame.setTitle(title);
         editorFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //Set file name details
-        this.fileNameBroken = fileNameBroken;
         //Create panel for components
         editorPanel = new JPanel(); //do gridlayout to add compoemnets onto editor
-        //Add image viewer component and add to frame
-        //TODO potentially fix does it make sense for component of panel to take in panel
+
         //Initialize image display component
-        imageDisplay = new ImageDisplay(editorPanel);
+        imageDisplay = new ImageDisplay();
         imageDisplay.setFileDetails(fileNameBroken);
 
+        editorPanel.add(imageDisplay.getImageLabel());
+
+        //TODO POtentially move to tools panel speparate of editor
         imageTimeline = new ImageTimeline(imageDisplay);
 
         editorFrame.add(editorPanel);
+
         //Create menu panel and make menu panel part of editor
         menuPanel = new MenuPanel(imageDisplay, imageTimeline);
         menuPanel.setupMenuPanel();

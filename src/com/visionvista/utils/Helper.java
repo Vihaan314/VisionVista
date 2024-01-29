@@ -1,7 +1,5 @@
 package com.visionvista.utils;
 
-import com.visionvista.SerializedFileFilter;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -10,7 +8,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
@@ -18,10 +15,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Helper {
-    public static void debug_pix(int x, int y)  {
-        System.out.println("X:" + x + ",Y:" + y);
-    }
-
+    //Color correction
     public static double unGamma(double value) {
         return Math.pow(value / 255.0, 2.2) * 255.0; // Inverse gamma correction (assuming gamma = 2.2)
     }
@@ -30,8 +24,19 @@ public class Helper {
         return Math.pow(value / 255.0, 1.0 / 2.2) * 255.0; // Gamma correction (assuming gamma = 2.2)
     }
 
+    public static double toGray(java.awt.Color color) {
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
+        return 0.299 * r + 0.587 * g + 0.114 * b; // Standard formula for grayscale conversion.
+    }
+
     public static double toGray(double r, double g, double b) {
         return 0.299 * r + 0.587 * g + 0.114 * b; // Standard formula for grayscale conversion.
+    }
+
+    private static double computeLuminance(java.awt.Color color) {
+        return 0.299 * color.getRed() + 0.587 * color.getGreen() + 0.114 * color.getBlue();
     }
 
     public static int truncate(int value) {
@@ -49,7 +54,7 @@ public class Helper {
 
     public static int get_rgb(BufferedImage image, String color, int x, int y) {
         int val = 0;
-        Color image_cols = new Color(image.getRGB(x, y));
+        java.awt.Color image_cols = new java.awt.Color(image.getRGB(x, y));
         if (color.equals("r")) {
             val = image_cols.getRed();
         }
@@ -63,7 +68,7 @@ public class Helper {
     }
 
 
-    public static int getNewRGB(Color originalColor, double scale) {
+    public static int getNewRGB(java.awt.Color originalColor, double scale) {
         int rgb;
         int alpha = originalColor.getAlpha();
         int red = originalColor.getRed();
@@ -81,7 +86,7 @@ public class Helper {
         BufferedImage blank_image = image;
         for (int x= 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                Color rgb = new Color(255, 255, 255);
+                java.awt.Color rgb = new java.awt.Color(255, 255, 255);
                 blank_image.setRGB(x, y, rgb.getRGB());
             }
         }
@@ -212,11 +217,8 @@ public class Helper {
         return normKernal;
     }
 
-    private static double computeLuminance(Color color) {
-        return 0.299 * color.getRed() + 0.587 * color.getGreen() + 0.114 * color.getBlue();
-    }
-
-    public static Color normalizeLuminance(Color original, Color blended) {
+    //For blending
+    public static java.awt.Color normalizeLuminance(java.awt.Color original, java.awt.Color blended) {
         double originalLuminance = computeLuminance(original);
         double blendedLuminance = computeLuminance(blended);
         double luminanceRatio = originalLuminance / blendedLuminance;
@@ -225,7 +227,7 @@ public class Helper {
         int adjustedGreen = clamp((int)(blended.getGreen() * luminanceRatio), 0, 255);
         int adjustedBlue = clamp((int)(blended.getBlue() * luminanceRatio), 0, 255);
 
-        return new Color(adjustedRed, adjustedGreen, adjustedBlue);
+        return new java.awt.Color(adjustedRed, adjustedGreen, adjustedBlue);
     }
 
     private static int clamp(int value, int min, int max) {

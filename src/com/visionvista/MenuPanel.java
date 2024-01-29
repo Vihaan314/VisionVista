@@ -34,7 +34,7 @@ public class MenuPanel {
 
     public void addItemToMenu(String title, String menuItemTitle, ActionListener actionListener) {
         JMenu menu = getMenu(title); //Gets the sub-menu
-        //If the sub-menu doesn't exist yet, it is created
+        //Create sub menu if it doesn't exist
         if (menu == null) {
             menu = new JMenu(title);
             menuBar.add(menu);
@@ -171,7 +171,16 @@ public class MenuPanel {
             }
         });
 
-        addItemToMenu("Image", "Save Image Sequence", new ActionListener() {
+
+        addItemToMenu("Image", "Effect controls", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EffectControls effectControls = new EffectControls();
+                //TODO
+            }
+        });
+
+        addItemToMenu("Image", "Save project", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EffectHistorySerializer effectHistorySerializer = new EffectHistorySerializer();
@@ -230,7 +239,7 @@ public class MenuPanel {
     public void setupColorMenuItems() {
         ArrayList<EffectType> colorEffects = EffectType.getEffectTypeFromComponent(EffectUIType.COLOR_CHOOSER);
         for (EffectType effect : colorEffects) {
-            ColorEffectWindow colorEffectWindow = new ColorEffectWindow(effect, imageDisplay);
+            ColorEffectWindow colorEffectWindow = new ColorEffectWindow(effect, imageDisplay, imageTimeline);
             String effectCategory = effect.getEffect(new Color(0, 0, 0)).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             ActionListener effectActionListener = colorEffectWindow.colorPickerEffect();
             addItemToMenu(effectCategory, effect.toString(), effectActionListener);
@@ -277,6 +286,7 @@ public class MenuPanel {
     EditorState.getInstance().getEffectHistory().add((effect, currentImage);
     EditorState.getInstance().setImage(currentImage);
     imageDisplay.updateImageFromState();
+    imageTimeline.refreshTimeline();
      */
     public void setupMenuPanel() {
         setDefaultMenuItems();

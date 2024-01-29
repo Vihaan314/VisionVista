@@ -46,14 +46,10 @@ public class ImageTimeline {
     }
 
     private int calculatePanelHeight() {
-        // Height for one row (button and label with vertical gap)
-        int rowHeight = 35; // Adjust as needed
-        // Maximum height for 7 rows
+        //Height for one row (button and label with vertical gap)
+        int rowHeight = 35;
         int maxHeight = 7 * rowHeight;
-        // Actual height needed for current number of effects
         int currentHeight = effectLength * rowHeight;
-
-        // If current height exceeds maxHeight, return maxHeight, else return current height
         return Math.min(maxHeight, currentHeight);
     }
 
@@ -69,7 +65,7 @@ public class ImageTimeline {
         System.out.println(screenWidth + " " + screenHeight);
         frame.setLocation(1225, 50);
 
-        frame.pack(); // Adjust the frame size based on content
+        frame.pack();
 
         return frame;
     }
@@ -77,8 +73,7 @@ public class ImageTimeline {
     private void setupEffectComponents() {
         timelinePanel.removeAll();
 
-        int verticalGap = 2; // Vertical gap between rows
-
+        int verticalGap = 2;
         for (int i = effectLength - 1; i >= 0; i--) {
             JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, verticalGap));
             JButton effectButton = new JButton("Effect " + (i + 1));
@@ -112,8 +107,6 @@ public class ImageTimeline {
         timelinePanel.revalidate();
         timelinePanel.repaint();
 
-
-        // Defer frame resizing to ensure it occurs after UI updates
         SwingUtilities.invokeLater(() -> {
             timelineFrame.pack();
             timelineFrame.setSize(450, calculatePanelHeight());

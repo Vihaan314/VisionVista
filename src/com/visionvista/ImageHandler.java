@@ -2,6 +2,7 @@ package com.visionvista;
 
 import com.visionvista.effects.Effect;
 import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.SerializedFileFilter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

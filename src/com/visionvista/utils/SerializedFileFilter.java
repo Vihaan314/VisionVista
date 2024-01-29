@@ -1,4 +1,4 @@
-package com.visionvista;
+package com.visionvista.utils;
 
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
