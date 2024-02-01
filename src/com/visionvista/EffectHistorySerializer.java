@@ -14,7 +14,6 @@ public class EffectHistorySerializer implements Serializable {
     private transient BufferedImage initialImage;
 
     public EffectHistorySerializer() {
-        // Default constructor
     }
 
     public void extractEffectHistory() {
@@ -55,6 +54,13 @@ public class EffectHistorySerializer implements Serializable {
         }
     }
 
+
+    @SuppressWarnings("unchecked")
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        effectsList = (ArrayList<Effect>) in.readObject();
+        initialImage = ImageIO.read(in);
+    }
+
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.writeObject(effectsList);
         ImageIO.write(initialImage, "png", out); // Serialize BufferedImage as PNG
@@ -65,14 +71,9 @@ public class EffectHistorySerializer implements Serializable {
         File serializeFile = new File(filename);
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(serializeFile))) {
             readObject(in);
+            System.out.println(effectsList);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        effectsList = (ArrayList<Effect>) in.readObject();
-        initialImage = ImageIO.read(in); // Deserialize BufferedImage
     }
 }

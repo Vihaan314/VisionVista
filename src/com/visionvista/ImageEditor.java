@@ -14,6 +14,17 @@ public class ImageEditor {
 
     private boolean isBlankImage = false;
 
+    //NOTE: Procedure for applying effect:
+    /*
+    Effect effect = new Effect();
+    BufferedImage currentImage = EditorState.getInstance().getImage();
+    currentImage = effect.run(currentImage);
+    EditorState.getInstance().getEffectHistory().add((effect, currentImage);
+    EditorState.getInstance().setImage(currentImage);
+    imageDisplay.updateImageFromState();
+    imageTimeline.refreshTimeline();
+     */
+
     public ImageEditor(String title, String[] fileNameBroken) {
         /*
             Image Editor
@@ -46,7 +57,7 @@ public class ImageEditor {
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
 
         ToolsPanel toolsPanel = new ToolsPanel();
-        toolsPanel.show();
+//        toolsPanel.show();
     }
 
     public void show() {

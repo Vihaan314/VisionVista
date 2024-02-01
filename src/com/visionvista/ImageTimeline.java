@@ -76,7 +76,7 @@ public class ImageTimeline {
         int verticalGap = 2;
         for (int i = effectLength - 1; i >= 0; i--) {
             JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, verticalGap));
-            JButton effectButton = new JButton("Effect " + (i + 1));
+            JButton effectButton = new JButton("Effect " + (i));
             String label = (i == 0) ? "Original image" : effectSequence.get(i).getLeft().toString();
             JLabel effectLabel = new JLabel((i == currentImageIndex) ? label + " - CURRENT" : label);
 
@@ -115,7 +115,7 @@ public class ImageTimeline {
     }
 
     public void show() {
-        timelineFrame.pack();
+        refreshTimeline();
         timelineFrame.setVisible(true);
     }
 }

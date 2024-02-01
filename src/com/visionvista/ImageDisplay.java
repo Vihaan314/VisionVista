@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 
 public class ImageDisplay {
-    private JLabel imageLabel;
+    private final JLabel imageLabel;
     private JPanel imagePanel;
 
     private String[] fileNameBroken;
@@ -24,7 +24,6 @@ public class ImageDisplay {
     public void displayTemporaryImage(BufferedImage tempImage) {
         //Temporarily display image without adding it to history (for effect previews)
         imageLabel.setIcon(new ImageIcon(tempImage));
-        EditorState.getInstance().setImage(tempImage);
     }
 
     public void updateImageByEffect(Effect effect) {

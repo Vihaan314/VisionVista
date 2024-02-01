@@ -2,6 +2,7 @@ package com.visionvista.components;
 
 import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
+import com.visionvista.commands.Command;
 import com.visionvista.effects.*;
 import com.visionvista.utils.Helper;
 
@@ -118,16 +119,12 @@ public class InputEffectWindow {
         };
     }
 
-    public ActionListener inputValuesEffect() {
-        ActionListener submitActionListener =  new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                setupSubmitButton(createSubmitActionListener());
-                show();
-            }
+    public Command inputValuesEffect() {
+        return () -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            setupSubmitButton(createSubmitActionListener());
+            show();
         };
-        return submitActionListener;
     }
 
     public void show() {

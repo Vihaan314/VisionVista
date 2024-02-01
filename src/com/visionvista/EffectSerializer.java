@@ -13,6 +13,7 @@ public class EffectSerializer implements Serializable {
 
     public void extractEffectList() {
         ArrayList<Pair<Effect, BufferedImage>> effectHistory = EditorState.getInstance().getEffectHistory().getEffectSequence();
+        System.out.println(effectHistory);
         for (Pair<Effect, BufferedImage> entry : effectHistory) {
             effectsList.add(entry.getLeft());
         }
@@ -73,6 +74,7 @@ public class EffectSerializer implements Serializable {
             effectInFile.close();
             effectIn.close();
             System.out.println("Read");
+            System.out.println(effectsList);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

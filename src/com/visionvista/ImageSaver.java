@@ -19,8 +19,8 @@ public class ImageSaver {
     private final String[] fileNameBroken;
     private boolean withText;
 
-    public ImageSaver(BufferedImage img, String[] file_name_broken, boolean withText) {
-        this.image = img;
+    public ImageSaver(String[] file_name_broken, boolean withText) {
+        this.image = EditorState.getInstance().getImage();
         this.fileNameBroken = file_name_broken;
         this.withText = withText;
     }
@@ -33,9 +33,9 @@ public class ImageSaver {
         imageLogs.add("File type: " + file_extension);
         imageLogs.add("Edited file name: " + textFile.getName().replace("_log", ""));
         imageLogs.add("\nEdits log:");
-        for (Pair<Effect, BufferedImage> edit: EditorState.getInstance().getEffectHistory().getEffectSequence()) {
+        for (Pair<Effect, BufferedImage> edit : EditorState.getInstance().getEffectHistory().getEffectSequence()) {
             Effect effect = edit.getLeft();
-            if (effect != null) imageLogs.add(effect.toString());
+            if (effect != null) imageLogs.add("(" + (EditorState.getInstance().getEffectHistory().getEffectSequence().indexOf(edit)) + ") " + effect.toString());
         }
         try {
             Files.write(textFile.toPath(), imageLogs, StandardCharsets.UTF_8);

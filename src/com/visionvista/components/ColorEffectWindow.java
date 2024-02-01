@@ -3,6 +3,7 @@ package com.visionvista.components;
 import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
 import com.visionvista.ImageTimeline;
+import com.visionvista.commands.Command;
 import com.visionvista.effects.*;
 
 import javax.swing.*;
@@ -15,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class ColorEffectWindow {
-    private BufferedImage originalImage;
     private JFrame colorFrame;
     private JColorChooser colorChooser;
     private JButton submitButton;
@@ -58,10 +58,10 @@ public class ColorEffectWindow {
             public void stateChanged(ChangeEvent e) {
                 chosenColor[0] = colorChooser.getColor();
                 colorLabel.setForeground(chosenColor[0]);
-
                 Effect chosenEffect = effect.getEffect(chosenColor[0]);
 
-                BufferedImage editedImage = chosenEffect.run(originalImage);
+                BufferedImage currentImage = EditorState.getInstance().getImage();
+                BufferedImage editedImage = chosenEffect.run(currentImage);
                 imageDisplay.displayTemporaryImage(editedImage);
             }
         });
@@ -81,9 +81,6 @@ public class ColorEffectWindow {
         this.effect = effect;
         this.colorFrame = setupColorFrame(effect);
         this.colorChooser = setupColorChooser();
-
-        this.originalImage = EditorState.getInstance().getImage();
-
         this.imageDisplay = imageDisplay;
         this.imageTimeline = imageTimeline;
     }
@@ -106,11 +103,12 @@ public class ColorEffectWindow {
         ActionListener submitEffectListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                BufferedImage currentImage = EditorState.getInstance().getImage();
                 //Get final effect
                 Color chosenColor = getColor();
                 Effect chosenEffect = effect.getEffect(chosenColor);
                 //Apply effect
-                BufferedImage finalImage = chosenEffect.run(originalImage);
+                BufferedImage finalImage = chosenEffect.run(currentImage);
                 //Set new states
                 EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
                 EditorState.getInstance().setImage(finalImage);
@@ -124,14 +122,11 @@ public class ColorEffectWindow {
         return submitEffectListener;
     }
 
-    public ActionListener colorPickerEffect() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                setupSubmitButton(createSubmitActionListener());
-                show();
-            }
+    public Command colorPickerEffect() {
+        return () -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            setupSubmitButton(createSubmitActionListener());
+            show();
         };
     }
 }

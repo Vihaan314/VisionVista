@@ -2,6 +2,7 @@ package com.visionvista.components;
 
 import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
+import com.visionvista.commands.Command;
 import com.visionvista.effects.*;
 import com.visionvista.EffectHistory;
 
@@ -79,14 +80,16 @@ public class SliderEffectWindow {
 
         slider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
+                BufferedImage currentImage = EditorState.getInstance().getImage();
+
                 effect_amount[0] = ((JSlider)e.getSource()).getValue();
                 status.setText(effect + ": " + ((JSlider)e.getSource()).getValue());
 
-                // Apply the effect to the original image, not the current state image
+                //Apply the effect to the original image, not the current state image
                 Effect chosenEffect = effect.getEffect((double) effect_amount[0]);
-                BufferedImage editedImage = chosenEffect.run(originalImage);
+                BufferedImage editedImage = chosenEffect.run(currentImage);
 
-                // Temporarily display the edited image without updating the EditorState
+                //Temporarily display the edited image without updating the EditorState
                 imageDisplay.displayTemporaryImage(editedImage);
             }
         });
@@ -111,11 +114,12 @@ public class SliderEffectWindow {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                BufferedImage currentImage = EditorState.getInstance().getImage();
                 //Get final effect
                 double effectAmount = getEffectAmount();
                 Effect chosenEffect = effect.getEffect(effectAmount);
                 //Apply effect
-                BufferedImage finalImage = chosenEffect.run(originalImage);
+                BufferedImage finalImage = chosenEffect.run(currentImage);
                 //Set new states
                 EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
                 EditorState.getInstance().setImage(finalImage);
@@ -137,14 +141,11 @@ public class SliderEffectWindow {
         sliderFrame.setVisible(true);
     }
 
-    public ActionListener sliderValuesEffect() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                setupSubmitButton(createSubmitActionListener());
-                show();
-            }
+    public Command sliderValuesEffect() {
+        return () -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            setupSubmitButton(createSubmitActionListener());
+            show();
         };
     }
 }

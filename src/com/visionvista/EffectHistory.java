@@ -31,7 +31,8 @@ public class EffectHistory implements Serializable {
         Pair<Effect, BufferedImage> imageEntry = new Pair<>(effect, image);
         effectSequence.add(imageEntry);
         //TODO
-        if (this.currentImageIndex != this.getSize()-2) {
+        if (this.currentImageIndex != this.getSize()-2 && this.getSize() != 1) {
+            System.out.println("YO I AM IN UNDOS");
             effectSequence = new ArrayList<>(effectSequence.subList(0, currentImageIndex+1));
         }
         if (this.currentImageIndex +1 != this.getSize()-1) {

@@ -1,4 +1,4 @@
-package com.visionvista.actions;
+package com.visionvista.commands;
 
 public interface Command {
     void execute();

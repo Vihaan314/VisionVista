@@ -1,18 +1,17 @@
-package com.visionvista.actions;
+package com.visionvista.commands;
 
 import com.visionvista.EditorState;
 import com.visionvista.EffectHistory;
 import com.visionvista.ImageDisplay;
 import com.visionvista.ImageTimeline;
-import com.visionvista.actions.Command;
 
 public class EffectHistoryCommands {
     private final EffectHistory effectHistory;
     private final ImageDisplay imageDisplay;
     private final ImageTimeline imageTimeline;
 
-    public EffectHistoryCommands(EffectHistory effectHistory, ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
-        this.effectHistory = effectHistory;
+    public EffectHistoryCommands(ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
+        this.effectHistory = EditorState.getInstance().getEffectHistory();
         this.imageDisplay = imageDisplay;
         this.imageTimeline = imageTimeline;
     }
@@ -42,16 +41,10 @@ public class EffectHistoryCommands {
         };
     }
 
-    public Command createTimelineCommand() {
-        return () -> {
-            ImageTimeline newImageTimeline = new ImageTimeline(imageDisplay);
-            newImageTimeline.show();
-        };
-    }
-
     private void updateState() {
         EditorState.getInstance().setEffectHistory(effectHistory);
         imageDisplay.updateImageFromState();
+        System.out.println("yo");
         imageTimeline.refreshTimeline();
     }
 }
