@@ -1,14 +1,16 @@
 package com.visionvista;
 
+import com.visionvista.components.DraggableTabbedPane;
+
 import javax.swing.*;
 
 public class ToolsPanel {
     private JFrame toolsFrame;
-    private JTabbedPane tabPanel;
+    private DraggableTabbedPane tabPanel;
 
     private JPanel effectControlsPage;
-    private JPanel timelinePage;
-    private JPanel page3;
+    private JPanel toolsPage;
+    private JPanel layersPage;
 
     public ToolsPanel() {
         setupToolsFrame();
@@ -18,23 +20,28 @@ public class ToolsPanel {
     public void setupToolsFrame() {
         toolsFrame = new JFrame("Tools panel");
         toolsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        toolsFrame.setSize(400, 800);
+        toolsFrame.setSize(500, 800);
+        toolsFrame.setLocation(1225, 300);
         toolsFrame.pack();
     }
 
     public void setupTabs() {
-        tabPanel = new JTabbedPane();
-        effectControlsPage = new JPanel();
-        effectControlsPage.setSize(400, 800);
-        effectControlsPage.add(new JLabel("Effect controls"));
-        timelinePage = new JPanel();
-        timelinePage.add(new JLabel("Timeline"));
-        page3 = new JPanel();
-        page3.add(new JLabel("This is Tab 3"));
+        tabPanel = new DraggableTabbedPane();
 
-        tabPanel.addTab("Tab 1", effectControlsPage);
-        tabPanel.addTab("Tab 2", timelinePage);
-        tabPanel.addTab("Tab 3", page3);
+        EffectControls effectControls = new EffectControls();
+        effectControlsPage = effectControls.getTabPanel();
+
+        toolsPage = new JPanel();
+        toolsPage.add(new JLabel("Tools"));
+        toolsPage.setVisible(true);
+
+        layersPage = new JPanel();
+        layersPage.add(new JLabel("Layers"));
+        toolsPage.setVisible(true);
+
+        tabPanel.addTab("Effect Controls", effectControlsPage);
+        tabPanel.addTab("Tools", toolsPage);
+        tabPanel.addTab("Layers", layersPage);
         toolsFrame.add(tabPanel);
     }
 

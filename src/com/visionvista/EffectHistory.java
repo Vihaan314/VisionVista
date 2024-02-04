@@ -43,6 +43,10 @@ public class EffectHistory implements Serializable {
         }
     }
 
+    public Effect getEffect(int index) {
+        return this.effectSequence.get(index).getLeft();
+    }
+
     public void setEffectSequence(ArrayList<Effect> effectSequence, BufferedImage initialImage) {
         this.effectSequence = new ArrayList<>();
         this.add(null, initialImage);

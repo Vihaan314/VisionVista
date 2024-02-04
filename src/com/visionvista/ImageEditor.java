@@ -57,7 +57,7 @@ public class ImageEditor {
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
 
         ToolsPanel toolsPanel = new ToolsPanel();
-//        toolsPanel.show();
+        toolsPanel.show();
     }
 
     public void show() {

@@ -16,7 +16,7 @@ public class Pixelate extends Filter {
     }
 
     @Override public String toString() {
-        return "Applied pixelating";
+        return "Applied pixelating. Amount: " + pixelSize;
     }
 
     private static Color averageColor(BufferedImage image, int x, int y, int pixelSize) {

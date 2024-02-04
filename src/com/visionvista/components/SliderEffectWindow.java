@@ -1,10 +1,12 @@
 package com.visionvista.components;
 
 import com.visionvista.EditorState;
-import com.visionvista.ImageDisplay;
-import com.visionvista.commands.Command;
-import com.visionvista.effects.*;
 import com.visionvista.EffectHistory;
+import com.visionvista.ImageDisplay;
+import com.visionvista.ImageTimeline;
+import com.visionvista.commands.Command;
+import com.visionvista.effects.Effect;
+import com.visionvista.effects.EffectType;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -14,10 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Hashtable;
-import com.visionvista.ImageTimeline;
 
 public class SliderEffectWindow {
-    private BufferedImage originalImage;
     private JFrame sliderFrame;
     private JSlider slider;
     private JButton submitButton= new JButton("Enter");;
@@ -30,14 +30,18 @@ public class SliderEffectWindow {
     private ImageDisplay imageDisplay;
     private ImageTimeline imageTimeline;
 
-    public JFrame setupSliderFrame(EffectType effect) {
-        JFrame sliderFrame = new JFrame(effect.toString() + " slider");
+    public void setupSliderFrame(EffectType effect) {
+        this.sliderFrame = new JFrame(effect.toString() + " slider");
 
         sliderFrame.setSize(500, 300);
         sliderFrame.setLayout(new GridLayout(3, 1));
         sliderFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        return sliderFrame;
+//        return sliderFrame;
+    }
+
+    public void setFrame() {
+
     }
 
     public SliderEffectWindow(EffectType effect, int lower, int upper, ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
@@ -46,11 +50,8 @@ public class SliderEffectWindow {
         this.upper = upper;
         this.imageDisplay = imageDisplay;
         this.imageTimeline = imageTimeline;
-        this.sliderFrame = setupSliderFrame(effect);
-//      sliderFrame.setVisible(false);
-
-        this.originalImage = EditorState.getInstance().getImage();
-
+//        this.sliderFrame = setupSliderFrame(effect);
+        setupSliderFrame(effect);
         this.slider = setupSlider(lower, upper);
     }
 
@@ -126,6 +127,8 @@ public class SliderEffectWindow {
                 // Update the display with the final image
                 imageDisplay.updateImageFromState();
                 imageTimeline.refreshTimeline();
+
+
                 // Close slider window when submit pressed
                 getSliderFrame().dispose();
             }
