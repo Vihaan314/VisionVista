@@ -35,6 +35,10 @@ public class ColorEffectWindow {
         return colorFrame;
     }
 
+    public JPanel getColorPanel() {
+        return this.colorPanel;
+    }
+
     public Color getColor() {
         return this.chosenColor[0];
     }
@@ -113,8 +117,8 @@ public class ColorEffectWindow {
                 EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
                 EditorState.getInstance().setImage(finalImage);
                 // Update the display with the final image
-                imageDisplay.updateImageFromState();
-                imageTimeline.refreshTimeline();
+                imageDisplay.updateFromState();
+                imageTimeline.updateFromState();
                 // Close slider window when submit pressed
                 getColorFrame().dispose();
             }

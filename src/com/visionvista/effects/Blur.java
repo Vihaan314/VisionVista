@@ -19,6 +19,11 @@ public class Blur extends Effect implements Serializable {
         return "Applied Blur. Intensity: " + this.intensity;
     }
 
+    @Override
+    public Object getParameter() {
+        return intensity;
+    }
+
     public BufferedImage run(BufferedImage image) {
         System.out.println("Blurring image");
 

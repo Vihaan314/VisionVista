@@ -4,7 +4,7 @@ import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
 import com.visionvista.commands.Command;
 import com.visionvista.effects.*;
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.MiscHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,7 +70,7 @@ public class InputEffectWindow {
 
     public ArrayList<PlaceholderTextField> addFieldListeners(ArrayList<PlaceholderTextField> inputFields) {
         BufferedImage image = EditorState.getInstance().getImage();
-        Helper.addChangeListener(inputFields.get(0), e -> {
+        MiscHelper.addChangeListener(inputFields.get(0), e -> {
                 if (!inputFields.get(0).equals("")) {
                     try {
                         double ratio = Double.parseDouble(inputFields.get(0).getText()) / image.getWidth();
@@ -110,7 +110,7 @@ public class InputEffectWindow {
 //                if (!newImage) {
                 EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
                 EditorState.getInstance().setImage(editedImage);
-                imageDisplay.updateImageFromState();
+                imageDisplay.updateFromState();
 //                } else {
 //                    updateEffectSequence(chosenEffect);
 //                    updateEditor(editedImage, "Image Editor - " + effect.toString() + " image");

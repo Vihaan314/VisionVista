@@ -1,15 +1,14 @@
 package com.visionvista.effects;
 
-import com.visionvista.utils.Pair;
-import com.visionvista.utils.Helper;
 import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.MathHelper;
+import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
-import java.io.Serializable;
 
-public class GaussBlur extends Effect implements Serializable {
+public class GaussBlur extends Effect {
     private double intensity; //sigma
 
     public GaussBlur (double intensity) {
@@ -25,6 +24,11 @@ public class GaussBlur extends Effect implements Serializable {
         float multiple = (float) (1/(2*Math.PI*sigma*sigma));
         float exponential = (float) (1 / (Math.pow(Math.E, (double) (x * x + y * y) /(2*sigma*sigma))));
         return multiple*exponential;
+    }
+
+    @Override
+    public Object getParameter() {
+        return intensity;
     }
 
     public BufferedImage run(BufferedImage image) {
@@ -46,7 +50,7 @@ public class GaussBlur extends Effect implements Serializable {
                 }
             }
 
-            float[] gaussKernal = Helper.flatten2D(gaussKernalDim);
+            float[] gaussKernal = MathHelper.flatten2D(gaussKernalDim);
             Kernel kernel = new Kernel(size, size, gaussKernal);
             ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
             op.filter(image, blurredImg);

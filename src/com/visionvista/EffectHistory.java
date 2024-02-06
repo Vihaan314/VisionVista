@@ -1,22 +1,20 @@
 package com.visionvista;
 
 import com.visionvista.effects.Effect;
+import com.visionvista.effects.EffectType;
 import com.visionvista.utils.Pair;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class EffectHistory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private transient ArrayList<Pair<Effect, BufferedImage>> effectSequence;
-    int currentImageIndex = 0;
+    int currentImageIndex = -1;
 
     public EffectHistory() {
         effectSequence = new ArrayList<>();
@@ -31,19 +29,26 @@ public class EffectHistory implements Serializable {
         Pair<Effect, BufferedImage> imageEntry = new Pair<>(effect, image);
         effectSequence.add(imageEntry);
         //TODO
-        if (this.currentImageIndex != this.getSize()-2 && this.getSize() != 1) {
-            System.out.println("YO I AM IN UNDOS");
-            effectSequence = new ArrayList<>(effectSequence.subList(0, currentImageIndex+1));
-        }
+
+//        if (this.currentImageIndex != this.getSize()-1 && this.getSize() != 1) {
+//            System.out.println("YO I AM IN UNDOS");
+//            effectSequence = new ArrayList<>(effectSequence.subList(0, currentImageIndex+1));
+//        }
         if (this.currentImageIndex +1 != this.getSize()-1) {
             this.setCurrentImageIndex(this.getSize()-1);
         }
+//        if (this.getSize() > 1) {
+//            if (this.getSize() - 2 > this.currentImageIndex) {
+//                effectSequence = new ArrayList<>(effectSequence.subList(0, currentImageIndex + 1));
+//                currentImageIndex = effectSequence.size() - 1;
+//            }
+//        }
         else {
             this.updateCurrentImage(1);
         }
     }
 
-    public Effect getEffect(int index) {
+    public Effect getEffectFromIndex(int index) {
         return this.effectSequence.get(index).getLeft();
     }
 
@@ -57,6 +62,20 @@ public class EffectHistory implements Serializable {
             }
         }
         this.currentImageIndex = effectSequence.size()-1;
+    }
+
+    public Effect getLastEffectInstance(EffectType effect) {
+        ArrayList<Pair<Effect, BufferedImage>> temp = new ArrayList<>(this.getEffectSequence());
+        Collections.reverse(temp);
+        for (Pair<Effect, BufferedImage> effectInstance : temp) {
+            if ((effectInstance.getLeft() != null)) {
+                System.out.println(EffectType.fromLabel(effectInstance.getLeft().getClass().getSimpleName()));
+                if (EffectType.fromLabel(effectInstance.getLeft().getClass().getSimpleName()) == effect) {
+                    return effectInstance.getLeft();
+                }
+            }
+        }
+        return null;
     }
 
     public void updateCurrentImage(int change) {

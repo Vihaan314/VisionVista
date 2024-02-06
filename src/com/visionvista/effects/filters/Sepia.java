@@ -17,6 +17,11 @@ public class Sepia extends Filter {
         this.intensity = intensity;
     }
 
+    @Override
+    public Object getParameter() {
+        return intensity;
+    }
+
     @Override public String toString() {
         return "Applied sepia";
     }

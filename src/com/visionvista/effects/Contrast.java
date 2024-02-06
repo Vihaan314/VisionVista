@@ -1,11 +1,11 @@
 package com.visionvista.effects;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
-import com.visionvista.utils.Pair;
 import com.visionvista.utils.Helper;
 import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.Pair;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 
 public class Contrast extends Effect{
@@ -18,6 +18,11 @@ public class Contrast extends Effect{
 
     @Override public String toString() {
         return "Applied Contrast. Amount: " + this.amount;
+    }
+
+    @Override
+    public Object getParameter() {
+        return this.amount;
     }
 
     @Override public BufferedImage run(BufferedImage image) {

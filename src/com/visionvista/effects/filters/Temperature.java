@@ -16,6 +16,11 @@ public class Temperature extends Filter {
         this.amount = amount;
     }
 
+    @Override
+    public Object getParameter() {
+        return amount;
+    }
+
     @Override public String toString() {
         return "Applied Temperature. Amount: " + this.amount;
     }

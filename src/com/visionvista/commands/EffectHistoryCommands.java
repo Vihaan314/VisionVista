@@ -42,9 +42,9 @@ public class EffectHistoryCommands {
     }
 
     private void updateState() {
-        EditorState.getInstance().setEffectHistory(effectHistory);
-        imageDisplay.updateImageFromState();
+        EditorState.getInstance().setState(effectHistory);
+        imageDisplay.updateFromState();
         System.out.println("yo");
-        imageTimeline.refreshTimeline();
+        imageTimeline.updateFromState();
     }
 }

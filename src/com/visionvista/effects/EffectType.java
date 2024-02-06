@@ -1,14 +1,14 @@
 package com.visionvista.effects;
 
 
-import com.visionvista.utils.Pair;
-import com.visionvista.effects.transformation.*;
 import com.visionvista.effects.filters.*;
+import com.visionvista.effects.transformation.FlipHorizontal;
+import com.visionvista.effects.transformation.FlipVertical;
+import com.visionvista.effects.transformation.Resize;
+import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 interface EffectConstructor {
     Effect construct(Object object);
@@ -117,7 +117,7 @@ public enum EffectType {
         return textFieldLabels;
     }
 
-    //TODO MAKE MAP FROM UI ENUM TO EFFECTYTPE MANUALLY BRO SAID CONSTANTS FILE
+    //TODO MAKE MAP FROM UI ENUM TO EFFECTYTPE MANUALLY SAID CONSTANTS FILE
     public static ArrayList<EffectType> getEffectTypeFromComponent(EffectUIType uiType) {
         ArrayList<EffectType> effectEntries = new ArrayList<>();
 
@@ -130,6 +130,7 @@ public enum EffectType {
         return effectEntries;
     }
 
+    @Override
     public String toString() {
         return this.effectLabel;
     }

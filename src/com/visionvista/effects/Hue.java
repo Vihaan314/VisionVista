@@ -1,10 +1,10 @@
 package com.visionvista.effects;
 
+import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.Pair;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
-import com.visionvista.utils.Pair;
-import com.visionvista.utils.ImageHelper;
 
 
 public class Hue extends Effect{
@@ -17,6 +17,11 @@ public class Hue extends Effect{
 
     @Override public String toString() {
         return "Applied Hue. Color: " + "#"+Integer.toHexString(this.color.getRGB()).substring(2).toUpperCase();
+    }
+
+    @Override
+    public Object getParameter() {
+        return color;
     }
 
     @Override public BufferedImage run(BufferedImage image) {

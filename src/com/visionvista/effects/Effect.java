@@ -1,10 +1,7 @@
 package com.visionvista.effects;
 
-import com.visionvista.utils.Pair;
-
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.lang.reflect.Field;
+import java.io.Serializable;
 
 public abstract class Effect implements Serializable
 {
@@ -12,6 +9,8 @@ public abstract class Effect implements Serializable
 
     public Effect() {
     }
+
+    public abstract Object getParameter();
 
     public abstract BufferedImage run(BufferedImage image);
 

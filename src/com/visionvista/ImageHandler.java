@@ -50,7 +50,7 @@ public class ImageHandler {
                 EditorState.getInstance().setImage(image);
                 //Add and keep to effect history
                 effectHistory.add(null, image);
-                EditorState.getInstance().setEffectHistory(effectHistory);
+                EditorState.getInstance().setState(effectHistory);
 
                 editor = new ImageEditor("Image editor", file_name_broken);
                 editor.show();
@@ -88,7 +88,7 @@ public class ImageHandler {
                     BufferedImage image = ImageIO.read(img_url);
                     EditorState.getInstance().setImage(image);
                     effectHistory.add(null, image);
-                    EditorState.getInstance().setEffectHistory(effectHistory);
+                    EditorState.getInstance().setState(effectHistory);
 
                     editor = new ImageEditor("Image editor", file_name_broken);
                     editor.show();
@@ -103,6 +103,10 @@ public class ImageHandler {
         urlPanel.add(openImageButton);
 
         urlFrame.add(urlPanel);
+
+
+
+
         urlFrame.setVisible(true);
     }
 
@@ -125,7 +129,7 @@ public class ImageHandler {
                 BufferedImage initialImage = deserialized.getInitialImage();
                 effectHistory = new EffectHistory();
                 effectHistory.setEffectSequence(effectsList, initialImage);
-                EditorState.getInstance().setEffectHistory(effectHistory);
+                EditorState.getInstance().setState(effectHistory);
                 editor = new ImageEditor("Image editor", file_name_broken);
                 editor.show();
 //                BufferedImage image = ImageIO.read(selectedFile);

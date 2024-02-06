@@ -6,4 +6,9 @@ public abstract class Filter extends Effect {
     public Filter() {
         super();
     }
+
+    @Override
+    public Object getParameter() {
+        return null;
+    }
 }

@@ -2,20 +2,15 @@ package com.visionvista;
 
 import com.visionvista.commands.*;
 import com.visionvista.components.ColorEffectWindow;
-import com.visionvista.components.EffectTextBox;
 import com.visionvista.components.InputEffectWindow;
 import com.visionvista.components.SliderEffectWindow;
-import com.visionvista.effects.Effect;
 import com.visionvista.effects.EffectType;
 import com.visionvista.effects.EffectUIType;
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.MiscHelper;
 import com.visionvista.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,11 +21,13 @@ public class MenuPanel {
 
     private ImageDisplay imageDisplay;
     private ImageTimeline imageTimeline;
+    private EffectControls effectControls;
 
-    public MenuPanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
+    public MenuPanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline, EffectControls effectControls) {
         menuBar = new JMenuBar();
         this.imageDisplay = imageDisplay;
         this.imageTimeline = imageTimeline;
+        this.effectControls = effectControls;
     }
 
     public void addItemToMenu(String title, String menuItemTitle, Command command) {
@@ -85,8 +82,8 @@ public class MenuPanel {
         addItemToMenu("Edit", "Redo", effectHistoryCommands.createRedoCommand());
         addItemToMenu("Edit", "Reset", effectHistoryCommands.createResetCommand());
 
-        MiscCommands miscCommands = new MiscCommands(imageDisplay, imageTimeline);
-        EffectControls effectControls = new EffectControls();
+        MiscCommands miscCommands = new MiscCommands(imageDisplay, imageTimeline, effectControls);
+        EffectControls effectControls = new EffectControls(imageDisplay, imageTimeline);
         addItemToMenu("Image", "Effect Controls", effectControls::show);
 
         addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand());
@@ -102,6 +99,7 @@ public class MenuPanel {
             int lower = sliderEffectBounds.getLeft();
             int upper = sliderEffectBounds.getRight();
             SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effect, lower, upper, imageDisplay, imageTimeline); //Slider component with the extracted bounds
+            sliderEffectWindow.setupSlider();
             //Get category label for effect
             String effectCategory = effect.getEffect((lower + upper) / 2.0).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             Command effectActionListener = sliderEffectWindow.sliderValuesEffect();
@@ -124,7 +122,7 @@ public class MenuPanel {
         for (EffectType effect : textFieldEffects) {
             String[] effectLabels = effect.getTextFieldParams();
             InputEffectWindow inputEffectWindow = new InputEffectWindow(effect, effectLabels, imageDisplay);
-            String effectCategory = effect.getEffect(Helper.createZerosArray(effect.getTextFieldParams().length)).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
+            String effectCategory = effect.getEffect(MiscHelper.createZerosArray(effect.getTextFieldParams().length)).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             Command effectActionListener = inputEffectWindow.inputValuesEffect();
             addItemToMenu(effectCategory, effect.toString(), effectActionListener);
         }
@@ -135,7 +133,7 @@ public class MenuPanel {
         for (EffectType effect : noParamEffects) {
             String effectCategory = effect.getEffect().getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             //effectActionLsitener is common put in class
-            MiscCommands miscCommands = new MiscCommands(imageDisplay, imageTimeline);
+            MiscCommands miscCommands = new MiscCommands(imageDisplay, imageTimeline, effectControls);
             miscCommands.setEffect(effect.getEffect());
             addItemToMenu(effectCategory, effect.toString(), miscCommands.createUpdateEffectCommand());
         }

@@ -19,6 +19,11 @@ public class Brightness extends Effect implements Serializable {
         return "Applied Brightness. Intensity: " + this.intensity;
     }
 
+    @Override
+    public Object getParameter() {
+        return intensity;
+    }
+
     @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Changing brightness");
         BufferedImage brightened_img = getEmptyImage(image);

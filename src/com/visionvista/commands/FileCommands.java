@@ -1,6 +1,5 @@
 package com.visionvista.commands;
 
-import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
 import com.visionvista.ImageHandler;
 import com.visionvista.ImageSaver;
@@ -17,21 +16,21 @@ public class FileCommands {
     public Command createOpenImageCommand() {
         return () -> {
             imageHandler.openImage();
-            imageDisplay.updateImageFromState();
+            imageDisplay.updateFromState();
         };
     }
 
     public Command createOpenImageFromUrlCommand() {
         return () -> {
             imageHandler.openImageFromUrl();
-            imageDisplay.updateImageFromState();
+            imageDisplay.updateFromState();
         };
     }
 
     public Command createNewBlankImageCommand() {
         return () -> {
             imageHandler.createNewImage();
-            imageDisplay.updateImageFromState();
+            imageDisplay.updateFromState();
         };
     }
 

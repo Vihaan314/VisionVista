@@ -7,9 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class ImageTimeline {
+public class ImageTimeline implements StateBasedUIComponent{
     private Dimension screenSize;
     private int screenWidth;
     private int screenHeight;
@@ -64,17 +63,15 @@ public class ImageTimeline {
         frame.add(scrollPane);
         System.out.println(screenWidth + " " + screenHeight);
         frame.setLocation(1225, 50);
-
         frame.pack();
-
         return frame;
     }
 
     private void setupEffectComponents() {
         timelinePanel.removeAll();
-
         int verticalGap = 2;
-        for (int i = effectLength - 1; i >= 0; i--) {
+        System.out.println(effectSequence.size());
+        for (int i = effectLength-1; i >= 0; i--) {
             JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, verticalGap));
             JButton effectButton = new JButton("Effect " + (i));
             String label = (i == 0) ? "Original image" : effectSequence.get(i).getLeft().toString();
@@ -83,8 +80,8 @@ public class ImageTimeline {
             int finalI = i;
             effectButton.addActionListener(e -> {
                 effectHistory.setCurrentImageIndex(finalI);
-                imageDisplay.updateImageFromState();
-                refreshTimeline();
+                imageDisplay.updateFromState();
+                updateFromState();
             });
 
             rowPanel.add(effectButton);
@@ -96,8 +93,8 @@ public class ImageTimeline {
         }
     }
 
-
-    public void refreshTimeline() {
+    @Override
+    public void updateFromState() {
         this.effectHistory = EditorState.getInstance().getEffectHistory();
         this.effectSequence = effectHistory.getEffectSequence();
         this.effectLength = effectHistory.getSize();
@@ -115,7 +112,7 @@ public class ImageTimeline {
     }
 
     public void show() {
-        refreshTimeline();
+        updateFromState();
         timelineFrame.setVisible(true);
     }
 }

@@ -10,11 +10,11 @@ import java.awt.image.BufferedImage;
 import static com.visionvista.utils.Helper.*;
 
 public class Vibrance extends Effect{
-    private double intensity;
+    private double amount;
 
     public Vibrance(double amount) {
         super();
-        this.intensity = intensity;
+        this.amount = amount;
     }
 
     public static int[] vibranceChange(int r, int g, int b, double input) {
@@ -61,9 +61,14 @@ public class Vibrance extends Effect{
     }
 
     @Override public String toString() {
-        return "Applied Vibrance. Intensity: " + this.intensity;
+        return "Applied Vibrance. Intensity: " + this.amount;
     }
 
+
+    @Override
+    public Object getParameter() {
+        return amount;
+    }
 
     @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Changing vibrance");
@@ -71,7 +76,7 @@ public class Vibrance extends Effect{
 
         for (int x = 0; x < Math.floor(image.getWidth()); x++) {
             for (int y = 0; y < Math.floor(image.getHeight()); y++) {
-                int[] rgb_arr = vibranceChange(Helper.get_rgb(image, "r", x, y), Helper.get_rgb(image, "g", x, y), Helper.get_rgb(image, "b", x, y), intensity);
+                int[] rgb_arr = vibranceChange(Helper.get_rgb(image, "r", x, y), Helper.get_rgb(image, "g", x, y), Helper.get_rgb(image, "b", x, y), amount);
                 Color rgb_col = new Color(rgb_arr[0], rgb_arr[1], rgb_arr[2]);
                 img_vibrance.setRGB(x, y, rgb_col.getRGB());
             }

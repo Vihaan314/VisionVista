@@ -1,9 +1,6 @@
 package com.visionvista.components;
 
-import com.visionvista.EditorState;
-import com.visionvista.EffectHistory;
-import com.visionvista.ImageDisplay;
-import com.visionvista.ImageTimeline;
+import com.visionvista.*;
 import com.visionvista.commands.Command;
 import com.visionvista.effects.Effect;
 import com.visionvista.effects.EffectType;
@@ -27,6 +24,8 @@ public class SliderEffectWindow {
     private JPanel sliderPanel = new JPanel();
     final int[] effect_amount = {0};
 
+    private int defaultSliderValue = 0;
+
     private ImageDisplay imageDisplay;
     private ImageTimeline imageTimeline;
 
@@ -36,12 +35,6 @@ public class SliderEffectWindow {
         sliderFrame.setSize(500, 300);
         sliderFrame.setLayout(new GridLayout(3, 1));
         sliderFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-//        return sliderFrame;
-    }
-
-    public void setFrame() {
-
     }
 
     public SliderEffectWindow(EffectType effect, int lower, int upper, ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
@@ -52,13 +45,21 @@ public class SliderEffectWindow {
         this.imageTimeline = imageTimeline;
 //        this.sliderFrame = setupSliderFrame(effect);
         setupSliderFrame(effect);
-        this.slider = setupSlider(lower, upper);
+//        this.slider = setupSlider(lower, upper);
     }
 
+    public JPanel getSliderPanel() {
+        return this.sliderPanel;
+    }
 
-    public JSlider setupSlider(int lower, int upper) {
+    public void setDefaultSliderValue(Double sliderValue) {
+        System.out.println(sliderValue.intValue());
+        this.defaultSliderValue = sliderValue.intValue();
+    }
+
+    public void setupSlider() {
         JLabel status = new JLabel("Choose " + effect, JLabel.CENTER);
-        JSlider slider = new JSlider(lower, upper, 0);
+        slider = new JSlider(lower, upper, defaultSliderValue);
         slider.setMinorTickSpacing(10);
         slider.setPaintTicks(true);
 
@@ -91,11 +92,16 @@ public class SliderEffectWindow {
                 BufferedImage editedImage = chosenEffect.run(currentImage);
 
                 //Temporarily display the edited image without updating the EditorState
-                imageDisplay.displayTemporaryImage(editedImage);
+                ((ImageDisplay) StateBasedUIComponentGroup.getInstance().getUIComponent(imageDisplay)).displayTemporaryImage(editedImage);
             }
         });
         sliderPanel.add(status);
-        return slider;
+
+
+        sliderPanel.add(submitButton);
+        sliderPanel.add(slider);
+        sliderFrame.add(sliderPanel);
+//        return slider;
     }
 
     public double getEffectAmount() {
@@ -125,8 +131,8 @@ public class SliderEffectWindow {
                 EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
                 EditorState.getInstance().setImage(finalImage);
                 // Update the display with the final image
-                imageDisplay.updateImageFromState();
-                imageTimeline.refreshTimeline();
+                imageDisplay.updateFromState();
+                imageTimeline.updateFromState();
 
 
                 // Close slider window when submit pressed

@@ -3,7 +3,7 @@ package com.visionvista.utils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Helper {
+public class ColorManipulator {
     //Color correction
     public static double unGamma(double value) {
         return Math.pow(value / 255.0, 2.2) * 255.0; // Inverse gamma correction (assuming gamma = 2.2)

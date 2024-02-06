@@ -7,4 +7,8 @@ public abstract class Transformation extends Effect {
         super();
     }
 
+    @Override
+    public Object getParameter() {
+        return null;
+    }
 }

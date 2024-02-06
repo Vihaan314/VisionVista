@@ -35,12 +35,12 @@ public class SerializingCommands {
                     currentImage = effect.run(currentImage);
                     EditorState.getInstance().setImage(currentImage);
                     EditorState.getInstance().getEffectHistory().add(effect, currentImage);
-                    imageDisplay.updateImageFromState();
-                    imageTimeline.refreshTimeline();
+                    imageDisplay.updateFromState();
+                    imageTimeline.updateFromState();
                 }
             }
-            imageDisplay.updateImageFromState();
-            imageTimeline.refreshTimeline();
+            imageDisplay.updateFromState();
+            imageTimeline.updateFromState();
         };
     }
 
@@ -57,9 +57,9 @@ public class SerializingCommands {
             ArrayList<Effect> effectsList = effectHistorySerializer.getEffectsList();
             EffectHistory serializedEffectHistory = new EffectHistory();
             serializedEffectHistory.setEffectSequence(effectsList, initialImage);
-            EditorState.getInstance().setEffectHistory(serializedEffectHistory);
+            EditorState.getInstance().setState(serializedEffectHistory);
             EditorState.getInstance().setImage(serializedEffectHistory.getCurrentImage());
-            imageDisplay.updateImageFromState();
+            imageDisplay.updateFromState();
         };
     }
 }

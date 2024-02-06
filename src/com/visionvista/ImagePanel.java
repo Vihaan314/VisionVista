@@ -1,19 +1,12 @@
 package com.visionvista;
 
-import com.visionvista.effects.Effect;
-
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 public class ImagePanel extends MenuPanel {
-    BufferedImage img;
-    ImageEditor editor;
-    MenuPanel menuPanel;
-    String[] file_name_broken;
-    ArrayList<Effect> effectSequence;
+    ImageDisplay imageDisplay;
+    ImageTimeline imageTimeline;
+    EffectControls effectControls;
 
-    public ImagePanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
-        super(imageDisplay, imageTimeline);
+    public ImagePanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline, EffectControls effectControls) {
+        super(imageDisplay, imageTimeline, effectControls);
     }
 
 //    public MenuPanel setupMenuPanel() {

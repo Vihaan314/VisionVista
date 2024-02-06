@@ -21,6 +21,11 @@ public class Sharpen extends Effect{
         return "Applied Sharpen. Amount: " + this.amount;
     }
 
+    @Override
+    public Object getParameter() {
+        return amount;
+    }
+
     @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Sharpening image");
         BufferedImage sharpenedImg = getEmptyImage(image);

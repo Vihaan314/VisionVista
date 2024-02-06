@@ -5,12 +5,6 @@ import javax.swing.*;
 public class ImageEditor {
     //For main frame
     private final JFrame editorFrame;
-    private final MenuPanel menuPanel;
-
-    //Panel components
-    private final JPanel editorPanel;
-    private final ImageDisplay imageDisplay;
-    private final ImageTimeline imageTimeline;
 
     private boolean isBlankImage = false;
 
@@ -38,26 +32,32 @@ public class ImageEditor {
         editorFrame.setTitle(title);
         editorFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //Create panel for components
-        editorPanel = new JPanel(); //do gridlayout to add compoemnets onto editor
+        //Panel components
+        JPanel editorPanel = new JPanel(); //do gridlayout to add compoemnets onto editor
 
         //Initialize image display component
-        imageDisplay = new ImageDisplay();
+        ImageDisplay imageDisplay = new ImageDisplay();
         imageDisplay.setFileDetails(fileNameBroken);
 
         editorPanel.add(imageDisplay.getImageLabel());
 
         //TODO POtentially move to tools panel speparate of editor
-        imageTimeline = new ImageTimeline(imageDisplay);
+        ImageTimeline imageTimeline = new ImageTimeline(imageDisplay);
 
         editorFrame.add(editorPanel);
 
+        EffectControls effectControls = new EffectControls(imageDisplay, imageTimeline);
+
         //Create menu panel and make menu panel part of editor
-        menuPanel = new MenuPanel(imageDisplay, imageTimeline);
+        MenuPanel menuPanel = new MenuPanel(imageDisplay, imageTimeline, effectControls);
         menuPanel.setupMenuPanel();
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
 
-        ToolsPanel toolsPanel = new ToolsPanel();
+        ToolsPanel toolsPanel = new ToolsPanel(imageDisplay, imageTimeline, effectControls);
         toolsPanel.show();
+
+        StateBasedUIComponentGroup.getInstance().addUIComponent(imageDisplay);
+        StateBasedUIComponentGroup.getInstance().addUIComponent(imageTimeline);
     }
 
     public void show() {

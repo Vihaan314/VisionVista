@@ -18,6 +18,11 @@ public class Resize extends Transformation {
         return "Resized - {Width: " + this.targetWidth + " Height: " + this.targetHeight + "}";
     }
 
+    @Override
+    public Object getParameter() {
+        return new int[]{targetWidth, targetHeight};
+    }
+
     @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Resizing image");
         BufferedImage resized_img;

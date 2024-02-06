@@ -18,6 +18,11 @@ public class Saturation extends Effect{
         return "Applied Saturation. Amount: " + this.amount;
     }
 
+    @Override
+    public Object getParameter() {
+        return amount;
+    }
+
     @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Changing saturation");
         BufferedImage sat_img = getEmptyImage(image);

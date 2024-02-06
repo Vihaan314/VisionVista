@@ -16,6 +16,11 @@ public class Glow extends Filter {
     }
 
     @Override
+    public Object getParameter() {
+        return intensity;
+    }
+
+    @Override
     public String toString() {
         return "Applied Glow. Intensity: " + this.intensity;
     }

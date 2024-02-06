@@ -1,5 +1,6 @@
 package com.visionvista.commands;
 
+import com.visionvista.EffectControls;
 import com.visionvista.ImageDisplay;
 import com.visionvista.ImageTimeline;
 import com.visionvista.RandomEffect;
@@ -10,12 +11,14 @@ import com.visionvista.effects.Effect;
 public class MiscCommands {
     private final ImageDisplay imageDisplay;
     private final ImageTimeline imageTimeline;
+    private final EffectControls effectControls;
 
     private Effect effect;
 
-    public MiscCommands(ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
+    public MiscCommands(ImageDisplay imageDisplay, ImageTimeline imageTimeline, EffectControls effectControls) {
         this.imageDisplay = imageDisplay;
         this.imageTimeline = imageTimeline;
+        this.effectControls = effectControls;
     }
 
     public void setEffect(Effect effect) {
@@ -25,7 +28,8 @@ public class MiscCommands {
     public Command createUpdateEffectCommand() {
         return () -> {
             imageDisplay.updateImageByEffect(effect);
-            imageTimeline.refreshTimeline();
+            imageTimeline.updateFromState();
+//            effectControls.updateFromState();
         };
     }
 
@@ -33,7 +37,8 @@ public class MiscCommands {
         return () -> {
             this.effect = new RandomEffect().getRandomEffect();
             imageDisplay.updateImageByEffect(effect);
-            imageTimeline.refreshTimeline();
+            imageTimeline.updateFromState();
+            effectControls.updateFromState();
             EffectTextBox randomEffectBox = new EffectTextBox(this.effect);
             randomEffectBox.show();
         };

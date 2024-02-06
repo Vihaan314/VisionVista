@@ -1,10 +1,9 @@
 package com.visionvista;
 
 import com.visionvista.effects.Effect;
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.FileHelper;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class ImageSaver {
     }
 
     public void saveTextToFile(String directory, String file_name, String file_extension) {
-        File textFile = Helper.getEditedFile(directory, file_name, "txt", "_log");
+        File textFile = FileHelper.getEditedFile(directory, file_name, "txt", "_log");
         List<String> imageLogs = new ArrayList<>();
         imageLogs.add("Original File name: " + file_name + "." + file_extension);
         imageLogs.add("Directory saving in: " + textFile.getParent());
@@ -46,7 +45,7 @@ public class ImageSaver {
 
     private void saveImgToFile(String directory, String file_name, String file_type) {
         try {
-            File imageFile = Helper.getEditedFile(directory, file_name, file_type, "");
+            File imageFile = FileHelper.getEditedFile(directory, file_name, file_type, "");
             ImageIO.write(image, "png", new File(imageFile.getAbsolutePath()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,7 +58,7 @@ public class ImageSaver {
 //        f.showSaveDialog(null);
         String file_name = fileNameBroken[0];
         String file_extension = fileNameBroken[1];
-        String directory = Helper.chooseDirectory();
+        String directory = FileHelper.chooseDirectory();
 //        File directory_chosen = new File(String.valueOf(f.getSelectedFile()));
 //        String directory = directory_chosen.getAbsolutePath();
         saveImgToFile(directory, file_name, file_extension);

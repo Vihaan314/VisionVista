@@ -1,7 +1,7 @@
 package com.visionvista;
 
 import com.visionvista.effects.Effect;
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.FileHelper;
 import com.visionvista.utils.Pair;
 
 import javax.imageio.ImageIO;
@@ -42,8 +42,8 @@ public class EffectHistorySerializer implements Serializable {
 
     public void serializeEffects(String filename) {
         extractEffectHistory();
-        String directory = Helper.chooseDirectory();
-        filename = directory + File.separator + Helper.getEditedFile(directory, filename, "dat", "_image-sequence").getName();
+        String directory = FileHelper.chooseDirectory();
+        filename = directory + File.separator + FileHelper.getEditedFile(directory, filename, "dat", "_image-sequence").getName();
         System.out.println(filename);
         File serializeFile = new File(filename);
 
@@ -67,7 +67,7 @@ public class EffectHistorySerializer implements Serializable {
     }
 
     public void readSerializedEffects() {
-        String filename = Helper.chooseFile(".dat");
+        String filename = FileHelper.chooseFile(".dat");
         File serializeFile = new File(filename);
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(serializeFile))) {
             readObject(in);

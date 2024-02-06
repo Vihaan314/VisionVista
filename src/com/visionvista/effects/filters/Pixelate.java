@@ -15,6 +15,11 @@ public class Pixelate extends Filter {
         this.pixelSize = (int) pixelSize;
     }
 
+    @Override
+    public Object getParameter() {
+        return pixelSize;
+    }
+
     @Override public String toString() {
         return "Applied pixelating. Amount: " + pixelSize;
     }

@@ -5,7 +5,7 @@ import com.visionvista.effects.Effect;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
-public class ImageDisplay {
+public class ImageDisplay implements StateBasedUIComponent{
     private final JLabel imageLabel;
     private JPanel imagePanel;
 
@@ -15,7 +15,8 @@ public class ImageDisplay {
         this.imageLabel = new JLabel(new ImageIcon(EditorState.getInstance().getImage()));
     }
 
-    public void updateImageFromState() {
+    @Override
+    public void updateFromState() {
         BufferedImage currentImage = EditorState.getInstance().getImage();
         //Set currently displayed image to new image
         imageLabel.setIcon(new ImageIcon(currentImage));
@@ -44,5 +45,10 @@ public class ImageDisplay {
 
     public String[] getFileNameDetails() {
         return this.fileNameBroken;
+    }
+
+    @Override
+    public String toString() {
+        return EditorState.getInstance().getImage().toString();
     }
 }
