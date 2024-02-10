@@ -1,6 +1,6 @@
 package com.visionvista.effects;
 
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
@@ -34,7 +34,7 @@ public class Contrast extends Effect{
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
                 Color originalColor = new Color(image.getRGB(x, y));
-                int rgb = Helper.getNewRGB(originalColor, scale);
+                int rgb = ColorManipulator.getNewRGB(originalColor, scale);
                 contrast_img.setRGB(x, y, rgb);
             }
         }

@@ -4,11 +4,12 @@ import com.visionvista.components.DraggableTabbedPane;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ToolsPanel {
     private ImageDisplay imageDisplay;
     private ImageTimeline imageTimeline;
-    private EffectControls effectControls;
+//    private EffectControls effectControls;
 
     private JFrame toolsFrame;
     private DraggableTabbedPane tabPanel;
@@ -17,12 +18,21 @@ public class ToolsPanel {
     private JPanel toolsPage;
     private JPanel layersPage;
 
-    public ToolsPanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline, EffectControls effectControls) {
+    private ArrayList<StateBasedUIComponent> toolUIComponents;
+    private ArrayList<JPanel> toolPages;
+
+    public ToolsPanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline)
+    {
         this.imageDisplay = imageDisplay;
         this.imageTimeline = imageTimeline;
-        this.effectControls = effectControls;
+        toolUIComponents = new ArrayList<>();
+        toolPages = new ArrayList<>();
         setupToolsFrame();
-        setupTabs();
+//        setupTabPanels();
+    }
+
+    public void addPage(StateBasedUIComponent stateBasedUIComponent) {
+        toolUIComponents.add(stateBasedUIComponent);
     }
 
     private void setupToolsFrame() {
@@ -38,14 +48,12 @@ public class ToolsPanel {
         toolsFrame.setLocation(x, y);
     }
 
-    private void setupTabs() {
+    public void setupTabPanels() {
         tabPanel = new DraggableTabbedPane();
 
-        //Effect controls page
-        effectControlsPage = effectControls.getTabPanel();
-        //Add to state based components
-        StateBasedUIComponentGroup.getInstance().addUIComponent(effectControls);
-
+//        Effect controls page
+//        effectControlsPage = toolUIComponents.getTab();
+        effectControlsPage = new EffectControls(imageDisplay, imageTimeline).getTabPanel();
         //Tools
         toolsPage = new JPanel();
         toolsPage.add(new JLabel("Tools"));

@@ -1,0 +1,30 @@
+<component name="libraryTable">
+  <library name="theokanning.openai.gpt3.java.service" type="repository">
+    <properties maven-id="com.theokanning.openai-gpt3-java:service:0.15.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/service-0.15.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/client-0.15.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/api-0.15.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.14.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jtokkit-0.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/retrofit-2.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/okhttp-3.14.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/okio-1.17.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/adapter-rxjava2-2.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/rxjava-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/reactive-streams-1.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/converter-jackson-2.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.10.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.10.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mbknor-jackson-jsonschema_2.12-1.0.34.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/scala-library-2.12.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/validation-api-2.0.1.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.26.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/classgraph-4.8.21.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/service-0.15.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

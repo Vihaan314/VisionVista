@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="theokanning.openai.gpt3.java.client" type="repository">
+    <properties maven-id="com.theokanning.openai-gpt3-java:client:0.15.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/client-0.15.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/api-0.15.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.14.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.14.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.14.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jtokkit-0.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/retrofit-2.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/okhttp-3.14.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/okio-1.17.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/adapter-rxjava2-2.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/rxjava-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/reactive-streams-1.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/converter-jackson-2.9.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

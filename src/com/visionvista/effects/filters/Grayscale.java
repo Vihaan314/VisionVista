@@ -1,6 +1,6 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -21,7 +21,7 @@ public class Grayscale extends Filter {
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
                 Color rgb = new Color(image.getRGB(x, y));
-                int gray = Helper.getNewRGB(rgb, Helper.toGray(rgb));
+                int gray = ColorManipulator.getNewRGB(rgb, ColorManipulator.toGray(rgb));
                 grayscaleImg.setRGB(x, y, gray);
             }
         }

@@ -1,6 +1,6 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,9 +20,9 @@ public class Negative extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                int rn = 255 - Helper.get_rgb(image, "r", x, y);
-                int gn = 255 - Helper.get_rgb(image, "g", x, y);
-                int bn = 255 - Helper.get_rgb(image, "b", x, y);
+                int rn = 255 - ColorManipulator.get_rgb(image, "r", x, y);
+                int gn = 255 - ColorManipulator.get_rgb(image, "g", x, y);
+                int bn = 255 - ColorManipulator.get_rgb(image, "b", x, y);
                 Color colorN = new Color(rn, gn, bn);
                 image_negative.setRGB(x, y, colorN.getRGB());
             }

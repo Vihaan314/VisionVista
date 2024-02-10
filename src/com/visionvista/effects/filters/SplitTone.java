@@ -1,6 +1,6 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -19,15 +19,15 @@ public class SplitTone extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                int R = Helper.get_rgb(image, "r", x, y);
-                int G = Helper.get_rgb(image, "g", x, y);
-                int B = Helper.get_rgb(image, "b", x, y);
+                int R = ColorManipulator.get_rgb(image, "r", x, y);
+                int G = ColorManipulator.get_rgb(image, "g", x, y);
+                int B = ColorManipulator.get_rgb(image, "b", x, y);
                 int newRed = 0, newGreen = 0, newBlue = 0;
                 if (R + G + B > 382) {
-                    newRed = Helper.truncate(R + 40);
-                    newGreen = Helper.truncate(G + 40);
+                    newRed = ColorManipulator.truncate(R + 40);
+                    newGreen = ColorManipulator.truncate(G + 40);
                 } else {
-                    newBlue = Helper.truncate(B + 50);
+                    newBlue = ColorManipulator.truncate(B + 50);
                 }
 
                 Color newRGB = new Color(newRed, newGreen, newBlue);

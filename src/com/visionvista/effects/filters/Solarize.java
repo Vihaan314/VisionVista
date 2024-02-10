@@ -1,6 +1,6 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -19,9 +19,9 @@ public class Solarize extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                int R = Helper.get_rgb(image, "r", x, y);
-                int G = Helper.get_rgb(image, "g", x, y);
-                int B = Helper.get_rgb(image, "b", x, y);
+                int R = ColorManipulator.get_rgb(image, "r", x, y);
+                int G = ColorManipulator.get_rgb(image, "g", x, y);
+                int B = ColorManipulator.get_rgb(image, "b", x, y);
                 int newRed, newGreen, newBlue;
                 if (R > 128) newRed = 255 - R;
                 else newRed = R;

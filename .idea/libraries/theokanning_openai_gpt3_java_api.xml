@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="theokanning.openai.gpt3.java.api" type="repository">
+    <properties maven-id="com.theokanning.openai-gpt3-java:api:0.15.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/api-0.15.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.14.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.14.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.14.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jtokkit-0.5.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

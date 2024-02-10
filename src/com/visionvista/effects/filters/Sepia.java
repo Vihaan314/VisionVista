@@ -3,7 +3,7 @@ package com.visionvista.effects.filters;
 import com.visionvista.utils.Pair;
 import com.visionvista.effects.Brightness;
 import com.visionvista.effects.EffectType;
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
@@ -27,26 +27,21 @@ public class Sepia extends Filter {
     }
 
      @Override public BufferedImage run(BufferedImage image) {
-        System.out.println("Adding sepia");
-        BufferedImage sepiaImg = getEmptyImage(image);
+         return applyEffect(image, (x, y, rgbColor) -> {
+             int alpha = (rgbColor >> 24) & 0xff;
+             int red = (rgbColor >> 16) & 0xff;
+             int green = (rgbColor >> 8) & 0xff;
+             int blue = rgbColor & 0xff;
 
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                Color rgb = new Color(image.getRGB(x, y));
-                int R = rgb.getRed();
-                int G = rgb.getGreen();
-                int B = rgb.getBlue();
+             int gray = (int)(0.299 * red + 0.587 * green + 0.114 * blue);
+             red = ColorManipulator.truncate((int)(gray * 0.9));
+             green = ColorManipulator.truncate((int)(gray * 0.7));
+             blue = ColorManipulator.truncate((int)(gray * 0.5));
 
-                int newRed = Helper.truncate((int) (0.393*R + 0.769*G + 0.189*B));
-                int newGreen = Helper.truncate((int) (0.349*R + 0.686*G + 0.168*B));
-                int newBlue = Helper.truncate((int) (0.272*R + 0.534*G + 0.131*B));
-                Color new_rgb = new Color(newRed, newGreen, newBlue);
-                sepiaImg.setRGB(x, y, new_rgb.getRGB());
-            }
-        }
-        BufferedImage sepiaCorrected = new Brightness(-intensity).run(sepiaImg);
-
-        return sepiaCorrected;
+             return (alpha << 24) | (red << 16) | (green << 8) | blue;
+         });
+//        BufferedImage sepiaCorrected = new Brightness(-intensity).run(sepiaImg);
+//        return sepiaCorrected;
     }
 
 

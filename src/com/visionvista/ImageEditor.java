@@ -53,11 +53,19 @@ public class ImageEditor {
         menuPanel.setupMenuPanel();
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
 
-        ToolsPanel toolsPanel = new ToolsPanel(imageDisplay, imageTimeline, effectControls);
+        //Tools panel
+        ToolsPanel toolsPanel = new ToolsPanel(imageDisplay, imageTimeline);
+        //Add pages
+        toolsPanel.addPage(effectControls);
+        //Setup panel
+        toolsPanel.setupTabPanels();
         toolsPanel.show();
 
-        StateBasedUIComponentGroup.getInstance().addUIComponent(imageDisplay);
-        StateBasedUIComponentGroup.getInstance().addUIComponent(imageTimeline);
+        //Add state based UI components to the group
+        StateBasedUIComponentGroup stateBasedUIComponentGroup = new StateBasedUIComponentGroup();
+        stateBasedUIComponentGroup.addUIComponent(imageDisplay);
+        stateBasedUIComponentGroup.addUIComponent(imageTimeline);
+        stateBasedUIComponentGroup.addUIComponent(effectControls);
     }
 
     public void show() {

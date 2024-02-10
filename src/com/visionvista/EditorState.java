@@ -5,10 +5,10 @@ import java.awt.image.BufferedImage;
 
 public class EditorState {
     private static EditorState INSTANCE;
-    private String info = "Initial info class";
 
     private BufferedImage image;
     private EffectHistory effectHistory;
+    private StateBasedUIComponentGroup stateBasedUIComponentGroup;
 
     private EditorState() {
     }

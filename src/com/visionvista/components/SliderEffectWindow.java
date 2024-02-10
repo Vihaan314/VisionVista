@@ -65,6 +65,7 @@ public class SliderEffectWindow {
 
         slider.setPaintLabels(true);
 
+        System.out.println("IMAGE DISPLAY IS " + imageDisplay);
         //Setup slider markings
         Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
         if (upper % 10 == 0) {
@@ -77,6 +78,7 @@ public class SliderEffectWindow {
                 position.put(i, new JLabel(String.valueOf(i)));
             }
         }
+
 
         slider.setLabelTable(position);
 
@@ -92,7 +94,7 @@ public class SliderEffectWindow {
                 BufferedImage editedImage = chosenEffect.run(currentImage);
 
                 //Temporarily display the edited image without updating the EditorState
-                ((ImageDisplay) StateBasedUIComponentGroup.getInstance().getUIComponent(imageDisplay)).displayTemporaryImage(editedImage);
+                imageDisplay.displayTemporaryImage(editedImage);
             }
         });
         sliderPanel.add(status);

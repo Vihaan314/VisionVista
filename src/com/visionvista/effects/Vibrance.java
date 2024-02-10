@@ -1,13 +1,13 @@
 package com.visionvista.effects;
 
 import com.visionvista.utils.Pair;
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static com.visionvista.utils.Helper.*;
+import static com.visionvista.utils.ColorManipulator.*;
 
 public class Vibrance extends Effect{
     private double amount;
@@ -76,7 +76,7 @@ public class Vibrance extends Effect{
 
         for (int x = 0; x < Math.floor(image.getWidth()); x++) {
             for (int y = 0; y < Math.floor(image.getHeight()); y++) {
-                int[] rgb_arr = vibranceChange(Helper.get_rgb(image, "r", x, y), Helper.get_rgb(image, "g", x, y), Helper.get_rgb(image, "b", x, y), amount);
+                int[] rgb_arr = vibranceChange(ColorManipulator.get_rgb(image, "r", x, y), ColorManipulator.get_rgb(image, "g", x, y), ColorManipulator.get_rgb(image, "b", x, y), amount);
                 Color rgb_col = new Color(rgb_arr[0], rgb_arr[1], rgb_arr[2]);
                 img_vibrance.setRGB(x, y, rgb_col.getRGB());
             }

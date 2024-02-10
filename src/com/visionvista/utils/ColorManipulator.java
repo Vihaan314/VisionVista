@@ -80,9 +80,9 @@ public class ColorManipulator {
         int red = originalColor.getRed();
         int green = originalColor.getGreen();
         int blue = originalColor.getBlue();
-        red = Helper.truncate((int) (128 + (red - 128) * scale));
-        green = Helper.truncate((int) (128 + (green - 128) * scale));
-        blue = Helper.truncate((int) (128 + (blue - 128) * scale));
+        red = ColorManipulator.truncate((int) (128 + (red - 128) * scale));
+        green = ColorManipulator.truncate((int) (128 + (green - 128) * scale));
+        blue = ColorManipulator.truncate((int) (128 + (blue - 128) * scale));
 
         rgb = (alpha << 24) | (red << 16) | (green << 8) | blue;
         return rgb;

@@ -83,7 +83,7 @@ public class MenuPanel {
         addItemToMenu("Edit", "Reset", effectHistoryCommands.createResetCommand());
 
         MiscCommands miscCommands = new MiscCommands(imageDisplay, imageTimeline, effectControls);
-        EffectControls effectControls = new EffectControls(imageDisplay, imageTimeline);
+//        EffectControls effectControls = new EffectControls(imageDisplay, imageTimeline);
         addItemToMenu("Image", "Effect Controls", effectControls::show);
 
         addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand());

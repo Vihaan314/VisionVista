@@ -4,22 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StateBasedUIComponentGroup {
-    private static StateBasedUIComponentGroup INSTANCE;
-    private List<StateBasedUIComponent> stateBasedUIComponents = new ArrayList<>();
+    private List<StateBasedUIComponent> stateBasedUIComponents;
 
-    private StateBasedUIComponentGroup() {
+    public StateBasedUIComponentGroup(StateBasedUIComponent... stateBasedUIComponents) {
+        this.stateBasedUIComponents = new ArrayList<>(List.of(stateBasedUIComponents));
     }
 
-    public static StateBasedUIComponentGroup getInstance() {
-        if(INSTANCE == null) {
-            INSTANCE = new StateBasedUIComponentGroup();
-        }
-        return INSTANCE;
-    }
-
-    public StateBasedUIComponent getUIComponent(StateBasedUIComponent stateBasedUIComponent) {
+    public StateBasedUIComponent getImageDisplay() {
         for (StateBasedUIComponent s : stateBasedUIComponents) {
             if (s instanceof ImageDisplay) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public StateBasedUIComponent getImageTimeline() {
+        for (StateBasedUIComponent s : stateBasedUIComponents) {
+            if (s instanceof ImageTimeline) {
                 return s;
             }
         }

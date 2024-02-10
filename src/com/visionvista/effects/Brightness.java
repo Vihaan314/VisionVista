@@ -1,7 +1,7 @@
 package com.visionvista.effects;
 
 import com.visionvista.utils.Pair;
-import com.visionvista.utils.Helper;
+import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
@@ -34,9 +34,9 @@ public class Brightness extends Effect implements Serializable {
                 int red = rgb.getRed();
                 int green =  rgb.getGreen();
                 int blue = rgb.getBlue();
-                red = Helper.truncate((int) (red + intensity));
-                green = Helper.truncate((int) (green + intensity));
-                blue = Helper.truncate((int) (blue + intensity));
+                red = ColorManipulator.truncate((int) (red + intensity));
+                green = ColorManipulator.truncate((int) (green + intensity));
+                blue = ColorManipulator.truncate((int) (blue + intensity));
                 Color new_rgb = new Color(red, green, blue);
                 brightened_img.setRGB(x, y, new_rgb.getRGB());
             }

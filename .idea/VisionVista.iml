@@ -7,5 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="theokanning.openai.gpt3.java.api" level="project" />
+    <orderEntry type="library" exported="" name="theokanning.openai.gpt3.java.service" level="project" />
+    <orderEntry type="library" exported="" name="theokanning.openai.gpt3.java.client" level="project" />
   </component>
 </module>
