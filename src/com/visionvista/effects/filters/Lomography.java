@@ -19,12 +19,16 @@ public class Lomography extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                int R = ColorManipulator.get_rgb(image, "r", x, y);
-                int G = ColorManipulator.get_rgb(image, "g", x, y);
-                int B = ColorManipulator.get_rgb(image, "b", x, y);
+                Color color = new Color(image.getRGB(x, y));
+                int R = color.getRed();
+                int G = color.getGreen();
+                int B = color.getBlue();
+
+                //Lomography conversion formula
                 int newRed = ColorManipulator.truncate((int) (R + (R * 0.2) - (G * 0.1)));
                 int newGreen = ColorManipulator.truncate((int) (G + (G * 0.1) + (B * 0.1)));
                 int newBlue = ColorManipulator.truncate((int) (B + (B * 0.2) - (R * 0.1)));
+
                 Color newRGB = new Color(newRed, newGreen, newBlue);
                 lomography_image.setRGB(x, y, newRGB.getRGB());
             }
@@ -32,7 +36,7 @@ public class Lomography extends Filter {
         return lomography_image;
     }
 
-    public static Lomography getRandomInstance(BufferedImage image) {
+    public static Lomography getRandomInstance() {
         return new Lomography();
     }
 }

@@ -19,9 +19,12 @@ public class SplitTone extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                int R = ColorManipulator.get_rgb(image, "r", x, y);
-                int G = ColorManipulator.get_rgb(image, "g", x, y);
-                int B = ColorManipulator.get_rgb(image, "b", x, y);
+                Color color = new Color(image.getRGB(x, y));
+                int R = color.getRed();
+                int G = color.getGreen();
+                int B = color.getBlue();
+
+                //Split tone conversion formula
                 int newRed = 0, newGreen = 0, newBlue = 0;
                 if (R + G + B > 382) {
                     newRed = ColorManipulator.truncate(R + 40);
@@ -37,7 +40,7 @@ public class SplitTone extends Filter {
         return image_split;
     }
 
-    public static SplitTone getRandomInstance(BufferedImage image) {
+    public static SplitTone getRandomInstance() {
         return new SplitTone();
     }
 }

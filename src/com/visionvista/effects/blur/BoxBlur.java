@@ -1,5 +1,7 @@
-package com.visionvista.effects;
+package com.visionvista.effects.blur;
 
+import com.visionvista.effects.Effect;
+import com.visionvista.effects.EffectType;
 import com.visionvista.utils.Pair;
 import com.visionvista.utils.ImageHelper;
 
@@ -7,11 +9,12 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.io.Serializable;
+import java.util.Arrays;
 
-public class Blur extends Effect implements Serializable {
+public class BoxBlur extends Blur {
     private int intensity;
 
-    public Blur(double intensity) {
+    public BoxBlur(double intensity) {
         this.intensity = (int) intensity;
     }
 
@@ -33,9 +36,7 @@ public class Blur extends Effect implements Serializable {
         float weight = 1.0f / (size * size);
         float[] elements = new float[size * size];
 
-        for (int i = 0; i < elements.length; i++) {
-            elements[i] = weight;
-        }
+        Arrays.fill(elements, weight);
 
         Kernel kernel = new Kernel(size, size, elements);
         ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
@@ -44,8 +45,8 @@ public class Blur extends Effect implements Serializable {
         return blurredImg;
     }
 
-    public static Blur getRandomInstance(BufferedImage image) {
-        Pair<Integer, Integer> bounds = EffectType.BLUR.getSliderBounds();
-        return new Blur(ImageHelper.getRandomParameter(bounds));
+    public static BoxBlur getRandomInstance() {
+        Pair<Integer, Integer> bounds = EffectType.BOX_BLUR.getSliderBounds();
+        return new BoxBlur(ImageHelper.getRandomParameter(bounds));
     }
 }

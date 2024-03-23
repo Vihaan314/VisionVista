@@ -1,6 +1,11 @@
 package com.visionvista;
 
 import com.visionvista.effects.*;
+import com.visionvista.effects.blur.BokehBlur;
+import com.visionvista.effects.blur.BoxBlur;
+import com.visionvista.effects.blur.GaussBlur;
+import com.visionvista.effects.enhance.EdgeEnhance;
+import com.visionvista.effects.enhance.Sharpen;
 import com.visionvista.effects.filters.*;
 
 import java.awt.image.BufferedImage;
@@ -14,10 +19,11 @@ public class RandomEffect {
 
     public Effect getRandomEffect() {
         Class<?>[] effectClasses = {
-                Glow.class, Contrast.class, Blur.class, Brightness.class, GaussBlur.class, Saturation.class, Sharpen.class,
+                Glow.class, Contrast.class, BoxBlur.class, Brightness.class, GaussBlur.class, Saturation.class, Sharpen.class,
                 Vibrance.class, CrossProcess.class, Grayscale.class, Heatmap.class, Infrared.class, Lomography.class, Negative.class,
                 PencilSketch.class, Pixelate.class, Posterize.class, Sepia.class, Solarize.class, SplitTone.class, Temperature.class,
-                Vignette.class, Hue.class,
+                Vignette.class, Hue.class, ChromaticAberration.class, Halftone.class, Watercolor.class, EdgeEnhance.class, TiltShift.class,
+                PixelSort.class, Anaglyph3D.class, OilPainting.class, BokehBlur.class, Cyberpunk.class, ColorSplash.class,
         };
         int upper = effectClasses.length;
         Random rand = new Random();
@@ -25,7 +31,8 @@ public class RandomEffect {
 
         Effect randomEffect = null;
         try {
-            randomEffect = (Effect) effectClasses[randIndex].getDeclaredMethod("getRandomInstance", BufferedImage.class).invoke(null, image);
+            System.out.println(effectClasses[randIndex]);
+            randomEffect = (Effect) effectClasses[randIndex].getDeclaredMethod("getRandomInstance").invoke(null);
         } catch (Exception e){
             e.printStackTrace();
         }

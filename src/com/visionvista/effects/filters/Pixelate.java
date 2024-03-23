@@ -68,7 +68,7 @@ public class Pixelate extends Filter {
         return pixelatedImage;
     }
 
-    public static Pixelate getRandomInstance(BufferedImage image) {
+    public static Pixelate getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.PIXELATE.getSliderBounds();
         return new Pixelate(ImageHelper.getRandomParameter(bounds));
     }

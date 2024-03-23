@@ -22,12 +22,14 @@ public class MenuPanel {
     private ImageDisplay imageDisplay;
     private ImageTimeline imageTimeline;
     private EffectControls effectControls;
+    private StateBasedUIComponentGroup stateBasedUIComponentGroup;
 
-    public MenuPanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline, EffectControls effectControls) {
+    public MenuPanel(StateBasedUIComponentGroup stateBasedUIComponentGroup) {
         menuBar = new JMenuBar();
-        this.imageDisplay = imageDisplay;
-        this.imageTimeline = imageTimeline;
-        this.effectControls = effectControls;
+        this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
+        this.imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
+        this.imageTimeline = (ImageTimeline) stateBasedUIComponentGroup.getUIComponent(ImageTimeline.class);
+        this.effectControls = (EffectControls) stateBasedUIComponentGroup.getUIComponent(EffectControls.class);
     }
 
     public void addItemToMenu(String title, String menuItemTitle, Command command) {
@@ -62,29 +64,27 @@ public class MenuPanel {
     }
 
     public void setDefaultMenuItems() {
-        FileCommands fileCommands = new FileCommands(imageDisplay);
+        FileCommands fileCommands = new FileCommands(stateBasedUIComponentGroup);
         addItemToMenu("File", "Open Image", fileCommands.createOpenImageCommand());
         addItemToMenu("File", "Open URL", fileCommands.createOpenImageFromUrlCommand());
         addItemToMenu("File", "New Blank Image", fileCommands.createNewBlankImageCommand());
         addItemToMenu("File", "Save", fileCommands.createSaveImageCommand());
         addItemToMenu("File", "Save with Text", fileCommands.createSaveImageWithTextCommand());
 
-        SerializingCommands serializingCommands = new SerializingCommands(imageDisplay, imageTimeline);
+        SerializingCommands serializingCommands = new SerializingCommands(stateBasedUIComponentGroup);
 
         addItemToMenu("Project", "Save Project", serializingCommands.createEffectHistorySerializeCommand());
         addItemToMenu("Project", "Load Project", serializingCommands.createEffectHistoryLoadCommand());
         addItemToMenu("Project", "Save Effect Sequence", serializingCommands.createEffectSerializeCommand());
         addItemToMenu("Project", "Load Effect Sequence", serializingCommands.createEffectLoadCommand());
 
-        EffectHistoryCommands effectHistoryCommands = new EffectHistoryCommands(imageDisplay, imageTimeline);
+        EffectHistoryCommands effectHistoryCommands = new EffectHistoryCommands(stateBasedUIComponentGroup);
         addItemToMenu("Edit", "Timeline", imageTimeline::show);
         addItemToMenu("Edit", "Undo", effectHistoryCommands.createUndoCommand());
         addItemToMenu("Edit", "Redo", effectHistoryCommands.createRedoCommand());
         addItemToMenu("Edit", "Reset", effectHistoryCommands.createResetCommand());
 
-        MiscCommands miscCommands = new MiscCommands(imageDisplay, imageTimeline, effectControls);
-//        EffectControls effectControls = new EffectControls(imageDisplay, imageTimeline);
-        addItemToMenu("Image", "Effect Controls", effectControls::show);
+        MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
 
         addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand());
     }
@@ -98,7 +98,7 @@ public class MenuPanel {
             Pair<Integer, Integer> sliderEffectBounds = effect.getSliderBounds();
             int lower = sliderEffectBounds.getLeft();
             int upper = sliderEffectBounds.getRight();
-            SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effect, lower, upper, imageDisplay, imageTimeline); //Slider component with the extracted bounds
+            SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effect, lower, upper, stateBasedUIComponentGroup); //Slider component with the extracted bounds
             sliderEffectWindow.setupSlider();
             //Get category label for effect
             String effectCategory = effect.getEffect((lower + upper) / 2.0).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
@@ -110,7 +110,7 @@ public class MenuPanel {
     public void setupColorMenuItems() {
         ArrayList<EffectType> colorEffects = EffectType.getEffectTypeFromComponent(EffectUIType.COLOR_CHOOSER);
         for (EffectType effect : colorEffects) {
-            ColorEffectWindow colorEffectWindow = new ColorEffectWindow(effect, imageDisplay, imageTimeline);
+            ColorEffectWindow colorEffectWindow = new ColorEffectWindow(effect, stateBasedUIComponentGroup);
             String effectCategory = effect.getEffect(new Color(0, 0, 0)).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             Command effectActionListener = colorEffectWindow.colorPickerEffect();
             addItemToMenu(effectCategory, effect.toString(), effectActionListener);
@@ -133,7 +133,7 @@ public class MenuPanel {
         for (EffectType effect : noParamEffects) {
             String effectCategory = effect.getEffect().getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             //effectActionLsitener is common put in class
-            MiscCommands miscCommands = new MiscCommands(imageDisplay, imageTimeline, effectControls);
+            MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
             miscCommands.setEffect(effect.getEffect());
             addItemToMenu(effectCategory, effect.toString(), miscCommands.createUpdateEffectCommand());
         }

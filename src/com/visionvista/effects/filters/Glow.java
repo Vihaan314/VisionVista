@@ -1,5 +1,6 @@
 package com.visionvista.effects.filters;
 
+import com.visionvista.effects.blur.GaussBlur;
 import com.visionvista.utils.Pair;
 import com.visionvista.blending.ColorDodge;
 import com.visionvista.effects.*;
@@ -34,7 +35,7 @@ public class Glow extends Filter {
     }
 
 
-    public static Glow getRandomInstance(BufferedImage image) {
+    public static Glow getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.GLOW.getSliderBounds();
         return new Glow(ImageHelper.getRandomParameter(bounds));
     }

@@ -6,8 +6,6 @@ public class ImageEditor {
     //For main frame
     private final JFrame editorFrame;
 
-    private boolean isBlankImage = false;
-
     //NOTE: Procedure for applying effect:
     /*
     Effect effect = new Effect();
@@ -46,26 +44,28 @@ public class ImageEditor {
 
         editorFrame.add(editorPanel);
 
-        EffectControls effectControls = new EffectControls(imageDisplay, imageTimeline);
-
-        //Create menu panel and make menu panel part of editor
-        MenuPanel menuPanel = new MenuPanel(imageDisplay, imageTimeline, effectControls);
-        menuPanel.setupMenuPanel();
-        editorFrame.setJMenuBar(menuPanel.getMenuBar());
-
-        //Tools panel
-        ToolsPanel toolsPanel = new ToolsPanel(imageDisplay, imageTimeline);
-        //Add pages
-        toolsPanel.addPage(effectControls);
-        //Setup panel
-        toolsPanel.setupTabPanels();
-        toolsPanel.show();
 
         //Add state based UI components to the group
         StateBasedUIComponentGroup stateBasedUIComponentGroup = new StateBasedUIComponentGroup();
         stateBasedUIComponentGroup.addUIComponent(imageDisplay);
         stateBasedUIComponentGroup.addUIComponent(imageTimeline);
+        EffectControls effectControls = new EffectControls(stateBasedUIComponentGroup);
+
         stateBasedUIComponentGroup.addUIComponent(effectControls);
+
+        //Create menu panel and make menu panel part of editor
+        MenuPanel menuPanel = new MenuPanel(stateBasedUIComponentGroup);
+        menuPanel.setupMenuPanel();
+        editorFrame.setJMenuBar(menuPanel.getMenuBar());
+
+        //Tools panel
+        ToolsPanel toolsPanel = new ToolsPanel(stateBasedUIComponentGroup);
+        stateBasedUIComponentGroup.addUIComponent(toolsPanel);
+        //Add pages
+        toolsPanel.addPage(effectControls);
+        //Setup panel
+//        toolsPanel.setupTabPanels();
+//        toolsPanel.show();
     }
 
     public void show() {

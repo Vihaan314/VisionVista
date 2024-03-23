@@ -55,7 +55,7 @@ public class Vignette extends Filter {
         return vignetteImage;
     }
 
-    public static Vignette getRandomInstance(BufferedImage image) {
+    public static Vignette getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.VIGNETTE.getSliderBounds();
         return new Vignette(ImageHelper.getRandomParameter(bounds));
     }

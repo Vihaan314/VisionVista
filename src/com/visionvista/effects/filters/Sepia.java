@@ -26,26 +26,32 @@ public class Sepia extends Filter {
         return "Applied sepia";
     }
 
-     @Override public BufferedImage run(BufferedImage image) {
-         return applyEffect(image, (x, y, rgbColor) -> {
-             int alpha = (rgbColor >> 24) & 0xff;
-             int red = (rgbColor >> 16) & 0xff;
-             int green = (rgbColor >> 8) & 0xff;
-             int blue = rgbColor & 0xff;
+    @Override public BufferedImage run(BufferedImage image) {
+        System.out.println("Adding sepia");
+        BufferedImage sepiaImg = getEmptyImage(image);
 
-             int gray = (int)(0.299 * red + 0.587 * green + 0.114 * blue);
-             red = ColorManipulator.truncate((int)(gray * 0.9));
-             green = ColorManipulator.truncate((int)(gray * 0.7));
-             blue = ColorManipulator.truncate((int)(gray * 0.5));
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                Color rgb = new Color(image.getRGB(x, y));
+                int R = rgb.getRed();
+                int G = rgb.getGreen();
+                int B = rgb.getBlue();
 
-             return (alpha << 24) | (red << 16) | (green << 8) | blue;
-         });
-//        BufferedImage sepiaCorrected = new Brightness(-intensity).run(sepiaImg);
-//        return sepiaCorrected;
+                //Sepia conversion formula
+                int newRed = ColorManipulator.truncate((int) (0.393*R + 0.769*G + 0.189*B));
+                int newGreen = ColorManipulator.truncate((int) (0.349*R + 0.686*G + 0.168*B));
+                int newBlue = ColorManipulator.truncate((int) (0.272*R + 0.534*G + 0.131*B));
+
+                Color new_rgb = new Color(newRed, newGreen, newBlue);
+                sepiaImg.setRGB(x, y, new_rgb.getRGB());
+            }
+        }
+        //Adjust brightness
+        BufferedImage sepiaCorrected = new Brightness(-intensity).run(sepiaImg);
+        return sepiaCorrected;
     }
 
-
-    public static Sepia getRandomInstance(BufferedImage image) {
+    public static Sepia getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.SEPIA.getSliderBounds();
         return new Sepia(ImageHelper.getRandomParameter(bounds));
     }

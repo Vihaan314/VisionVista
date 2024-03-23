@@ -19,9 +19,10 @@ public class Posterize extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                int R = ColorManipulator.get_rgb(image, "r", x, y);
-                int G = ColorManipulator.get_rgb(image, "g", x, y);
-                int B = ColorManipulator.get_rgb(image, "b", x, y);
+                Color color = new Color(image.getRGB(x, y));
+int R = color.getRed();
+                int G = color.getGreen();
+                int B = color.getBlue();
                 int newRed = ColorManipulator.truncate(Math.round(R / 85) * 85);
                 int newGreen = ColorManipulator.truncate(Math.round(G / 85) * 85);
                 int newBlue = ColorManipulator.truncate(Math.round(B / 85) * 85);
@@ -32,7 +33,7 @@ public class Posterize extends Filter {
         return image_posterize;
     }
 
-    public static Posterize getRandomInstance(BufferedImage image) {
+    public static Posterize getRandomInstance() {
         return new Posterize();
     }
 }

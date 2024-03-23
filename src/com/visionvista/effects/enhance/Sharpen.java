@@ -1,5 +1,7 @@
-package com.visionvista.effects;
+package com.visionvista.effects.enhance;
 
+import com.visionvista.effects.Effect;
+import com.visionvista.effects.EffectType;
 import com.visionvista.utils.Pair;
 import com.visionvista.utils.ImageHelper;
 
@@ -9,7 +11,7 @@ import java.awt.image.Kernel;
 import java.util.Arrays;
 
 
-public class Sharpen extends Effect{
+public class Sharpen extends Enhance {
     private double amount;
 
     public Sharpen(double amount) {
@@ -50,7 +52,7 @@ public class Sharpen extends Effect{
         return sharpenedImg;
     }
 
-    public static Sharpen getRandomInstance(BufferedImage image) {
+    public static Sharpen getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.SHARPEN.getSliderBounds();
         return new Sharpen(ImageHelper.getRandomParameter(bounds));
     }

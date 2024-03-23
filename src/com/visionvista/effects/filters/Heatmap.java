@@ -19,11 +19,13 @@ public class Heatmap extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                int R = ColorManipulator.get_rgb(image, "r", x, y);
-                int G = ColorManipulator.get_rgb(image, "g", x, y);
-                int B = ColorManipulator.get_rgb(image, "b", x, y);
-                int newRed = 0, newGreen = 0, newBlue = 0;
+                Color color = new Color(image.getRGB(x, y));
+                int R = color.getRed();
+                int G = color.getGreen();
+                int B = color.getBlue();
 
+                //Heatmap conversion formula
+                int newRed = 0, newGreen = 0, newBlue = 0;
                 int average = (R + G + B) / 3;
                 newRed = ColorManipulator.truncate(average + 50);
                 newGreen = ColorManipulator.truncate((int) (average * 0.7));
@@ -36,7 +38,7 @@ public class Heatmap extends Filter {
         return image_map;
     }
 
-    public static Heatmap getRandomInstance(BufferedImage image) {
+    public static Heatmap getRandomInstance() {
         return new Heatmap();
     }
 }

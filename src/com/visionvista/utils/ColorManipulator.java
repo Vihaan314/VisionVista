@@ -6,22 +6,22 @@ import java.awt.image.BufferedImage;
 public class ColorManipulator {
     //Color correction
     public static double unGamma(double value) {
-        return Math.pow(value / 255.0, 2.2) * 255.0; // Inverse gamma correction (assuming gamma = 2.2)
+        return Math.pow(value / 255.0, 2.2) * 255.0;
     }
 
     public static double Gamma(double value) {
-        return Math.pow(value / 255.0, 1.0 / 2.2) * 255.0; // Gamma correction (assuming gamma = 2.2)
+        return Math.pow(value / 255.0, 1.0 / 2.2) * 255.0;
     }
 
     public static double toGray(Color color) {
         int r = color.getRed();
         int g = color.getGreen();
         int b = color.getBlue();
-        return 0.299 * r + 0.587 * g + 0.114 * b; // Standard formula for grayscale conversion.
+        return 0.299 * r + 0.587 * g + 0.114 * b;
     }
 
     public static double toGray(double r, double g, double b) {
-        return 0.299 * r + 0.587 * g + 0.114 * b; // Standard formula for grayscale conversion.
+        return 0.299 * r + 0.587 * g + 0.114 * b;
     }
 
     private static double computeLuminance(Color color) {
@@ -57,22 +57,6 @@ public class ColorManipulator {
     private static int clamp(int value, int min, int max) {
         return Math.max(min, Math.min(max, value));
     }
-
-    public static int get_rgb(BufferedImage image, String color, int x, int y) {
-        int val = 0;
-        Color image_cols = new Color(image.getRGB(x, y));
-        if (color.equals("r")) {
-            val = image_cols.getRed();
-        }
-        else if (color.equals("g")) {
-            val = image_cols.getGreen();
-        }
-        else if (color.equals("b")) {
-            val = image_cols.getGreen();
-        }
-        return val;
-    }
-
 
     public static int getNewRGB(Color originalColor, double scale) {
         int rgb;

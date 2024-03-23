@@ -47,8 +47,8 @@ public class ImageDisplay implements StateBasedUIComponent{
         return this.fileNameBroken;
     }
 
-    @Override
-    public String toString() {
-        return EditorState.getInstance().getImage().toString();
-    }
+//    @Override
+//    public String toString() {
+//        return EditorState.getInstance().getImage().toString();
+//    }
 }

@@ -1,6 +1,10 @@
 package com.visionvista.effects;
 
-
+import com.visionvista.effects.blur.BokehBlur;
+import com.visionvista.effects.blur.BoxBlur;
+import com.visionvista.effects.blur.GaussBlur;
+import com.visionvista.effects.enhance.EdgeEnhance;
+import com.visionvista.effects.enhance.Sharpen;
 import com.visionvista.effects.filters.*;
 import com.visionvista.effects.transformation.FlipHorizontal;
 import com.visionvista.effects.transformation.FlipVertical;
@@ -17,7 +21,7 @@ interface EffectConstructor {
 
 public enum EffectType {
     //Slider
-    BLUR("Blur", 0, 10, EffectUIType.SLIDER, (param) -> new Blur((Double) param)),
+    BOX_BLUR("Box Blur", 0, 10, EffectUIType.SLIDER, (param) -> new BoxBlur((Double) param)),
     BRIGHTNESS("Brightness", -50, 50, EffectUIType.SLIDER, (param) -> new Brightness((Double) param)),
     CONTRAST("Contrast", 0, 100, EffectUIType.SLIDER, (param) -> new Contrast((Double) param)),
     SATURATION("Saturation", 0, 100, EffectUIType.SLIDER, (param) -> new Saturation((Double) param)),
@@ -29,6 +33,13 @@ public enum EffectType {
     GLOW("Glow", 0, 10, EffectUIType.SLIDER, (param) -> new Glow((Double) param)),
     VIGNETTE("Vignette", 0, 10, EffectUIType.SLIDER, (param) -> new Vignette((Double) param)),
     PIXELATE("Pixelate", 0, 50, EffectUIType.SLIDER, (param) -> new Pixelate((Double) param)),
+    CHROMATIC_ABERRATION("Chromatic Aberration", 0, 10, EffectUIType.SLIDER, (param) -> new ChromaticAberration((Double) param)),
+    TILT_SHIFT("Tilt shift", 0, 10, EffectUIType.SLIDER, (param) -> new TiltShift((Double) param)),
+    PIXEL_SORT("Pixel sort", 0, 255, EffectUIType.SLIDER, (param) -> new PixelSort((Double) param)),
+    ANAGLYPH("Anaglyph", 0, 30, EffectUIType.SLIDER, (param) -> new Anaglyph3D((Double) param)),
+    OIL_PAINTING("Oil painting", 0, 65, EffectUIType.SLIDER, (param) -> new OilPainting((Double) param)),
+    BOKEH_BLUR("Bokeh blur", 0, 20, EffectUIType.SLIDER, (param) -> new BokehBlur((Double) param)),
+    COLOR_SPLASH("Color splash", 0, 50, EffectUIType.SLIDER, (param) -> new ColorSplash((Double) param)),
 
     //Color chooser
     HUE("Hue", EffectUIType.COLOR_CHOOSER, (param) -> new Hue((Color) param)),
@@ -36,7 +47,7 @@ public enum EffectType {
     //Text field
     RESIZE("Resize", new String[]{"Width", "Height"}, EffectUIType.TEXT_FIELD, (params) -> new Resize((int) Double.parseDouble(((String[]) params)[0]), (int) Double.parseDouble(((String[]) params)[1]))),
 
-    //None
+    //// None
 
     //Transformations
     FLIP_VERTICAL("Flip vertical", (param) -> new FlipVertical()),
@@ -52,8 +63,11 @@ public enum EffectType {
     SPLIT_TONE("Split tone", (param) -> new SplitTone()),
     HEAT_MAP("Heat map", (param) -> new Heatmap()),
     INFRARED("Infrared", (param) -> new Infrared()),
-    TILT_SHIFT("Tilt Shift", (param) -> new TiltShift()),
     PENCIL_SKETCH("Pencil Sketch", (param) -> new PencilSketch()),
+    HALFTONE("Halftone", (param) -> new Halftone()),
+    WATERCOLOR("Watercolor", (param) -> new Watercolor()),
+    EDGE_ENHANCE("Edge Enhance", (param) -> new EdgeEnhance()),
+    CYBERPUNK("Cyberpunk", (param) -> new Cyberpunk()),
     ;
 
     private final String effectLabel;
@@ -117,11 +131,11 @@ public enum EffectType {
         return textFieldLabels;
     }
 
-    //TODO MAKE MAP FROM UI ENUM TO EFFECTYTPE MANUALLY SAID CONSTANTS FILE
+    //TODO MAKE MAP FROM UI ENUM TO EFFECTYTPE MANUALLY CONSTANTS FILE
     public static ArrayList<EffectType> getEffectTypeFromComponent(EffectUIType uiType) {
         ArrayList<EffectType> effectEntries = new ArrayList<>();
 
-        //Process all effects that utilize the slider component
+        //Process all effects that utilize the corresponding UI type
         for (EffectType effect : EffectType.values()) {
             if (effect.getUIType() == uiType) {
                 effectEntries.add(effect);

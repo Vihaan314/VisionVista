@@ -19,11 +19,12 @@ public class Infrared extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                int R = ColorManipulator.get_rgb(image, "r", x, y);
-                int G = ColorManipulator.get_rgb(image, "g", x, y);
-                int B = ColorManipulator.get_rgb(image, "b", x, y);
-                int newRed = 0, newGreen = 0, newBlue = 0;
+                Color color = new Color(image.getRGB(x, y));
+                int R = color.getRed();
+                int G = color.getGreen();
+                int B = color.getBlue();
 
+                int newRed = 0, newGreen = 0, newBlue = 0;
                 int average = (R + G + B) / 3;
                 newRed = G;
                 newGreen = B;
@@ -36,7 +37,7 @@ public class Infrared extends Filter {
         return image_infrared;
     }
 
-    public static Infrared getRandomInstance(BufferedImage image) {
+    public static Infrared getRandomInstance() {
         return new Infrared();
     }
 }

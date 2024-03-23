@@ -1,13 +1,13 @@
-package com.visionvista;
+//package com.visionvista;
+//
+//public class ImagePanel extends MenuPanel {
+//    ImageDisplay imageDisplay;
+//    ImageTimeline imageTimeline;
+//    EffectControls effectControls;
 
-public class ImagePanel extends MenuPanel {
-    ImageDisplay imageDisplay;
-    ImageTimeline imageTimeline;
-    EffectControls effectControls;
-
-    public ImagePanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline, EffectControls effectControls) {
-        super(imageDisplay, imageTimeline, effectControls);
-    }
+//    public ImagePanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline, EffectControls effectControls) {
+//        super(imageDisplay, imageTimeline, effectControls);
+//    }
 
 //    public MenuPanel setupMenuPanel() {
 //        menuPanel.addItemToMenu("File", "Save", new ActionListener() {
@@ -41,4 +41,4 @@ public class ImagePanel extends MenuPanel {
 //
 //        return menuPanel;
 //    }
-}
+//}

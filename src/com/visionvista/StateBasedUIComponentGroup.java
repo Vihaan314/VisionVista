@@ -10,29 +10,19 @@ public class StateBasedUIComponentGroup {
         this.stateBasedUIComponents = new ArrayList<>(List.of(stateBasedUIComponents));
     }
 
-    public StateBasedUIComponent getImageDisplay() {
-        for (StateBasedUIComponent s : stateBasedUIComponents) {
-            if (s instanceof ImageDisplay) {
-                return s;
-            }
-        }
-        return null;
-    }
-
-    public StateBasedUIComponent getImageTimeline() {
-        for (StateBasedUIComponent s : stateBasedUIComponents) {
-            if (s instanceof ImageTimeline) {
-                return s;
-            }
-        }
-        return null;
+    public StateBasedUIComponent getUIComponent(Class<?> stateUIClass) {
+        return stateBasedUIComponents.stream()
+                .filter(component -> component
+                        .getClass().equals(stateUIClass))
+                .toList()
+                .get(0);
     }
 
     public void addUIComponent(StateBasedUIComponent uiComponent) {
         stateBasedUIComponents.add(uiComponent);
     }
 
-    public void updateUIFromState() {
+    public void updateAllUIFromState() {
         for (StateBasedUIComponent uiComponent: stateBasedUIComponents) {
             uiComponent.updateFromState();
         }

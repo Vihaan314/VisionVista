@@ -1,24 +1,19 @@
 package com.visionvista.commands;
 
-import com.visionvista.EffectControls;
-import com.visionvista.ImageDisplay;
-import com.visionvista.ImageTimeline;
-import com.visionvista.RandomEffect;
+import com.visionvista.*;
 import com.visionvista.components.EffectTextBox;
 import com.visionvista.effects.Effect;
 
 //Misc commands is temporary to be sorted commands
 public class MiscCommands {
     private final ImageDisplay imageDisplay;
-    private final ImageTimeline imageTimeline;
-    private final EffectControls effectControls;
+    private final StateBasedUIComponentGroup stateBasedUIComponentGroup;
 
     private Effect effect;
 
-    public MiscCommands(ImageDisplay imageDisplay, ImageTimeline imageTimeline, EffectControls effectControls) {
-        this.imageDisplay = imageDisplay;
-        this.imageTimeline = imageTimeline;
-        this.effectControls = effectControls;
+    public MiscCommands(StateBasedUIComponentGroup stateBasedUIComponentGroup) {
+        this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
+        this.imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
     }
 
     public void setEffect(Effect effect) {
@@ -28,8 +23,8 @@ public class MiscCommands {
     public Command createUpdateEffectCommand() {
         return () -> {
             imageDisplay.updateImageByEffect(effect);
-            imageTimeline.updateFromState();
-//            effectControls.updateFromState();
+            ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
+            stateBasedUIComponentGroup.updateAllUIFromState();
         };
     }
 
@@ -37,8 +32,7 @@ public class MiscCommands {
         return () -> {
             this.effect = new RandomEffect().getRandomEffect();
             imageDisplay.updateImageByEffect(effect);
-            imageTimeline.updateFromState();
-            effectControls.updateFromState();
+            stateBasedUIComponentGroup.updateAllUIFromState();
             EffectTextBox randomEffectBox = new EffectTextBox(this.effect);
             randomEffectBox.show();
         };

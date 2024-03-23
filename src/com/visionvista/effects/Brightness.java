@@ -45,7 +45,7 @@ public class Brightness extends Effect implements Serializable {
         return brightened_img;
     }
 
-    public static Brightness getRandomInstance(BufferedImage image) {
+    public static Brightness getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.BRIGHTNESS.getSliderBounds();
         return new Brightness(ImageHelper.getRandomParameter(bounds));
     }

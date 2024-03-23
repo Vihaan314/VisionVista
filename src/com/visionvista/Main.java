@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2024. Vihaan Mathur
+ * All rights reserved.
+ */
+
 package com.visionvista;
 
 import com.visionvista.components.LandingWindow;

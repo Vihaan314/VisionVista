@@ -3,6 +3,7 @@ package com.visionvista.components;
 import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
 import com.visionvista.ImageTimeline;
+import com.visionvista.StateBasedUIComponentGroup;
 import com.visionvista.commands.Command;
 import com.visionvista.effects.*;
 
@@ -10,6 +11,7 @@ import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,8 +25,7 @@ public class ColorEffectWindow {
     private JPanel colorPanel = new JPanel();
     final Color[] chosenColor = {null};
 
-    private ImageDisplay imageDisplay;
-    private ImageTimeline imageTimeline;
+    private final StateBasedUIComponentGroup stateBasedUIComponentGroup;
 
     public JFrame setupColorFrame(EffectType effect) {
         JFrame colorFrame = new JFrame(effect.toString() + " color chooser");
@@ -66,6 +67,8 @@ public class ColorEffectWindow {
 
                 BufferedImage currentImage = EditorState.getInstance().getImage();
                 BufferedImage editedImage = chosenEffect.run(currentImage);
+
+                ImageDisplay imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
                 imageDisplay.displayTemporaryImage(editedImage);
             }
         });
@@ -81,12 +84,11 @@ public class ColorEffectWindow {
         this.submitButton = submitEffect;
     }
 
-    public ColorEffectWindow(EffectType effect, ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
+    public ColorEffectWindow(EffectType effect, StateBasedUIComponentGroup stateBasedUIComponentGroup) {
         this.effect = effect;
         this.colorFrame = setupColorFrame(effect);
         this.colorChooser = setupColorChooser();
-        this.imageDisplay = imageDisplay;
-        this.imageTimeline = imageTimeline;
+        this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
     }
 
     public void show() {
@@ -117,8 +119,7 @@ public class ColorEffectWindow {
                 EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
                 EditorState.getInstance().setImage(finalImage);
                 // Update the display with the final image
-                imageDisplay.updateFromState();
-                imageTimeline.updateFromState();
+                stateBasedUIComponentGroup.updateAllUIFromState();
                 // Close slider window when submit pressed
                 getColorFrame().dispose();
             }

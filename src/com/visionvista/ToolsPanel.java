@@ -6,13 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ToolsPanel {
+public class ToolsPanel implements StateBasedUIComponent{
     private ImageDisplay imageDisplay;
     private ImageTimeline imageTimeline;
 //    private EffectControls effectControls;
+    private StateBasedUIComponentGroup stateBasedUIComponentGroup;
 
     private JFrame toolsFrame;
     private DraggableTabbedPane tabPanel;
+
+    private EffectControls effectControls;
 
     private JPanel effectControlsPage;
     private JPanel toolsPage;
@@ -21,14 +24,14 @@ public class ToolsPanel {
     private ArrayList<StateBasedUIComponent> toolUIComponents;
     private ArrayList<JPanel> toolPages;
 
-    public ToolsPanel(ImageDisplay imageDisplay, ImageTimeline imageTimeline)
+    public ToolsPanel(StateBasedUIComponentGroup stateBasedUIComponentGroup)
     {
-        this.imageDisplay = imageDisplay;
-        this.imageTimeline = imageTimeline;
+        this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
+        this.effectControls = new EffectControls(stateBasedUIComponentGroup);
+        this.imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
         toolUIComponents = new ArrayList<>();
         toolPages = new ArrayList<>();
         setupToolsFrame();
-//        setupTabPanels();
     }
 
     public void addPage(StateBasedUIComponent stateBasedUIComponent) {
@@ -53,7 +56,8 @@ public class ToolsPanel {
 
 //        Effect controls page
 //        effectControlsPage = toolUIComponents.getTab();
-        effectControlsPage = new EffectControls(imageDisplay, imageTimeline).getTabPanel();
+        System.out.println("TOOLS PANEL " + imageDisplay);
+        effectControlsPage = effectControls.getTabPanel();
         //Tools
         toolsPage = new JPanel();
         toolsPage.add(new JLabel("Tools"));
@@ -72,5 +76,33 @@ public class ToolsPanel {
 
     public void show() {
         toolsFrame.setVisible(true);
+    }
+
+    public void setStateBasedUIComponentGroup(StateBasedUIComponentGroup stateBasedUIComponentGroup) {
+        this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
+    }
+
+    @Override
+    public void updateFromState() {
+        System.out.println("YO TOOLS");
+        effectControls.updateFromState();
+//        effectControls = new EffectControls(stateBasedUIComponentGroup);
+        this.imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
+        toolUIComponents = new ArrayList<>();
+        toolPages = new ArrayList<>();
+        this.setupToolsFrame();
+        this.setupTabPanels();
+
+        effectControlsPage.revalidate();
+        effectControlsPage.repaint();
+
+        tabPanel.revalidate();
+        tabPanel.repaint();
+
+        SwingUtilities.invokeLater(() -> {
+            toolsFrame.pack();
+            toolsFrame.setSize(450, 800);
+            toolsFrame.revalidate();
+        });
     }
 }

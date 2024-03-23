@@ -48,7 +48,7 @@ public class Saturation extends Effect{
     }
 
 
-    public static Saturation getRandomInstance(BufferedImage image) {
+    public static Saturation getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.SATURATION.getSliderBounds();
         return new Saturation(ImageHelper.getRandomParameter(bounds));
     }

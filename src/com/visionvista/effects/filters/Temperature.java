@@ -33,7 +33,7 @@ public class Temperature extends Filter {
         return contrastedImg;
     }
 
-    public static Temperature getRandomInstance(BufferedImage image) {
+    public static Temperature getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.TEMPERATURE.getSliderBounds();
         return new Temperature(ImageHelper.getRandomParameter(bounds));
     }

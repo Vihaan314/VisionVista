@@ -17,7 +17,10 @@ public class Vibrance extends Effect{
         this.amount = amount;
     }
 
-    public static int[] vibranceChange(int r, int g, int b, double input) {
+    public static Color vibranceChange(Color color, double input) {
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
         double x = Math.max(Math.max(r, g), b);
         double y = Math.min(Math.min(r, g), b);
 
@@ -57,13 +60,12 @@ public class Vibrance extends Effect{
         g = (int) Math.round(Gamma(g));
         b = (int) Math.round(Gamma(b));
 
-        return new int[] {r, g, b};
+        return new Color(r, g, b);
     }
 
     @Override public String toString() {
         return "Applied Vibrance. Intensity: " + this.amount;
     }
-
 
     @Override
     public Object getParameter() {
@@ -74,17 +76,17 @@ public class Vibrance extends Effect{
         System.out.println("Changing vibrance");
         BufferedImage img_vibrance = getEmptyImage(image);
 
-        for (int x = 0; x < Math.floor(image.getWidth()); x++) {
-            for (int y = 0; y < Math.floor(image.getHeight()); y++) {
-                int[] rgb_arr = vibranceChange(ColorManipulator.get_rgb(image, "r", x, y), ColorManipulator.get_rgb(image, "g", x, y), ColorManipulator.get_rgb(image, "b", x, y), amount);
-                Color rgb_col = new Color(rgb_arr[0], rgb_arr[1], rgb_arr[2]);
-                img_vibrance.setRGB(x, y, rgb_col.getRGB());
+        for (int x = 0; x < (double) image.getWidth(); x++) {
+            for (int y = 0; y < (double) image.getHeight(); y++) {
+                Color color = new Color(image.getRGB(x, y));
+                Color vibranceRGB = vibranceChange(color, amount);
+                img_vibrance.setRGB(x, y, vibranceRGB.getRGB());
             }
         }
         return img_vibrance;
     }
 
-    public static Vibrance getRandomInstance(BufferedImage image) {
+    public static Vibrance getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.VIBRANCE.getSliderBounds();
         return new Vibrance(ImageHelper.getRandomParameter(bounds));
     }

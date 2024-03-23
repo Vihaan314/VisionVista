@@ -12,11 +12,11 @@ public class SerializingCommands {
     private final ImageDisplay imageDisplay;
     private final ImageTimeline imageTimeline;
 
-    public SerializingCommands(ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
+    public SerializingCommands(StateBasedUIComponentGroup stateBasedUIComponentGroup) {
         this.effectSerializer = new EffectSerializer();
         this.effectHistorySerializer = new EffectHistorySerializer();
-        this.imageDisplay = imageDisplay;
-        this.imageTimeline = imageTimeline;
+        this.imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
+        this.imageTimeline = (ImageTimeline) stateBasedUIComponentGroup.getUIComponent(ImageTimeline.class);
     }
 
     public Command createEffectSerializeCommand() {

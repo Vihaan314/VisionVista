@@ -50,7 +50,7 @@ public class Hue extends Effect{
         return new Pair<>(1, 256);
     }
 
-    public static Hue getRandomInstance(BufferedImage image) {
+    public static Hue getRandomInstance() {
         return new Hue(new Color(ImageHelper.getRandomParameter(getColorBounds()),ImageHelper.getRandomParameter(getColorBounds()),ImageHelper.getRandomParameter(getColorBounds())));
     }
 }

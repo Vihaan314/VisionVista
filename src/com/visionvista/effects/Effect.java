@@ -20,18 +20,6 @@ public abstract class Effect implements Serializable
         return new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
     }
 
-    protected BufferedImage applyEffect(BufferedImage sourceImage, ColorTransformer transformer) {
-        BufferedImage outputImage = new BufferedImage(sourceImage.getWidth(), sourceImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        for (int x = 0; x < sourceImage.getWidth(); x++) {
-            for (int y = 0; y < sourceImage.getHeight(); y++) {
-                int rgbColor = sourceImage.getRGB(x, y);
-                int transformedColor = transformer.apply(x, y, rgbColor);
-                outputImage.setRGB(x, y, transformedColor);
-            }
-        }
-        return outputImage;
-    }
-
     public String toString() {
         return "Effect";
     }

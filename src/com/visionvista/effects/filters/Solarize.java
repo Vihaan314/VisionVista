@@ -19,9 +19,12 @@ public class Solarize extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                int R = ColorManipulator.get_rgb(image, "r", x, y);
-                int G = ColorManipulator.get_rgb(image, "g", x, y);
-                int B = ColorManipulator.get_rgb(image, "b", x, y);
+                Color color = new Color(image.getRGB(x, y));
+                int R = color.getRed();
+                int G = color.getGreen();
+                int B = color.getBlue();
+
+                //Solarize conversion formula
                 int newRed, newGreen, newBlue;
                 if (R > 128) newRed = 255 - R;
                 else newRed = R;
@@ -39,7 +42,7 @@ public class Solarize extends Filter {
         return image_solarized;
     }
 
-    public static Solarize getRandomInstance(BufferedImage image) {
+    public static Solarize getRandomInstance() {
         return new Solarize();
     }
 }

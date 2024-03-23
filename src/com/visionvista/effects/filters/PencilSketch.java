@@ -2,6 +2,7 @@ package com.visionvista.effects.filters;
 
 import com.visionvista.effects.*;
 import com.visionvista.blending.ColorDodge;
+import com.visionvista.effects.blur.GaussBlur;
 
 import java.awt.image.BufferedImage;
 
@@ -23,7 +24,7 @@ public class PencilSketch extends Filter {
         return correctedBlend;
     }
 
-    public static PencilSketch getRandomInstance(BufferedImage image) {
+    public static PencilSketch getRandomInstance() {
         return new PencilSketch();
     }
 }

@@ -20,9 +20,12 @@ public class Negative extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                int rn = 255 - ColorManipulator.get_rgb(image, "r", x, y);
-                int gn = 255 - ColorManipulator.get_rgb(image, "g", x, y);
-                int bn = 255 - ColorManipulator.get_rgb(image, "b", x, y);
+                Color color = new Color(image.getRGB(x, y));
+                //Negative of all color values
+                int rn = 255 - color.getRed();
+                int gn = 255 - color.getGreen();
+                int bn = 255 - color.getBlue();
+
                 Color colorN = new Color(rn, gn, bn);
                 image_negative.setRGB(x, y, colorN.getRGB());
             }
@@ -30,7 +33,7 @@ public class Negative extends Filter {
         return image_negative;
     }
 
-    public static Negative getRandomInstance(BufferedImage image) {
+    public static Negative getRandomInstance() {
         return new Negative();
     }
 }

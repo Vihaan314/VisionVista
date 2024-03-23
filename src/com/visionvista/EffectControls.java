@@ -2,7 +2,9 @@ package com.visionvista;
 
 import com.visionvista.components.ColorEffectWindow;
 import com.visionvista.components.SliderEffectWindow;
+import com.visionvista.effects.Brightness;
 import com.visionvista.effects.EffectType;
+import com.visionvista.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,16 +12,16 @@ import java.awt.*;
 public class EffectControls implements StateBasedUIComponent {
     private EffectHistory effectHistory;
     private JFrame controlsFrame;
-    private ImageDisplay imageDisplay;
-    private ImageTimeline imageTimeline;
+    private StateBasedUIComponentGroup stateBasedUIComponentGroup;
 
     private JPanel effectControlsPanel;
 
-    public EffectControls(ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
+    public EffectControls(StateBasedUIComponentGroup stateBasedUIComponentGroup) {
         setupControlsFrame();
         this.effectHistory = EditorState.getInstance().getEffectHistory();
-        this.imageDisplay = imageDisplay;
-        this.imageTimeline = imageTimeline;
+        this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
+//        this.imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
+//        this.imageTimeline = (ImageTimeline) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
         setupTabPanel();
     }
 
@@ -31,20 +33,20 @@ public class EffectControls implements StateBasedUIComponent {
     }
 
     public void addSliderEffectToTabPanel(EffectType effectType, JPanel panel) {
-        SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effectType, effectType.getSliderBounds().getLeft(), effectType.getSliderBounds().getRight(), imageDisplay, imageTimeline);
-        sliderEffectWindow.setDefaultSliderValue((Double) this.effectHistory.getLastEffectInstance(effectType).getParameter());
+        SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effectType, effectType.getSliderBounds().getLeft(), effectType.getSliderBounds().getRight(), stateBasedUIComponentGroup);
+//        sliderEffectWindow.setDefaultSliderValue((Double) this.effectHistory.getLastEffectInstance(effectType).getParameter());
         sliderEffectWindow.setupSlider();
         panel.add(sliderEffectWindow.getSliderPanel());
     }
 
     public void addColorEffectToTabPanel(EffectType effectType, JPanel panel) {
-        ColorEffectWindow colorEffectWindow = new ColorEffectWindow(effectType, imageDisplay, imageTimeline);
+        ColorEffectWindow colorEffectWindow = new ColorEffectWindow(effectType, stateBasedUIComponentGroup);
         panel.add(colorEffectWindow.getColorPanel());
     }
 
     public void setupTabPanel() {
-        //For testing
-//        ArrayList<Effect> test = new ArrayList<Effect>();
+//        For testing
+//        ArrayList<Effect> test = new ArrayList<>();
 //        test.add(new Contrast(10));
 //        test.add(new Brightness(15));
 //        test.add(new Glow(5));
@@ -52,6 +54,9 @@ public class EffectControls implements StateBasedUIComponent {
 //        test.add(new Brightness(20));
 //        this.effectHistory = new EffectHistory();
 //        this.effectHistory.setEffectSequence(test, EditorState.getInstance().getImage());
+//        EditorState.getInstance().getEffectHistory().setEffectSequence(test, EditorState.getInstance().getImage());
+        this.effectHistory = EditorState.getInstance().getEffectHistory();
+//        this.effectHistory.getEffectSequence().add(new Pair<>(new Brightness(20), EditorState.getInstance().getImage()));
 
         //Setup effect controls panel
         effectControlsPanel = new JPanel();
@@ -67,10 +72,12 @@ public class EffectControls implements StateBasedUIComponent {
         }
         for (int i = 0; i < effectHistory.getSize(); i++) {
             if (i != 0) {
-                String className = (effectHistory.getEffectFromIndex(i).getClass().getSimpleName().equals("GaussBlur")) ? "Gaussian blur" : effectHistory.getEffectFromIndex(i).getClass().getSimpleName();
-                EffectType effectType = EffectType.fromLabel(className);
+//                String className = (effectHistory.getEffectFromIndex(i).getClass().getSimpleName().equals("GaussBlur")) ? "Gaussian blur" : effectHistory.getEffectFromIndex(i).getClass().getSimpleName();
+//                EffectType effectType = EffectType.fromLabel(className);
+                EffectType effectType = EffectType.BOX_BLUR;
                 switch (effectType.getUIType()) {
                     case SLIDER:
+                        System.out.println("SLIDER EFFECT");
                         addSliderEffectToTabPanel(effectType, effectsListPanel);
                     case COLOR_CHOOSER:
                         addColorEffectToTabPanel(effectType, effectsListPanel);
@@ -92,6 +99,7 @@ public class EffectControls implements StateBasedUIComponent {
 
     @Override
     public void updateFromState() {
+        System.out.println("UPDATE EFFET CONTROLS");
         this.effectHistory = EditorState.getInstance().getEffectHistory();
         setupTabPanel();
 

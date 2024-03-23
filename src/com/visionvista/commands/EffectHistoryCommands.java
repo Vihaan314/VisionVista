@@ -1,19 +1,14 @@
 package com.visionvista.commands;
 
-import com.visionvista.EditorState;
-import com.visionvista.EffectHistory;
-import com.visionvista.ImageDisplay;
-import com.visionvista.ImageTimeline;
+import com.visionvista.*;
 
 public class EffectHistoryCommands {
     private final EffectHistory effectHistory;
-    private final ImageDisplay imageDisplay;
-    private final ImageTimeline imageTimeline;
+    private final StateBasedUIComponentGroup stateBasedUIComponentGroup;
 
-    public EffectHistoryCommands(ImageDisplay imageDisplay, ImageTimeline imageTimeline) {
+    public EffectHistoryCommands(StateBasedUIComponentGroup stateBasedUIComponentGroup) {
+        this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
         this.effectHistory = EditorState.getInstance().getEffectHistory();
-        this.imageDisplay = imageDisplay;
-        this.imageTimeline = imageTimeline;
     }
 
     public Command createUndoCommand() {
@@ -43,8 +38,6 @@ public class EffectHistoryCommands {
 
     private void updateState() {
         EditorState.getInstance().setState(effectHistory);
-        imageDisplay.updateFromState();
-        System.out.println("yo");
-        imageTimeline.updateFromState();
+        stateBasedUIComponentGroup.updateAllUIFromState();
     }
 }

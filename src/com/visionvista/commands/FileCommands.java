@@ -3,13 +3,14 @@ package com.visionvista.commands;
 import com.visionvista.ImageDisplay;
 import com.visionvista.ImageHandler;
 import com.visionvista.ImageSaver;
+import com.visionvista.StateBasedUIComponentGroup;
 
 public class FileCommands {
     private final ImageDisplay imageDisplay;
     private final ImageHandler imageHandler;
 
-    public FileCommands(ImageDisplay imageDisplay) {
-        this.imageDisplay = imageDisplay;
+    public FileCommands(StateBasedUIComponentGroup stateBasedUIComponentGroup) {
+        this.imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
         this.imageHandler = new ImageHandler();
     }
 

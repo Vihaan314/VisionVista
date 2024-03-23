@@ -1,46 +1,66 @@
 package com.visionvista.effects.filters;
 
+import com.visionvista.effects.EffectType;
+import com.visionvista.effects.blur.GaussBlur;
+import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.Pair;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class TiltShift extends Filter {
-    public TiltShift() {
-        super();
+
+    private double blurStrength;
+
+    public TiltShift(double blurStrength) {
+        this.blurStrength = blurStrength;
     }
 
-    @Override public String toString() {
-        return "Applied tilt-shift";
+    @Override
+    public Object getParameter() {
+        return blurStrength;
     }
 
-    @Override public BufferedImage run(BufferedImage image) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-        float center = height / 2.0f;
-        float focusHeight = height * 0.2f;  // adjust for desired focus height
+    @Override
+    public String toString() {
+        return "Applied Tilt Shift. Blur strength: " + blurStrength;
+    }
 
-        BufferedImage output = new BufferedImage(width, height, image.getType());
+    @Override
+    public BufferedImage run(BufferedImage image) {
+        int focusAreaStart = image.getHeight() / 3;
+        int focusAreaEnd = 2 * image.getHeight() / 3;
+        BufferedImage blurredImage = new GaussBlur(blurStrength).run(image);
+        BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
-        for (int y = 0; y < height; y++) {
-            float blurAmount = Math.abs(y - center) / focusHeight;
-            if (blurAmount < 1.0f) continue;
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                Color originalColor = new Color(image.getRGB(x, y));
+                Color blurredColor = new Color(blurredImage.getRGB(x, y));
 
-            for (int x = 0; x < width; x++) {
-                // Here, a simple box blur is applied. For a more advanced approach, consider using a Gaussian blur.
-                int avgR = 0, avgG = 0, avgB = 0;
-                int count = 0;
-                for (int ky = -1; ky <= 1; ky++) {
-                    for (int kx = -1; kx <= 1; kx++) {
-                        if (x + kx < 0 || x + kx >= width || y + ky < 0 || y + ky >= height) continue;
-                        int pixel = image.getRGB(x + kx, y + ky);
-                        avgR += (pixel >> 16) & 0xFF;
-                        avgG += (pixel >> 8) & 0xFF;
-                        avgB += pixel & 0xFF;
-                        count++;
-                    }
+                double blendFactor;
+                if (y < focusAreaStart) {
+                    blendFactor = (double)(focusAreaStart - y) / focusAreaStart;
+                } else if (y > focusAreaEnd) {
+                    blendFactor = (double)(y - focusAreaEnd) / (image.getHeight() - focusAreaEnd);
+                } else {
+                    blendFactor = 0;
                 }
-                int newPixel = ((avgR/count) << 16) | ((avgG/count) << 8) | (avgB/count);
-                output.setRGB(x, y, newPixel);
+
+                int red = (int)(originalColor.getRed() * (1 - blendFactor) + blurredColor.getRed() * blendFactor);
+                int green = (int)(originalColor.getGreen() * (1 - blendFactor) + blurredColor.getGreen() * blendFactor);
+                int blue = (int)(originalColor.getBlue() * (1 - blendFactor) + blurredColor.getBlue() * blendFactor);
+
+                Color blendedColor = new Color(red, green, blue);
+                result.setRGB(x, y, blendedColor.getRGB());
             }
         }
-        return output;
+
+        return result;
+    }
+
+    public static TiltShift getRandomInstance() {
+        Pair<Integer, Integer> bounds = EffectType.TILT_SHIFT.getSliderBounds();
+        return new TiltShift(ImageHelper.getRandomParameter(bounds));
     }
 }

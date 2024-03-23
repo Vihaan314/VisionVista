@@ -42,11 +42,10 @@ image manipulation.
     <ul>
       <li>Contrast</li>
       <li>Brightness</li>
-      <li>Blur</li>
+      <li>Box Blur</li>
       <li>Gaussian Blur</li>
       <li>Saturation</li>
       <li>Vibrance</li>
-      <li>Sharpen</li>
       <li>Hue</li>
     </ul>
   </details>
@@ -69,7 +68,16 @@ image manipulation.
       <li>Heat map</li>
       <li>Infrared</li>
       <li>Pencil sketch</li>
-      <li>Tilt shift (beta)</li>
+      <li>Tilt shift</li>
+	  <li>Halftone</li>
+	  <li>Duotone (beta)</li>
+	  <li>Watercolor (beta)</li>
+	  <li>Chromatic Aberration</li>
+	  <li>Anaglyph 3D</li>
+	  <li>Pixel sort</li>
+	  <li>Bokeh Blur</li>
+	  <li>Oil Painting</li>
+	  <li>Cyberpunk</li>
     </ul>
   </details>
 
@@ -82,6 +90,30 @@ image manipulation.
     </ul>
   </details>
   
+   <details style="margin-left: 20px;">
+    <summary>Enhance</summary>
+    <ul>
+      <li>Sharpen</li>
+      <li>Edge Enhance</li>
+    </ul>
+  </details>
+  
   <p>Effects are expanding</p>
 
 </details>
+
+# Procedures
+<b> Adding an effect </b><br>
+1. Create class in respective effect sub/class and inherit that superclass.<br>
+2. Implement all superclass methods and the getRandomInstance for the random effect feature.<br>
+3. Add to EffectType enum with classifications and parameters for UI type and bounds.<br>
+4. Add class type to RandomEffect class effectClasses list.<br>
+
+<br>
+
+<b> Adding an effect category </b><br>
+1. Create new package in the effects directory.<br>
+2. Create abstract super class for that category that extends Effect to make the effect identifiable under that category and have the opportunity to define any methods specific to that category.<br>
+3. Just follow the procedure for <b> adding an effect </b> to create effects in that category.<br>
+4. Make sure that these effects extend the category specific abstract superclass.<br>
+
