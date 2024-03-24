@@ -1,5 +1,6 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.distort;
 
+import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.Pair;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
@@ -7,7 +8,7 @@ import com.visionvista.utils.ImageHelper;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Pixelate extends Filter {
+public class Pixelate extends Distort {
     private int pixelSize;
 
     public Pixelate(double pixelSize) {
@@ -59,7 +60,7 @@ public class Pixelate extends Filter {
 
         for (int y = 0; y < height; y += pixelSize) {
             for (int x = 0; x < width; x += pixelSize) {
-                // Get the average color of the current pixel block
+                //Get the average color of the current pixel block
                 Color avgColor = averageColor(image, x, y, pixelSize);
                 fillPixelBlock(pixelatedImage, x, y, pixelSize, avgColor);
             }

@@ -24,11 +24,9 @@ public class Infrared extends Filter {
                 int G = color.getGreen();
                 int B = color.getBlue();
 
-                int newRed = 0, newGreen = 0, newBlue = 0;
-                int average = (R + G + B) / 3;
-                newRed = G;
-                newGreen = B;
-                newBlue = R;
+                int newRed = ColorManipulator.truncate(R + G + B) / 3;
+                int newGreen = G / 2;
+                int newBlue = B / 2;
 
                 Color newRGB = new Color(newRed, newGreen, newBlue);
                 image_infrared.setRGB(x, y, newRGB.getRGB());

@@ -20,7 +20,7 @@ public class Halftone extends Filter {
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage result = getEmptyImage(image);
 
         int radius = 2; //Size of the dots
         for (int y = 0; y < image.getHeight(); y += radius * 2) {
@@ -44,8 +44,8 @@ public class Halftone extends Filter {
         for (int dy = -radius; dy <= radius; dy++) {
             for (int dx = -radius; dx <= radius; dx++) {
                 if (x + dx >= 0 && x + dx < image.getWidth() && y + dy >= 0 && y + dy < image.getHeight()) {
-                    Color pixelColor = new Color(image.getRGB(x + dx, y + dy));
-                    int gray = (pixelColor.getRed() + pixelColor.getGreen() + pixelColor.getBlue()) / 3;
+                    Color color = new Color(image.getRGB(x + dx, y + dy));
+                    int gray = (color.getRed() + color.getGreen() + color.getBlue()) / 3;
                     sum += gray;
                     count++;
                 }

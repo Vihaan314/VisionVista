@@ -1,7 +1,7 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.artistic;
 
 import com.visionvista.effects.EffectType;
-import com.visionvista.effects.blur.GaussBlur;
+import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class ColorSplash extends Filter {
+public class ColorSplash extends Artistic {
 
     private final int numberOfSplashes;
 
@@ -26,22 +26,32 @@ public class ColorSplash extends Filter {
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage result = getEmptyImage(image);
         Graphics2D g2d = result.createGraphics();
 
         g2d.drawImage(image, 0, 0, null);
 
         Random random = new Random();
         for (int i = 0; i < numberOfSplashes; i++) {
-            //Generate random color and position for the splash
+            //Generate random color
             Color color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256), (int)(255 * opacity));
             int x = random.nextInt(image.getWidth());
             int y = random.nextInt(image.getHeight());
             int radius = 50 + random.nextInt(150); //Random radius for splash size
 
-            //Draw the splash
-            g2d.setColor(color);
-            g2d.fillOval(x - radius / 2, y - radius / 2, radius, radius);
+            //Simulate paint splatter
+            for (int j = 0; j < 5; j++) {
+                int ovalX = x + random.nextInt(20) - 10;
+                int ovalY = y + random.nextInt(20) - 10;
+                int ovalRadius = radius + random.nextInt(20) - 10;
+                g2d.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), (int)(color.getAlpha() * 0.2)));
+                g2d.fillOval(ovalX - ovalRadius / 2, ovalY - ovalRadius / 2, ovalRadius, ovalRadius);
+            }
+
+            //Simulate paint spread
+            int spreadRadius = radius + 20;
+            g2d.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), (int)(color.getAlpha() * 0.1)));
+            g2d.fillOval(x - spreadRadius / 2, y - spreadRadius / 2, spreadRadius, spreadRadius);
         }
 
         g2d.dispose();

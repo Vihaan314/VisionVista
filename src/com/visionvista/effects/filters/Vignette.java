@@ -29,7 +29,9 @@ public class Vignette extends Filter {
         int width = image.getWidth();
         int height = image.getHeight();
 
-        BufferedImage vignetteImage = new BufferedImage(width, height, image.getType());
+        BufferedImage vignetteImage = getEmptyImage(image);
+
+        double adjustedIntensity = Math.sqrt(intensity/10);
 
         int centerX = width / 2;
         int centerY = height / 2;
@@ -42,7 +44,7 @@ public class Vignette extends Filter {
                 Color color = new Color(rgb);
 
                 double distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
-                double factor = intensity * Math.max(0, (distance - 0) / (maxDistance - 0));
+                double factor = adjustedIntensity * Math.max(0, (distance - 0) / (maxDistance - 0));
 
                 int red = ColorManipulator.truncate(color.getRed() * (1 - factor));
                 int green = ColorManipulator.truncate(color.getGreen() * (1 - factor));

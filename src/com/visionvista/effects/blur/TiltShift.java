@@ -1,37 +1,36 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.blur;
 
 import com.visionvista.effects.EffectType;
-import com.visionvista.effects.blur.GaussBlur;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class TiltShift extends Filter {
+public class TiltShift extends Blur {
 
-    private double blurStrength;
+    private double intensity;
 
-    public TiltShift(double blurStrength) {
-        this.blurStrength = blurStrength;
+    public TiltShift(double intensity) {
+        this.intensity = intensity;
     }
 
     @Override
     public Object getParameter() {
-        return blurStrength;
+        return intensity;
     }
 
     @Override
     public String toString() {
-        return "Applied Tilt Shift. Blur strength: " + blurStrength;
+        return "Applied Tilt Shift. Blur strength: " + intensity;
     }
 
     @Override
     public BufferedImage run(BufferedImage image) {
         int focusAreaStart = image.getHeight() / 3;
         int focusAreaEnd = 2 * image.getHeight() / 3;
-        BufferedImage blurredImage = new GaussBlur(blurStrength).run(image);
-        BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage blurredImage = new GaussBlur(intensity).run(image);
+        BufferedImage result = getEmptyImage(image);
 
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {

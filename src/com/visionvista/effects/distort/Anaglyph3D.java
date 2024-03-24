@@ -1,13 +1,14 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.distort;
 
 import com.visionvista.effects.EffectType;
+import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Anaglyph3D extends Filter {
+public class Anaglyph3D extends Distort {
 
     private int offset;
 
@@ -23,7 +24,7 @@ public class Anaglyph3D extends Filter {
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage result = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {

@@ -25,11 +25,7 @@ public class GaussBlur extends Blur {
 
     public BufferedImage run(BufferedImage image) {
         System.out.println("Gauss Blurring image");
-        if (intensity == 0) {
-            return image;
-        } else {
-            return applySeparableGaussianBlur(image, intensity);
-        }
+        return (intensity == 0) ? image : applySeparableGaussianBlur(image, intensity);
     }
 
     private BufferedImage applySeparableGaussianBlur(BufferedImage image, double sigma) {

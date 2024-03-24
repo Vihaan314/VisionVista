@@ -20,9 +20,15 @@ public class Grayscale extends Filter {
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                Color rgb = new Color(image.getRGB(x, y));
-                int gray = ColorManipulator.getNewRGB(rgb, ColorManipulator.toGray(rgb));
-                grayscaleImg.setRGB(x, y, gray);
+                Color color = new Color(image.getRGB(x, y));
+                int red = color.getRed();
+                int green = color.getGreen();
+                int blue = color.getBlue();
+
+                int gray = (int) ColorManipulator.toGray(red, green, blue);
+                Color newColor = new Color(gray, gray, gray);
+
+                grayscaleImg.setRGB(x, y, newColor.getRGB());
             }
         }
         return grayscaleImg;

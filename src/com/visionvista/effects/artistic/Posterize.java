@@ -1,11 +1,12 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.artistic;
 
+import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Posterize extends Filter {
+public class Posterize extends Artistic {
     public Posterize() {
         super();
     }

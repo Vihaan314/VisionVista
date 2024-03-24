@@ -1,12 +1,13 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.distort;
 
 import com.visionvista.effects.EffectType;
+import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
 
-public class PixelSort extends Filter {
+public class PixelSort extends Distort {
 
     private int threshold;  //Single parameter to control both black and white thresholds
 
@@ -21,7 +22,7 @@ public class PixelSort extends Filter {
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage sortedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage sortedImage = getEmptyImage(image);
 
         int blackThreshold = calculateBlackThreshold(threshold);
         int whiteThreshold = calculateWhiteThreshold(threshold);

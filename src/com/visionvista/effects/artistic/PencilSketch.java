@@ -1,12 +1,15 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.artistic;
 
 import com.visionvista.effects.*;
 import com.visionvista.blending.ColorDodge;
 import com.visionvista.effects.blur.GaussBlur;
+import com.visionvista.effects.filters.Filter;
+import com.visionvista.effects.filters.Grayscale;
+import com.visionvista.effects.filters.Negative;
 
 import java.awt.image.BufferedImage;
 
-public class PencilSketch extends Filter {
+public class PencilSketch extends Artistic {
     public PencilSketch() {
         super();
     }

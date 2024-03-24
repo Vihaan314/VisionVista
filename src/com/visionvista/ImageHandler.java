@@ -28,13 +28,6 @@ public class ImageHandler {
     }
 
     public void openImage() {
-        //TODO PROBLEM STILL IS that imageeditor and menupanel still depend on each other
-        //TODO BUT EDITOR DOESN't NEED MENU PANEL ANYMORE
-        //TODO DOENS"T IT AMKE SENSE TO HAVE AN IMAGE AS THE CONSTRUCTOR OF THE IMAGE EDITOR
-        //TODO MENU PANEL STILL NEEDS EDITOR HOW TO DO
-
-        //TODO MAYBE EVERYTIME I UPDATE EDITOR I INSTEAD UPDATE WITH IMAGE FROM EDITOR STATE AND ENSURE BEFORE THAT THAT EDITOSTATE IS SET WITH NEW IMAGE
-        //TODO CURRENT PROBLEM LIES WITH ACTIONLISTENER NOT STORING LATEST VARIABLE
         //TODO TABS ABOVE IMAGE EDITOR SO EDITOR TABS
         JFileChooser fileChooser = new JFileChooser();
         int returnValue = fileChooser.showOpenDialog(null);
@@ -46,6 +39,8 @@ public class ImageHandler {
 
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
+                //TODO handle oversized image processing
+
                 //Set the original image to be displayed
                 EditorState.getInstance().setImage(image);
                 //Add and keep to effect history

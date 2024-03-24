@@ -1,13 +1,14 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.distort;
 
 import com.visionvista.effects.EffectType;
+import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-public class ChromaticAberration extends Filter {
+public class ChromaticAberration extends Distort {
 
     private int offset; //The pixel offset for the color channels
 
@@ -27,7 +28,7 @@ public class ChromaticAberration extends Filter {
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage result = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {

@@ -1,9 +1,11 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.artistic;
+
+import com.visionvista.effects.filters.Filter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Cyberpunk extends Filter {
+public class Cyberpunk extends Artistic {
 
     public Cyberpunk() {
         super();
@@ -11,7 +13,7 @@ public class Cyberpunk extends Filter {
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage result = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {

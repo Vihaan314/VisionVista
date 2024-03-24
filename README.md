@@ -42,8 +42,6 @@ image manipulation.
     <ul>
       <li>Contrast</li>
       <li>Brightness</li>
-      <li>Box Blur</li>
-      <li>Gaussian Blur</li>
       <li>Saturation</li>
       <li>Vibrance</li>
       <li>Hue</li>
@@ -57,27 +55,48 @@ image manipulation.
       <li>Sepia</li>
       <li>Glow</li>
       <li>Vignette</li>
-      <li>Pixelate</li>
       <li>Grayscale</li>
       <li>Negative</li>
-      <li>Posterize</li>
       <li>Cross process</li>
-      <li>Lomography</li>
       <li>Solarize</li>
       <li>Split tone</li>
       <li>Heat map</li>
       <li>Infrared</li>
-      <li>Pencil sketch</li>
-      <li>Tilt shift</li>
 	  <li>Halftone</li>
 	  <li>Duotone (beta)</li>
+    </ul>
+  </details>
+  
+  <details style="margin-left: 20px;">
+    <summary>Artistic</summary>
+    <ul>
 	  <li>Watercolor (beta)</li>
-	  <li>Chromatic Aberration</li>
-	  <li>Anaglyph 3D</li>
-	  <li>Pixel sort</li>
-	  <li>Bokeh Blur</li>
 	  <li>Oil Painting</li>
 	  <li>Cyberpunk</li>
+	  <li>Pencil sketch</li>
+	  <li>Posterize</li>
+	  <li>Lomography</li>
+	  <li>Color Splash</li>
+    </ul>
+  </details>
+  
+  <details style="margin-left: 20px;">
+    <summary>Distort</summary>
+    <ul>
+	  <li>Pixel sort</li>
+      <li>Pixelate</li>
+	  <li>Chromatic Aberration</li>
+	  <li>Anaglyph 3D</li>
+    </ul>
+  </details>
+  
+  <details style="margin-left: 20px;">
+    <summary>Blur</summary>
+    <ul>
+      <li>Box Blur</li>
+      <li>Gaussian Blur</li>
+	  <li>Bokeh Blur</li>
+	  <li>Tilt shift</li>
     </ul>
   </details>
 

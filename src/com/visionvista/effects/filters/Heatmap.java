@@ -25,11 +25,10 @@ public class Heatmap extends Filter {
                 int B = color.getBlue();
 
                 //Heatmap conversion formula
-                int newRed = 0, newGreen = 0, newBlue = 0;
                 int average = (R + G + B) / 3;
-                newRed = ColorManipulator.truncate(average + 50);
-                newGreen = ColorManipulator.truncate((int) (average * 0.7));
-                newBlue = ColorManipulator.truncate((int) (average * 0.4));
+                int newRed = ColorManipulator.truncate(average + 50);
+                int newGreen = ColorManipulator.truncate((int) (average * 0.7));
+                int newBlue = ColorManipulator.truncate((int) (average * 0.4));
 
                 Color newRGB = new Color(newRed, newGreen, newBlue);
                 image_map.setRGB(x, y, newRGB.getRGB());

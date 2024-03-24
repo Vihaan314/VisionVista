@@ -27,21 +27,21 @@ public class Saturation extends Effect{
         System.out.println("Changing saturation");
         BufferedImage sat_img = getEmptyImage(image);
 
-        amount = 1+ amount / 100;
-        for (int x = 0; x < Math.floor(image.getWidth()); x++) {
-            for (int y = 0; y < Math.floor(image.getHeight()); y++) {
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
                 Color originalColor = new Color(image.getRGB(x, y), true);
+                //Extract HSB values
                 float[] hsb = Color.RGBtoHSB(originalColor.getRed(), originalColor.getGreen(), originalColor.getBlue(), null);
                 float hue = hsb[0];
                 float saturation = hsb[1];
                 float brightness = hsb[2];
 
-                saturation += amount;
+                //Adjust saturation by amount
+                saturation *= (float) (1 + amount/20);
                 saturation = Math.max(0.0f, Math.min(1.0f, saturation));
 
                 int newRGB = Color.HSBtoRGB(hue, saturation, brightness);
-                Color newColor = new Color(newRGB, true);
-                sat_img.setRGB(x, y, newColor.getRGB());
+                sat_img.setRGB(x, y, newRGB);
             }
         }
         return sat_img;

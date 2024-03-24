@@ -1,11 +1,12 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.artistic;
 
 import com.visionvista.effects.enhance.EdgeEnhance;
 import com.visionvista.effects.blur.GaussBlur;
+import com.visionvista.effects.filters.Filter;
 
 import java.awt.image.BufferedImage;
 
-public class Watercolor extends Filter {
+public class Watercolor extends Artistic {
     public Watercolor() {
         super();
     }

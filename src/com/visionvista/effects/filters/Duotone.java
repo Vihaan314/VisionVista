@@ -16,12 +16,12 @@ public class Duotone extends Filter {
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage result = getEmptyImage(image);
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                Color pixelColor = new Color(image.getRGB(x, y));
-                int gray = (int)(0.299 * pixelColor.getRed() + 0.587 * pixelColor.getGreen() + 0.114 * pixelColor.getBlue());
+                Color color = new Color(image.getRGB(x, y));
+                int gray = (int)(0.299 * color.getRed() + 0.587 * color.getGreen() + 0.114 * color.getBlue());
                 Color blendColor = new Color(
                         (color1.getRed() * gray + color2.getRed() * (255 - gray)) / 255,
                         (color1.getGreen() * gray + color2.getGreen() * (255 - gray)) / 255,

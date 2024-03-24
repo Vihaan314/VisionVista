@@ -1,9 +1,15 @@
 package com.visionvista;
 
 import com.visionvista.effects.*;
+import com.visionvista.effects.artistic.*;
 import com.visionvista.effects.blur.BokehBlur;
 import com.visionvista.effects.blur.BoxBlur;
 import com.visionvista.effects.blur.GaussBlur;
+import com.visionvista.effects.blur.TiltShift;
+import com.visionvista.effects.distort.Anaglyph3D;
+import com.visionvista.effects.distort.ChromaticAberration;
+import com.visionvista.effects.distort.PixelSort;
+import com.visionvista.effects.distort.Pixelate;
 import com.visionvista.effects.enhance.EdgeEnhance;
 import com.visionvista.effects.enhance.Sharpen;
 import com.visionvista.effects.filters.*;
