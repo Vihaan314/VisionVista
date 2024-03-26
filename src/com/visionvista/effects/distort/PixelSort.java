@@ -2,6 +2,7 @@ package com.visionvista.effects.distort;
 
 import com.visionvista.effects.EffectType;
 import com.visionvista.effects.filters.Filter;
+import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
@@ -38,7 +39,7 @@ public class PixelSort extends Distort {
 
             for (int x = 0; x < row.length; x++) {
                 int pixel = row[x];
-                int brightness = getBrightness(pixel);
+                int brightness = ColorManipulator.getBrightness(pixel);
 
                 if (!sorting && brightness < blackThreshold) {
                     sorting = true;
@@ -67,10 +68,6 @@ public class PixelSort extends Distort {
 
     private int calculateWhiteThreshold(int threshold) {
         return Math.min(255, threshold);
-    }
-
-    private int getBrightness(int color) {
-        return (color >> 16) & 0xFF;
     }
 
     @Override

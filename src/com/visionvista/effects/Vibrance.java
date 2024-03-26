@@ -17,14 +17,10 @@ public class Vibrance extends Effect{
         this.amount = amount;
     }
 
-    @Override protected Color applyEffect(Color color) {
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
-
-        double unGammaR = unGamma(r);
-        double unGammaG = unGamma(g);
-        double unGammaB = unGamma(b);
+    @Override protected int applyEffect(int red, int green, int blue) {
+        double unGammaR = unGamma(red);
+        double unGammaG = unGamma(green);
+        double unGammaB = unGamma(blue);
 
         double gray = toGray(unGammaR, unGammaG, unGammaB);
 
@@ -54,11 +50,11 @@ public class Vibrance extends Effect{
             unGammaB *= grayRatio;
         }
 
-        r = truncate((int) Gamma(unGammaR));
-        g = truncate((int) Gamma(unGammaG));
-        b = truncate((int) Gamma(unGammaB));
+        int newRed = truncate((int) Gamma(unGammaR));
+        int newGreen = truncate((int) Gamma(unGammaG));
+        int newBlue = truncate((int) Gamma(unGammaB));
 
-        return new Color(r, g, b);
+        return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
     @Override public String toString() {

@@ -17,31 +17,18 @@ public class Anaglyph3D extends Distort {
         this.offset = (int) offset;
     }
 
-    @Override
-    public Object getParameter() {
-        return offset;
+    @Override protected int applyEffect(int red, int green, int blue, BufferedImage image, int x, int y) {
+        //Anaglyph conversion formula - offset pixels to give 3D look
+        int shiftX = x + offset < image.getWidth() ? x + offset : x;
+        int shiftedRGB = image.getRGB(shiftX, y);
+        int shiftedGreen = (shiftedRGB >> 8) & 0xFF;
+        int shiftedBlue = shiftedRGB & 0xFF;
+        return (red << 16 | shiftedGreen << 8 | shiftedBlue);
     }
 
     @Override
-    public BufferedImage run(BufferedImage image) {
-        BufferedImage result = getEmptyImage(image);
-
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                int rgb = image.getRGB(x, y);
-                Color color = new Color(rgb);
-
-                //Compute shifted color
-                int shiftX = x + offset < image.getWidth() ? x + offset : x;
-                int shiftedRGB = image.getRGB(shiftX, y);
-                Color shiftedColor = new Color(shiftedRGB);
-
-                Color anaglyphColor = new Color(color.getRed(), shiftedColor.getGreen(), shiftedColor.getBlue());
-                result.setRGB(x, y, anaglyphColor.getRGB());
-            }
-        }
-
-        return result;
+    public Object getParameter() {
+        return offset;
     }
 
     @Override

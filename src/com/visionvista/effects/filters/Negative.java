@@ -11,26 +11,17 @@ public class Negative extends Filter {
         super();
     }
 
-    @Override public String toString() {
-        return "Applied negative";
+    @Override protected int applyEffect(int red, int green, int blue) {
+        //Heatmap conversion formula
+        int newRed = 255 - red;
+        int newGreen = 255 - green;
+        int newBlue = 255 - blue;
+
+        return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
-    @Override public BufferedImage run(BufferedImage image) {
-        BufferedImage image_negative = getEmptyImage(image);
-
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                Color color = new Color(image.getRGB(x, y));
-                //Negative of all color values
-                int rn = 255 - color.getRed();
-                int gn = 255 - color.getGreen();
-                int bn = 255 - color.getBlue();
-
-                Color colorN = new Color(rn, gn, bn);
-                image_negative.setRGB(x, y, colorN.getRGB());
-            }
-        }
-        return image_negative;
+    @Override public String toString() {
+        return "Applied negative";
     }
 
     public static Negative getRandomInstance() {

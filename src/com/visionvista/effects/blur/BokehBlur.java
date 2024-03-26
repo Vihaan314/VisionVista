@@ -50,8 +50,7 @@ public class BokehBlur extends Blur {
         int green = (int)(blendFactor * originalColor.getGreen() + (1 - blendFactor) * blurredColor.getGreen());
         int blue = (int)(blendFactor * originalColor.getBlue() + (1 - blendFactor) * blurredColor.getBlue());
 
-        Color finalColor = new Color(red, green, blue);
-        return finalColor;
+        return new Color(red, green, blue);
     }
 
     @Override

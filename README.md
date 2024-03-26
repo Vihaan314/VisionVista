@@ -106,6 +106,7 @@ image manipulation.
       <li>Resize</li>
       <li>Flip vertical</li>
       <li>Flip horizontal</li>
+	  <li>Rotate (beta)</li>
     </ul>
   </details>
   

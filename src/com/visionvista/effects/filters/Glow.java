@@ -17,6 +17,14 @@ public class Glow extends Filter {
     }
 
     @Override
+    public BufferedImage run(BufferedImage image) {
+        BufferedImage blurImg = new GaussBlur(intensity).run(image);
+        BufferedImage blendImg = new ColorDodge(image, blurImg).blend();
+        BufferedImage correctedBlend = new Brightness(-10*intensity).run(blendImg);
+        return correctedBlend;
+    }
+
+    @Override
     public Object getParameter() {
         return intensity;
     }
@@ -25,15 +33,6 @@ public class Glow extends Filter {
     public String toString() {
         return "Applied Glow. Intensity: " + this.intensity;
     }
-
-    @Override
-    public BufferedImage run(BufferedImage image) {
-        BufferedImage blurImg = new GaussBlur(intensity).run(image);
-        BufferedImage blendImg = new ColorDodge(image, blurImg).blend();
-        BufferedImage correctedBlend = new Brightness(-10*intensity).run(blendImg);
-        return correctedBlend;
-    }
-
 
     public static Glow getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.GLOW.getSliderBounds();

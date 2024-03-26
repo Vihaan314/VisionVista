@@ -16,23 +16,12 @@ public class Vignette extends Filter {
         this.intensity = intensity;
     }
 
-    @Override
-    public Object getParameter() {
-        return intensity;
-    }
-
-    @Override public String toString() {
-        return "Applied Vignette. Intensity: " + this.intensity;
-    }
-
     @Override public BufferedImage run(BufferedImage image) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
         BufferedImage vignetteImage = getEmptyImage(image);
-
         double adjustedIntensity = Math.sqrt(intensity/10);
 
+        int width = image.getWidth();
+        int height = image.getHeight();
         int centerX = width / 2;
         int centerY = height / 2;
 
@@ -55,6 +44,15 @@ public class Vignette extends Filter {
         }
 
         return vignetteImage;
+    }
+
+    @Override
+    public Object getParameter() {
+        return intensity;
+    }
+
+    @Override public String toString() {
+        return "Applied Vignette. Intensity: " + this.intensity;
     }
 
     public static Vignette getRandomInstance() {

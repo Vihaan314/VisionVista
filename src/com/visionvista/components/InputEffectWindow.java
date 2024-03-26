@@ -27,7 +27,7 @@ public class InputEffectWindow {
 
     public InputEffectWindow(EffectType effect, String[] paramLabels, ImageDisplay imageDisplay) {
         this.effect = effect;
-        this.inputFrame = setupInputFrame(effect);
+        this.inputFrame = setupInputFrame();
         this.paramLabels = paramLabels;
         this.labelLength = paramLabels.length;
         this.inputPanel = new JPanel(new GridLayout(this.labelLength+1, this.labelLength));
@@ -83,7 +83,7 @@ public class InputEffectWindow {
         return inputFields;
     }
 
-    private JFrame setupInputFrame(EffectType effect) {
+    private JFrame setupInputFrame() {
         JFrame frame = new JFrame("Input for effects");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(650, 400);

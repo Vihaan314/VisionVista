@@ -1,5 +1,7 @@
 package com.visionvista.effects.filters;
 
+import com.visionvista.utils.ColorManipulator;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -14,23 +16,13 @@ public class Duotone extends Filter {
         this.color2 = color2;
     }
 
-    @Override
-    public BufferedImage run(BufferedImage image) {
-        BufferedImage result = getEmptyImage(image);
+    @Override protected int applyEffect(int red, int green, int blue) {
+        int gray = (int) ColorManipulator.toGray(red, green, blue);
+        int newRed = (color1.getRed() * gray + color2.getRed() * (255 - gray)) / 255;
+        int newGreen = (color1.getGreen() * gray + color2.getGreen() * (255 - gray)) / 255;
+        int newBlue = (color1.getBlue() * gray + color2.getBlue() * (255 - gray)) / 255;
 
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                Color color = new Color(image.getRGB(x, y));
-                int gray = (int)(0.299 * color.getRed() + 0.587 * color.getGreen() + 0.114 * color.getBlue());
-                Color blendColor = new Color(
-                        (color1.getRed() * gray + color2.getRed() * (255 - gray)) / 255,
-                        (color1.getGreen() * gray + color2.getGreen() * (255 - gray)) / 255,
-                        (color1.getBlue() * gray + color2.getBlue() * (255 - gray)) / 255);
-                result.setRGB(x, y, blendColor.getRGB());
-            }
-        }
-
-        return result;
+        return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
     @Override

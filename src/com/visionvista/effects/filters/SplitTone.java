@@ -10,34 +10,21 @@ public class SplitTone extends Filter {
         super();
     }
 
-    @Override public String toString() {
-        return "Applied split-tone";
+    @Override protected int applyEffect(int red, int green, int blue) {
+        //Spit tone conversion formula
+        int newRed = 0, newGreen = 0, newBlue = 0;
+        if (red + green + blue > 382) {
+            newRed = ColorManipulator.truncate(red + 40);
+            newGreen = ColorManipulator.truncate(green + 40);
+        } else {
+            newBlue = ColorManipulator.truncate(blue + 50);
+        }
+
+        return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
-    @Override public BufferedImage run(BufferedImage image) {
-        BufferedImage image_split = getEmptyImage(image);
-
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                Color color = new Color(image.getRGB(x, y));
-                int R = color.getRed();
-                int G = color.getGreen();
-                int B = color.getBlue();
-
-                //Split tone conversion formula
-                int newRed = 0, newGreen = 0, newBlue = 0;
-                if (R + G + B > 382) {
-                    newRed = ColorManipulator.truncate(R + 40);
-                    newGreen = ColorManipulator.truncate(G + 40);
-                } else {
-                    newBlue = ColorManipulator.truncate(B + 50);
-                }
-
-                Color newRGB = new Color(newRed, newGreen, newBlue);
-                image_split.setRGB(x, y, newRGB.getRGB());
-            }
-        }
-        return image_split;
+    @Override public String toString() {
+        return "Applied split-tone";
     }
 
     public static SplitTone getRandomInstance() {

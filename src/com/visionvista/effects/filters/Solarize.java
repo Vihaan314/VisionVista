@@ -10,36 +10,23 @@ public class Solarize extends Filter {
         super();
     }
 
-    @Override public String toString() {
-        return "Applied solarizing";
+    @Override protected int applyEffect(int red, int green, int blue) {
+        //Solarize conversion procedure
+        int newRed, newGreen, newBlue;
+        if (red > 128) newRed = 255 - red;
+        else newRed = red;
+
+        if (green > 128) newGreen = 255 - green;
+        else newGreen = green;
+
+        if (blue > 128) newBlue = 255 - blue;
+        else newBlue = blue;
+
+        return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
-    @Override public BufferedImage run(BufferedImage image) {
-        BufferedImage image_solarized = getEmptyImage(image);
-
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                Color color = new Color(image.getRGB(x, y));
-                int R = color.getRed();
-                int G = color.getGreen();
-                int B = color.getBlue();
-
-                //Solarize conversion formula
-                int newRed, newGreen, newBlue;
-                if (R > 128) newRed = 255 - R;
-                else newRed = R;
-
-                if (G > 128) newGreen = 255 - G;
-                else newGreen = G;
-
-                if (B > 128) newBlue = 255 - B;
-                else newBlue = B;
-
-                Color newRGB = new Color(newRed, newGreen, newBlue);
-                image_solarized.setRGB(x, y, newRGB.getRGB());
-            }
-        }
-        return image_solarized;
+    @Override public String toString() {
+        return "Applied solarizing";
     }
 
     public static Solarize getRandomInstance() {

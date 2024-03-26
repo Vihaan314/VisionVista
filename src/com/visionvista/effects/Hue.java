@@ -6,7 +6,6 @@ import com.visionvista.utils.Pair;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-
 public class Hue extends Effect{
     private Color color;
 
@@ -24,26 +23,13 @@ public class Hue extends Effect{
         return color;
     }
 
-    @Override public BufferedImage run(BufferedImage image) {
-        System.out.println("Adding hue");
-        BufferedImage hue_img = getEmptyImage(image);
+    @Override protected int applyEffect(int red, int green, int blue) {
+        //Adding hue
+        int newRed = (red + this.color.getRed()) / 2;
+        int newGreen = (green + this.color.getGreen()) / 2;
+        int newBlue = (blue + this.color.getBlue()) / 2;
 
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
-
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                Color originalColor = new Color(image.getRGB(x, y), true);
-                int red = (originalColor.getRed() + r) / 2;
-                int green = (originalColor.getGreen() + g) / 2;
-                int blue = (originalColor.getBlue() + b) / 2;
-                int alpha = originalColor.getAlpha();
-                Color newColor = new Color(red, green, blue, alpha);
-                hue_img.setRGB(x, y, newColor.getRGB());
-            }
-        }
-        return hue_img;
+        return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
     public static Pair<Integer, Integer> getColorBounds() {

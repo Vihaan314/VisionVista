@@ -68,6 +68,11 @@ public class SliderEffectWindow {
                 position.put(i, new JLabel(String.valueOf(i)));
             }
         }
+        else if (upper % 5 == 0) {
+            for (int i = lower; i < 2*upper; i+= upper / 5) {
+                position.put(i, new JLabel(String.valueOf(i)));
+            }
+        }
         else {
             for (int i = lower; i < upper+1; i++) {
                 position.put(i, new JLabel(String.valueOf(i)));

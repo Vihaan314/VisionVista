@@ -23,6 +23,20 @@ public class Saturation extends Effect{
         return amount;
     }
 
+    @Override protected int applyEffect(int red, int green, int blue) {
+        //Extract HSB values
+        float[] hsb = Color.RGBtoHSB(red, green, blue, null);
+        float hue = hsb[0];
+        float saturation = hsb[1];
+        float brightness = hsb[2];
+
+        //Adjust saturation by amount
+        saturation *= (float) (1 + amount/20);
+        saturation = Math.max(0.0f, Math.min(1.0f, saturation));
+
+        return Color.HSBtoRGB(hue, saturation, brightness);
+    }
+
     @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Changing saturation");
         BufferedImage sat_img = getEmptyImage(image);

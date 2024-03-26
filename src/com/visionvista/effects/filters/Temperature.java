@@ -16,21 +16,19 @@ public class Temperature extends Filter {
         this.amount = amount;
     }
 
-    @Override
-    public Object getParameter() {
+    @Override public BufferedImage run(BufferedImage image) {
+        System.out.println("Changing Temperature");
+        BufferedImage saturatedImg = new Saturation(amount*0.5).run(image);
+        BufferedImage contrastedImg = new Contrast(amount*0.5).run(saturatedImg);
+        return contrastedImg;
+    }
+
+    @Override public Object getParameter() {
         return amount;
     }
 
     @Override public String toString() {
         return "Applied Temperature. Amount: " + this.amount;
-    }
-
-    @Override public BufferedImage run(BufferedImage image) {
-        System.out.println("Changing Temperature");
-        BufferedImage saturatedImg = new Saturation(amount*0.5).run(image);
-        BufferedImage contrastedImg = new Contrast(amount*0.5).run(saturatedImg);
-
-        return contrastedImg;
     }
 
     public static Temperature getRandomInstance() {

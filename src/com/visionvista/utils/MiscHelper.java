@@ -10,6 +10,11 @@ import javax.swing.text.JTextComponent;
 import java.beans.PropertyChangeEvent;
 import java.util.Arrays;
 import java.util.Objects;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.Base64;
 
 public class MiscHelper {
     public static String[] createZerosArray(int length) {
@@ -54,5 +59,11 @@ public class MiscHelper {
         });
         Document d = text.getDocument();
         if (d != null) d.addDocumentListener(dl);
+    }
+
+    public static String imageToBase64(BufferedImage image) throws Exception {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", outputStream);
+        return Base64.getEncoder().encodeToString(outputStream.toByteArray());
     }
 }

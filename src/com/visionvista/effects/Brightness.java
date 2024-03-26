@@ -15,17 +15,13 @@ public class Brightness extends Effect implements Serializable {
         this.intensity = intensity;
     }
 
-    @Override protected Color applyEffect(Color color) {
-        int red = color.getRed();
-        int green =  color.getGreen();
-        int blue = color.getBlue();
+    @Override protected int applyEffect(int red, int green, int blue) {
+        //Brightness conversion formula - increase RGB values by intensity
+        int newRed = ColorManipulator.truncate(red + intensity);
+        int newGreen = ColorManipulator.truncate(green + intensity);
+        int newBlue = ColorManipulator.truncate(blue + intensity);
 
-        //Brightness conversion formula - increase RGB values
-        red = ColorManipulator.truncate((int) (red + intensity));
-        green = ColorManipulator.truncate((int) (green + intensity));
-        blue = ColorManipulator.truncate((int) (blue + intensity));
-
-        return new Color(red, green, blue);
+        return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
     @Override public String toString() {

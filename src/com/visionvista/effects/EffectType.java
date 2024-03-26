@@ -28,8 +28,8 @@ interface EffectConstructor {
 public enum EffectType {
     //Slider
     BOX_BLUR("Box Blur", 0, 10, EffectUIType.SLIDER, (param) -> new BoxBlur((Double) param)),
-    BRIGHTNESS("Brightness", -50, 50, EffectUIType.SLIDER, (param) -> new Brightness((Double) param)),
-    CONTRAST("Contrast", 0, 100, EffectUIType.SLIDER, (param) -> new Contrast((Double) param)),
+    BRIGHTNESS("Brightness", -100, 100, EffectUIType.SLIDER, (param) -> new Brightness((Double) param)),
+    CONTRAST("Contrast", -100, 100, EffectUIType.SLIDER, (param) -> new Contrast((Double) param)),
     SATURATION("Saturation", 0, 100, EffectUIType.SLIDER, (param) -> new Saturation((Double) param)),
     VIBRANCE("Vibrance", 0, 10, EffectUIType.SLIDER, (param) -> new Vibrance((Double) param)),
     SHARPEN("Sharpen", 0, 10, EffectUIType.SLIDER, (param) -> new Sharpen((Double) param)),
@@ -42,8 +42,8 @@ public enum EffectType {
     CHROMATIC_ABERRATION("Chromatic Aberration", 0, 10, EffectUIType.SLIDER, (param) -> new ChromaticAberration((Double) param)),
     TILT_SHIFT("Tilt shift", 0, 10, EffectUIType.SLIDER, (param) -> new TiltShift((Double) param)),
     PIXEL_SORT("Pixel sort", 0, 255, EffectUIType.SLIDER, (param) -> new PixelSort((Double) param)),
-    ANAGLYPH("Anaglyph", 0, 30, EffectUIType.SLIDER, (param) -> new Anaglyph3D((Double) param)),
-    OIL_PAINTING("Oil painting", 0, 65, EffectUIType.SLIDER, (param) -> new OilPainting((Double) param)),
+    ANAGLYPH("Anaglyph 3D", 0, 30, EffectUIType.SLIDER, (param) -> new Anaglyph3D((Double) param)),
+    OIL_PAINTING("Oil painting", 0, 50, EffectUIType.SLIDER, (param) -> new OilPainting((Double) param)),
     BOKEH_BLUR("Bokeh blur", 0, 20, EffectUIType.SLIDER, (param) -> new BokehBlur((Double) param)),
     COLOR_SPLASH("Color splash", 0, 50, EffectUIType.SLIDER, (param) -> new ColorSplash((Double) param)),
 

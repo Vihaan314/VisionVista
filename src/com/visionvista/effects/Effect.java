@@ -19,16 +19,24 @@ public abstract class Effect implements Serializable
         BufferedImage result = getEmptyImage(image);
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                Color originalColor = new Color(image.getRGB(x, y));
-                Color newColor = applyEffect(originalColor);
-                result.setRGB(x, y, newColor.getRGB());
+                int newRGB = applyEffectAtPixel(image.getRGB(x, y));
+                result.setRGB(x, y, newRGB);
             }
         }
         return result;
     }
 
-    protected Color applyEffect(Color color) {
-        return color;
+    protected int applyEffectAtPixel(int rgb) {
+        int alpha = (rgb >>> 24);
+        int red = (rgb >> 16) & 0xFF;
+        int green = (rgb >> 8) & 0xFF;
+        int blue = rgb & 0xFF;
+        int newRGB = applyEffect(red, green, blue);
+        return (alpha << 24) | newRGB;
+    }
+
+    protected int applyEffect(int red, int green, int blue) {
+        return (red << 16 | green << 8 | blue);
     }
 
     protected BufferedImage getEmptyImage(BufferedImage reference) {

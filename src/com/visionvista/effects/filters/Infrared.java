@@ -10,29 +10,17 @@ public class Infrared extends Filter {
         super();
     }
 
-    @Override public String toString() {
-        return "Applied infrared";
+    @Override protected int applyEffect(int red, int green, int blue) {
+        //Infrared conversion formula
+        int newRed = ColorManipulator.truncate(red + green + blue) / 3;
+        int newGreen = green / 2;
+        int newBlue = blue / 2;
+
+        return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
-    @Override public BufferedImage run(BufferedImage image) {
-        BufferedImage image_infrared = getEmptyImage(image);
-
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                Color color = new Color(image.getRGB(x, y));
-                int R = color.getRed();
-                int G = color.getGreen();
-                int B = color.getBlue();
-
-                int newRed = ColorManipulator.truncate(R + G + B) / 3;
-                int newGreen = G / 2;
-                int newBlue = B / 2;
-
-                Color newRGB = new Color(newRed, newGreen, newBlue);
-                image_infrared.setRGB(x, y, newRGB.getRGB());
-            }
-        }
-        return image_infrared;
+    @Override public String toString() {
+        return "Applied infrared";
     }
 
     public static Infrared getRandomInstance() {

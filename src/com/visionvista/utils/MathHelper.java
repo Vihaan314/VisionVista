@@ -36,4 +36,14 @@ public class MathHelper {
         }
         return normKernal;
     }
+
+    public static double[][] rotatePoint(int[][] point, double angle) {
+        double[][] rotationMatrix = new double[][] {
+                {Math.cos(angle), Math.sin(angle)},
+                {-Math.sin(angle), Math.cos(angle)}
+        };
+
+        double[][] rotatedPoint = new double[2][1];
+        return rotatedPoint;
+    }
 }

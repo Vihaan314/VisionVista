@@ -14,11 +14,6 @@ public class Halftone extends Filter {
     }
 
     @Override
-    public String toString() {
-        return "Applied Halftone";
-    }
-
-    @Override
     public BufferedImage run(BufferedImage image) {
         BufferedImage result = getEmptyImage(image);
 
@@ -52,6 +47,11 @@ public class Halftone extends Filter {
             }
         }
         return count > 0 ? sum / count : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Applied Halftone";
     }
 
     public static Halftone getRandomInstance() {

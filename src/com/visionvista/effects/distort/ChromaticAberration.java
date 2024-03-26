@@ -17,6 +17,18 @@ public class ChromaticAberration extends Distort {
         this.offset = (int) offset;
     }
 
+    @Override protected int applyEffect(int red, int green, int blue, BufferedImage image, int x, int y) {
+        //Chromatic aberration formula - offset pixels to give more of a glitched look
+        int px = Math.min(x + offset, image.getWidth() - 1);
+        int nx = Math.max(x - offset, 0);
+
+        int newRed = new Color(image.getRGB(px, y)).getRed();
+        int newGreen = new Color(image.getRGB(x, y)).getGreen();
+        int newBlue = new Color(image.getRGB(nx, y)).getBlue();
+
+        return (newRed << 16 | newGreen << 8 | newBlue);
+    }
+
     @Override
     public Object getParameter() {
         return offset;
@@ -24,28 +36,6 @@ public class ChromaticAberration extends Distort {
 
     @Override public String toString() {
         return "Applied Chromatic Aberration. Offset: " + this.offset;
-    }
-
-    @Override
-    public BufferedImage run(BufferedImage image) {
-        BufferedImage result = getEmptyImage(image);
-
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                //Offset pixel values
-                int px = Math.min(x + offset, image.getWidth() - 1);
-                int nx = Math.max(x - offset, 0);
-
-                int r = new Color(image.getRGB(px, y)).getRed();
-                int g = new Color(image.getRGB(x, y)).getGreen();
-                int b = new Color(image.getRGB(nx, y)).getBlue();
-
-                Color newColor = new Color(r, g, b);
-                result.setRGB(x, y, newColor.getRGB());
-            }
-        }
-
-        return result;
     }
 
     public static ChromaticAberration getRandomInstance() {

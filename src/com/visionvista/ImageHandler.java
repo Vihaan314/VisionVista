@@ -39,7 +39,15 @@ public class ImageHandler {
 
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
-                //TODO handle oversized image processing
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                int screenWidth = (int) screenSize.getWidth();
+                int screenHeight = (int) screenSize.getHeight();
+                if (image.getWidth() > screenWidth) {
+
+                }
+                else if (image.getHeight() > screenHeight) {
+
+                }
 
                 //Set the original image to be displayed
                 EditorState.getInstance().setImage(image);
@@ -96,18 +104,13 @@ public class ImageHandler {
         urlPanel.add(urlLabel);
         urlPanel.add(urlField);
         urlPanel.add(openImageButton);
-
         urlFrame.add(urlPanel);
-
-
-
-
         urlFrame.setVisible(true);
     }
 
     public void openRecentProject() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.addChoosableFileFilter(new SerializedFileFilter(".dat", "Serialized Vision Vista edits"));
+        fileChooser.addChoosableFileFilter(new SerializedFileFilter(".dat", "Vision Vista project"));
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();

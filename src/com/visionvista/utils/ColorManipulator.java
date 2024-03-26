@@ -20,14 +20,17 @@ public class ColorManipulator {
     //Helper
     public static int truncate(int value) {
         if (value > 255) return 255;
-        if (value < 0) return 0;
-        return value;
+        return Math.max(value, 0);
     }
 
     public static int truncate(double value) {
         int newVal = (int) value;
         if (newVal > 255) return 255;
-        if (newVal < 0) return 0;
-        return newVal;
+        return Math.max(newVal, 0);
     }
+
+    public static int getBrightness(int color) {
+        return (color >> 16) & 0xFF;
+    }
+
 }

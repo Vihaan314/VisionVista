@@ -72,7 +72,6 @@ public class MenuPanel {
         addItemToMenu("File", "Save with Text", fileCommands.createSaveImageWithTextCommand());
 
         SerializingCommands serializingCommands = new SerializingCommands(stateBasedUIComponentGroup);
-
         addItemToMenu("Project", "Save Project", serializingCommands.createEffectHistorySerializeCommand());
         addItemToMenu("Project", "Load Project", serializingCommands.createEffectHistoryLoadCommand());
         addItemToMenu("Project", "Save Effect Sequence", serializingCommands.createEffectSerializeCommand());
@@ -85,8 +84,8 @@ public class MenuPanel {
         addItemToMenu("Edit", "Reset", effectHistoryCommands.createResetCommand());
 
         MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
-
         addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand());
+        addItemToMenu("Generate", "Style", miscCommands.createImageStylizeCommand());
     }
 
     public void setupSliderMenuItems() {

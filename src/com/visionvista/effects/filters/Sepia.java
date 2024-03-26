@@ -17,6 +17,15 @@ public class Sepia extends Filter {
         this.intensity = intensity;
     }
 
+    @Override protected int applyEffect(int red, int green, int blue) {
+        //Sepia conversion formula
+        int newRed = ColorManipulator.truncate((int) (0.393*red + 0.769*green + 0.189*blue));
+        int newGreen = ColorManipulator.truncate((int) (0.349*red + 0.686*green + 0.168*blue));
+        int newBlue = ColorManipulator.truncate((int) (0.272*red + 0.534*green + 0.131*blue));
+
+        return (newRed << 16 | newGreen << 8 | newBlue);
+    }
+
     @Override
     public Object getParameter() {
         return intensity;
@@ -24,31 +33,6 @@ public class Sepia extends Filter {
 
     @Override public String toString() {
         return "Applied sepia";
-    }
-
-    @Override public BufferedImage run(BufferedImage image) {
-        System.out.println("Adding sepia");
-        BufferedImage sepiaImg = getEmptyImage(image);
-
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                Color rgb = new Color(image.getRGB(x, y));
-                int R = rgb.getRed();
-                int G = rgb.getGreen();
-                int B = rgb.getBlue();
-
-                //Sepia conversion formula
-                int newRed = ColorManipulator.truncate((int) (0.393*R + 0.769*G + 0.189*B));
-                int newGreen = ColorManipulator.truncate((int) (0.349*R + 0.686*G + 0.168*B));
-                int newBlue = ColorManipulator.truncate((int) (0.272*R + 0.534*G + 0.131*B));
-
-                Color new_rgb = new Color(newRed, newGreen, newBlue);
-                sepiaImg.setRGB(x, y, new_rgb.getRGB());
-            }
-        }
-        //Adjust brightness
-        BufferedImage sepiaCorrected = new Brightness(-intensity).run(sepiaImg);
-        return sepiaCorrected;
     }
 
     public static Sepia getRandomInstance() {
