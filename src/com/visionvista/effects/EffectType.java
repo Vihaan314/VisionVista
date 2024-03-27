@@ -1,20 +1,12 @@
 package com.visionvista.effects;
 
 import com.visionvista.effects.artistic.*;
-import com.visionvista.effects.blur.BokehBlur;
-import com.visionvista.effects.blur.BoxBlur;
-import com.visionvista.effects.blur.GaussBlur;
-import com.visionvista.effects.blur.TiltShift;
-import com.visionvista.effects.distort.Anaglyph3D;
-import com.visionvista.effects.distort.ChromaticAberration;
-import com.visionvista.effects.distort.PixelSort;
-import com.visionvista.effects.distort.Pixelate;
-import com.visionvista.effects.enhance.EdgeEnhance;
-import com.visionvista.effects.enhance.Sharpen;
+import com.visionvista.effects.blur.*;
+import com.visionvista.effects.enhance.*;
+import com.visionvista.effects.transformation.*;
 import com.visionvista.effects.filters.*;
-import com.visionvista.effects.transformation.FlipHorizontal;
-import com.visionvista.effects.transformation.FlipVertical;
-import com.visionvista.effects.transformation.Resize;
+import com.visionvista.effects.distort.*;
+import com.visionvista.effects.*;
 import com.visionvista.utils.Pair;
 
 import java.awt.*;
@@ -37,7 +29,7 @@ public enum EffectType {
     TEMPERATURE("Temperature", 0, 100, EffectUIType.SLIDER, (param) -> new Temperature((Double) param)),
     SEPIA("Sepia", 0, 100, EffectUIType.SLIDER, (param) -> new Sepia((Double) param)),
     GLOW("Glow", 0, 10, EffectUIType.SLIDER, (param) -> new Glow((Double) param)),
-    VIGNETTE("Vignette", 0, 50, EffectUIType.SLIDER, (param) -> new Vignette((Double) param)),
+    VIGNETTE("Vignette", 0, 100, EffectUIType.SLIDER, (param) -> new Vignette((Double) param)),
     PIXELATE("Pixelate", 0, 50, EffectUIType.SLIDER, (param) -> new Pixelate((Double) param)),
     CHROMATIC_ABERRATION("Chromatic Aberration", 0, 10, EffectUIType.SLIDER, (param) -> new ChromaticAberration((Double) param)),
     TILT_SHIFT("Tilt shift", 0, 10, EffectUIType.SLIDER, (param) -> new TiltShift((Double) param)),
@@ -46,6 +38,7 @@ public enum EffectType {
     OIL_PAINTING("Oil painting", 0, 50, EffectUIType.SLIDER, (param) -> new OilPainting((Double) param)),
     BOKEH_BLUR("Bokeh blur", 0, 20, EffectUIType.SLIDER, (param) -> new BokehBlur((Double) param)),
     COLOR_SPLASH("Color splash", 0, 50, EffectUIType.SLIDER, (param) -> new ColorSplash((Double) param)),
+    ROTATE("Rotate", 0, 360, EffectUIType.SLIDER, (param) -> new Rotate((Double) param)),
 
     //Color chooser
     HUE("Hue", EffectUIType.COLOR_CHOOSER, (param) -> new Hue((Color) param)),

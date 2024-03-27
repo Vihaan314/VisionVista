@@ -42,8 +42,9 @@ public class MathHelper {
                 {Math.cos(angle), Math.sin(angle)},
                 {-Math.sin(angle), Math.cos(angle)}
         };
-
-        double[][] rotatedPoint = new double[2][1];
+        double[][] rotatedPoint = new double[][] {{0}, {0}};
+        rotatedPoint[0][0] = rotationMatrix[0][0]*point[0][0] + rotationMatrix[0][1]*point[1][0];
+        rotatedPoint[1][0] = rotationMatrix[1][0]*point[0][0] + rotationMatrix[1][1]*point[1][0];
         return rotatedPoint;
     }
 }

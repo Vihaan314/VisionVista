@@ -1,6 +1,7 @@
 package com.visionvista;
 
 import com.visionvista.effects.Effect;
+import com.visionvista.effects.transformation.Resize;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.SerializedFileFilter;
 
@@ -43,10 +44,13 @@ public class ImageHandler {
                 int screenWidth = (int) screenSize.getWidth();
                 int screenHeight = (int) screenSize.getHeight();
                 if (image.getWidth() > screenWidth) {
-
+                    int convertRatio = image.getWidth() / screenWidth;
+                    System.out.println("width too");
+                    image = new Resize(screenWidth, image.getHeight() / convertRatio).run(image);
                 }
                 else if (image.getHeight() > screenHeight) {
-
+                    int convertRatio = image.getHeight() / screenHeight;
+                    image = new Resize(image.getWidth() / convertRatio, screenHeight).run(image);
                 }
 
                 //Set the original image to be displayed

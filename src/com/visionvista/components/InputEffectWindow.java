@@ -80,6 +80,16 @@ public class InputEffectWindow {
                     }
                 }
             });
+//        MiscHelper.addChangeListener(inputFields.get(1), e -> {
+//            if (!inputFields.get(1).equals("")) {
+//                try {
+//                    double ratio = Double.parseDouble(inputFields.get(1).getText()) / image.getHeight();
+//                    inputFields.get(0).setText(String.valueOf(ratio * image.getWidth()));
+//                } catch (NumberFormatException ex) {
+//                    System.out.println("Please enter a number");
+//                }
+//            }
+//        });
         return inputFields;
     }
 

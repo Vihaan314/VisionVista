@@ -3,6 +3,7 @@ package com.visionvista.components;
 import javax.swing.*;
 import javax.swing.text.Document;
 import java.awt.*;
+import java.util.Objects;
 
 @SuppressWarnings("serial")
 public class PlaceholderTextField extends JTextField {
@@ -66,4 +67,16 @@ public class PlaceholderTextField extends JTextField {
         placeholder = s;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlaceholderTextField that = (PlaceholderTextField) o;
+        return Objects.equals(placeholder, that.placeholder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(placeholder);
+    }
 }
