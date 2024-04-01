@@ -11,30 +11,17 @@ public class Lomography extends Artistic {
         super();
     }
 
-    @Override public String toString() {
-        return "Applied lomography";
+    @Override protected int applyEffect(int red, int green, int blue) {
+        //Lomography conversion formula
+        int newRed = ColorManipulator.truncate((int) (red + (red * 0.2) - (green * 0.1)));
+        int newGreen = ColorManipulator.truncate((int) (green + (green * 0.1) + (blue * 0.1)));
+        int newBlue = ColorManipulator.truncate((int) (blue + (blue * 0.2) - (red * 0.1)));
+
+        return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
-    @Override public BufferedImage run(BufferedImage image) {
-        BufferedImage lomography_image = getEmptyImage(image);
-
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                Color color = new Color(image.getRGB(x, y));
-                int R = color.getRed();
-                int G = color.getGreen();
-                int B = color.getBlue();
-
-                //Lomography conversion formula
-                int newRed = ColorManipulator.truncate((int) (R + (R * 0.2) - (G * 0.1)));
-                int newGreen = ColorManipulator.truncate((int) (G + (G * 0.1) + (B * 0.1)));
-                int newBlue = ColorManipulator.truncate((int) (B + (B * 0.2) - (R * 0.1)));
-
-                Color newRGB = new Color(newRed, newGreen, newBlue);
-                lomography_image.setRGB(x, y, newRGB.getRGB());
-            }
-        }
-        return lomography_image;
+    @Override public String toString() {
+        return "Applied lomography";
     }
 
     public static Lomography getRandomInstance() {

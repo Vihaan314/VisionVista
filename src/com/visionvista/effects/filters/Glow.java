@@ -20,8 +20,8 @@ public class Glow extends Filter {
     public BufferedImage run(BufferedImage image) {
         BufferedImage blurImg = new GaussBlur(intensity).run(image);
         BufferedImage blendImg = new ColorDodge(image, blurImg).blend();
-        BufferedImage correctedBlend = new Brightness(-10*intensity).run(blendImg);
-        return correctedBlend;
+//        BufferedImage correctedBlend = new Brightness(-10*intensity).run(blendImg);
+        return blendImg;
     }
 
     @Override

@@ -1,6 +1,10 @@
 package com.visionvista.effects.transformation;
 
+import com.visionvista.effects.Contrast;
+import com.visionvista.effects.EffectType;
+import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.MathHelper;
+import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
@@ -11,15 +15,6 @@ public class Rotate extends Transformation {
     public Rotate(double angle) {
         super();
         this.angle = angle;
-    }
-
-    @Override public String toString() {
-        return "Rotated " + angle + " degrees";
-    }
-
-    @Override
-    public Object getParameter() {
-        return angle;
     }
 
     @Override
@@ -53,5 +48,19 @@ public class Rotate extends Transformation {
         }
 
         return rotatedImage;
+    }
+
+    @Override public String toString() {
+        return "Rotated " + angle + " degrees";
+    }
+
+    @Override
+    public Object getParameter() {
+        return Math.toDegrees(angle);
+    }
+
+    public static Rotate getRandomInstance() {
+        Pair<Integer, Integer> bounds = EffectType.ROTATE.getSliderBounds();
+        return new Rotate(ImageHelper.getRandomParameter(bounds));
     }
 }

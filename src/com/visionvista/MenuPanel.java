@@ -40,7 +40,13 @@ public class MenuPanel {
             menuBar.add(menu);
         }
         JMenuItem menuItem = new JMenuItem(menuItemTitle);
-        menuItem.addActionListener(e -> command.execute());
+        menuItem.addActionListener(e -> {
+            try {
+                command.execute();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         menuItems.put(menuItemTitle, menuItem);
         menu.add(menuItem);
     }
@@ -84,8 +90,10 @@ public class MenuPanel {
         addItemToMenu("Edit", "Reset", effectHistoryCommands.createResetCommand());
 
         MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
+        AICommands aiCommands = new AICommands();
+        aiCommands.setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
         addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand());
-        addItemToMenu("Generate", "Style", miscCommands.createImageStylizeCommand());
+        addItemToMenu("Generate", "Style", aiCommands.createImageStylizeCommand());
     }
 
     public void setupSliderMenuItems() {

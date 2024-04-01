@@ -12,18 +12,13 @@ import java.util.Map;
 
 public class OilPainting extends Artistic {
 
-    private int radius = 3;
+    private int radius = 5;
     private int intensity;
 
     public OilPainting(double intensity) {
         super();
 //        this.radius = radius;
         this.intensity = (int) intensity;
-    }
-
-    @Override
-    public Object getParameter() {
-        return intensity;
     }
 
     @Override
@@ -56,6 +51,12 @@ public class OilPainting extends Artistic {
             }
         }
         return result;
+    }
+
+
+    @Override
+    public Object getParameter() {
+        return intensity;
     }
 
     @Override

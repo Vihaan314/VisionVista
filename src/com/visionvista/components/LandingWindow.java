@@ -4,109 +4,96 @@ import com.visionvista.ImageHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class LandingWindow {
-    JFrame landingFrame;
+    private JFrame landingFrame;
+    private ImageHandler imageHandler;
+    private JPanel landingPanel;
 
-    public LandingWindow() {
+    private JButton openButton;
+    private JButton generateImageButton;
+    private JButton urlButton;
+    private JButton recentButton;
+
+    private void setupGridItems() {
         //Create landing frame and set properties
-        landingFrame = new JFrame("Image Editor");
+        landingFrame = new JFrame("Vision Vista");
         landingFrame.setSize(1200, 800);
-        landingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        landingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         landingFrame.setLocationRelativeTo(null);
 
-        JPanel landingPanel = new JPanel();
+        landingPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
-//        OutlineText openingText = new OutlineText("Vision Vista", Color.BLUE, Color.YELLOW, new Font("Arial", Font.PLAIN, 24));
+        //Layout constraints for the top panel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.2;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.insets = new Insets(100, 0, 0, 0);  //Top padding
+
         JLabel openingText = new JLabel("Vision Vista");
-        openingText.setFont(new Font("Aria", Font.BOLD, 20));
+        openingText.setFont(new Font("Arial", Font.BOLD, 24));
+        landingPanel.add(openingText, gbc);
 
-        JButton newImageButton = new JButton("New Blank Image");
+        //Button grid setup
+        gbc.weighty = 0.8;
+        gbc.insets = new Insets(0, 0, 20, 0);
+        gbc.anchor = GridBagConstraints.SOUTH;
 
-        //Add padding and buttons to center them
-        JLabel padding1 = new JLabel("");
-        JLabel padding2 = new JLabel("");
-        JLabel padding3 = new JLabel("");
-        JLabel padding4 = new JLabel("");
-        JLabel padding5 = new JLabel("");
-        JLabel padding6 = new JLabel("");
-        JLabel padding7 = new JLabel("");
-        padding1.setBackground(new Color(238, 238, 238));
-        padding2.setBackground(new Color(238, 238, 238));
-        padding3.setBackground(new Color(238, 238, 238));
-        padding4.setBackground(new Color(238, 238, 238));
-        padding5.setBackground(new Color(238, 238, 238));
-        padding6.setBackground(new Color(238, 238, 238));
-        padding7.setBackground(new Color(238, 238, 238));
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        openButton = new JButton("Open Image");
+        generateImageButton = new JButton("Generate Image");
+        urlButton = new JButton("Load URL");
+        recentButton = new JButton("Open Recent");
 
-        JButton urlButton = new JButton("Load URL");
-        JButton openButton = new JButton("Open Image");
-        JButton recentButton = new JButton("Open recent");
+        Font buttonFont = new Font("Arial", Font.BOLD, 15);
+        openButton.setFont(buttonFont);
+        generateImageButton.setFont(buttonFont);
+        urlButton.setFont(buttonFont);
+        recentButton.setFont(buttonFont);
 
         Dimension buttonDimension = new Dimension(250, 250);
-
-        newImageButton.setPreferredSize(buttonDimension);
-        padding1.setPreferredSize(buttonDimension);
-        padding2.setPreferredSize(buttonDimension);
-        padding3.setPreferredSize(buttonDimension);
-        padding4.setPreferredSize(buttonDimension);
-        padding5.setPreferredSize(buttonDimension);
-        padding6.setPreferredSize(buttonDimension);
-        padding7.setPreferredSize(buttonDimension);
-
-        urlButton.setPreferredSize(buttonDimension);
         openButton.setPreferredSize(buttonDimension);
+        generateImageButton.setPreferredSize(buttonDimension);
+        urlButton.setPreferredSize(buttonDimension);
         recentButton.setPreferredSize(buttonDimension);
 
-        landingPanel.add(padding5);
-        landingPanel.add(padding6);
-        landingPanel.add(openingText);
-        landingPanel.add(padding4);
-        landingPanel.add(padding2);
-        landingPanel.add(padding1);
-        landingPanel.add(newImageButton);
-        landingPanel.add(openButton);
-        landingPanel.add(padding7);
-        landingPanel.add(urlButton);
-        landingPanel.add(recentButton);
+        buttonPanel.add(openButton);
+        buttonPanel.add(generateImageButton);
+        buttonPanel.add(urlButton);
+        buttonPanel.add(recentButton);
 
-        ImageHandler imageHandler = new ImageHandler();
-        openButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                imageHandler.openImage();
-                landingFrame.dispose();
-            }
-        });
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        landingPanel.add(buttonPanel, gbc);
+    }
 
-        urlButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                imageHandler.openImageFromUrl();
-                landingFrame.dispose();
+    public void setupButtonActions() {
+        imageHandler = new ImageHandler();
+        openButton.addActionListener(e -> executeCommand(() -> imageHandler.openImage()));
+        generateImageButton.addActionListener(e -> executeCommand(() -> {
+            try {
+                imageHandler.generateImageFromPrompt(landingFrame);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
-        });
-
-        newImageButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                imageHandler.createNewImage();
-                landingFrame.dispose();
-            }
-        });
-
-        recentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                imageHandler.openRecentProject();
-                landingFrame.dispose();
-            }
-        });
+        }));
+        urlButton.addActionListener(e -> executeCommand(() -> imageHandler.openImageFromUrl()));
+        recentButton.addActionListener(e -> executeCommand(() -> imageHandler.openRecentProject()));
 
         landingFrame.add(landingPanel);
+    }
 
+    public LandingWindow() throws Exception {
+        setupGridItems();
+        setupButtonActions();
+    }
+
+    private void executeCommand(Runnable action) {
+        action.run();
+        landingFrame.dispose();
     }
 
     public void show() {

@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 public class ImageDisplay implements StateBasedUIComponent{
     private final JLabel imageLabel;
-    private JPanel imagePanel;
 
     private String[] fileNameBroken;
 
@@ -47,8 +46,8 @@ public class ImageDisplay implements StateBasedUIComponent{
         return this.fileNameBroken;
     }
 
-//    @Override
-//    public String toString() {
-//        return EditorState.getInstance().getImage().toString();
-//    }
+    @Override
+    public String toString() {
+        return EditorState.getInstance().getImage().toString();
+    }
 }

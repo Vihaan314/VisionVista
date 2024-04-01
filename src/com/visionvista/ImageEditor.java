@@ -28,7 +28,7 @@ public class ImageEditor {
         //Initialize frame
         editorFrame = new JFrame();
         editorFrame.setTitle(title);
-        editorFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        editorFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         //Create panel for components
         //Panel components
         JPanel editorPanel = new JPanel(); //do gridlayout to add compoemnets onto editor

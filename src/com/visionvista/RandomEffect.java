@@ -13,6 +13,7 @@ import com.visionvista.effects.distort.Pixelate;
 import com.visionvista.effects.enhance.EdgeEnhance;
 import com.visionvista.effects.enhance.Sharpen;
 import com.visionvista.effects.filters.*;
+import com.visionvista.effects.transformation.Rotate;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -29,7 +30,7 @@ public class RandomEffect {
                 Vibrance.class, CrossProcess.class, Grayscale.class, Heatmap.class, Infrared.class, Lomography.class, Negative.class,
                 PencilSketch.class, Pixelate.class, Posterize.class, Sepia.class, Solarize.class, SplitTone.class, Temperature.class,
                 Vignette.class, Hue.class, ChromaticAberration.class, Halftone.class, Watercolor.class, EdgeEnhance.class, TiltShift.class,
-                PixelSort.class, Anaglyph3D.class, OilPainting.class, BokehBlur.class, Cyberpunk.class, ColorSplash.class,
+                PixelSort.class, Anaglyph3D.class, OilPainting.class, BokehBlur.class, Cyberpunk.class, ColorSplash.class, Rotate.class,
         };
         int upper = effectClasses.length;
         Random rand = new Random();

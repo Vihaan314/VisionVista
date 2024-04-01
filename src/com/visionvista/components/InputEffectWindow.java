@@ -34,6 +34,7 @@ public class InputEffectWindow {
         this.textFields = new ArrayList<>(this.labelLength);
         this.fieldLabels = new ArrayList<>(this.labelLength);
         this.imageDisplay = imageDisplay;
+        this.submitButton = new JButton("Enter");
         setupTextFields();
     }
 
@@ -98,15 +99,12 @@ public class InputEffectWindow {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(650, 400);
         frame.setLocationRelativeTo(null);
-//        frame.setVisible(true);
-
         return frame;
     }
 
     public void setupSubmitButton(ActionListener actionListener) {
-        JButton submitEffect = new JButton("Enter");
-        submitEffect.addActionListener(actionListener);
-        this.submitButton = submitEffect;
+        submitButton = new JButton("Enter");
+        submitButton.addActionListener(actionListener);
     }
 
     public ActionListener createSubmitActionListener() {
@@ -117,14 +115,9 @@ public class InputEffectWindow {
                 BufferedImage currentImage = EditorState.getInstance().getImage();
                 BufferedImage editedImage = chosenEffect.run(currentImage);
                 getInputFrame().dispose();
-//                if (!newImage) {
                 EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
                 EditorState.getInstance().setImage(editedImage);
                 imageDisplay.updateFromState();
-//                } else {
-//                    updateEffectSequence(chosenEffect);
-//                    updateEditor(editedImage, "Image Editor - " + effect.toString() + " image");
-//                }
             }
         };
     }

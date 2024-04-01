@@ -1,6 +1,7 @@
 package com.visionvista.effects.artistic;
 
 import com.visionvista.effects.filters.Filter;
+import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,34 +12,17 @@ public class Cyberpunk extends Artistic {
         super();
     }
 
-    @Override
-    public BufferedImage run(BufferedImage image) {
-        BufferedImage result = getEmptyImage(image);
+    @Override protected int applyEffect(int red, int green, int blue) {
+        //Cyberpunk conversion formula
+        int newRed = (int) (Math.min(255, red * 1.2 + 30));
+        int newGreen = (int) (Math.min(255, green * 1.2 + 30));
+        int newBlue = (int) (Math.min(255, blue * 1.2 + 30));
 
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                Color color = new Color(image.getRGB(x, y));
-                int red = color.getRed();
-                int green = color.getGreen();
-                int blue = color.getBlue();
-
-                red = (int) (Math.min(255, red * 1.2 + 30));
-                green = (int) (Math.min(255, green * 1.2 + 30));
-                blue = (int) (Math.min(255, blue * 1.2 + 30));
-
-                blue = Math.min(255, blue + 50);
-                if (green > 100) {
-                    green = Math.min(255, green + 20);
-                }
-
-                Color newColor = new Color(red, green, blue);
-                result.setRGB(x, y, newColor.getRGB());
-            }
+        newBlue = Math.min(255, newBlue + 50);
+        if (newGreen > 100) {
+            newGreen = Math.min(255, newGreen + 20);
         }
-
-//        BufferedImage glow = new Glow(1).run(result);
-//        return glow;
-        return result;
+        return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
     @Override
