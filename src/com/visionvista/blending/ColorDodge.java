@@ -4,49 +4,39 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ColorDodge extends Blender {
-    private BufferedImage baseImage;
-    private BufferedImage blendImage;
-
-
     public ColorDodge(BufferedImage baseImage, BufferedImage blendImage) {
         super(baseImage, blendImage);
-        this.baseImage = baseImage;
-        this.blendImage = blendImage;
     }
 
-    private static int colorDodge(int baseColor, int blendColor) {
-        if (blendColor == 255) {
-            return 255;
-        } else {
-            return Math.min(255, (baseColor * 255) / (255 - blendColor));
-        }
-    }
+    @Override
+    public BufferedImage blend() {
+        int width = baseImage.getWidth();
+        int height = baseImage.getHeight();
+        BufferedImage result = getEmptyImage(baseImage);
 
-    private static Color applyColorDodge(Color baseColor, Color blendColor) {
-        int resultRed = colorDodge(baseColor.getRed(), blendColor.getRed());
-        int resultGreen = colorDodge(baseColor.getGreen(), blendColor.getGreen());
-        int resultBlue = colorDodge(baseColor.getBlue(), blendColor.getBlue());
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int baseRGB = baseImage.getRGB(x, y);
+                int blendRGB = blendImage.getRGB(x, y);
 
-        return new Color(resultRed, resultGreen, resultBlue);
-    }
+                Color baseColor = new Color(baseRGB, true);
+                Color blendColor = new Color(blendRGB, true);
 
-    @Override public BufferedImage blend() {
-        if (baseImage.getWidth() != blendImage.getWidth() || baseImage.getHeight() != blendImage.getHeight()) {
-            throw new IllegalArgumentException("Both images should have the same dimensions");
-        }
+                int red = colorDodge(baseColor.getRed(), blendColor.getRed());
+                int green = colorDodge(baseColor.getGreen(), blendColor.getGreen());
+                int blue = colorDodge(baseColor.getBlue(), blendColor.getBlue());
 
-        BufferedImage resultImage = getEmptyImage(baseImage);
-
-        for (int x = 0; x < baseImage.getWidth(); x++) {
-            for (int y = 0; y < baseImage.getHeight(); y++) {
-                Color basePixelColor = new Color(baseImage.getRGB(x, y));
-                Color blendPixelColor = new Color(blendImage.getRGB(x, y));
-                Color resultPixelColor = applyColorDodge(basePixelColor, blendPixelColor);
-//                Color normalizedPixelColor = Helper.normalizeLuminance(basePixelColor, resultPixelColor);
-                resultImage.setRGB(x, y, resultPixelColor.getRGB());
+                Color resultColor = new Color(red, green, blue, baseColor.getAlpha());
+                result.setRGB(x, y, resultColor.getRGB());
             }
         }
 
-        return resultImage;
+        return result;
+    }
+
+    private int colorDodge(int base, int blend) {
+        if (blend == 255) return 255;
+        int result = (base << 8) / (255 - blend);
+        return Math.min(255, result);
     }
 }

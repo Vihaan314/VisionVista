@@ -18,10 +18,15 @@ public class Glow extends Filter {
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage blurImg = new GaussBlur(intensity).run(image);
-        BufferedImage blendImg = new ColorDodge(image, blurImg).blend();
-//        BufferedImage correctedBlend = new Brightness(-10*intensity).run(blendImg);
-        return blendImg;
+        if (intensity == 0) {
+            return image;
+        }
+        else {
+            double quadraticSigma = 1.0 + Math.pow(intensity / 10.0 * 3.0, 2);
+            BufferedImage blurImg = new GaussBlur(quadraticSigma).run(image);
+            ColorDodge colorDodge = new ColorDodge(image, blurImg);
+            return colorDodge.blend();
+        }
     }
 
     @Override

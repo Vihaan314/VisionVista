@@ -5,70 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61be1baa-d2af-4601-81e5-39379323f518" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/VisionVista.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/VisionVista.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/squareup_okhttp3_okhttp.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/adapter-rxjava2-2.9.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/adapter-rxjava3-2.9.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/annotations-13.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api-0.15.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/classgraph-4.8.21.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/classmate-1.5.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/client-0.15.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/commons-lang3-3.14.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/converter-gson-2.9.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/converter-jackson-2.9.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/converter-scalars-2.9.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core-3.8.2024032101.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/easyopenai-1.0.8.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/fastjson2-2.0.47.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/flatlaf-3.4.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/gson-2.8.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/gson-2.8.6.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-annotations-2.14.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-annotations-2.16.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-annotations-2.16.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-core-2.10.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-core-2.14.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-core-2.16.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-core-2.16.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-databind-2.10.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-databind-2.14.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-databind-2.16.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jackson-databind-2.16.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsonschema-generator-4.33.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsonschema-module-jackson-4.33.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jtokkit-0.5.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jtokkit-3.8.2024032101.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/kotlin-stdlib-1.4.10.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/kotlin-stdlib-1.8.21.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/kotlin-stdlib-common-1.4.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/kotlin-stdlib-common-1.8.21.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/kotlin-stdlib-common-1.9.10.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/kotlin-stdlib-jdk7-1.8.21.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/kotlin-stdlib-jdk8-1.8.21.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/logging-interceptor-4.12.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/lombok-1.18.30.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mbknor-jackson-jsonschema_2.12-1.0.34.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/okhttp-3.14.9.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/okhttp-4.12.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/okhttp-4.9.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/okhttp-sse-4.12.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/okio-1.17.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/okio-2.8.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/okio-3.6.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/okio-jvm-3.6.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/reactive-streams-1.0.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/retrofit-2.9.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/rxjava-2.0.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/rxjava-3.1.8.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/scala-library-2.12.8.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/service-0.15.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/service-3.8.2024032101.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/slf4j-api-1.7.26.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/slf4j-api-2.0.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/slf4j-api-2.0.9.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/validation-api-2.0.1.Final.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/blending/ColorDodge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/blending/ColorDodge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/SliderEffectWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/SliderEffectWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/EffectType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/EffectType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Glow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Glow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Sepia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Sepia.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

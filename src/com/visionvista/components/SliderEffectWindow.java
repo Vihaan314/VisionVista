@@ -122,16 +122,17 @@ public class SliderEffectWindow {
                 BufferedImage currentImage = EditorState.getInstance().getImage();
                 //Get final effect
                 double effectAmount = getEffectAmount();
-                Effect chosenEffect = effect.getEffect(effectAmount);
-                //Apply effect
-                BufferedImage finalImage = chosenEffect.run(currentImage);
-                //Set new states
-                EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
-                EditorState.getInstance().setImage(finalImage);
-                //Update the display with the final image
-                ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
-                stateBasedUIComponentGroup.updateAllUIFromState();
-
+                if (effectAmount != 0) {
+                    Effect chosenEffect = effect.getEffect(effectAmount);
+                    //Apply effect
+                    BufferedImage finalImage = chosenEffect.run(currentImage);
+                    //Set new states
+                    EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
+                    EditorState.getInstance().setImage(finalImage);
+                    //Update the display with the final image
+                    ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
+                    stateBasedUIComponentGroup.updateAllUIFromState();
+                }
                 //Close slider window when submit pressed
                 getSliderFrame().dispose();
             }
