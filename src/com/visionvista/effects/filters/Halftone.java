@@ -6,8 +6,12 @@ import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Halftone extends Filter {
+
+    @Serial
+    private static final long serialVersionUID = -4159776900599531080L;
 
     public Halftone() {
         super();

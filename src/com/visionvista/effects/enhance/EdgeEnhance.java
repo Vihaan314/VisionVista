@@ -5,16 +5,15 @@ import com.visionvista.effects.Effect;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.io.Serial;
 
 public class EdgeEnhance extends Enhance {
 
+    @Serial
+    private static final long serialVersionUID = -7949423668169675062L;
+
     public EdgeEnhance() {
         super();
-    }
-
-    @Override
-    public Object getParameter() {
-        return null;
     }
 
     @Override

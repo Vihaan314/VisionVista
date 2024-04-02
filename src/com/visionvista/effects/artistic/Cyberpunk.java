@@ -5,8 +5,12 @@ import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Cyberpunk extends Artistic {
+
+    @Serial
+    private static final long serialVersionUID = 1748721184831132510L;
 
     public Cyberpunk() {
         super();

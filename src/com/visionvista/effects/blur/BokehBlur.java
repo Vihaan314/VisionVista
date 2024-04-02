@@ -7,8 +7,12 @@ import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class BokehBlur extends Blur {
+
+    @Serial
+    private static final long serialVersionUID = -6189304943051171986L;
 
     private int intensity;
 

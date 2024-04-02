@@ -7,9 +7,13 @@ import com.visionvista.utils.MathHelper;
 import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 import java.util.Arrays;
 
 public class Rotate extends Transformation {
+    @Serial
+    private static final long serialVersionUID = 2979754438467683733L;
+
     private double angle;
 
     public Rotate(double angle) {

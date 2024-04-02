@@ -4,8 +4,12 @@ import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Heatmap extends Filter {
+    @Serial
+    private static final long serialVersionUID = -348520464103120836L;
+
     public Heatmap() {
         super();
     }

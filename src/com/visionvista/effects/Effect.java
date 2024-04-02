@@ -47,15 +47,4 @@ public abstract class Effect implements Serializable
     public String toString() {
         return "Effect";
     }
-
-//    public Pair<Integer, Integer> getSliderBounds() {
-//        try {
-//            String className = this.getClass().getSimpleName().toUpperCase();
-//            Field field = EffectType.class.getField(className);
-//            EffectType effectType = (EffectType) field.get(null);
-//            return effectType.getSliderBounds();
-//        } catch (NoSuchFieldException | IllegalAccessException e) {
-//            throw new RuntimeException("Slider bounds not defined for " + this.getClass().getSimpleName());
-//        }
-//    }
 }

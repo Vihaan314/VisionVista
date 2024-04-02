@@ -1,14 +1,15 @@
 package com.visionvista.effects;
 
-import com.visionvista.utils.Pair;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.Pair;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.Serializable;
+import java.io.Serial;
 
-public class Brightness extends Effect implements Serializable {
+public class Brightness extends Effect {
+    @Serial
+    private static final long serialVersionUID = 2796306533054543227L;
+
     private double intensity;
 
     public Brightness(double intensity) {

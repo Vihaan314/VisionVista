@@ -8,10 +8,14 @@ import com.visionvista.utils.ImageHelper;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 
 public class BoxBlur extends Blur {
+    @Serial
+    private static final long serialVersionUID = -4888871537170881156L;
+
     private int intensity;
 
     public BoxBlur(double intensity) {

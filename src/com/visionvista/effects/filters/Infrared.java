@@ -4,8 +4,12 @@ import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Infrared extends Filter {
+    @Serial
+    private static final long serialVersionUID = 8221869721211155321L;
+
     public Infrared() {
         super();
     }

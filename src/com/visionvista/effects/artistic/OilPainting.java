@@ -7,10 +7,14 @@ import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.Map;
 
 public class OilPainting extends Artistic {
+
+    @Serial
+    private static final long serialVersionUID = -1191187314685833264L;
 
     private int radius = 5;
     private int intensity;

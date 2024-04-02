@@ -6,10 +6,13 @@ import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Contrast extends Effect{
-    private double amount;
+    @Serial
+    private static final long serialVersionUID = 7444703618395475853L;
 
+    private double amount;
     private double scale;
 
     public Contrast(double amount) {

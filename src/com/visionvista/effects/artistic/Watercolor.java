@@ -5,8 +5,12 @@ import com.visionvista.effects.blur.GaussBlur;
 import com.visionvista.effects.filters.Filter;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Watercolor extends Artistic {
+    @Serial
+    private static final long serialVersionUID = -8949183461682457115L;
+
     public Watercolor() {
         super();
     }

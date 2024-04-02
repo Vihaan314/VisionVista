@@ -7,8 +7,12 @@ import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Pixelate extends Distort {
+    @Serial
+    private static final long serialVersionUID = 4450958191542400512L;
+
     private int pixelSize;
 
     public Pixelate(double pixelSize) {

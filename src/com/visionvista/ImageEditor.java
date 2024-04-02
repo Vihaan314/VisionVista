@@ -39,7 +39,6 @@ public class ImageEditor {
 
         editorPanel.add(imageDisplay.getImageLabel());
 
-        //TODO POtentially move to tools panel speparate of editor
         ImageTimeline imageTimeline = new ImageTimeline(imageDisplay);
 
         editorFrame.add(editorPanel);
@@ -59,11 +58,11 @@ public class ImageEditor {
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
 
         //Tools panel
-        ToolsPanel toolsPanel = new ToolsPanel(stateBasedUIComponentGroup);
-        stateBasedUIComponentGroup.addUIComponent(toolsPanel);
-        //Add pages
-        toolsPanel.addPage(effectControls);
-        //Setup panel
+//        ToolsPanel toolsPanel = new ToolsPanel(stateBasedUIComponentGroup);
+//        stateBasedUIComponentGroup.addUIComponent(toolsPanel);
+////        Add pages
+//        toolsPanel.addPage(effectControls);
+//        //Setup panel
 //        toolsPanel.setupTabPanels();
 //        toolsPanel.show();
     }

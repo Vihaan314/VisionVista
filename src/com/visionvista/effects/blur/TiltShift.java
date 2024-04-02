@@ -6,8 +6,12 @@ import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class TiltShift extends Blur {
+
+    @Serial
+    private static final long serialVersionUID = 2155531383455254436L;
 
     private double intensity;
 

@@ -4,8 +4,11 @@ import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Duotone extends Filter {
+    @Serial
+    private static final long serialVersionUID = -25512245131277779L;
 
     private Color color1;
     private Color color2;

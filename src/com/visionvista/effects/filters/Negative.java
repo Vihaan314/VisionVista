@@ -4,9 +4,13 @@ import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 
 public class Negative extends Filter {
+    @Serial
+    private static final long serialVersionUID = 1824964793972213463L;
+
     public Negative() {
         super();
     }

@@ -4,8 +4,12 @@ import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Solarize extends Filter {
+    @Serial
+    private static final long serialVersionUID = -9223227824919724810L;
+
     public Solarize() {
         super();
     }

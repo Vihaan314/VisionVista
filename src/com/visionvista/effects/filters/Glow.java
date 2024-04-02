@@ -7,8 +7,12 @@ import com.visionvista.effects.*;
 import com.visionvista.utils.ImageHelper;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Glow extends Filter {
+    @Serial
+    private static final long serialVersionUID = 3829537176814306081L;
+
     private double intensity;
 
     public Glow(double intensity) {

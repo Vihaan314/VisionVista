@@ -4,8 +4,12 @@ import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Grayscale extends Filter {
+    @Serial
+    private static final long serialVersionUID = -918140131794156582L;
+
     public Grayscale() {
         super();
     }

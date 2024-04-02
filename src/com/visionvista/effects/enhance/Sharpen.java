@@ -8,10 +8,14 @@ import com.visionvista.utils.ImageHelper;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.io.Serial;
 import java.util.Arrays;
 
 
 public class Sharpen extends Enhance {
+    @Serial
+    private static final long serialVersionUID = -8974053428062907406L;
+
     private double amount;
 
     public Sharpen(double amount) {
@@ -38,7 +42,7 @@ public class Sharpen extends Enhance {
                 0.0f, -1.0f, 0.0f
         };
         for (int i = 0; i < SHARPEN3x3.length; i++) {
-            SHARPEN3x3[i] *= amount;
+            SHARPEN3x3[i] *= (float) amount;
         }
 
         SHARPEN3x3[4] = 1.0f + Math.abs(SHARPEN3x3[4]);

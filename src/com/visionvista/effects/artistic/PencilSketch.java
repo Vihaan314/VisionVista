@@ -8,8 +8,12 @@ import com.visionvista.effects.filters.Grayscale;
 import com.visionvista.effects.filters.Negative;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class PencilSketch extends Artistic {
+    @Serial
+    private static final long serialVersionUID = -5949361901012287058L;
+
     public PencilSketch() {
         super();
     }
@@ -23,8 +27,7 @@ public class PencilSketch extends Artistic {
         BufferedImage invertImg = new Negative().run(grayscaleImg);
         BufferedImage blurImg = new GaussBlur(5).run(invertImg);
         BufferedImage blendImage = new ColorDodge(grayscaleImg, blurImg).blend();
-        BufferedImage correctedBlend = new Brightness(-20).run(blendImage);
-        return correctedBlend;
+        return new Brightness(-20).run(blendImage);
     }
 
     public static PencilSketch getRandomInstance() {

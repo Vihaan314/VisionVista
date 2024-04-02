@@ -7,8 +7,12 @@ import com.visionvista.utils.Pair;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class ChromaticAberration extends Distort {
+
+    @Serial
+    private static final long serialVersionUID = 4828993536339714850L;
 
     private int offset; //The pixel offset for the color channels
 

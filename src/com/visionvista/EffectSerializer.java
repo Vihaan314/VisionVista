@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class EffectSerializer implements Serializable {
     transient ArrayList<Effect> effectsList = new ArrayList<>();
+    //TODO
 
     public void extractEffectList() {
         ArrayList<Pair<Effect, BufferedImage>> effectHistory = EditorState.getInstance().getEffectHistory().getEffectSequence();

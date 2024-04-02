@@ -4,8 +4,12 @@ import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class SplitTone extends Filter {
+    @Serial
+    private static final long serialVersionUID = 1957385647116092992L;
+
     public SplitTone() {
         super();
     }

@@ -3,8 +3,12 @@ package com.visionvista.effects.transformation;
 import effects.Scalr;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Resize extends Transformation {
+    @Serial
+    private static final long serialVersionUID = 8058268054301129550L;
+
     private int targetWidth;
     private int targetHeight;
 

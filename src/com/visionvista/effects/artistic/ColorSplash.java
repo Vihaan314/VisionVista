@@ -7,12 +7,15 @@ import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 import java.util.Random;
 
 public class ColorSplash extends Artistic {
 
-    private final int numberOfSplashes;
+    @Serial
+    private static final long serialVersionUID = -3519474521516384345L;
 
+    private final int numberOfSplashes;
     private final float opacity = 0.6f;
 
     public ColorSplash(double numberOfSplashes) {

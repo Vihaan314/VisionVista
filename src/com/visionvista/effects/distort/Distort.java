@@ -3,8 +3,12 @@ package com.visionvista.effects.distort;
 import com.visionvista.effects.Effect;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public abstract class Distort extends Effect {
+    @Serial
+    private static final long serialVersionUID = 334496852204880731L;
+
     public Distort() {
         super();
     }

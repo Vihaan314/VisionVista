@@ -7,8 +7,12 @@ import com.visionvista.utils.ImageHelper;
 import com.visionvista.effects.Saturation;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Temperature extends Filter {
+    @Serial
+    private static final long serialVersionUID = -775480314575417954L;
+
     private double amount;
 
     public Temperature(double amount) {
@@ -19,8 +23,7 @@ public class Temperature extends Filter {
     @Override public BufferedImage run(BufferedImage image) {
         System.out.println("Changing Temperature");
         BufferedImage saturatedImg = new Saturation(amount*0.5).run(image);
-        BufferedImage contrastedImg = new Contrast(amount*0.5).run(saturatedImg);
-        return contrastedImg;
+        return new Contrast(amount*0.5).run(saturatedImg);
     }
 
     @Override public Object getParameter() {

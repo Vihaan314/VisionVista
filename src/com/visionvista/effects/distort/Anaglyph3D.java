@@ -7,8 +7,12 @@ import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Anaglyph3D extends Distort {
+
+    @Serial
+    private static final long serialVersionUID = -2365211697672637508L;
 
     private int offset;
 

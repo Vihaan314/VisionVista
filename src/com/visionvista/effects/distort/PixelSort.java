@@ -7,8 +7,12 @@ import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class PixelSort extends Distort {
+
+    @Serial
+    private static final long serialVersionUID = 5498665501888385430L;
 
     private int threshold;  //Single parameter to control both black and white thresholds
 

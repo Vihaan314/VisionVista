@@ -7,8 +7,12 @@ import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Vignette extends Filter {
+    @Serial
+    private static final long serialVersionUID = 3842634112664032347L;
+
     private double intensity;
 
     public Vignette (double intensity) {

@@ -6,10 +6,14 @@ import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 import static com.visionvista.utils.ColorManipulator.*;
 
 public class Vibrance extends Effect{
+    @Serial
+    private static final long serialVersionUID = 8424016703702832725L;
+
     private double amount;
 
     public Vibrance(double amount) {

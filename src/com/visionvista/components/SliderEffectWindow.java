@@ -62,6 +62,7 @@ public class SliderEffectWindow {
         slider.setPaintLabels(true);
 
         //Setup slider markings
+        //TODO
         Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
         if (upper % 10 == 0) {
             for (int i = lower; i < (3*upper/2); i+= upper/2) {

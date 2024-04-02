@@ -6,9 +6,13 @@ import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Sepia extends Filter {
+    @Serial
+    private static final long serialVersionUID = -1859549826646856909L;
+
     private double intensity;
 
     public Sepia(double intensity) {

@@ -5,8 +5,12 @@ import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 public class Saturation extends Effect{
+    @Serial
+    private static final long serialVersionUID = 1219410747444288209L;
+
     private double amount;
 
     public Saturation(double amount) {

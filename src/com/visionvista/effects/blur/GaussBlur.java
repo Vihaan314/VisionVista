@@ -9,8 +9,12 @@ import com.visionvista.utils.Pair;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.io.Serial;
 
 public class GaussBlur extends Blur {
+    @Serial
+    private static final long serialVersionUID = 135736375166258763L;
+
     private double intensity; //sigma
 
     public GaussBlur (double intensity) {
