@@ -27,18 +27,12 @@ public class EffectHistory implements Serializable {
 
     public void add(Effect effect, BufferedImage image) {
         Pair<Effect, BufferedImage> imageEntry = new Pair<>(effect, image);
+
+        if (currentImageIndex < this.getSize() - 1) {
+            effectSequence = new ArrayList<>(effectSequence.subList(0, currentImageIndex + 1));
+        }
         effectSequence.add(imageEntry);
-        //TODO
-        if (this.currentImageIndex != this.getSize()-1 && this.getSize() != 1) {
-            System.out.println("YO I AM IN UNDOS");
-//            effectSequence = new ArrayList<>(effectSequence.subList(0, currentImageIndex+1));
-        }
-        if (this.currentImageIndex +1 != this.getSize()-1) {
-            this.setCurrentImageIndex(this.getSize()-1);
-        }
-        else {
-            this.updateCurrentImage(1);
-        }
+        this.setCurrentImageIndex(this.getSize() - 1);
     }
 
     public Effect getEffectFromIndex(int index) {
@@ -71,7 +65,7 @@ public class EffectHistory implements Serializable {
         return null;
     }
 
-    public void updateCurrentImage(int change) {
+    public void incrementCurrentImage(int change) {
         this.currentImageIndex += change;
         EditorState.getInstance().setImage(getCurrentImage());
     }
@@ -106,8 +100,8 @@ public class EffectHistory implements Serializable {
     }
 
     public void printSequence() {
-        effectSequence.stream().map(Object::toString)
-                .collect(Collectors.joining(", "));
+        System.out.println(effectSequence.stream().map(Object::toString)
+                .collect(Collectors.joining(", ")));
     }
 
     @Override public String toString() {

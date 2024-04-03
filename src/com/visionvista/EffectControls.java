@@ -77,7 +77,7 @@ public class EffectControls implements StateBasedUIComponent {
                 EffectType effectType = EffectType.BOX_BLUR;
                 switch (effectType.getUIType()) {
                     case SLIDER:
-                        System.out.println("SLIDER EFFECT");
+//                        System.out.println("SLIDER EFFECT");
                         addSliderEffectToTabPanel(effectType, effectsListPanel);
                     case COLOR_CHOOSER:
                         addColorEffectToTabPanel(effectType, effectsListPanel);
@@ -99,7 +99,7 @@ public class EffectControls implements StateBasedUIComponent {
 
     @Override
     public void updateFromState() {
-        System.out.println("UPDATE EFFET CONTROLS");
+//        System.out.println("UPDATE EFFET CONTROLS");
         this.effectHistory = EditorState.getInstance().getEffectHistory();
         setupTabPanel();
 

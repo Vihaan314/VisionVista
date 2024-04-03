@@ -16,7 +16,6 @@ public class FlipHorizontal extends Transformation {
     }
 
     @Override public BufferedImage run(BufferedImage image) {
-        System.out.println("Flipping horizontally");
         BufferedImage horizontal_img;
         horizontal_img = image;
         for (int x = 0; x < Math.floor((double) image.getWidth() /2); x++) {

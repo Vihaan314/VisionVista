@@ -21,7 +21,6 @@ public class Temperature extends Filter {
     }
 
     @Override public BufferedImage run(BufferedImage image) {
-        System.out.println("Changing Temperature");
         BufferedImage saturatedImg = new Saturation(amount*0.5).run(image);
         return new Contrast(amount*0.5).run(saturatedImg);
     }

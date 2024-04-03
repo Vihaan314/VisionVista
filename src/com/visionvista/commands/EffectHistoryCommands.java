@@ -14,7 +14,7 @@ public class EffectHistoryCommands {
     public Command createUndoCommand() {
         return () -> {
             if (effectHistory.getCurrentIndex() > 0) {
-                effectHistory.updateCurrentImage(-1);
+                effectHistory.incrementCurrentImage(-1);
             }
             updateState();
         };
@@ -23,7 +23,7 @@ public class EffectHistoryCommands {
     public Command createRedoCommand() {
         return () -> {
             if (effectHistory.getCurrentIndex() < effectHistory.getSize() - 1) {
-                effectHistory.updateCurrentImage(1);
+                effectHistory.incrementCurrentImage(1);
             }
             updateState();
         };

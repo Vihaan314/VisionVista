@@ -27,6 +27,7 @@ public class ImageDisplay implements StateBasedUIComponent{
     }
 
     public void updateImageByEffect(Effect effect) {
+        System.out.println("UPDATE ");
         BufferedImage currentImage = EditorState.getInstance().getImage();
         currentImage = effect.run(currentImage);
         EditorState.getInstance().getEffectHistory().add(effect, currentImage);

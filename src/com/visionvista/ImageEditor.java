@@ -58,8 +58,8 @@ public class ImageEditor {
         editorFrame.setJMenuBar(menuPanel.getMenuBar());
 
         //Tools panel
-//        ToolsPanel toolsPanel = new ToolsPanel(stateBasedUIComponentGroup);
-//        stateBasedUIComponentGroup.addUIComponent(toolsPanel);
+        ToolsPanel toolsPanel = new ToolsPanel(stateBasedUIComponentGroup);
+        stateBasedUIComponentGroup.addUIComponent(toolsPanel);
 ////        Add pages
 //        toolsPanel.addPage(effectControls);
 //        //Setup panel

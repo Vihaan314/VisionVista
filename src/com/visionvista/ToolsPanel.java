@@ -56,7 +56,7 @@ public class ToolsPanel implements StateBasedUIComponent{
 
 //        Effect controls page
 //        effectControlsPage = toolUIComponents.getTab();
-        System.out.println("TOOLS PANEL " + imageDisplay);
+//        System.out.println("TOOLS PANEL " + imageDisplay);
         effectControlsPage = effectControls.getTabPanel();
         //Tools
         toolsPage = new JPanel();
@@ -84,7 +84,7 @@ public class ToolsPanel implements StateBasedUIComponent{
 
     @Override
     public void updateFromState() {
-        System.out.println("YO TOOLS");
+//        System.out.println("YO TOOLS");
         effectControls.updateFromState();
 //        effectControls = new EffectControls(stateBasedUIComponentGroup);
         this.imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);

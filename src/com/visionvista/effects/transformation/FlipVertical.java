@@ -16,8 +16,6 @@ public class FlipVertical extends Transformation {
     }
 
     @Override public BufferedImage run(BufferedImage image) {
-        System.out.println("Flipping vertically");
-
         BufferedImage vertical_img = getEmptyImage(image);
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < Math.floor((double) image.getHeight() /2)+1; y++) {
