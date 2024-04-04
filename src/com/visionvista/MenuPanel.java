@@ -94,6 +94,7 @@ public class MenuPanel {
         aiCommands.setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
         addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand());
         addItemToMenu("Generate", "Style", aiCommands.createImageStylizeCommand());
+        addItemToMenu("Generate", "Image", aiCommands.createImageGenerationCommand(null));
     }
 
     public void setupSliderMenuItems() {

@@ -22,6 +22,7 @@ public class PromptWindow {
     }
 
     public void createPromptWindow() {
+        //TODO choose model
         promptDialog = new JDialog(parentFrame, "Generate Image", true);
         promptDialog.setSize(400, 200);
         promptDialog.setLayout(new BoxLayout(promptDialog.getContentPane(), BoxLayout.Y_AXIS));

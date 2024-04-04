@@ -130,7 +130,7 @@ public enum EffectType {
         return textFieldLabels;
     }
 
-    //TODO MAKE MAP FROM UI ENUM TO EFFECTYTPE MANUALLY CONSTANTS FILE
+    //TODO MAKE MAP FROM UI ENUM TO EFFECTYTPE MANUALLY CONSTANTS FILE OR ANNOTATIONS
     public static ArrayList<EffectType> getEffectTypeFromComponent(EffectUIType uiType) {
         ArrayList<EffectType> effectEntries = new ArrayList<>();
 

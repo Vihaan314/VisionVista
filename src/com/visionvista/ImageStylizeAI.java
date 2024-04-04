@@ -1,15 +1,17 @@
 package com.visionvista;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.visionvista.effects.Effect;
 import com.visionvista.utils.MiscHelper;
 import io.github.namankhurpia.Pojo.MyModels.EasyVisionRequest;
 import io.github.namankhurpia.Pojo.Vision.VisionApiResponse;
 import io.github.namankhurpia.Service.EasyVisionService;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class ImageStylizeAI {
     private ArrayList<Effect> effectsList;
@@ -18,6 +20,8 @@ public class ImageStylizeAI {
 
     private String[] testPrompts = new String[] {"A look like inside of Willy Wonka's chocolate factory", "I want this to be like a 90s gangster movie", "A cinematic and lively look", "Like an Indian wedding", "From a Disney movie", "In the style of Vincent Van Gogh's The Starry Night painting, but it is futuristic and tech-like"};
     private String userPrompt = testPrompts[5];
+
+    private String response;
 
     private BufferedImage userImage;
 
@@ -97,15 +101,26 @@ public class ImageStylizeAI {
                 .setImageUrls(new ArrayList<>() {{
                     add(imageURL);
                 }}));
-        System.out.println(responseobj.getChoices().get(0).getSystemMessage().content);
+        this.response = responseobj.getChoices().get(0).getSystemMessage().content;
+        System.out.println(response);
     }
 
-    private void extractEffects() {
-        //Parsing
+    private void extractEffects() throws JsonProcessingException {
+        effectsList = new ArrayList<>();
+        //TEMPORARY SOLUTION
+        String[] repsonseLines = response.split("\\r?\\n");
+        for (String effectResponse : repsonseLines) {
+            String[] effectResponseSplit = effectResponse.split("[\\p{Punct}\\s]+");
+            System.out.println(Arrays.toString(effectResponseSplit));
+        }
+//        Gson gson = new Gson();
+        // from JSON to object
+//        Effect effect = gson.fromJson(response, Effect.class);
+//        List<String> repsonseLines = Arrays.asList(response.split("\\r?\\n"));
     }
 
-    public ArrayList<Effect> getEffectsList() {
-
+    public ArrayList<Effect> getEffectsList() throws JsonProcessingException {
+        extractEffects();
         return effectsList;
     }
 

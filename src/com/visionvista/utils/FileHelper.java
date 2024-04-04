@@ -1,7 +1,6 @@
 package com.visionvista.utils;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
 public class FileHelper {
@@ -39,13 +38,27 @@ public class FileHelper {
         return directory;
     }
 
-    public static String chooseFile(String extension) {
+    public static JFileChooser addFileFilter(String[] extensions, String description) {
         JFileChooser f = new JFileChooser();
-        f.showSaveDialog(null);
-        FileFilter fileFilter = new SerializedFileFilter(extension, "Serialized Vision Vista edits");
-        f.addChoosableFileFilter(fileFilter);
+        ListFileFilter listFileFilter = new ListFileFilter(extensions, description);
 
-        String directory = f.getSelectedFile().getAbsolutePath();
-        return directory;
+        f.setFileFilter(listFileFilter);
+        f.setAcceptAllFileFilterUsed(false);
+
+        return f;
+    }
+
+    public static String chooseFile(String[] extensions, String description) {
+        JFileChooser f = new JFileChooser();
+        ListFileFilter listFileFilter = new ListFileFilter(extensions, description);
+
+        f.setFileFilter(listFileFilter);
+        f.setAcceptAllFileFilterUsed(false);
+
+        int result = f.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            return f.getSelectedFile().getAbsolutePath();
+        }
+        return null;
     }
 }

@@ -103,7 +103,7 @@ public class InputEffectWindow {
     }
 
     public void setupSubmitButton(ActionListener actionListener) {
-        submitButton = new JButton("Enter");
+//        submitButton = new JButton("Enter");
         submitButton.addActionListener(actionListener);
     }
 

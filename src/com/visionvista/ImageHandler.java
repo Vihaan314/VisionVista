@@ -3,8 +3,9 @@ package com.visionvista;
 import com.visionvista.commands.AICommands;
 import com.visionvista.effects.Effect;
 import com.visionvista.effects.transformation.Resize;
+import com.visionvista.utils.FileHelper;
 import com.visionvista.utils.ImageHelper;
-import com.visionvista.utils.SerializedFileFilter;
+import com.visionvista.utils.ListFileFilter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -33,7 +34,9 @@ public class ImageHandler {
 
     public void openImage() {
         //TODO TABS ABOVE IMAGE EDITOR SO EDITOR TABS
-        JFileChooser fileChooser = new JFileChooser();
+        //TODO MAKE ONLY SHOW IMAGE FILES
+        String[] imageFormats = {"jpg", "jpeg", "png", "gif", "bmp"};
+        JFileChooser fileChooser = FileHelper.addFileFilter(imageFormats, "Images");
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
@@ -118,8 +121,7 @@ public class ImageHandler {
     }
 
     public void openRecentProject() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.addChoosableFileFilter(new SerializedFileFilter(".dat", "Vision Vista project"));
+        JFileChooser fileChooser = FileHelper.addFileFilter(new String[] {".dat"}, "Vision Vista Project");
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
@@ -139,15 +141,6 @@ public class ImageHandler {
                 EditorState.getInstance().setState(effectHistory);
                 editor = new ImageEditor("Vision Vista", fileNameBroken);
                 editor.show();
-//                BufferedImage image = ImageIO.read(selectedFile);
-//                //Set the original image to be displayed
-//                EditorState.getInstance().setImage(image);
-//                //Add and keep to effect history
-//                effectHistory.add(null, image);
-//                EditorState.getInstance().setEffectHistory(effectHistory);
-//
-//                editor = new ImageEditor("Image editor", file_name_broken);
-//                editor.show();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error loading image.");
                 ex.printStackTrace();

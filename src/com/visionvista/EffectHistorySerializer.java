@@ -63,11 +63,11 @@ public class EffectHistorySerializer implements Serializable {
 
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.writeObject(effectsList);
-        ImageIO.write(initialImage, "png", out); // Serialize BufferedImage as PNG
+        ImageIO.write(initialImage, "png", out);
     }
 
     public void readSerializedEffects() {
-        String filename = FileHelper.chooseFile(".dat");
+        String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista project");
         File serializeFile = new File(filename);
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(serializeFile))) {
             readObject(in);

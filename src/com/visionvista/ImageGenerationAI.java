@@ -31,7 +31,6 @@ public class ImageGenerationAI {
                 .model("dall-e-3")
                 .quality("hd")
                 .build();
-        System.out.println(System.getenv("OPENAI-GPT4-KEY"));
         ImageResponse response = new EasyopenaiService(new DAOImpl()).createImage(System.getenv("OPENAI-GPT4-KEY"),imageRequest);
         URL imageURL = new URI(response.getData().get(0).getUrl()).toURL();
         BufferedImage generatedImage = new Resize(983, 983).run(ImageIO.read(imageURL));
@@ -39,9 +38,9 @@ public class ImageGenerationAI {
         EffectHistory effectHistory = new EffectHistory();
         effectHistory.add(null, generatedImage);
         EditorState.getInstance().setState(effectHistory);
-
-        ImageEditor editor = new ImageEditor("Vision Vista", new String[] {userPrompt});
-        editor.show();
         System.out.println(response);
+
+        ImageEditor editor = new ImageEditor("Vision Vista", new String[] {userPrompt, "png"});
+        editor.show();
     }
 }
