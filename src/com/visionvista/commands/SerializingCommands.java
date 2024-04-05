@@ -4,6 +4,7 @@ import com.visionvista.*;
 import com.visionvista.effects.Effect;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
 public class SerializingCommands {

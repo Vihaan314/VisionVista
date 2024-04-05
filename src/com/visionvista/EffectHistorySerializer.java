@@ -10,6 +10,9 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class EffectHistorySerializer implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -1993788387174167380L;
+
     private transient ArrayList<Effect> effectsList = new ArrayList<>();
     private transient BufferedImage initialImage;
 
@@ -68,8 +71,17 @@ public class EffectHistorySerializer implements Serializable {
 
     public void readSerializedEffects() {
         String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista project");
-        File serializeFile = new File(filename);
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(serializeFile))) {
+        File serializedFile = new File(filename);
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(serializedFile))) {
+            readObject(in);
+            System.out.println(effectsList);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readSerializedEffects(File serializedFile) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(serializedFile))) {
             readObject(in);
             System.out.println(effectsList);
         } catch (IOException | ClassNotFoundException e) {

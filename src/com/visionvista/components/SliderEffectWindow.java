@@ -56,31 +56,19 @@ public class SliderEffectWindow {
     public void setupSlider() {
         JLabel status = new JLabel("Choose " + effect, JLabel.CENTER);
         slider = new JSlider(lower, upper, defaultSliderValue);
-        slider.setMinorTickSpacing(10);
         slider.setPaintTicks(true);
-
         slider.setPaintLabels(true);
 
-        //Setup slider markings
-        //TODO
-        Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
-        if (upper % 10 == 0) {
-            for (int i = lower; i < (3*upper/2); i+= upper/2) {
-                position.put(i, new JLabel(String.valueOf(i)));
-            }
-        }
-        else if (upper % 5 == 0) {
-            for (int i = lower; i < 2*upper; i+= upper / 5) {
-                position.put(i, new JLabel(String.valueOf(i)));
-            }
-        }
-        else {
-            for (int i = lower; i < upper+1; i++) {
-                position.put(i, new JLabel(String.valueOf(i)));
-            }
-        }
+        int majorTickSpacing = findOptimalSpacing(upper);
+        slider.setMajorTickSpacing(majorTickSpacing);
 
-        slider.setLabelTable(position);
+        Hashtable<Integer, JLabel> labels = new Hashtable<>();
+        for (int i = lower; i <= upper; i += majorTickSpacing) {
+            labels.put(i, new JLabel(String.valueOf(i)));
+        }
+        labels.put(upper, new JLabel(String.valueOf(upper)));
+        slider.setLabelTable(labels);
+
 
         slider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -102,6 +90,20 @@ public class SliderEffectWindow {
         sliderPanel.add(submitButton);
         sliderPanel.add(slider);
         sliderFrame.add(sliderPanel);
+    }
+
+    private int findOptimalSpacing(int upper) {
+        int idealNumberOfTicks = 5 + (int) Math.log10(upper);
+
+        for (int numTicks = idealNumberOfTicks; numTicks > 3; numTicks--) {
+            int possibleSpacing = upper / numTicks;
+
+            if (upper % possibleSpacing == 0 || numTicks * possibleSpacing >= upper) {
+                return possibleSpacing;
+            }
+        }
+
+        return upper;
     }
 
     public double getEffectAmount() {

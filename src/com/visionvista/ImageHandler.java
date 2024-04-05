@@ -34,7 +34,6 @@ public class ImageHandler {
 
     public void openImage() {
         //TODO TABS ABOVE IMAGE EDITOR SO EDITOR TABS
-        //TODO MAKE ONLY SHOW IMAGE FILES
         String[] imageFormats = {"jpg", "jpeg", "png", "gif", "bmp"};
         JFileChooser fileChooser = FileHelper.addFileFilter(imageFormats, "Images");
         int returnValue = fileChooser.showOpenDialog(null);
@@ -130,10 +129,8 @@ public class ImageHandler {
             fileNameBroken = file_name_raw.split("[.]");
 
             try {
-                FileInputStream imageInFile = new FileInputStream(selectedFile.getAbsoluteFile());
-                ObjectInputStream imageIn = new ObjectInputStream(imageInFile);
-
-                EffectHistorySerializer deserialized = (EffectHistorySerializer) imageIn.readObject();
+                EffectHistorySerializer deserialized = new EffectHistorySerializer();
+                deserialized.readSerializedEffects(selectedFile);
                 ArrayList<Effect> effectsList = deserialized.getEffectsList();
                 BufferedImage initialImage = deserialized.getInitialImage();
                 effectHistory = new EffectHistory();
@@ -142,7 +139,7 @@ public class ImageHandler {
                 editor = new ImageEditor("Vision Vista", fileNameBroken);
                 editor.show();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error loading image.");
+                JOptionPane.showMessageDialog(null, "Error loading project.");
                 ex.printStackTrace();
             }
         }
