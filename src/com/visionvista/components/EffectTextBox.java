@@ -1,50 +1,78 @@
 package com.visionvista.components;
 
-import com.visionvista.effects.*;
+import com.visionvista.effects.Effect;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class EffectTextBox {
-    Effect effect;
+    private ArrayList<Effect> effects;
 
     private JFrame effectFrame;
     private JPanel effectPanel;
-    private JLabel effectMessage;
+    private JComponent effectDisplay;
     private JButton closeButton;
 
+    //Single effect
     public EffectTextBox(Effect effect) {
-        this.effect = effect;
+        this.effects = new ArrayList<>();
+        this.effects.add(effect);
+        initializeUI();
+    }
+
+    //Multiple effects
+    public EffectTextBox(ArrayList<Effect> effects) {
+        this.effects = effects;
+        initializeUI();
+    }
+
+    private void initializeUI() {
         setupEffectBoxFrame();
         setupEffectBoxComponents();
         closeButton.addActionListener(e -> effectFrame.dispose());
     }
 
     private void setupEffectBoxFrame() {
-        effectFrame = new JFrame("Random effect");
-        effectFrame.setSize(500, 500);
+        effectFrame = new JFrame("Effects");
         effectFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     private void setupEffectBoxComponents() {
-        effectPanel = new JPanel(new GridLayout(2, 1));
-        effectMessage = new JLabel(effect.toString(), SwingConstants.CENTER);
-        effectMessage.setFont(new Font("Aria", Font.BOLD, 17));
-        effectPanel.setBackground(Color.cyan);
-        effectPanel.setPreferredSize(new Dimension(300, 170));
+        effectPanel = new JPanel();
+        effectPanel.setLayout(new BorderLayout());
+
+        //Single effect was applied
+        if (effects.size() == 1) {
+            //Create JLabel to display
+            effectDisplay = new JLabel(effects.get(0).toString(), SwingConstants.CENTER);
+            effectDisplay.setPreferredSize(new Dimension(400, 100));
+            effectDisplay.setBackground(Color.cyan);
+        } else {
+            //Multiple effects so JList
+            effectDisplay = new JList<>(effects.toArray(new Effect[0]));
+            effectDisplay.setBackground(Color.cyan);
+        }
+        effectDisplay.setFont(new Font("Arial", Font.BOLD, 16));
+        effectDisplay.setOpaque(true);
+
         closeButton = new JButton("Close");
         closeButton.setPreferredSize(new Dimension(100, 50));
-        closeButton.setFont(new Font("Aria", Font.BOLD, 22));
+        closeButton.setFont(new Font("Arial", Font.BOLD, 22));
         closeButton.setBackground(Color.green);
+
+        effectPanel.add(effectDisplay, BorderLayout.CENTER);
+        effectPanel.add(closeButton, BorderLayout.SOUTH);
+
+        effectFrame.add(effectPanel);
+        effectFrame.pack();
+        effectFrame.setLocationRelativeTo(null);
     }
 
     public void show() {
-        effectPanel.add(effectMessage);
-        effectPanel.add(closeButton);
         effectFrame.add(effectPanel);
         effectFrame.pack();
+        effectFrame.setLocationRelativeTo(null);
         effectFrame.setVisible(true);
     }
 }

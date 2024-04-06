@@ -44,7 +44,6 @@ public class ImageHandler {
 
             try {
                 BufferedImage image = ImageHelper.fitImageToWindow(ImageIO.read(selectedFile));
-
                 //Set the original image to be displayed
                 EditorState.getInstance().setImage(image);
                 //Add and keep to effect history

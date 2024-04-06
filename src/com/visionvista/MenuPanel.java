@@ -73,6 +73,7 @@ public class MenuPanel {
         FileCommands fileCommands = new FileCommands(stateBasedUIComponentGroup);
         addItemToMenu("File", "Open Image", fileCommands.createOpenImageCommand());
         addItemToMenu("File", "Open URL", fileCommands.createOpenImageFromUrlCommand());
+        addItemToMenu("File", "Open Project", fileCommands.createOpenProjectCommand());
         addItemToMenu("File", "New Blank Image", fileCommands.createNewBlankImageCommand());
         addItemToMenu("File", "Save", fileCommands.createSaveImageCommand());
         addItemToMenu("File", "Save with Text", fileCommands.createSaveImageWithTextCommand());
@@ -91,6 +92,7 @@ public class MenuPanel {
 
         MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
         addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand());
+        addItemToMenu("Apply", "Random effect (multiple)", miscCommands.createMultipleRandomEffectsCommand());
 
         AICommands aiCommands = new AICommands();
         aiCommands.setStateBasedUIComponentGroup(stateBasedUIComponentGroup);

@@ -47,7 +47,7 @@ public class LandingWindow {
         openButton = new JButton("Open Image");
         generateImageButton = new JButton("Generate Image");
         urlButton = new JButton("Load URL");
-        recentButton = new JButton("Open Recent");
+        recentButton = new JButton("Open Project");
 
         Font buttonFont = new Font("Arial", Font.BOLD, 15);
         openButton.setFont(buttonFont);

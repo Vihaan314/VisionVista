@@ -3,35 +3,43 @@ Image editor program made with java.
 Uses Java Swing for the UI and BufferedImage for 
 image manipulation.
 
-# Features:
+# Notable Features:
 <b>File</b>
 <ul>
   <li>Open - opens local image</li>
   <li>Open URL - opens image given URL</li>
-  <li>Create blank image (beta)</li>
-  <li>Save - save edited image to directory of choice.</li>
+  <li>Open Project - open serialized Vision Vista project</li>
+  <li>Generate Image - generates image based on user prompt and opens in editor</li>
+  <li>Save</li>
   <li>Save with text - saves edited image as well as a log of all edits and file information.</li>
 </ul>
 
 <b>Apply</b>
 <ul>
-<li> Random - applies random effect to image.</li>
-<li> Effect sequence - applies sequence of effects to the current image</li>
+<li> Random effect - applies random effect to image.</li>
+<li> Random effect (multiple) - applies multiple number random effects specified by the user</li>
 </ul>
 
 <b>Image</b>
 <ul>
 <li> Save effect sequence - saves current sequence of effects independent from the image</li>
+<li> Load effect sequence - load effect sequence</li>
 <li> Save project - saves the entire project of the sequence of images with the effects</li>
 <li> Load project - loads a project containing the sequence of images and effects</li>
 </ul>
 
 <b>Edit</b>
 <ul>
-<li> Undo - Undos the most recent effect applied.</li>
-<li> Redo - Redos the most recent effect applied.</li>
-<li> Reset - Reverts the image to its original state.</li>
-<li> Timeline - Displays a timeline of every effect applied with labels, and the ability navigate the timeline.</li>
+<li> Undo - effects applied in an undo state will override the existing ones</li>
+<li> Redo</li>
+<li> Reset - reverts the image to its original state and removes all history</li>
+<li> Timeline - displays a timeline of every effect applied with labels, and the ability to navigate the effects.</li>
+</ul>
+
+<b>Generate</b>
+<ul>
+<li> Style - Generates a sequence of effects to meet a desired style the user enters through a prompt.</li>
+<li> Image - Generates image based on prompt and opens in editor.</li>
 </ul>
 
 <details open>

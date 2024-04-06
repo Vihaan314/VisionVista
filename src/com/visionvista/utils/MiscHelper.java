@@ -1,19 +1,13 @@
 package com.visionvista.utils;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import com.visionvista.components.PlaceholderTextField;
+
+import javax.imageio.ImageIO;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
-import javax.swing.text.JTextComponent;
-import java.beans.PropertyChangeEvent;
-import java.util.Arrays;
-import java.util.Objects;
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.util.Arrays;
 import java.util.Base64;
 
 public class MiscHelper {
@@ -23,43 +17,27 @@ public class MiscHelper {
         return dummy;
     }
 
-    public static void addChangeListener(JTextComponent text, ChangeListener changeListener) {
-        Objects.requireNonNull(text);
-        Objects.requireNonNull(changeListener);
-        DocumentListener dl = new DocumentListener() {
-            private int lastChange = 0, lastNotifiedChange = 0;
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                changedUpdate(e);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                changedUpdate(e);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                lastChange++;
-                SwingUtilities.invokeLater(() -> {
-                    if (lastNotifiedChange != lastChange) {
-                        lastNotifiedChange = lastChange;
-                        changeListener.stateChanged(new ChangeEvent(text));
+    public static void addProportionalChangeListener(BufferedImage image, PlaceholderTextField sourceField, PlaceholderTextField targetField, boolean isWidthSource) {
+        sourceField.getDocument().addDocumentListener(new DocumentListener() {
+            public void update() {
+                if (sourceField.hasFocus()) {
+                    try {
+                        double sourceValue = Double.parseDouble(sourceField.getText());
+                        double ratio = isWidthSource ? sourceValue / image.getWidth() : sourceValue / image.getHeight();
+                        double targetValue = isWidthSource ? ratio * image.getHeight() : ratio * image.getWidth();
+                        targetField.setText(String.format("%.2f", targetValue));
+                    } catch (NumberFormatException ex) {
+                        System.out.println("Invalid number");
                     }
-                });
+                }
             }
-        };
-        text.addPropertyChangeListener("document", (PropertyChangeEvent e) -> {
-            Document d1 = (Document)e.getOldValue();
-            Document d2 = (Document)e.getNewValue();
-            if (d1 != null) d1.removeDocumentListener(dl);
-            if (d2 != null) d2.addDocumentListener(dl);
-            dl.changedUpdate(null);
+
+            public void insertUpdate(DocumentEvent e) { update(); }
+            public void removeUpdate(DocumentEvent e) { update(); }
+            public void changedUpdate(DocumentEvent e) { update(); }
         });
-        Document d = text.getDocument();
-        if (d != null) d.addDocumentListener(dl);
     }
+
 
     public static String imageToBase64(BufferedImage image) throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

@@ -3,12 +3,12 @@ package com.visionvista.components;
 import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
 import com.visionvista.commands.Command;
-import com.visionvista.effects.*;
+import com.visionvista.effects.Effect;
+import com.visionvista.effects.EffectType;
 import com.visionvista.utils.MiscHelper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -69,36 +69,14 @@ public class InputEffectWindow {
         }
         textFields = addFieldListeners(textFields);
     }
-
     public ArrayList<PlaceholderTextField> addFieldListeners(ArrayList<PlaceholderTextField> inputFields) {
         BufferedImage image = EditorState.getInstance().getImage();
-        final boolean[] isProgrammaticChange = {false};
+        PlaceholderTextField widthField = inputFields.get(0);
+        PlaceholderTextField heightField = inputFields.get(1);
 
-        MiscHelper.addChangeListener(inputFields.get(0), e -> {
-            if (!isProgrammaticChange[0] && !inputFields.get(0).getText().equals("")) {
-                try {
-                    double ratio = Double.parseDouble(inputFields.get(0).getText()) / image.getWidth();
-                    isProgrammaticChange[0] = true;
-                    inputFields.get(1).setText(String.format("%.2f", ratio * image.getHeight()));
-                    isProgrammaticChange[0] = false;
-                } catch (NumberFormatException ex) {
-                    System.out.println("Please enter a number");
-                }
-            }
-        });
-//
-//        MiscHelper.addChangeListener(inputFields.get(1), e -> {
-//            if (!isProgrammaticChange[0] && !inputFields.get(1).getText().equals("")) {
-//                try {
-//                    double ratio = Double.parseDouble(inputFields.get(1).getText()) / image.getHeight();
-//                    isProgrammaticChange[0] = true;
-//                    inputFields.get(0).setText(String.format("%.2f", ratio * image.getWidth()));
-//                    isProgrammaticChange[0] = false;
-//                } catch (NumberFormatException ex) {
-//                    System.out.println("Please enter a number");
-//                }
-//            }
-//        });
+        MiscHelper.addProportionalChangeListener(image, widthField, heightField, true);
+        MiscHelper.addProportionalChangeListener(image, heightField, widthField, false);
+
         return inputFields;
     }
 
@@ -138,7 +116,6 @@ public class InputEffectWindow {
     }
 
     public void show() {
-//        inputFrame.add(submitButton);
         inputPanel.add(submitButton);
         inputFrame.add(inputPanel);
 

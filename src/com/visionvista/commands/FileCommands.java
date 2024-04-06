@@ -35,6 +35,13 @@ public class FileCommands {
         };
     }
 
+    public Command createOpenProjectCommand() {
+        return () -> {
+            imageHandler.openRecentProject();
+            imageDisplay.updateFromState();
+        };
+    }
+
     public Command createSaveImageCommand() {
         return () -> {
             ImageSaver imageSaver = new ImageSaver(imageDisplay.getFileNameDetails(), false);

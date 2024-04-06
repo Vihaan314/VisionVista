@@ -2,6 +2,7 @@ package com.visionvista.commands;
 
 import com.visionvista.*;
 import com.visionvista.components.EffectTextBox;
+import com.visionvista.components.NumberInputWindow;
 import com.visionvista.effects.Effect;
 
 import java.awt.image.BufferedImage;
@@ -41,6 +42,27 @@ public class MiscCommands {
             //Display random effect information
             EffectTextBox randomEffectBox = new EffectTextBox(this.effect);
             randomEffectBox.show();
+        };
+    }
+
+    public Command createMultipleRandomEffectsCommand() {
+        return () -> {
+            //Apply random effects from specified amount
+            NumberInputWindow numberInputWindow = new NumberInputWindow(number -> {
+                ArrayList<Effect> effects = new ArrayList<>();
+                RandomEffect randomEffectGenerator = new RandomEffect();
+                for (int i = 0; i < number; i++) {
+                    //Generate random effect, store in list and update
+                    Effect effect = randomEffectGenerator.getRandomEffect();
+                    effects.add(effect);
+                    imageDisplay.updateImageByEffect(effect);
+                }
+                //Display all random effects
+                stateBasedUIComponentGroup.updateAllUIFromState();
+                EffectTextBox effectTextBox = new EffectTextBox(effects);
+                effectTextBox.show();
+            });
+            numberInputWindow.initializeUI();
         };
     }
 }
