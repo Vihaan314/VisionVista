@@ -29,7 +29,7 @@ class GhostGlassPane extends JPanel {
     public int getGhostWidth() {
         if (m_draggingGhost == null) {
             return 0;
-        } // if
+        }
 
         return m_draggingGhost.getWidth(this);
     }
@@ -37,7 +37,7 @@ class GhostGlassPane extends JPanel {
     public int getGhostHeight() {
         if (m_draggingGhost == null) {
             return 0;
-        } // if
+        }
 
         return m_draggingGhost.getHeight(this);
     }
@@ -45,7 +45,7 @@ class GhostGlassPane extends JPanel {
     public void paintComponent(Graphics g) {
         if (m_draggingGhost == null) {
             return;
-        } // if
+        }
 
         Graphics2D g2 = (Graphics2D) g;
         g2.setComposite(m_composite);

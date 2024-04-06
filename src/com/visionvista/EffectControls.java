@@ -2,9 +2,7 @@ package com.visionvista;
 
 import com.visionvista.components.ColorEffectWindow;
 import com.visionvista.components.SliderEffectWindow;
-import com.visionvista.effects.Brightness;
 import com.visionvista.effects.EffectType;
-import com.visionvista.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +31,7 @@ public class EffectControls implements StateBasedUIComponent {
     }
 
     public void addSliderEffectToTabPanel(EffectType effectType, JPanel panel) {
-        SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effectType, effectType.getSliderBounds().getLeft(), effectType.getSliderBounds().getRight(), stateBasedUIComponentGroup);
+        SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effectType, effectType.getSliderBounds().left(), effectType.getSliderBounds().right(), stateBasedUIComponentGroup);
 //        sliderEffectWindow.setDefaultSliderValue((Double) this.effectHistory.getLastEffectInstance(effectType).getParameter());
         sliderEffectWindow.setupSlider();
         panel.add(sliderEffectWindow.getSliderPanel());
@@ -99,7 +97,6 @@ public class EffectControls implements StateBasedUIComponent {
 
     @Override
     public void updateFromState() {
-//        System.out.println("UPDATE EFFET CONTROLS");
         this.effectHistory = EditorState.getInstance().getEffectHistory();
         setupTabPanel();
 

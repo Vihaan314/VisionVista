@@ -42,6 +42,7 @@ public class LandingWindow {
         gbc.insets = new Insets(0, 0, 20, 0);
         gbc.anchor = GridBagConstraints.SOUTH;
 
+        //Create buttons and stylize
         JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10));
         openButton = new JButton("Open Image");
         generateImageButton = new JButton("Generate Image");
@@ -73,13 +74,7 @@ public class LandingWindow {
     public void setupButtonActions() {
         imageHandler = new ImageHandler();
         openButton.addActionListener(e -> executeCommand(() -> imageHandler.openImage()));
-        generateImageButton.addActionListener(e -> executeCommand(() -> {
-            try {
-                imageHandler.generateImageFromPrompt(landingFrame);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        }));
+        generateImageButton.addActionListener(e -> executeCommand(() -> imageHandler.generateImageFromPrompt(landingFrame)));
         urlButton.addActionListener(e -> executeCommand(() -> imageHandler.openImageFromUrl()));
         recentButton.addActionListener(e -> executeCommand(() -> imageHandler.openRecentProject()));
 

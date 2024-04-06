@@ -24,17 +24,18 @@ public class ImageSaver {
         this.withText = withText;
     }
 
-    public void saveTextToFile(String directory, String file_name, String file_extension) {
-        File textFile = FileHelper.getEditedFile(directory, file_name, "txt", "_log");
+    public void saveTextToFile(String directory, String fileName, String fileExtension) {
+        File textFile = FileHelper.getEditedFile(directory, fileName, "txt", "_log");
         List<String> imageLogs = new ArrayList<>();
-        imageLogs.add("Original File name: " + file_name + "." + file_extension);
+        imageLogs.add("Original File name: " + fileName + "." + fileExtension);
         imageLogs.add("Directory saving in: " + textFile.getParent());
-        imageLogs.add("File type: " + file_extension);
+        imageLogs.add("File type: " + fileExtension);
         imageLogs.add("Edited file name: " + textFile.getName().replace("_log", ""));
         imageLogs.add("\nEdits log:");
+        //Add each applied effect as formatted string
         for (Pair<Effect, BufferedImage> edit : EditorState.getInstance().getEffectHistory().getEffectSequence()) {
-            Effect effect = edit.getLeft();
-            if (effect != null) imageLogs.add("(" + (EditorState.getInstance().getEffectHistory().getEffectSequence().indexOf(edit)) + ") " + effect.toString());
+            Effect effect = edit.left();
+            if (effect != null) imageLogs.add("(" + (EditorState.getInstance().getEffectHistory().getEffectSequence().indexOf(edit)) + ") " + effect);
         }
         try {
             Files.write(textFile.toPath(), imageLogs, StandardCharsets.UTF_8);
@@ -43,9 +44,9 @@ public class ImageSaver {
         }
     }
 
-    private void saveImgToFile(String directory, String file_name, String file_type) {
+    private void saveImgToFile(String directory, String fileName, String fileExtension) {
         try {
-            File imageFile = FileHelper.getEditedFile(directory, file_name, file_type, "");
+            File imageFile = FileHelper.getEditedFile(directory, fileName, fileExtension, "");
             ImageIO.write(image, "png", new File(imageFile.getAbsolutePath()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,15 +54,10 @@ public class ImageSaver {
     }
 
     public void saveImage() {
-//        JFileChooser f = new JFileChooser();
-//        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//        f.showSaveDialog(null);
-        String file_name = fileNameBroken[0];
-        String file_extension = fileNameBroken[1];
+        String fileName = fileNameBroken[0];
+        String fileExtension = fileNameBroken[1];
         String directory = FileHelper.chooseDirectory();
-//        File directory_chosen = new File(String.valueOf(f.getSelectedFile()));
-//        String directory = directory_chosen.getAbsolutePath();
-        saveImgToFile(directory, file_name, file_extension);
-        if (withText) saveTextToFile(directory, file_name, file_extension);
+        saveImgToFile(directory, fileName, fileExtension);
+        if (withText) saveTextToFile(directory, fileName, fileExtension);
     }
 }

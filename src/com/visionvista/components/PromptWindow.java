@@ -1,28 +1,31 @@
 package com.visionvista.components;
 
-import com.visionvista.commands.AICommands;
-import com.visionvista.commands.Command;
+import com.visionvista.ModelData;
 
 import javax.swing.*;
 
 public class PromptWindow {
-    String description;
-    String buttonText;
-    JFrame parentFrame;
+    private String description;
+    private String buttonText;
+    private JFrame parentFrame;
+    private ModelData modelData;
 
     private String prompt;
 
     private JDialog promptDialog;
 
-    public PromptWindow(String description, String buttonText, JFrame parentFrame) {
+    public PromptWindow(String description, String buttonText, JFrame parentFrame, ModelData modelData) {
         this.description = description;
         this.buttonText = buttonText;
         this.parentFrame = parentFrame;
+        this.modelData = modelData;
         createPromptWindow();
     }
 
     public void createPromptWindow() {
-        //TODO choose model
+        if (modelData != null) {
+            //TODO Model choosing
+        }
         promptDialog = new JDialog(parentFrame, "Generate Image", true);
         promptDialog.setSize(400, 200);
         promptDialog.setLayout(new BoxLayout(promptDialog.getContentPane(), BoxLayout.Y_AXIS));

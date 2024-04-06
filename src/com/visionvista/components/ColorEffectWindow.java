@@ -32,7 +32,6 @@ public class ColorEffectWindow {
         colorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         colorFrame.setSize(650, 400);
         colorFrame.setLocationRelativeTo(null);
-//        colorFrame.setVisible(false);
         return colorFrame;
     }
 
@@ -48,23 +47,27 @@ public class ColorEffectWindow {
         final JLabel colorLabel = new JLabel("Color chooser");
         final JColorChooser colorChooser = new JColorChooser();
 
-        //no rpeviow panhel
+        //No preview panel
         colorChooser.setPreviewPanel(new JPanel());
 
         colorChooser.setBorder(BorderFactory.createTitledBorder("Choose Label Color"));
         AbstractColorChooserPanel[] panels = colorChooser.getChooserPanels();
 
-        //only keep last panl
+        //Only keep the last panel
         for(int i = 0; i < panels.length - 1; i++){
             colorChooser.removeChooserPanel(panels[i]);
         }
         colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                //Get color
                 chosenColor[0] = colorChooser.getColor();
                 colorLabel.setForeground(chosenColor[0]);
+
+                //Create effect
                 Effect chosenEffect = effect.getEffect(chosenColor[0]);
 
+                //Update preview
                 BufferedImage currentImage = EditorState.getInstance().getImage();
                 BufferedImage editedImage = chosenEffect.run(currentImage);
 
@@ -106,25 +109,21 @@ public class ColorEffectWindow {
     }
 
     public ActionListener createSubmitActionListener() {
-        ActionListener submitEffectListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BufferedImage currentImage = EditorState.getInstance().getImage();
-                //Get final effect
-                Color chosenColor = getColor();
-                Effect chosenEffect = effect.getEffect(chosenColor);
-                //Apply effect
-                BufferedImage finalImage = chosenEffect.run(currentImage);
-                //Set new states
-                EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
-                EditorState.getInstance().setImage(finalImage);
-                // Update the display with the final image
-                stateBasedUIComponentGroup.updateAllUIFromState();
-                // Close slider window when submit pressed
-                getColorFrame().dispose();
-            }
+        return e -> {
+            BufferedImage currentImage = EditorState.getInstance().getImage();
+            //Get final effect
+            Color chosenColor1 = getColor();
+            Effect chosenEffect = effect.getEffect(chosenColor1);
+            //Apply effect
+            BufferedImage finalImage = chosenEffect.run(currentImage);
+            //Set new states
+            EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
+            EditorState.getInstance().setImage(finalImage);
+            // Update the display with the final image
+            stateBasedUIComponentGroup.updateAllUIFromState();
+            // Close slider window when submit pressed
+            getColorFrame().dispose();
         };
-        return submitEffectListener;
     }
 
     public Command colorPickerEffect() {

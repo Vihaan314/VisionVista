@@ -6,7 +6,6 @@ import com.visionvista.effects.enhance.*;
 import com.visionvista.effects.transformation.*;
 import com.visionvista.effects.filters.*;
 import com.visionvista.effects.distort.*;
-import com.visionvista.effects.*;
 import com.visionvista.utils.Pair;
 
 import java.awt.*;
@@ -39,6 +38,8 @@ public enum EffectType {
     BOKEH_BLUR("Bokeh blur", 0, 20, EffectUIType.SLIDER, (param) -> new BokehBlur((Double) param)),
     COLOR_SPLASH("Color splash", 0, 50, EffectUIType.SLIDER, (param) -> new ColorSplash((Double) param)),
     ROTATE("Rotate", 0, 360, EffectUIType.SLIDER, (param) -> new Rotate((Double) param)),
+
+    DUOTONE("Duotone", 0, 255, EffectUIType.SLIDER, (param) -> Duotone.getRandomInstance()),
 
     //Color chooser
     HUE("Hue", EffectUIType.COLOR_CHOOSER, (param) -> new Hue((Color) param)),

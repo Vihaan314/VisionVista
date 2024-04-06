@@ -17,9 +17,18 @@ public class EffectTextBox {
 
     public EffectTextBox(Effect effect) {
         this.effect = effect;
+        setupEffectBoxFrame();
+        setupEffectBoxComponents();
+        closeButton.addActionListener(e -> effectFrame.dispose());
+    }
+
+    private void setupEffectBoxFrame() {
         effectFrame = new JFrame("Random effect");
         effectFrame.setSize(500, 500);
         effectFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    private void setupEffectBoxComponents() {
         effectPanel = new JPanel(new GridLayout(2, 1));
         effectMessage = new JLabel(effect.toString(), SwingConstants.CENTER);
         effectMessage.setFont(new Font("Aria", Font.BOLD, 17));
@@ -29,14 +38,7 @@ public class EffectTextBox {
         closeButton.setPreferredSize(new Dimension(100, 50));
         closeButton.setFont(new Font("Aria", Font.BOLD, 22));
         closeButton.setBackground(Color.green);
-        closeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                effectFrame.dispose();
-            }
-        });
     }
-
 
     public void show() {
         effectPanel.add(effectMessage);

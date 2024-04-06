@@ -1,13 +1,10 @@
 package com.visionvista.effects.blur;
 
-import com.visionvista.effects.Effect;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
-import com.visionvista.utils.MathHelper;
 import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.io.Serial;
 

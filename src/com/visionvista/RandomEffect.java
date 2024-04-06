@@ -1,46 +1,60 @@
 package com.visionvista;
 
-import com.visionvista.effects.*;
-import com.visionvista.effects.artistic.*;
-import com.visionvista.effects.blur.BokehBlur;
-import com.visionvista.effects.blur.BoxBlur;
-import com.visionvista.effects.blur.GaussBlur;
-import com.visionvista.effects.blur.TiltShift;
-import com.visionvista.effects.distort.Anaglyph3D;
-import com.visionvista.effects.distort.ChromaticAberration;
-import com.visionvista.effects.distort.PixelSort;
-import com.visionvista.effects.distort.Pixelate;
-import com.visionvista.effects.enhance.EdgeEnhance;
-import com.visionvista.effects.enhance.Sharpen;
-import com.visionvista.effects.filters.*;
-import com.visionvista.effects.transformation.Rotate;
+import com.visionvista.effects.Effect;
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfo;
+import io.github.classgraph.ScanResult;
 
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class RandomEffect {
-    BufferedImage image;
+    private List<Class<? extends Effect>> effectClasses;
+
     public RandomEffect() {
-        this.image = EditorState.getInstance().getImage();
+        loadEffectClasses();
+    }
+
+    private void loadEffectClasses() {
+        effectClasses = new ArrayList<>();
+        //Extract all classes from effects package
+        try (ScanResult scanResult = new ClassGraph()
+                .enableClassInfo()
+                .acceptPackages("com.visionvista.effects")
+                .scan()) {
+            for (ClassInfo classInfo : scanResult.getSubclasses(Effect.class.getName())) {
+                Class<?> cls = classInfo.loadClass();
+                //Exclude enums, interfaces, abstract classes, and annotations
+                if (!Modifier.isAbstract(cls.getModifiers()) && !cls.isEnum() && !cls.isInterface() && !cls.isAnnotation()) {
+                    effectClasses.add((Class<? extends Effect>) cls);
+                }
+            }
+        }
     }
 
     public Effect getRandomEffect() {
-        Class<?>[] effectClasses = {
-                Glow.class, Contrast.class, BoxBlur.class, Brightness.class, GaussBlur.class, Saturation.class, Sharpen.class,
-                Vibrance.class, CrossProcess.class, Grayscale.class, Heatmap.class, Infrared.class, Lomography.class, Negative.class,
-                PencilSketch.class, Pixelate.class, Posterize.class, Sepia.class, Solarize.class, SplitTone.class, Temperature.class,
-                Vignette.class, Hue.class, ChromaticAberration.class, Halftone.class, Watercolor.class, EdgeEnhance.class, TiltShift.class,
-                PixelSort.class, Anaglyph3D.class, OilPainting.class, BokehBlur.class, Cyberpunk.class, ColorSplash.class, Rotate.class,
-        };
-        int upper = effectClasses.length;
+        //Get random effect class object
         Random rand = new Random();
-        int randIndex = rand.nextInt(upper);
-
+        int randIndex = rand.nextInt(effectClasses.size());
+        Class<? extends Effect> effectClass = effectClasses.get(randIndex);
         Effect randomEffect = null;
+
         try {
-            System.out.println(effectClasses[randIndex]);
-            randomEffect = (Effect) effectClasses[randIndex].getDeclaredMethod("getRandomInstance").invoke(null);
-        } catch (Exception e){
+            //Get random instance (randomized parameters, if any)
+            System.out.println(effectClass.getSimpleName());
+            do {
+                randomEffect = (Effect) effectClass.getDeclaredMethod("getRandomInstance").invoke(null);
+                Object param = randomEffect.getParameter();
+                if (param instanceof Number number) {
+                    if (number.doubleValue() == 0) continue;
+                }
+                break;
+            } while (true);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return randomEffect;

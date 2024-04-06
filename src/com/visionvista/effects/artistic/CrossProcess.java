@@ -1,12 +1,11 @@
-package com.visionvista.effects.filters;
+package com.visionvista.effects.artistic;
 
+import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ColorManipulator;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.Serial;
 
-public class CrossProcess extends Filter {
+public class CrossProcess extends Artistic {
     @Serial
     private static final long serialVersionUID = -3731413825978193805L;
 

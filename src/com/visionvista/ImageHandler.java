@@ -26,14 +26,13 @@ public class ImageHandler {
     public EffectHistory effectHistory;
     public ImageEditor editor;
 
-    public String fileNameBroken[];
+    public String[] fileNameBroken;
 
     public ImageHandler() {
         this.effectHistory = new EffectHistory();
     }
 
     public void openImage() {
-        //TODO TABS ABOVE IMAGE EDITOR SO EDITOR TABS
         String[] imageFormats = {"jpg", "jpeg", "png", "gif", "bmp"};
         JFileChooser fileChooser = FileHelper.addFileFilter(imageFormats, "Images");
         int returnValue = fileChooser.showOpenDialog(null);
@@ -44,21 +43,7 @@ public class ImageHandler {
             fileNameBroken = fileNameRaw.split("[.]");
 
             try {
-                BufferedImage image = ImageIO.read(selectedFile);
-                //Try to resize image if too large
-                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                int screenWidth = (int) screenSize.getWidth();
-                int screenHeight = (int) screenSize.getHeight();
-                if (image.getWidth() > screenWidth) {
-                    int convertRatio = image.getWidth() / screenWidth;
-                    System.out.println("width too");
-                    image = new Resize(screenWidth, image.getHeight() / convertRatio).run(image);
-                }
-                else if (image.getHeight() > screenHeight) {
-                    System.out.println("Height too");
-                    int convertRatio = image.getHeight() / screenHeight;
-                    image = new Resize(image.getWidth() / convertRatio, screenHeight).run(image);
-                }
+                BufferedImage image = ImageHelper.fitImageToWindow(ImageIO.read(selectedFile));
 
                 //Set the original image to be displayed
                 EditorState.getInstance().setImage(image);
@@ -90,25 +75,22 @@ public class ImageHandler {
 
         urlField.setPreferredSize(new Dimension(370, 30));
 
-        openImageButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    //Process URL to necessary file parts
-                    URL img_url = new URI(urlField.getText()).toURL();
-                    fileNameBroken = urlField.getText().split("[/]");
-                    fileNameBroken = fileNameBroken[fileNameBroken.length-1].split("[.]");
-                    //Setup program
-                    BufferedImage image = ImageIO.read(img_url);
-                    EditorState.getInstance().setImage(image);
-                    effectHistory.add(null, image);
-                    EditorState.getInstance().setState(effectHistory);
+        openImageButton.addActionListener(e -> {
+            try {
+                //Process URL to necessary file parts
+                URL imageURL = new URI(urlField.getText()).toURL();
+                fileNameBroken = urlField.getText().split("/");
+                fileNameBroken = fileNameBroken[fileNameBroken.length-1].split("[.]");
+                //Setup editor
+                BufferedImage image = ImageHelper.fitImageToWindow(ImageIO.read(imageURL));
+                EditorState.getInstance().setImage(image);
+                effectHistory.add(null, image);
+                EditorState.getInstance().setState(effectHistory);
 
-                    editor = new ImageEditor("Vision Vista", fileNameBroken);
-                    editor.show();
-                } catch (IOException | URISyntaxException ex) {
-                    ex.printStackTrace();
-                }
+                editor = new ImageEditor("Vision Vista", fileNameBroken);
+                editor.show();
+            } catch (IOException | URISyntaxException ex) {
+                ex.printStackTrace();
             }
         });
 
@@ -124,13 +106,15 @@ public class ImageHandler {
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            String file_name_raw = selectedFile.getName();
+            String fileNameRaw = selectedFile.getName();
             //Splits by necessary parts of file name - name and extension
-            fileNameBroken = file_name_raw.split("[.]");
+            fileNameBroken = fileNameRaw.split("[.]");
 
             try {
+                //Read serialized project
                 EffectHistorySerializer deserialized = new EffectHistorySerializer();
-                deserialized.readSerializedEffects(selectedFile);
+                deserialized.readEffects(selectedFile);
+                //Extract necessary components to generate history sequence and run editor
                 ArrayList<Effect> effectsList = deserialized.getEffectsList();
                 BufferedImage initialImage = deserialized.getInitialImage();
                 effectHistory = new EffectHistory();
@@ -145,18 +129,22 @@ public class ImageHandler {
         }
     }
 
-    public void generateImageFromPrompt(JFrame landingFrame) throws Exception {
+    public void generateImageFromPrompt(JFrame landingFrame) {
         AICommands aiCommands = new AICommands();
-        aiCommands.createImageGenerationCommand(landingFrame).execute();
+        try {
+            aiCommands.createImageGenerationCommand(landingFrame).execute();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(landingFrame, "Error generating image: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }
 
+
     public void createNewImage() {
-        //TODO
+        //Long term feature
         BufferedImage blankImg = ImageHelper.createBlankImage();
         EditorState.getInstance().setImage(blankImg);
         editor = new ImageEditor("Vision Vista - Draw", null);
         editor.show();
-//        inputValuesEffect(new ImageEdit(blank_img), "Blank", new String[]{"Width", "Height"});
     }
-
 }

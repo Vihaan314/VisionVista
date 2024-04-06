@@ -25,6 +25,7 @@ public class MiscCommands {
 
     public Command createUpdateEffectCommand() {
         return () -> {
+            //Update editor with effect
             imageDisplay.updateImageByEffect(effect);
             ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
             stateBasedUIComponentGroup.updateAllUIFromState();
@@ -33,9 +34,11 @@ public class MiscCommands {
 
     public Command createRandomEffectCommand() {
         return () -> {
+            //Get random effect and update editor
             this.effect = new RandomEffect().getRandomEffect();
             imageDisplay.updateImageByEffect(effect);
             stateBasedUIComponentGroup.updateAllUIFromState();
+            //Display random effect information
             EffectTextBox randomEffectBox = new EffectTextBox(this.effect);
             randomEffectBox.show();
         };

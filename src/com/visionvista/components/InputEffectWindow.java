@@ -54,6 +54,7 @@ public class InputEffectWindow {
     }
 
     public void setupTextFields() {
+        //Create text field labels
         for (int i = 0; i < labelLength; i++) {
             fieldLabels.add(new JLabel(paramLabels[i]));
             PlaceholderTextField tempField = new PlaceholderTextField("");
@@ -71,21 +72,28 @@ public class InputEffectWindow {
 
     public ArrayList<PlaceholderTextField> addFieldListeners(ArrayList<PlaceholderTextField> inputFields) {
         BufferedImage image = EditorState.getInstance().getImage();
+        final boolean[] isProgrammaticChange = {false};
+
         MiscHelper.addChangeListener(inputFields.get(0), e -> {
-                if (!inputFields.get(0).equals("")) {
-                    try {
-                        double ratio = Double.parseDouble(inputFields.get(0).getText()) / image.getWidth();
-                        inputFields.get(1).setText(String.valueOf(ratio * image.getHeight()));
-                    } catch (NumberFormatException ex) {
-                        System.out.println("Please enter a number");
-                    }
+            if (!isProgrammaticChange[0] && !inputFields.get(0).getText().equals("")) {
+                try {
+                    double ratio = Double.parseDouble(inputFields.get(0).getText()) / image.getWidth();
+                    isProgrammaticChange[0] = true;
+                    inputFields.get(1).setText(String.format("%.2f", ratio * image.getHeight()));
+                    isProgrammaticChange[0] = false;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Please enter a number");
                 }
-            });
+            }
+        });
+//
 //        MiscHelper.addChangeListener(inputFields.get(1), e -> {
-//            if (!inputFields.get(1).equals("")) {
+//            if (!isProgrammaticChange[0] && !inputFields.get(1).getText().equals("")) {
 //                try {
 //                    double ratio = Double.parseDouble(inputFields.get(1).getText()) / image.getHeight();
-//                    inputFields.get(0).setText(String.valueOf(ratio * image.getWidth()));
+//                    isProgrammaticChange[0] = true;
+//                    inputFields.get(0).setText(String.format("%.2f", ratio * image.getWidth()));
+//                    isProgrammaticChange[0] = false;
 //                } catch (NumberFormatException ex) {
 //                    System.out.println("Please enter a number");
 //                }
@@ -103,22 +111,21 @@ public class InputEffectWindow {
     }
 
     public void setupSubmitButton(ActionListener actionListener) {
-//        submitButton = new JButton("Enter");
         submitButton.addActionListener(actionListener);
     }
 
     public ActionListener createSubmitActionListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Effect chosenEffect = effect.getEffect(getValues());
-                BufferedImage currentImage = EditorState.getInstance().getImage();
-                BufferedImage editedImage = chosenEffect.run(currentImage);
-                getInputFrame().dispose();
-                EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
-                EditorState.getInstance().setImage(editedImage);
-                imageDisplay.updateFromState();
-            }
+        return e -> {
+            //Extract input values
+            Effect chosenEffect = effect.getEffect(getValues());
+            //Run effect
+            BufferedImage currentImage = EditorState.getInstance().getImage();
+            BufferedImage editedImage = chosenEffect.run(currentImage);
+            getInputFrame().dispose();
+            //Update editor state
+            EditorState.getInstance().getEffectHistory().add(chosenEffect, editedImage);
+            EditorState.getInstance().setImage(editedImage);
+            imageDisplay.updateFromState();
         };
     }
 

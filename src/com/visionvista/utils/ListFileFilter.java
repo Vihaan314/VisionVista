@@ -17,6 +17,7 @@ public class ListFileFilter extends FileFilter {
             return true;
         }
         String name = file.getName().toLowerCase();
+        //Allow filter to accept all files with any extension from given list
         for (String extension : extensions) {
             if (name.endsWith(extension.toLowerCase())) {
                 return true;

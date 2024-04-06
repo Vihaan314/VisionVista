@@ -27,4 +27,8 @@ public class FlipVertical extends Transformation {
         }
         return vertical_img;
     }
+
+    public static FlipVertical getRandomInstance() {
+        return new FlipVertical();
+    }
 }

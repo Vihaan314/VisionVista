@@ -62,6 +62,7 @@ public class SliderEffectWindow {
         int majorTickSpacing = findOptimalSpacing(upper);
         slider.setMajorTickSpacing(majorTickSpacing);
 
+        //Calculate where to label the slider
         Hashtable<Integer, JLabel> labels = new Hashtable<>();
         for (int i = lower; i <= upper; i += majorTickSpacing) {
             labels.put(i, new JLabel(String.valueOf(i)));
@@ -94,15 +95,12 @@ public class SliderEffectWindow {
 
     private int findOptimalSpacing(int upper) {
         int idealNumberOfTicks = 5 + (int) Math.log10(upper);
-
         for (int numTicks = idealNumberOfTicks; numTicks > 3; numTicks--) {
             int possibleSpacing = upper / numTicks;
-
             if (upper % possibleSpacing == 0 || numTicks * possibleSpacing >= upper) {
                 return possibleSpacing;
             }
         }
-
         return upper;
     }
 
@@ -119,26 +117,23 @@ public class SliderEffectWindow {
     }
 
     public ActionListener createSubmitActionListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BufferedImage currentImage = EditorState.getInstance().getImage();
-                //Get final effect
-                double effectAmount = getEffectAmount();
-                if (effectAmount != 0) {
-                    Effect chosenEffect = effect.getEffect(effectAmount);
-                    //Apply effect
-                    BufferedImage finalImage = chosenEffect.run(currentImage);
-                    //Set new states
-                    EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
-                    EditorState.getInstance().setImage(finalImage);
-                    //Update the display with the final image
-                    ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
-                    stateBasedUIComponentGroup.updateAllUIFromState();
-                }
-                //Close slider window when submit pressed
-                getSliderFrame().dispose();
+        return e -> {
+            BufferedImage currentImage = EditorState.getInstance().getImage();
+            //Get final effect
+            double effectAmount = getEffectAmount();
+            if (effectAmount != 0) {
+                Effect chosenEffect = effect.getEffect(effectAmount);
+                //Apply effect
+                BufferedImage finalImage = chosenEffect.run(currentImage);
+                //Set new states
+                EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
+                EditorState.getInstance().setImage(finalImage);
+                //Update the display with the final image
+                ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
+                stateBasedUIComponentGroup.updateAllUIFromState();
             }
+            //Close slider window when submit pressed
+            getSliderFrame().dispose();
         };
     }
 

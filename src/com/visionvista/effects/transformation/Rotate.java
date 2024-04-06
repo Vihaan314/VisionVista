@@ -1,14 +1,11 @@
 package com.visionvista.effects.transformation;
 
-import com.visionvista.effects.Contrast;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
-import com.visionvista.utils.MathHelper;
 import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
 import java.io.Serial;
-import java.util.Arrays;
 
 public class Rotate extends Transformation {
     @Serial
@@ -25,11 +22,11 @@ public class Rotate extends Transformation {
     public BufferedImage run(BufferedImage image) {
         int imageWidth = image.getWidth();
         int imageHeight = image.getHeight();
-        angle = Math.toRadians(angle);
+        double angleRad = Math.toRadians(angle);
 
         //Computing the new image dimensions
-        int newWidth = (int) Math.ceil(Math.abs(imageWidth * Math.cos(angle)) + Math.abs(imageHeight * Math.sin(angle)));
-        int newHeight = (int) Math.ceil(Math.abs(imageHeight * Math.cos(angle)) + Math.abs(imageWidth * Math.sin(angle)));
+        int newWidth = (int) Math.ceil(Math.abs(imageWidth * Math.cos(angleRad)) + Math.abs(imageHeight * Math.sin(angleRad)));
+        int newHeight = (int) Math.ceil(Math.abs(imageHeight * Math.cos(angleRad)) + Math.abs(imageWidth * Math.sin(angleRad)));
 
         BufferedImage rotatedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
 
@@ -42,8 +39,8 @@ public class Rotate extends Transformation {
         for (int x = 0; x < newWidth; x++) {
             for (int y = 0; y < newHeight; y++) {
                 //Rotation
-                int srcX = (int) ((x - newCenterX) * Math.cos(-angle) - (y - newCenterY) * Math.sin(-angle) + centerX);
-                int srcY = (int) ((x - newCenterX) * Math.sin(-angle) + (y - newCenterY) * Math.cos(-angle) + centerY);
+                int srcX = (int) ((x - newCenterX) * Math.cos(-angleRad) - (y - newCenterY) * Math.sin(-angleRad) + centerX);
+                int srcY = (int) ((x - newCenterX) * Math.sin(-angleRad) + (y - newCenterY) * Math.cos(-angleRad) + centerY);
 
                 if (srcX >= 0 && srcX < imageWidth && srcY >= 0 && srcY < imageHeight) {
                     rotatedImage.setRGB(x, y, image.getRGB(srcX, srcY));

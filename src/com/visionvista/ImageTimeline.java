@@ -61,7 +61,6 @@ public class ImageTimeline implements StateBasedUIComponent{
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setPreferredSize(new Dimension(450, calculatePanelHeight()));
         frame.add(scrollPane);
-        System.out.println(screenWidth + " " + screenHeight);
         frame.setLocation(1225, 50);
         frame.pack();
         return frame;
@@ -70,11 +69,11 @@ public class ImageTimeline implements StateBasedUIComponent{
     private void setupEffectComponents() {
         timelinePanel.removeAll();
         int verticalGap = 2;
-        System.out.println(effectSequence.size());
+        //Get all effects from effect history
         for (int i = effectLength-1; i >= 0; i--) {
             JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, verticalGap));
             JButton effectButton = new JButton("Effect " + (i));
-            String label = (i == 0) ? "Original image" : effectSequence.get(i).getLeft().toString();
+            String label = (i == 0) ? "Original image" : effectSequence.get(i).left().toString();
             JLabel effectLabel = new JLabel((i == currentImageIndex) ? label + " - CURRENT" : label);
 
             int finalI = i;
@@ -95,10 +94,13 @@ public class ImageTimeline implements StateBasedUIComponent{
 
     @Override
     public void updateFromState() {
+        //Get all the latest values
         this.effectHistory = EditorState.getInstance().getEffectHistory();
         this.effectSequence = effectHistory.getEffectSequence();
         this.effectLength = effectHistory.getSize();
         this.currentImageIndex = effectHistory.getCurrentIndex();
+
+        //Setup components with new values and update changes to component
         setupEffectComponents();
 
         timelinePanel.revalidate();

@@ -29,9 +29,9 @@ public class ImageEditor {
         editorFrame = new JFrame();
         editorFrame.setTitle(title);
         editorFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        //Create panel for components
+
         //Panel components
-        JPanel editorPanel = new JPanel(); //do gridlayout to add compoemnets onto editor
+        JPanel editorPanel = new JPanel();
 
         //Initialize image display component
         ImageDisplay imageDisplay = new ImageDisplay();
@@ -42,7 +42,6 @@ public class ImageEditor {
         ImageTimeline imageTimeline = new ImageTimeline(imageDisplay);
 
         editorFrame.add(editorPanel);
-
 
         //Add state based UI components to the group
         StateBasedUIComponentGroup stateBasedUIComponentGroup = new StateBasedUIComponentGroup();
@@ -60,7 +59,8 @@ public class ImageEditor {
         //Tools panel
         ToolsPanel toolsPanel = new ToolsPanel(stateBasedUIComponentGroup);
         stateBasedUIComponentGroup.addUIComponent(toolsPanel);
-////        Add pages
+
+//        //Add pages
 //        toolsPanel.addPage(effectControls);
 //        //Setup panel
 //        toolsPanel.setupTabPanels();

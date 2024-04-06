@@ -9,15 +9,10 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class EffectSerializer implements Serializable {
-    transient ArrayList<Effect> effectsList = new ArrayList<>();
+    @Serial
+    private static final long serialVersionUID = 1705697157231620585L;
 
-    public void extractEffectList() {
-        ArrayList<Pair<Effect, BufferedImage>> effectHistory = EditorState.getInstance().getEffectHistory().getEffectSequence();
-        System.out.println(effectHistory);
-        for (Pair<Effect, BufferedImage> entry : effectHistory) {
-            effectsList.add(entry.getLeft());
-        }
-    }
+    transient ArrayList<Effect> effectsList = new ArrayList<>();
 
     public ArrayList<Effect> getEffectsList() {
         return this.effectsList;
@@ -42,11 +37,12 @@ public class EffectSerializer implements Serializable {
     }
 
     public void serializeEffects(String filename) {
-        extractEffectList();
+        effectsList = EditorState.getInstance().getEffectHistory().extractEffectsList();
+        //Choose directory to save sequence in
         String directory = FileHelper.chooseDirectory();
         filename = directory + File.separator + FileHelper.getEditedFile(directory, filename, "dat", "_effects-sequence").getName();
-        System.out.println(filename);
         File effectSerialize = new File(filename);
+
         try {
             FileOutputStream effectOutputFile = new FileOutputStream(effectSerialize.getAbsoluteFile());
             ObjectOutputStream effectOut = new ObjectOutputStream(effectOutputFile);
@@ -62,6 +58,7 @@ public class EffectSerializer implements Serializable {
     }
 
     public void readSerializedEffects() {
+        //Allow user to chooser serialized (.dat) files
         String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista Effect Sequence");
         File effectSerialize = new File(filename);
         try {
@@ -70,11 +67,10 @@ public class EffectSerializer implements Serializable {
 
             EffectSerializer deserialized = (EffectSerializer) effectIn.readObject();
             this.effectsList = deserialized.getEffectsList();
-            //maybe update editor state
+            //Maybe update editor state
             effectInFile.close();
             effectIn.close();
-            System.out.println("Read");
-            System.out.println(effectsList);
+            System.out.println("Read: " + effectsList);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

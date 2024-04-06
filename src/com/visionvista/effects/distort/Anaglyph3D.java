@@ -22,7 +22,7 @@ public class Anaglyph3D extends Distort {
     }
 
     @Override protected int applyEffect(int red, int green, int blue, BufferedImage image, int x, int y) {
-        //Anaglyph conversion formula - offset pixels to give 3D look
+        //Anaglyph conversion formula - offset pixels based on x coordinate to give 3D look
         int shiftX = x + offset < image.getWidth() ? x + offset : x;
         int shiftedRGB = image.getRGB(shiftX, y);
         int shiftedGreen = (shiftedRGB >> 8) & 0xFF;

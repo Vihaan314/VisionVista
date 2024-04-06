@@ -28,4 +28,8 @@ public class FlipHorizontal extends Transformation {
         }
         return horizontal_img;
     }
+
+    public static FlipHorizontal getRandomInstance() {
+        return new FlipHorizontal();
+    }
 }

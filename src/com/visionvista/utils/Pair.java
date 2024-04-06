@@ -1,37 +1,33 @@
 package com.visionvista.utils;
 
+import java.io.Serial;
 import java.io.Serializable;
 
-public class Pair<L,R> implements Serializable {
+public record Pair<L, R>(L left, R right) implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    private final L left;
-    private final R right;
-
-    public Pair(L left, R right) {
+    public Pair {
         assert left != null;
         assert right != null;
 
-        this.left = left;
-        this.right = right;
     }
 
-    public L getLeft() { return left; }
-    public R getRight() { return right; }
-
     @Override
-    public int hashCode() { return left.hashCode() ^ right.hashCode(); }
+    public int hashCode() {
+        return left.hashCode() ^ right.hashCode();
+    }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Pair pairo)) return false;
-        return this.left.equals(pairo.getLeft()) &&
-                this.right.equals(pairo.getRight());
+        return this.left.equals(pairo.left()) &&
+                this.right.equals(pairo.right());
     }
 
     @Override
     public String toString() {
-        return "Left: " + this.getLeft() + ", Right: " + this.getRight();
+        return "Left: " + this.left() + ", Right: " + this.right();
     }
 
 }

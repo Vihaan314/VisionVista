@@ -1,6 +1,8 @@
 package com.visionvista.effects.filters;
 
+import com.visionvista.effects.Hue;
 import com.visionvista.utils.ColorManipulator;
+import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -31,5 +33,12 @@ public class Duotone extends Filter {
     @Override
     public String toString() {
         return "Applied Duotone";
+    }
+
+
+    public static Duotone getRandomInstance() {
+        Color randomColor1 = new Color(ImageHelper.getRandomParameter(ImageHelper.getColorBounds()),ImageHelper.getRandomParameter(ImageHelper.getColorBounds()),ImageHelper.getRandomParameter(ImageHelper.getColorBounds()));
+        Color randomColor2 = new Color(ImageHelper.getRandomParameter(ImageHelper.getColorBounds()),ImageHelper.getRandomParameter(ImageHelper.getColorBounds()),ImageHelper.getRandomParameter(ImageHelper.getColorBounds()));
+        return new Duotone(randomColor1, randomColor2);
     }
 }

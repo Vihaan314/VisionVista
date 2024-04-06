@@ -1,9 +1,6 @@
 package com.visionvista.commands;
 
-import com.visionvista.EditorState;
-import com.visionvista.ImageGenerationAI;
-import com.visionvista.ImageStylizeAI;
-import com.visionvista.StateBasedUIComponentGroup;
+import com.visionvista.*;
 import com.visionvista.components.PromptWindow;
 import com.visionvista.effects.Effect;
 
@@ -25,16 +22,19 @@ public class AICommands {
     public Command createImageStylizeCommand() {
         return () -> {
 //            prompt = "Cinematic and lively look";
-            PromptWindow promptWindow = new PromptWindow("Enter style", "Stylize", null);
+            //Get prompt from UI
+            PromptWindow promptWindow = new PromptWindow("Enter style", "Stylize", null, null);
             promptWindow.show();
             String prompt = promptWindow.getPrompt();
             System.out.println(prompt);
+            //Generate AI response
             BufferedImage currentImage = EditorState.getInstance().getImage();
             ImageStylizeAI imageStylizeAI = new ImageStylizeAI();
             imageStylizeAI.setUserPrompt(prompt);
             imageStylizeAI.setCurrentImage(currentImage);
             imageStylizeAI.generateEffectsList();
             ArrayList<Effect> generatedEffectsList = imageStylizeAI.getEffectsList();
+            //Apply generated effects
             for (Effect effect : generatedEffectsList) {
                 currentImage = effect.run(currentImage);
                 EditorState.getInstance().setImage(currentImage);
@@ -47,12 +47,15 @@ public class AICommands {
 
     public Command createImageGenerationCommand(JFrame parentFrame) {
         return () -> {
-            PromptWindow promptWindow = new PromptWindow("Enter image description", "Generate", parentFrame);
+            ModelData modelData = new ModelData();
+            PromptWindow promptWindow = new PromptWindow("Enter image description", "Generate", parentFrame, modelData);
             promptWindow.show();
             String prompt = promptWindow.getPrompt();
-            ImageGenerationAI imageGenerationAI = new ImageGenerationAI();
-            imageGenerationAI.setUserPrompt(prompt);
-            imageGenerationAI.generateImage();
+            ImageGenerationAI.builder()
+                    .prompt(prompt)
+                    .model(modelData.getChosenModel())
+                    .quality(modelData.getChosenQuality())
+                    .buildGeneration();
         };
     }
 }

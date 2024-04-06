@@ -11,15 +11,18 @@ public class FileHelper {
         return (int) Math.floor(Math.log10(counter))+1;
     }
 
-    public static File getEditedFile(String directory, String file_name, String type, String customExtension) {
+    public static File getEditedFile(String directory, String fileName, String type, String customExtension) {
+        //The constant letter padding of Vision Vista brand
         int buffer = customExtension.length()-1 + 4;
         String directoryConstant = directory + File.separator;
-
+        //Create initial iteration of file
         File editedFile = new File(directoryConstant +
-                file_name.split("[.]")[0] + ("-VV" + customExtension + "." + type));
+                fileName.split("[.]")[0] + ("-VV" + customExtension + "." + type));
         int counter = 0;
+        //If the generated file name already exists, insert a number until it is unique
         while (editedFile.exists()) {
             counter += 1;
+            //Automatically calculating where to insert the number in relation to all the components of the file
             editedFile = new File(directoryConstant + editedFile.getName().split("[.]")[0].substring(
                     0, editedFile.getName().split("[.]")[0].length()-(buffer+2*getPower(counter))) + "-" + counter + "-VV" + customExtension + "." + type);
         }
@@ -34,11 +37,11 @@ public class FileHelper {
         f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         f.showSaveDialog(null);
 
-        String directory = String.valueOf(f.getSelectedFile());
-        return directory;
+        return String.valueOf(f.getSelectedFile());
     }
 
     public static JFileChooser addFileFilter(String[] extensions, String description) {
+        //Return JFileChooser with filter
         JFileChooser f = new JFileChooser();
         ListFileFilter listFileFilter = new ListFileFilter(extensions, description);
 
@@ -49,6 +52,7 @@ public class FileHelper {
     }
 
     public static String chooseFile(String[] extensions, String description) {
+        //Get path to chosen file
         JFileChooser f = new JFileChooser();
         ListFileFilter listFileFilter = new ListFileFilter(extensions, description);
 

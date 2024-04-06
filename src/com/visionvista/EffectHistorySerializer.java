@@ -19,14 +19,6 @@ public class EffectHistorySerializer implements Serializable {
     public EffectHistorySerializer() {
     }
 
-    public void extractEffectHistory() {
-        EffectHistory effectHistory = EditorState.getInstance().getEffectHistory();
-        for (Pair<Effect, BufferedImage> entry : effectHistory.getEffectSequence()) {
-            effectsList.add(entry.getLeft());
-        }
-        initialImage = effectHistory.getFirstImage();
-    }
-
     public void setEffectsList(ArrayList<Effect> effectsList) {
         this.effectsList = effectsList;
     }
@@ -44,7 +36,8 @@ public class EffectHistorySerializer implements Serializable {
     }
 
     public void serializeEffects(String filename) {
-        extractEffectHistory();
+        effectsList = EditorState.getInstance().getEffectHistory().extractEffectsList();
+        initialImage = EditorState.getInstance().getEffectHistory().getFirstImage();
         String directory = FileHelper.chooseDirectory();
         filename = directory + File.separator + FileHelper.getEditedFile(directory, filename, "dat", "_image-sequence").getName();
         System.out.println(filename);
@@ -65,27 +58,24 @@ public class EffectHistorySerializer implements Serializable {
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
+        //Serialize effects list and initial image to reduce size
         out.writeObject(effectsList);
         ImageIO.write(initialImage, "png", out);
+    }
+
+    public void readEffects(File serializedFile) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(serializedFile))) {
+            readObject(in);
+            System.out.println(effectsList);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void readSerializedEffects() {
         String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista project");
         File serializedFile = new File(filename);
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(serializedFile))) {
-            readObject(in);
-            System.out.println(effectsList);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        readEffects(serializedFile);
     }
 
-    public void readSerializedEffects(File serializedFile) {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(serializedFile))) {
-            readObject(in);
-            System.out.println(effectsList);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }

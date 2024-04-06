@@ -5,12 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61be1baa-d2af-4601-81e5-39379323f518" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/io_github_classgraph.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/visionvista/ModelData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/VisionVista.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/VisionVista.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ButtonPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ButtonPanelConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/EffectControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/EffectControls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/EffectHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/EffectHistory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/EffectHistorySerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/EffectHistorySerializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/EffectSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/EffectSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageDisplay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageEditorContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageEditorContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageGenerationAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageGenerationAI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImagePanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageSaver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageTimeline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageTimeline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/MenuPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/MenuPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/PenDraw.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/RandomEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/RandomEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/FileCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/FileCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/MiscCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/MiscCommands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/SerializingCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/SerializingCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/ColorEffectWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/ColorEffectWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/EffectTextBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/EffectTextBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/GhostGlassPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/GhostGlassPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/InputEffectWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/InputEffectWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/LandingWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/LandingWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/PlaceholderTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/PlaceholderTextField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/PromptWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/PromptWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/SliderEffectWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/SliderEffectWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/EffectType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/EffectType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Hue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Hue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/blur/GaussBlur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/blur/GaussBlur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/distort/Anaglyph3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/distort/Anaglyph3D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/CrossProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/CrossProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Duotone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Duotone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/FlipHorizontal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/FlipHorizontal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/FlipVertical.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/FlipVertical.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Resize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Resize.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Rotate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Rotate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/utils/FileHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/utils/FileHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/utils/ImageHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/utils/ImageHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/utils/ListFileFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/utils/ListFileFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/utils/MathHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/utils/MiscHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/utils/MiscHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/utils/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/utils/Pair.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +67,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>

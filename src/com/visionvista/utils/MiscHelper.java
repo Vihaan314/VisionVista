@@ -66,4 +66,6 @@ public class MiscHelper {
         ImageIO.write(image, "jpg", outputStream);
         return Base64.getEncoder().encodeToString(outputStream.toByteArray());
     }
+
+
 }

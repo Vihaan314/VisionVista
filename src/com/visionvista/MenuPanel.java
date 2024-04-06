@@ -90,9 +90,10 @@ public class MenuPanel {
         addItemToMenu("Edit", "Reset", effectHistoryCommands.createResetCommand());
 
         MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
+        addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand());
+
         AICommands aiCommands = new AICommands();
         aiCommands.setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
-        addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand());
         addItemToMenu("Generate", "Style", aiCommands.createImageStylizeCommand());
         addItemToMenu("Generate", "Image", aiCommands.createImageGenerationCommand(null));
     }
@@ -104,8 +105,8 @@ public class MenuPanel {
         for (EffectType effect : sliderEffects) {
             //Get bounds associated with each effect
             Pair<Integer, Integer> sliderEffectBounds = effect.getSliderBounds();
-            int lower = sliderEffectBounds.getLeft();
-            int upper = sliderEffectBounds.getRight();
+            int lower = sliderEffectBounds.left();
+            int upper = sliderEffectBounds.right();
             SliderEffectWindow sliderEffectWindow = new SliderEffectWindow(effect, lower, upper, stateBasedUIComponentGroup); //Slider component with the extracted bounds
             sliderEffectWindow.setupSlider();
             //Get category label for effect
@@ -140,7 +141,6 @@ public class MenuPanel {
         ArrayList<EffectType> noParamEffects = EffectType.getEffectTypeFromComponent(EffectUIType.NONE);
         for (EffectType effect : noParamEffects) {
             String effectCategory = effect.getEffect().getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
-            //effectActionLsitener is common put in class
             MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
             miscCommands.setEffect(effect.getEffect());
             addItemToMenu(effectCategory, effect.toString(), miscCommands.createUpdateEffectCommand());

@@ -1,5 +1,8 @@
 package com.visionvista.effects.transformation;
 
+import com.visionvista.utils.ImageHelper;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
@@ -83,5 +86,10 @@ public class Resize extends Transformation {
         int blue = (int) (blueStart + (blueEnd - blueStart) * ratio);
 
         return (alpha << 24) | (red << 16) | (green << 8) | blue;
+    }
+
+    public static Resize getRandomInstance() {
+        Dimension randomDimension = ImageHelper.getRandomDimension();
+        return new Resize((int) randomDimension.getWidth(), (int) randomDimension.getHeight());
     }
 }

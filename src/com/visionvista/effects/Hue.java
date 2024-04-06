@@ -36,11 +36,7 @@ public class Hue extends Effect{
         return (newRed << 16 | newGreen << 8 | newBlue);
     }
 
-    public static Pair<Integer, Integer> getColorBounds() {
-        return new Pair<>(1, 256);
-    }
-
     public static Hue getRandomInstance() {
-        return new Hue(new Color(ImageHelper.getRandomParameter(getColorBounds()),ImageHelper.getRandomParameter(getColorBounds()),ImageHelper.getRandomParameter(getColorBounds())));
+        return new Hue(new Color(ImageHelper.getRandomParameter(ImageHelper.getColorBounds()),ImageHelper.getRandomParameter(ImageHelper.getColorBounds()),ImageHelper.getRandomParameter(ImageHelper.getColorBounds())));
     }
 }

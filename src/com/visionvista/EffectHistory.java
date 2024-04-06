@@ -35,10 +35,6 @@ public class EffectHistory implements Serializable {
         this.setCurrentImageIndex(this.getSize() - 1);
     }
 
-    public Effect getEffectFromIndex(int index) {
-        return this.effectSequence.get(index).getLeft();
-    }
-
     public void setEffectSequence(ArrayList<Effect> effectSequence, BufferedImage initialImage) {
         this.effectSequence = new ArrayList<>();
         this.add(null, initialImage);
@@ -51,18 +47,8 @@ public class EffectHistory implements Serializable {
         this.currentImageIndex = effectSequence.size()-1;
     }
 
-    public Effect getLastEffectInstance(EffectType effect) {
-        ArrayList<Pair<Effect, BufferedImage>> temp = new ArrayList<>(this.getEffectSequence());
-        Collections.reverse(temp);
-        for (Pair<Effect, BufferedImage> effectInstance : temp) {
-            if ((effectInstance.getLeft() != null)) {
-                System.out.println(EffectType.fromLabel(effectInstance.getLeft().getClass().getSimpleName()));
-                if (EffectType.fromLabel(effectInstance.getLeft().getClass().getSimpleName()) == effect) {
-                    return effectInstance.getLeft();
-                }
-            }
-        }
-        return null;
+    public ArrayList<Effect> extractEffectsList() {
+        return effectSequence.stream().map(Pair::left).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void incrementCurrentImage(int change) {
@@ -80,11 +66,7 @@ public class EffectHistory implements Serializable {
     }
 
     public BufferedImage getFirstImage() {
-        return this.effectSequence.get(0).getRight();
-    }
-
-    public BufferedImage getLastImage() {
-        return this.effectSequence.get(effectSequence.size()-1).getRight();
+        return this.effectSequence.get(0).right();
     }
 
     public ArrayList<Pair<Effect, BufferedImage>> getEffectSequence() {
@@ -96,7 +78,7 @@ public class EffectHistory implements Serializable {
     }
 
     public BufferedImage getCurrentImage() {
-        return this.effectSequence.get(currentImageIndex).getRight();
+        return this.effectSequence.get(currentImageIndex).right();
     }
 
     public void printSequence() {
@@ -109,24 +91,21 @@ public class EffectHistory implements Serializable {
         return "Current image index: " + this.currentImageIndex + ", Size: " + effectSequence.size();
     }
 
-//    private void writeObject(ObjectOutputStream out) throws IOException {
-//        out.defaultWriteObject(); // Writes currentImageIndex
-//        out.writeInt(effectSequence.size());
-//        for (Pair<Effect, BufferedImage> pair : effectSequence) {
-//            out.writeObject(pair.getLeft()); // Serialize Effect
-//            ImageIO.write(pair.getRight(), "png", out); // Serialize BufferedImage
-//        }
-//    }
-//
-//    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-//        in.defaultReadObject(); // Reads currentImageIndex
-//        int size = in.readInt();
-//        effectSequence = new ArrayList<>();
-//        for (int i = 0; i < size; i++) {
-//            Effect effect = (Effect) in.readObject(); // Deserialize Effect
-//            BufferedImage image = ImageIO.read(in); // Deserialize BufferedImage
-//            System.out.println(image);
-//            effectSequence.add(new Pair<>(effect, image));
-//        }
-//    }
+    public Effect getEffectFromIndex(int index) {
+        return this.effectSequence.get(index).left();
+    }
+
+    public Effect getLastEffectInstance(EffectType effect) {
+        ArrayList<Pair<Effect, BufferedImage>> temp = new ArrayList<>(this.getEffectSequence());
+        Collections.reverse(temp);
+        for (Pair<Effect, BufferedImage> effectInstance : temp) {
+            if ((effectInstance.left() != null)) {
+                System.out.println(EffectType.fromLabel(effectInstance.left().getClass().getSimpleName()));
+                if (EffectType.fromLabel(effectInstance.left().getClass().getSimpleName()) == effect) {
+                    return effectInstance.left();
+                }
+            }
+        }
+        return null;
+    }
 }
