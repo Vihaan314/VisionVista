@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="61be1baa-d2af-4601-81e5-39379323f518" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ModelData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/utils/ImageSaver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageStylizeAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageStylizeAI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/FileCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/FileCommands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/PromptWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/PromptWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +135,7 @@
       <module name="VisionVista" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.visionvista.*" />
+          <option name="PATTERN" value="com.visionvista.utils.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

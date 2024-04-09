@@ -26,17 +26,19 @@ public class AICommands {
             System.out.println(prompt);
             //Generate AI response
             BufferedImage currentImage = EditorState.getInstance().getImage();
+            //Create Stylize AI
             ImageStylizeAI imageStylizeAI = new ImageStylizeAI();
             imageStylizeAI.setUserPrompt(prompt);
-            imageStylizeAI.setCurrentImage(currentImage);
             imageStylizeAI.generateEffectsList();
             ArrayList<Effect> generatedEffectsList = imageStylizeAI.getEffectsList();
             //Apply generated effects
             for (Effect effect : generatedEffectsList) {
-                currentImage = effect.run(currentImage);
-                EditorState.getInstance().setImage(currentImage);
-                EditorState.getInstance().getEffectHistory().add(effect, currentImage);
-                stateBasedUIComponentGroup.updateAllUIFromState();
+                if (effect != null) {
+                    currentImage = effect.run(currentImage);
+                    EditorState.getInstance().setImage(currentImage);
+                    EditorState.getInstance().getEffectHistory().add(effect, currentImage);
+                    stateBasedUIComponentGroup.updateAllUIFromState();
+                }
             }
             stateBasedUIComponentGroup.updateAllUIFromState();
         };

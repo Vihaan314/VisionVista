@@ -2,6 +2,7 @@ package com.visionvista;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.visionvista.effects.Effect;
+import com.visionvista.effects.EffectType;
 import com.visionvista.utils.MiscHelper;
 import io.github.namankhurpia.Pojo.MyModels.EasyVisionRequest;
 import io.github.namankhurpia.Pojo.Vision.VisionApiResponse;
@@ -29,10 +30,6 @@ public class ImageStylizeAI {
         this.userPrompt = prompt;
     }
 
-    public void setCurrentImage(BufferedImage image) {
-        this.userImage = image;
-    }
-
     public String generatePrompt() {
         effectPromptList = """
             - Contrast (-100, 100)
@@ -41,7 +38,7 @@ public class ImageStylizeAI {
             - Vibrance (0, 10)
             - Hue (RGB)
             - Temperature (0, 100)
-            - Sepia (0, 100)
+            - Sepia (0, 10)
             - Glow (0, 10)
             - Vignette (0, 50)
             - Oil Painting (0, 50)
@@ -111,7 +108,16 @@ public class ImageStylizeAI {
         String[] repsonseLines = response.split("\\r?\\n");
         for (String effectResponse : repsonseLines) {
             String[] effectResponseSplit = effectResponse.split("[\\p{Punct}\\s]+");
+            List<String> list = new ArrayList<>(Arrays.asList(effectResponseSplit));
+            list.removeAll(Arrays.asList("", null));
+            effectResponseSplit = list.toArray(effectResponseSplit);
             System.out.println(Arrays.toString(effectResponseSplit));
+            Effect generatedEffect = null;
+            if (effectResponseSplit.length == 2) {
+                generatedEffect = EffectType.fromLabel(effectResponseSplit[0]).getEffect(Double.parseDouble(effectResponseSplit[1]));
+                System.out.println(generatedEffect);
+            }
+            effectsList.add(generatedEffect);
         }
 //        Gson gson = new Gson();
         // from JSON to object

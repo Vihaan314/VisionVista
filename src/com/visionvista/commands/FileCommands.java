@@ -2,7 +2,7 @@ package com.visionvista.commands;
 
 import com.visionvista.ImageDisplay;
 import com.visionvista.ImageHandler;
-import com.visionvista.ImageSaver;
+import com.visionvista.utils.ImageSaver;
 import com.visionvista.StateBasedUIComponentGroup;
 
 public class FileCommands {

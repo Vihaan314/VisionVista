@@ -29,7 +29,7 @@ public class PromptWindow {
 
     public void createPromptWindow() {
         promptDialog = new JDialog(parentFrame, "Generate Image", true);
-        promptDialog.setSize(400, 300);
+        promptDialog.setSize(400, 200);
         promptDialog.setLayout(new BoxLayout(promptDialog.getContentPane(), BoxLayout.Y_AXIS));
 
         JLabel titleLabel = new JLabel(description);

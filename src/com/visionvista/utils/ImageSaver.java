@@ -1,5 +1,6 @@
-package com.visionvista;
+package com.visionvista.utils;
 
+import com.visionvista.EditorState;
 import com.visionvista.effects.Effect;
 import com.visionvista.utils.FileHelper;
 
