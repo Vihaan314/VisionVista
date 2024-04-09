@@ -14,16 +14,13 @@ public class AICommands {
     public void setStateBasedUIComponentGroup(StateBasedUIComponentGroup stateBasedUIComponentGroup) {
         this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
     }
-//
-//    public void setPrompt(String userPrompt) {
-//        this.prompt = userPrompt;
-//    }
 
     public Command createImageStylizeCommand() {
         return () -> {
-//            prompt = "Cinematic and lively look";
             //Get prompt from UI
-            PromptWindow promptWindow = new PromptWindow("Enter style", "Stylize", null, null);
+            PromptWindow promptWindow = new PromptWindow("Enter style", "Stylize", null);
+            promptWindow.setModelDisplay(false);
+            promptWindow.createPromptWindow();
             promptWindow.show();
             String prompt = promptWindow.getPrompt();
             System.out.println(prompt);
@@ -47,14 +44,17 @@ public class AICommands {
 
     public Command createImageGenerationCommand(JFrame parentFrame) {
         return () -> {
-            ModelData modelData = new ModelData();
-            PromptWindow promptWindow = new PromptWindow("Enter image description", "Generate", parentFrame, modelData);
+            PromptWindow promptWindow = new PromptWindow("Enter image description", "Generate", parentFrame);
+            promptWindow.createPromptWindow();
             promptWindow.show();
             String prompt = promptWindow.getPrompt();
+            String model = promptWindow.getSelectedModel();
+            String quality = promptWindow.getSelectedQuality();
+
             ImageGenerationAI.builder()
                     .prompt(prompt)
-                    .model(modelData.getChosenModel())
-                    .quality(modelData.getChosenQuality())
+                    .model(model)
+                    .quality(quality)
                     .buildGeneration();
         };
     }

@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61be1baa-d2af-4601-81e5-39379323f518" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/visionvista/components/NumberInputWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/MenuPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/MenuPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/FileCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/FileCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/MiscCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/MiscCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/EffectTextBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/EffectTextBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/InputEffectWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/InputEffectWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/LandingWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/LandingWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/utils/MiscHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/utils/MiscHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ModelData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/PromptWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/PromptWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
