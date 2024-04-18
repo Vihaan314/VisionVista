@@ -24,7 +24,7 @@ public enum EffectType {
     SATURATION("Saturation", 0, 100, EffectUIType.SLIDER, (param) -> new Saturation((Double) param)),
     VIBRANCE("Vibrance", 0, 10, EffectUIType.SLIDER, (param) -> new Vibrance((Double) param)),
     SHARPEN("Sharpen", 0, 10, EffectUIType.SLIDER, (param) -> new Sharpen((Double) param)),
-    GAUSSIAN_BLUR("Gaussian Blur", 0, 10, EffectUIType.SLIDER, (param) -> new GaussBlur((Double) param)),
+    GAUSSIAN_BLUR("Gaussian Blur", 0, 10, EffectUIType.SLIDER, (param) -> new GaussianBlur((Double) param)),
     TEMPERATURE("Temperature", 0, 100, EffectUIType.SLIDER, (param) -> new Temperature((Double) param)),
     SEPIA("Sepia", 0, 10, EffectUIType.SLIDER, (param) -> new Sepia((Double) param)),
     GLOW("Glow", 0, 10, EffectUIType.SLIDER, (param) -> new Glow((Double) param)),

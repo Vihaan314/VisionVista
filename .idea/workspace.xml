@@ -6,11 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="61be1baa-d2af-4601-81e5-39379323f518" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/utils/ImageSaver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageStylizeAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageStylizeAI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/FileCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/FileCommands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/PromptWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/PromptWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/EffectType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/EffectType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/PencilSketch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/PencilSketch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/Watercolor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/Watercolor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/blur/BokehBlur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/blur/BokehBlur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/blur/GaussBlur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/blur/GaussianBlur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/blur/TiltShift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/blur/TiltShift.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Glow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Glow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/utils/MiscHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/utils/MiscHelper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +82,7 @@
     &quot;Application.EffectNameGenerator.executor&quot;: &quot;Run&quot;,
     &quot;Application.ImageGenerationAI.executor&quot;: &quot;Run&quot;,
     &quot;Application.ImageGenerationAPI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ImageStylize.executor&quot;: &quot;Run&quot;,
     &quot;Application.ImageStylizeAI.executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
@@ -127,6 +134,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ImageStylize" type="Application" factoryName="Application">
+      <envs>
+        <env name="OPENAI-GPT4-KEY" value="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" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.visionvista.ImageStylizeAI" />
+      <module name="VisionVista" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="OPENAI-GPT4-KEY" value="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" />
@@ -149,8 +166,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
       <item itemvalue="Application.ImageGenerationAPI" />
+      <item itemvalue="Application.ImageStylize" />
+      <item itemvalue="Application.Main" />
       <item itemvalue="JAR Application.api-0.15.0.jar" />
     </list>
     <recent_temporary>

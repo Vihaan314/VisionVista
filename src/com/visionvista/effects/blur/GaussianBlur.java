@@ -8,13 +8,13 @@ import java.awt.image.BufferedImage;
 import java.awt.image.Kernel;
 import java.io.Serial;
 
-public class GaussBlur extends Blur {
+public class GaussianBlur extends Blur {
     @Serial
     private static final long serialVersionUID = 135736375166258763L;
 
     private double intensity; //sigma
 
-    public GaussBlur (double intensity) {
+    public GaussianBlur(double intensity) {
         super();
         this.intensity = intensity;
     }
@@ -63,8 +63,8 @@ public class GaussBlur extends Blur {
         return op.filter(image, null);
     }
 
-    public static GaussBlur getRandomInstance() {
+    public static GaussianBlur getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.GAUSSIAN_BLUR.getSliderBounds();
-        return new GaussBlur(ImageHelper.getRandomParameter(bounds));
+        return new GaussianBlur(ImageHelper.getRandomParameter(bounds));
     }
 }

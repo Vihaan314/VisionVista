@@ -33,7 +33,7 @@ public class TiltShift extends Blur {
     public BufferedImage run(BufferedImage image) {
         int focusAreaStart = image.getHeight() / 3;
         int focusAreaEnd = 2 * image.getHeight() / 3;
-        BufferedImage blurredImage = new GaussBlur(intensity).run(image);
+        BufferedImage blurredImage = new GaussianBlur(intensity).run(image);
         BufferedImage result = getEmptyImage(image);
 
         for (int y = 0; y < image.getHeight(); y++) {

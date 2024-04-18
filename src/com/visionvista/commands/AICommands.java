@@ -49,6 +49,7 @@ public class AICommands {
             PromptWindow promptWindow = new PromptWindow("Enter image description", "Generate", parentFrame);
             promptWindow.createPromptWindow();
             promptWindow.show();
+
             String prompt = promptWindow.getPrompt();
             String model = promptWindow.getSelectedModel();
             String quality = promptWindow.getSelectedQuality();

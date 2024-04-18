@@ -2,8 +2,7 @@ package com.visionvista.effects.artistic;
 
 import com.visionvista.effects.*;
 import com.visionvista.blending.ColorDodge;
-import com.visionvista.effects.blur.GaussBlur;
-import com.visionvista.effects.filters.Filter;
+import com.visionvista.effects.blur.GaussianBlur;
 import com.visionvista.effects.filters.Grayscale;
 import com.visionvista.effects.filters.Negative;
 
@@ -25,7 +24,7 @@ public class PencilSketch extends Artistic {
     @Override public BufferedImage run(BufferedImage image) {
         BufferedImage grayscaleImg = new Grayscale().run(image);
         BufferedImage invertImg = new Negative().run(grayscaleImg);
-        BufferedImage blurImg = new GaussBlur(5).run(invertImg);
+        BufferedImage blurImg = new com.visionvista.effects.blur.GaussianBlur(5).run(invertImg);
         BufferedImage blendImage = new ColorDodge(grayscaleImg, blurImg).blend();
         return new Brightness(-20).run(blendImage);
     }

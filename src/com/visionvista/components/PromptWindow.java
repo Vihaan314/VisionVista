@@ -15,6 +15,7 @@ public class PromptWindow {
 
     private static final String[] models = {"dall-e-3", "dall-e-2"};
     private static final String[] qualities = {"hd", "medium", "low"};
+
     private boolean modelDisplay = true;
 
     public PromptWindow(String description, String buttonText, JFrame parentFrame) {
@@ -28,15 +29,18 @@ public class PromptWindow {
     }
 
     public void createPromptWindow() {
+        //Prompt window
         promptDialog = new JDialog(parentFrame, "Generate Image", true);
         promptDialog.setSize(400, 200);
         promptDialog.setLayout(new BoxLayout(promptDialog.getContentPane(), BoxLayout.Y_AXIS));
 
+        //Components
         JLabel titleLabel = new JLabel(description);
         JTextField promptField = new JTextField();
         JComboBox<String> modelComboBox = new JComboBox<>(models);
         JComboBox<String> qualityComboBox = new JComboBox<>(qualities);
 
+        //Give model choosing options if model mode is true
         if (modelDisplay) {
             modelComboBox.setSelectedIndex(0);
             qualityComboBox.setSelectedIndex(0);

@@ -45,5 +45,11 @@ public class MiscHelper {
         return Base64.getEncoder().encodeToString(outputStream.toByteArray());
     }
 
-
+    public static boolean isString(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        String numericRegex = "[-+]?\\d*\\.?\\d+";
+        return !str.matches(numericRegex);
+    }
 }

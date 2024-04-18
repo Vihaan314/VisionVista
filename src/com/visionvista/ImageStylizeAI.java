@@ -1,6 +1,7 @@
 package com.visionvista;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.Gson;
 import com.visionvista.effects.Effect;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.MiscHelper;
@@ -31,6 +32,7 @@ public class ImageStylizeAI {
     }
 
     public String generatePrompt() {
+        //Add json instructions when testing JSON
         effectPromptList = """
             - Contrast (-100, 100)
             - Brightness (-100, 100)
@@ -105,22 +107,119 @@ public class ImageStylizeAI {
     private void extractEffects() throws JsonProcessingException {
         effectsList = new ArrayList<>();
         //TEMPORARY SOLUTION
+        String responseJSON = """
+                {
+                    "effects": [
+                        {
+                            "name": "Pixelate",
+                            "parameters": {
+                                "intensity": 8
+                            }
+                        },
+                        {
+                            "name": "Hue",
+                            "parameters": {
+                                "RGB": (255, 0, 0)
+                            }
+                        },
+                        {
+                            "name": "Contrast",
+                            "parameters": {
+                                "intensity": -20
+                            }
+                        },
+                        {
+                            "name": "Brightness",
+                            "parameters": {
+                                "intensity": -10
+                            }
+                        },
+                        {
+                            "name": "Saturation",
+                            "parameters": {
+                                "intensity": 60
+                            }
+                        },
+                        {
+                            "name": "Sepia",
+                            "parameters": {
+                                "intensity": 3
+                            }
+                        },
+                        {
+                            "name": "Temperature",
+                            "parameters": {
+                                "intensity": 60
+                            }
+                        },
+                        {
+                            "name": "Glow",
+                            "parameters": {
+                                "intensity": 5
+                            }
+                        },
+                        {
+                            "name": "Vignette",
+                            "parameters": {
+                                "intensity": 20
+                            }
+                        },
+                        {
+                            "name": "Oil Painting",
+                            "parameters": {
+                                "intensity": 10
+                            }
+                        }
+                    ]
+                }
+                """;
+//        response = """
+//                {
+//                  "Saturation": 50,
+//                  "Hue": {"Red": 255, "Green": 0, "Blue": 0},
+//                  "Contrast": 20,
+//                  "Brightness": -10,
+//                  "Temperature": 60,
+//                  "Sepia": 3,
+//                  "Vignette": 30,
+//                  "Glow": 5,
+//                  "Pixelate": 5,
+//                  "Oil Painting": 10
+//                }
+//                """;
         String[] repsonseLines = response.split("\\r?\\n");
         for (String effectResponse : repsonseLines) {
             String[] effectResponseSplit = effectResponse.split("[\\p{Punct}\\s]+");
             List<String> list = new ArrayList<>(Arrays.asList(effectResponseSplit));
             list.removeAll(Arrays.asList("", null));
-            effectResponseSplit = list.toArray(effectResponseSplit);
-            System.out.println(Arrays.toString(effectResponseSplit));
+            String[] effectSplit = new String[list.size()];
+            effectSplit = list.toArray(effectSplit);
+            System.out.println(Arrays.toString(effectSplit));
             Effect generatedEffect = null;
-            if (effectResponseSplit.length == 2) {
-                generatedEffect = EffectType.fromLabel(effectResponseSplit[0]).getEffect(Double.parseDouble(effectResponseSplit[1]));
-                System.out.println(generatedEffect);
+            if (effectSplit.length == 1) {
+                generatedEffect = EffectType.fromLabel(effectSplit[0]).getEffect();
+                System.out.println("Length 1: " + generatedEffect);
+            }
+            else if (effectSplit.length == 2) {
+                generatedEffect = EffectType.fromLabel(effectSplit[0]).getEffect(Double.parseDouble(effectSplit[1]));
+                System.out.println("Length 2: " + generatedEffect);
+            }
+            else {
+                StringBuilder effectName = new StringBuilder();
+                ArrayList<Object> params = new ArrayList<>();
+                for (String s : effectSplit) {
+                    if (MiscHelper.isString(s)) {
+                        effectName.append((effectName.isEmpty()) ? ("_"+s) : s);
+                    } else {
+                        params.add(s);
+                    }
+                }
+                System.out.println("Not l2 Effect name: " + effectName + ", Params: " + params);
             }
             effectsList.add(generatedEffect);
         }
 //        Gson gson = new Gson();
-        // from JSON to object
+////        from JSON to object
 //        Effect effect = gson.fromJson(response, Effect.class);
 //        List<String> repsonseLines = Arrays.asList(response.split("\\r?\\n"));
     }
@@ -130,7 +229,7 @@ public class ImageStylizeAI {
         return effectsList;
     }
 
-//    public static void main(String[] args) throws Exception {
-//        generateEffectsList();
+//    public static void main(String[] args) throws JsonProcessingException {
+//        extractEffects();
 //    }
 }

@@ -1,6 +1,6 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.effects.blur.GaussBlur;
+import com.visionvista.effects.blur.GaussianBlur;
 import com.visionvista.utils.Pair;
 import com.visionvista.blending.ColorDodge;
 import com.visionvista.effects.*;
@@ -27,7 +27,7 @@ public class Glow extends Filter {
         }
         else {
             double quadraticSigma = 1.0 + Math.pow(intensity / 10.0 * 3.0, 2);
-            BufferedImage blurImg = new GaussBlur(quadraticSigma).run(image);
+            BufferedImage blurImg = new GaussianBlur(quadraticSigma).run(image);
             ColorDodge colorDodge = new ColorDodge(image, blurImg);
             return colorDodge.blend();
         }

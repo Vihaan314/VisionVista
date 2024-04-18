@@ -1,7 +1,6 @@
 package com.visionvista.effects.blur;
 
 import com.visionvista.effects.EffectType;
-import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
@@ -28,7 +27,7 @@ public class BokehBlur extends Blur {
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage blurredImage = new GaussBlur(intensity).run(image);
+        BufferedImage blurredImage = new GaussianBlur(intensity).run(image);
         BufferedImage result = getEmptyImage(image);
 
         //Enhance bokeh effect by merging with original based on luminance
