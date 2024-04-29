@@ -11,6 +11,8 @@ import com.visionvista.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +53,29 @@ public class MenuPanel {
         menu.add(menuItem);
     }
 
+    public void addItemToMenu(String title, String menuItemTitle, Command command, KeyStroke keyStroke) {
+        JMenu menu = getMenu(title); //Gets the sub-menu
+        //Create sub menu if it doesn't exist
+        if (menu == null) {
+            menu = new JMenu(title);
+            menuBar.add(menu);
+        }
+        JMenuItem menuItem = new JMenuItem(menuItemTitle);
+        menuItem.setMnemonic(keyStroke.getKeyChar());
+        //Setting the accelerator:
+        menuItem.setAccelerator(keyStroke);
+
+        menuItem.addActionListener(e -> {
+            try {
+                command.execute();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        menuItems.put(menuItemTitle, menuItem);
+        menu.add(menuItem);
+    }
+
     public JMenuItem getMenuItem(String menuItemTitle) {
         return menuItems.get(menuItemTitle);
     }
@@ -71,11 +96,11 @@ public class MenuPanel {
 
     public void setDefaultMenuItems() {
         FileCommands fileCommands = new FileCommands(stateBasedUIComponentGroup);
-        addItemToMenu("File", "Open Image", fileCommands.createOpenImageCommand());
-        addItemToMenu("File", "Open URL", fileCommands.createOpenImageFromUrlCommand());
-        addItemToMenu("File", "Open Project", fileCommands.createOpenProjectCommand());
+        addItemToMenu("File", "Open Image", fileCommands.createOpenImageCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+        addItemToMenu("File", "Open URL", fileCommands.createOpenImageFromUrlCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));
+        addItemToMenu("File", "Open Project", fileCommands.createOpenProjectCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
         addItemToMenu("File", "New Blank Image", fileCommands.createNewBlankImageCommand());
-        addItemToMenu("File", "Save", fileCommands.createSaveImageCommand());
+        addItemToMenu("File", "Save", fileCommands.createSaveImageCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
         addItemToMenu("File", "Save with Text", fileCommands.createSaveImageWithTextCommand());
 
         SerializingCommands serializingCommands = new SerializingCommands(stateBasedUIComponentGroup);

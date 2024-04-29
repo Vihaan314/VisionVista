@@ -23,7 +23,6 @@ public class AICommands {
             promptWindow.createPromptWindow();
             promptWindow.show();
             String prompt = promptWindow.getPrompt();
-            System.out.println(prompt);
             //Generate AI response
             BufferedImage currentImage = EditorState.getInstance().getImage();
             //Create Stylize AI

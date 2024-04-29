@@ -1,9 +1,21 @@
 package com.visionvista.effects;
 
-import java.awt.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.visionvista.effects.artistic.Lomography;
+import com.visionvista.effects.blur.GaussianBlur;
+
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 import java.io.Serializable;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "effect", visible = true)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = GaussianBlur.class, name = "Gaussian Blur"),
+        @JsonSubTypes.Type(value = Brightness.class, name = "Brightness"),
+        @JsonSubTypes.Type(value = Lomography.class, name = "Lomography")
+})
 
 public abstract class Effect implements Serializable
 {

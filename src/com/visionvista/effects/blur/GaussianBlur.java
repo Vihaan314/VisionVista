@@ -1,5 +1,6 @@
 package com.visionvista.effects.blur;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -14,7 +15,7 @@ public class GaussianBlur extends Blur {
 
     private double intensity; //sigma
 
-    public GaussianBlur(double intensity) {
+    public GaussianBlur(@JsonProperty("intensity") double intensity) {
         super();
         this.intensity = intensity;
     }

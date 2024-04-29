@@ -1,9 +1,9 @@
 package com.visionvista;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.visionvista.effects.Effect;
-import com.visionvista.effects.EffectType;
 import com.visionvista.utils.MiscHelper;
 import io.github.namankhurpia.Pojo.MyModels.EasyVisionRequest;
 import io.github.namankhurpia.Pojo.Vision.VisionApiResponse;
@@ -16,14 +16,14 @@ import java.util.List;
 
 
 public class ImageStylizeAI {
-    private ArrayList<Effect> effectsList;
+    private static ArrayList<Effect> effectsList;
 
     private String effectPromptList;
 
-    private String[] testPrompts = new String[] {"A look like inside of Willy Wonka's chocolate factory", "I want this to be like a 90s gangster movie", "A cinematic and lively look", "Like an Indian wedding", "From a Disney movie", "In the style of Vincent Van Gogh's The Starry Night painting, but it is futuristic and tech-like"};
+    private static String[] testPrompts = new String[] {"A look like inside of Willy Wonka's chocolate factory", "I want this to be like a 90s gangster movie", "A cinematic and lively look", "Like an Indian wedding", "From a Disney movie", "In the style of Vincent Van Gogh's The Starry Night painting, but it is futuristic and tech-like"};
     private String userPrompt = testPrompts[5];
 
-    private String response;
+    private static String response;
 
     private BufferedImage userImage;
 
@@ -77,8 +77,21 @@ public class ImageStylizeAI {
             - Edge Enhance
             """;
 
+        String respondJson = """
+               Please provide the output in a JSON, example:
+                {
+                    "effects": [
+                        { "name": "GaussianBlur", "intensity": 2.5},
+                        { "name": "Hue", "level": 20}
+                    ]
+                }
+                """;
+
         return """
             Specify the desired image style (e.g., "Nostalgic and cinematic look"). Based on the style, list the effects with parameters to apply. Limit to 10 effects. For colors, use RGB value tuple. Only list effects and parameters, and no other text but that.
+            """
+                + respondJson +
+            """
             Effects with parameter bounds:
             """
                 + effectPromptList +
@@ -104,124 +117,20 @@ public class ImageStylizeAI {
         System.out.println(response);
     }
 
-    private void extractEffects() throws JsonProcessingException {
+    private static void extractEffects() throws JsonProcessingException {
         effectsList = new ArrayList<>();
-        //TEMPORARY SOLUTION
-        String responseJSON = """
-                {
-                    "effects": [
-                        {
-                            "name": "Pixelate",
-                            "parameters": {
-                                "intensity": 8
-                            }
-                        },
-                        {
-                            "name": "Hue",
-                            "parameters": {
-                                "RGB": (255, 0, 0)
-                            }
-                        },
-                        {
-                            "name": "Contrast",
-                            "parameters": {
-                                "intensity": -20
-                            }
-                        },
-                        {
-                            "name": "Brightness",
-                            "parameters": {
-                                "intensity": -10
-                            }
-                        },
-                        {
-                            "name": "Saturation",
-                            "parameters": {
-                                "intensity": 60
-                            }
-                        },
-                        {
-                            "name": "Sepia",
-                            "parameters": {
-                                "intensity": 3
-                            }
-                        },
-                        {
-                            "name": "Temperature",
-                            "parameters": {
-                                "intensity": 60
-                            }
-                        },
-                        {
-                            "name": "Glow",
-                            "parameters": {
-                                "intensity": 5
-                            }
-                        },
-                        {
-                            "name": "Vignette",
-                            "parameters": {
-                                "intensity": 20
-                            }
-                        },
-                        {
-                            "name": "Oil Painting",
-                            "parameters": {
-                                "intensity": 10
-                            }
-                        }
-                    ]
-                }
-                """;
-//        response = """
-//                {
-//                  "Saturation": 50,
-//                  "Hue": {"Red": 255, "Green": 0, "Blue": 0},
-//                  "Contrast": 20,
-//                  "Brightness": -10,
-//                  "Temperature": 60,
-//                  "Sepia": 3,
-//                  "Vignette": 30,
-//                  "Glow": 5,
-//                  "Pixelate": 5,
-//                  "Oil Painting": 10
-//                }
-//                """;
-        String[] repsonseLines = response.split("\\r?\\n");
-        for (String effectResponse : repsonseLines) {
-            String[] effectResponseSplit = effectResponse.split("[\\p{Punct}\\s]+");
-            List<String> list = new ArrayList<>(Arrays.asList(effectResponseSplit));
-            list.removeAll(Arrays.asList("", null));
-            String[] effectSplit = new String[list.size()];
-            effectSplit = list.toArray(effectSplit);
-            System.out.println(Arrays.toString(effectSplit));
-            Effect generatedEffect = null;
-            if (effectSplit.length == 1) {
-                generatedEffect = EffectType.fromLabel(effectSplit[0]).getEffect();
-                System.out.println("Length 1: " + generatedEffect);
-            }
-            else if (effectSplit.length == 2) {
-                generatedEffect = EffectType.fromLabel(effectSplit[0]).getEffect(Double.parseDouble(effectSplit[1]));
-                System.out.println("Length 2: " + generatedEffect);
-            }
-            else {
-                StringBuilder effectName = new StringBuilder();
-                ArrayList<Object> params = new ArrayList<>();
-                for (String s : effectSplit) {
-                    if (MiscHelper.isString(s)) {
-                        effectName.append((effectName.isEmpty()) ? ("_"+s) : s);
-                    } else {
-                        params.add(s);
-                    }
-                }
-                System.out.println("Not l2 Effect name: " + effectName + ", Params: " + params);
-            }
-            effectsList.add(generatedEffect);
-        }
-//        Gson gson = new Gson();
-////        from JSON to object
-//        Effect effect = gson.fromJson(response, Effect.class);
-//        List<String> repsonseLines = Arrays.asList(response.split("\\r?\\n"));
+        response = """
+            [
+                {"effect": "Gaussian Blur", "intensity": "5"},
+                {"effect": "Brightness", "intensity": "5"},
+                {"effect": "Lomography"}
+            ]
+        """;
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        List<Effect> deserialized = Arrays.asList(mapper.readerFor(Effect[].class).readValue(response));
+        System.out.println((deserialized));
     }
 
     public ArrayList<Effect> getEffectsList() throws JsonProcessingException {
@@ -229,7 +138,7 @@ public class ImageStylizeAI {
         return effectsList;
     }
 
-//    public static void main(String[] args) throws JsonProcessingException {
-//        extractEffects();
-//    }
+    public static void main(String[] args) throws JsonProcessingException {
+        extractEffects();
+    }
 }

@@ -39,7 +39,7 @@ public class EffectHistorySerializer implements Serializable {
         effectsList = EditorState.getInstance().getEffectHistory().extractEffectsList();
         initialImage = EditorState.getInstance().getEffectHistory().getFirstImage();
         String directory = FileHelper.chooseDirectory();
-        filename = directory + File.separator + FileHelper.getEditedFile(directory, filename, "dat", "_image-sequence").getName();
+        filename = directory + File.separator + FileHelper.getEditedFile(directory, filename, "dat", "_project-sequence").getName();
         System.out.println(filename);
         File serializeFile = new File(filename);
 

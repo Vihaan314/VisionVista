@@ -1,5 +1,7 @@
 package com.visionvista.effects;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -12,7 +14,7 @@ public class Brightness extends Effect {
 
     private double intensity;
 
-    public Brightness(double intensity) {
+    public Brightness(@JsonProperty("intensity") double intensity) {
         this.intensity = intensity;
     }
 
