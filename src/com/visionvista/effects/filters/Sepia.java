@@ -1,13 +1,12 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.effects.Brightness;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
 import java.io.Serial;
-import java.io.Serializable;
 
 public class Sepia extends Filter {
     @Serial
@@ -15,7 +14,7 @@ public class Sepia extends Filter {
 
     private double intensity;
 
-    public Sepia(double intensity) {
+    public Sepia(@JsonProperty("value") double intensity) {
         this.intensity = intensity;
     }
 

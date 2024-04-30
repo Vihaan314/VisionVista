@@ -1,10 +1,11 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.utils.Pair;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.Contrast;
 import com.visionvista.effects.EffectType;
-import com.visionvista.utils.ImageHelper;
 import com.visionvista.effects.Saturation;
+import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
 import java.io.Serial;
@@ -15,7 +16,7 @@ public class Temperature extends Filter {
 
     private double amount;
 
-    public Temperature(double amount) {
+    public Temperature(@JsonProperty("value") double amount) {
         super();
         this.amount = amount;
     }

@@ -14,7 +14,7 @@ public class Brightness extends Effect {
 
     private double intensity;
 
-    public Brightness(@JsonProperty("intensity") double intensity) {
+    public Brightness(@JsonProperty("value") double intensity) {
         this.intensity = intensity;
     }
 

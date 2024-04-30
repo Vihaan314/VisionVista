@@ -1,5 +1,6 @@
 package com.visionvista.effects.transformation;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -13,7 +14,7 @@ public class Rotate extends Transformation {
 
     private double angle;
 
-    public Rotate(double angle) {
+    public Rotate(@JsonProperty("value") double angle) {
         super();
         this.angle = angle;
     }

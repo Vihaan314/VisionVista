@@ -1,5 +1,6 @@
 package com.visionvista.effects.blur;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -15,7 +16,7 @@ public class BokehBlur extends Blur {
 
     private int intensity;
 
-    public BokehBlur(double intensity) {
+    public BokehBlur(@JsonProperty("value") double intensity) {
         super();
         this.intensity = (int) intensity;
     }

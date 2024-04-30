@@ -1,11 +1,11 @@
 package com.visionvista.effects.distort;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
-import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
@@ -16,7 +16,7 @@ public class ChromaticAberration extends Distort {
 
     private int offset; //The pixel offset for the color channels
 
-    public ChromaticAberration(double offset) {
+    public ChromaticAberration(@JsonProperty("value") double offset) {
         super();
         this.offset = (int) offset;
     }

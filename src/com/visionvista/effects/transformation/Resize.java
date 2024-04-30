@@ -1,5 +1,6 @@
 package com.visionvista.effects.transformation;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;

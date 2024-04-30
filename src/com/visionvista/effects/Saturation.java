@@ -1,5 +1,6 @@
 package com.visionvista.effects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.utils.Pair;
 import com.visionvista.utils.ImageHelper;
 
@@ -13,7 +14,7 @@ public class Saturation extends Effect{
 
     private double amount;
 
-    public Saturation(double amount) {
+    public Saturation(@JsonProperty("value") double amount) {
         super();
         this.amount = amount;
     }

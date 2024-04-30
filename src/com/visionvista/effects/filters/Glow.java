@@ -1,10 +1,11 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.effects.blur.GaussianBlur;
-import com.visionvista.utils.Pair;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.blending.ColorDodge;
-import com.visionvista.effects.*;
+import com.visionvista.effects.EffectType;
+import com.visionvista.effects.blur.GaussianBlur;
 import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
 import java.io.Serial;
@@ -15,7 +16,7 @@ public class Glow extends Filter {
 
     private double intensity;
 
-    public Glow(double intensity) {
+    public Glow(@JsonProperty("value") double intensity) {
         super();
         this.intensity = intensity;
     }

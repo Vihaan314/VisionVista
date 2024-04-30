@@ -1,7 +1,7 @@
 package com.visionvista.effects.distort;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
-import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -16,7 +16,7 @@ public class PixelSort extends Distort {
 
     private int threshold;  //Single parameter to control both black and white thresholds
 
-    public PixelSort(double threshold) {
+    public PixelSort(@JsonProperty("value") double threshold) {
         this.threshold = (int) threshold;
     }
 

@@ -16,14 +16,14 @@ import java.util.List;
 
 
 public class ImageStylizeAI {
-    private static ArrayList<Effect> effectsList;
+    private static List<Effect> effectsList;
 
     private String effectPromptList;
 
     private static String[] testPrompts = new String[] {"A look like inside of Willy Wonka's chocolate factory", "I want this to be like a 90s gangster movie", "A cinematic and lively look", "Like an Indian wedding", "From a Disney movie", "In the style of Vincent Van Gogh's The Starry Night painting, but it is futuristic and tech-like"};
     private String userPrompt = testPrompts[5];
 
-    private static String response;
+    private String response;
 
     private BufferedImage userImage;
 
@@ -76,19 +76,20 @@ public class ImageStylizeAI {
             - Flip horizontal
             - Edge Enhance
             """;
-
+        //Include edge cases in example
         String respondJson = """
-               Please provide the output in a JSON, example:
-                {
-                    "effects": [
-                        { "name": "GaussianBlur", "intensity": 2.5},
-                        { "name": "Hue", "level": 20}
-                    ]
-                }
+               Example output:
+                [
+                    {"effect": "Brightness", "value": 50},
+                    {"effect": "Rotate", "value": 90},
+                    {"effect": "Gaussian Blur", "value": 5},
+                    {"effect": "Grayscale"},
+                    {"effect": "Hue", "red": 50, "green": 50, "blue": 125}
+                ]
                 """;
 
         return """
-            Specify the desired image style (e.g., "Nostalgic and cinematic look"). Based on the style, list the effects with parameters to apply. Limit to 10 effects. For colors, use RGB value tuple. Only list effects and parameters, and no other text but that.
+            Specify the desired image style (e.g., "Nostalgic and cinematic look"). Based on the style, create a JSON with the effects with parameters to apply. Limit to 10 effects. For colors, refer to the example and provide no other text but the JSON.
             """
                 + respondJson +
             """
@@ -117,28 +118,63 @@ public class ImageStylizeAI {
         System.out.println(response);
     }
 
-    private static void extractEffects() throws JsonProcessingException {
+    private void extractEffects() throws JsonProcessingException {
         effectsList = new ArrayList<>();
-        response = """
-            [
-                {"effect": "Gaussian Blur", "intensity": "5"},
-                {"effect": "Brightness", "intensity": "5"},
-                {"effect": "Lomography"}
-            ]
-        """;
+
+//        response = """
+//            [
+//                {"effect": "Contrast", "value": 50},
+//                {"effect": "Brightness", "value": 50},
+//                {"effect": "Saturation", "value": 50},
+//                {"effect": "Vibrance", "value": 5},
+//                {"effect": "Temperature", "value": 50},
+//                {"effect": "Sepia", "value": 5},
+//                {"effect": "Glow", "value": 5},
+//                {"effect": "Vignette", "value": 25},
+//                {"effect": "Oil Painting", "value": 25},
+//                {"effect": "Color Splash", "value": 25},
+//                {"effect": "Pixel Sort", "value": 128},
+//                {"effect": "Pixelate", "value": 25},
+//                {"effect": "Chromatic Aberration", "value": 5},
+//                {"effect": "Anaglyph 3D", "value": 15},
+//                {"effect": "Box Blur", "value": 5},
+//                {"effect": "Gaussian Blur", "value": 5},
+//                {"effect": "Bokeh Blur", "value": 10},
+//                {"effect": "Tilt Shift", "value": 5},
+//                {"effect": "Sharpen", "value": 5},
+//                {"effect": "Rotate", "value": 90},
+//                {"effect": "Hue", "red": 90, "green": 50, "blue": 50},
+//                {"effect": "Grayscale"},
+//                {"effect": "Negative"},
+//                {"effect": "Cross Process"},
+//                {"effect": "Solarize"},
+//                {"effect": "Split Tone"},
+//                {"effect": "Heatmap"},
+//                {"effect": "Infrared"},
+//                {"effect": "Halftone"},
+//                {"effect": "Watercolor"},
+//                {"effect": "Cyberpunk"},
+//                {"effect": "Pencil Sketch"},
+//                {"effect": "Posterize"},
+//                {"effect": "Lomography"},
+//                {"effect": "Flip Vertical"},
+//                {"effect": "Flip Horizontal"},
+//                {"effect": "Edge Enhance"}
+//            ]
+//        """;
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        List<Effect> deserialized = Arrays.asList(mapper.readerFor(Effect[].class).readValue(response));
-        System.out.println((deserialized));
+        effectsList = Arrays.asList(mapper.readerFor(Effect[].class).readValue(response));
+        System.out.println((effectsList));
     }
 
-    public ArrayList<Effect> getEffectsList() throws JsonProcessingException {
+    public List<Effect> getEffectsList() throws JsonProcessingException {
         extractEffects();
         return effectsList;
     }
 
-    public static void main(String[] args) throws JsonProcessingException {
-        extractEffects();
-    }
+//    public static void main(String[] args) throws JsonProcessingException {
+//        extractEffects();
+//    }
 }

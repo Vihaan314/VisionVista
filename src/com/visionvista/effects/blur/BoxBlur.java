@@ -1,5 +1,6 @@
 package com.visionvista.effects.blur;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.Effect;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.Pair;
@@ -18,7 +19,7 @@ public class BoxBlur extends Blur {
 
     private int intensity;
 
-    public BoxBlur(double intensity) {
+    public BoxBlur(@JsonProperty("value") double intensity) {
         this.intensity = (int) intensity;
     }
 

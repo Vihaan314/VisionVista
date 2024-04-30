@@ -15,7 +15,7 @@ public class GaussianBlur extends Blur {
 
     private double intensity; //sigma
 
-    public GaussianBlur(@JsonProperty("intensity") double intensity) {
+    public GaussianBlur(@JsonProperty("value") double intensity) {
         super();
         this.intensity = intensity;
     }

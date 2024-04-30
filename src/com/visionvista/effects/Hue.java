@@ -1,5 +1,6 @@
 package com.visionvista.effects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
@@ -16,6 +17,11 @@ public class Hue extends Effect{
     public Hue(Color color) {
         super();
         this.color = color;
+    }
+
+    public Hue(@JsonProperty("red") int red, @JsonProperty("green") int green, @JsonProperty("blue") int blue) {
+        super();
+        this.color = new Color(red, green, blue);
     }
 
     @Override public String toString() {

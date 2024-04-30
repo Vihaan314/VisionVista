@@ -1,9 +1,10 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.utils.Pair;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,7 +16,7 @@ public class Vignette extends Filter {
 
     private double intensity;
 
-    public Vignette (double intensity) {
+    public Vignette (@JsonProperty("value") double intensity) {
         super();
         this.intensity = intensity;
     }

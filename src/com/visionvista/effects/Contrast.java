@@ -1,5 +1,6 @@
 package com.visionvista.effects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -15,7 +16,7 @@ public class Contrast extends Effect{
     private double amount;
     private double scale;
 
-    public Contrast(double amount) {
+    public Contrast(@JsonProperty("value") double amount) {
         super();
         this.amount = amount;
         this.scale = 1+amount/100;

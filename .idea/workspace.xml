@@ -5,15 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61be1baa-d2af-4601-81e5-39379323f518" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/visionvista/ImageStylizeAITemp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/EffectHistorySerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/EffectHistorySerializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageStylizeAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageStylizeAI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/visionvista/MenuPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/MenuPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Brightness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Brightness.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Contrast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Contrast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Effect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Effect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Hue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Hue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Saturation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Saturation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Vibrance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Vibrance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/ColorSplash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/ColorSplash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/OilPainting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/OilPainting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/blur/BokehBlur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/blur/BokehBlur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/blur/BoxBlur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/blur/BoxBlur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/blur/GaussianBlur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/blur/GaussianBlur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/blur/TiltShift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/blur/TiltShift.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/distort/Anaglyph3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/distort/Anaglyph3D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/distort/ChromaticAberration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/distort/ChromaticAberration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/distort/PixelSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/distort/PixelSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/distort/Pixelate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/distort/Pixelate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/enhance/Sharpen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/enhance/Sharpen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Glow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Glow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Sepia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Sepia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Temperature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Temperature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Vignette.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Vignette.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Resize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Resize.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Rotate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/transformation/Rotate.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +138,7 @@
       <recent name="com.visionvista.components" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ImageStylize">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="ImageGenerationAPI" type="Application" factoryName="Application">
       <envs>
         <env name="OPENAI-GPT4-KEY" value="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" />

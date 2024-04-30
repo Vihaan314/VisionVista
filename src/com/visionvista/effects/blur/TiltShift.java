@@ -1,5 +1,6 @@
 package com.visionvista.effects.blur;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -15,7 +16,7 @@ public class TiltShift extends Blur {
 
     private double intensity;
 
-    public TiltShift(double intensity) {
+    public TiltShift(@JsonProperty("value") double intensity) {
         this.intensity = intensity;
     }
 

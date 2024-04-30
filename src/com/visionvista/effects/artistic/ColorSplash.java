@@ -1,5 +1,6 @@
 package com.visionvista.effects.artistic;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
 import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ImageHelper;
@@ -18,7 +19,7 @@ public class ColorSplash extends Artistic {
     private final int numberOfSplashes;
     private final float opacity = 0.6f;
 
-    public ColorSplash(double numberOfSplashes) {
+    public ColorSplash(@JsonProperty("value") double numberOfSplashes) {
         this.numberOfSplashes = (int) numberOfSplashes;
     }
 

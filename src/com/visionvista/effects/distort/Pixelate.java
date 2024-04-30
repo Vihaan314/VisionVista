@@ -1,9 +1,9 @@
 package com.visionvista.effects.distort;
 
-import com.visionvista.effects.filters.Filter;
-import com.visionvista.utils.Pair;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.Pair;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,7 +15,7 @@ public class Pixelate extends Distort {
 
     private int pixelSize;
 
-    public Pixelate(double pixelSize) {
+    public Pixelate(@JsonProperty("value") double pixelSize) {
         super();
         this.pixelSize = (int) pixelSize;
     }

@@ -1,5 +1,6 @@
 package com.visionvista.effects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.utils.Pair;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
@@ -16,7 +17,7 @@ public class Vibrance extends Effect{
 
     private double amount;
 
-    public Vibrance(double amount) {
+    public Vibrance(@JsonProperty("value") double amount) {
         super();
         this.amount = amount;
     }

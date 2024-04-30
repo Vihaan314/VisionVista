@@ -1,12 +1,15 @@
 package com.visionvista.commands;
 
-import com.visionvista.*;
+import com.visionvista.EditorState;
+import com.visionvista.ImageGenerationAI;
+import com.visionvista.ImageStylizeAI;
+import com.visionvista.StateBasedUIComponentGroup;
 import com.visionvista.components.PromptWindow;
 import com.visionvista.effects.Effect;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.List;
 
 public class AICommands {
     private StateBasedUIComponentGroup stateBasedUIComponentGroup;
@@ -29,7 +32,7 @@ public class AICommands {
             ImageStylizeAI imageStylizeAI = new ImageStylizeAI();
             imageStylizeAI.setUserPrompt(prompt);
             imageStylizeAI.generateEffectsList();
-            ArrayList<Effect> generatedEffectsList = imageStylizeAI.getEffectsList();
+            List<Effect> generatedEffectsList = imageStylizeAI.getEffectsList();
             //Apply generated effects
             for (Effect effect : generatedEffectsList) {
                 if (effect != null) {

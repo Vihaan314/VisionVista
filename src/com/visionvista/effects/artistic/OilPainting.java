@@ -1,7 +1,7 @@
 package com.visionvista.effects.artistic;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
-import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
@@ -19,7 +19,7 @@ public class OilPainting extends Artistic {
     private int radius = 5;
     private int intensity;
 
-    public OilPainting(double intensity) {
+    public OilPainting(@JsonProperty("value") double intensity) {
         super();
 //        this.radius = radius;
         this.intensity = (int) intensity;

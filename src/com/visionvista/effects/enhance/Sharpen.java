@@ -1,15 +1,14 @@
 package com.visionvista.effects.enhance;
 
-import com.visionvista.effects.Effect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
-import com.visionvista.utils.Pair;
 import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.io.Serial;
-import java.util.Arrays;
 
 
 public class Sharpen extends Enhance {
@@ -18,7 +17,7 @@ public class Sharpen extends Enhance {
 
     private double amount;
 
-    public Sharpen(double amount) {
+    public Sharpen(@JsonProperty("value") double amount) {
         super();
         this.amount = amount;
     }
