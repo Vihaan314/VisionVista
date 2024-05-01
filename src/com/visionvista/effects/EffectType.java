@@ -38,6 +38,7 @@ public enum EffectType {
     BOKEH_BLUR("Bokeh blur", 0, 20, EffectUIType.SLIDER, (param) -> new BokehBlur((Double) param)),
     COLOR_SPLASH("Color splash", 0, 50, EffectUIType.SLIDER, (param) -> new ColorSplash((Double) param)),
     ROTATE("Rotate", 0, 360, EffectUIType.SLIDER, (param) -> new Rotate((Double) param)),
+    GRAIN("Grain", 0, 100, EffectUIType.SLIDER, (param) -> new Grain((Double) param)),
 
     DUOTONE("Duotone", 0, 255, EffectUIType.SLIDER, (param) -> Duotone.getRandomInstance()),
 

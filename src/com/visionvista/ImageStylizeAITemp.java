@@ -221,6 +221,47 @@ public class ImageStylizeAITemp {
 ////        from JSON to object
 //        Effect effect = gson.fromJson(response, Effect.class);
 //        List<String> responseLines = Arrays.asList(response.split("\\r?\\n"));
+        //        response = """
+//            [
+//                {"effect": "Contrast", "value": 50},
+//                {"effect": "Brightness", "value": 50},
+//                {"effect": "Saturation", "value": 50},
+//                {"effect": "Vibrance", "value": 5},
+//                {"effect": "Temperature", "value": 50},
+//                {"effect": "Sepia", "value": 5},
+//                {"effect": "Glow", "value": 5},
+//                {"effect": "Vignette", "value": 25},
+//                {"effect": "Oil Painting", "value": 25},
+//                {"effect": "Color Splash", "value": 25},
+//                {"effect": "Pixel Sort", "value": 128},
+//                {"effect": "Pixelate", "value": 25},
+//                {"effect": "Chromatic Aberration", "value": 5},
+//                {"effect": "Anaglyph 3D", "value": 15},
+//                {"effect": "Box Blur", "value": 5},
+//                {"effect": "Gaussian Blur", "value": 5},
+//                {"effect": "Bokeh Blur", "value": 10},
+//                {"effect": "Tilt Shift", "value": 5},
+//                {"effect": "Sharpen", "value": 5},
+//                {"effect": "Rotate", "value": 90},
+//                {"effect": "Hue", "red": 90, "green": 50, "blue": 50},
+//                {"effect": "Grayscale"},
+//                {"effect": "Negative"},
+//                {"effect": "Cross Process"},
+//                {"effect": "Solarize"},
+//                {"effect": "Split Tone"},
+//                {"effect": "Heatmap"},
+//                {"effect": "Infrared"},
+//                {"effect": "Halftone"},
+//                {"effect": "Watercolor"},
+//                {"effect": "Cyberpunk"},
+//                {"effect": "Pencil Sketch"},
+//                {"effect": "Posterize"},
+//                {"effect": "Lomography"},
+//                {"effect": "Flip Vertical"},
+//                {"effect": "Flip Horizontal"},
+//                {"effect": "Edge Enhance"}
+//            ]
+//        """;
     }
 
     public ArrayList<Effect> getEffectsList() throws JsonProcessingException {

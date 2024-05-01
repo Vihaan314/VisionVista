@@ -21,7 +21,7 @@ public class Hue extends Effect{
 
     public Hue(@JsonProperty("red") int red, @JsonProperty("green") int green, @JsonProperty("blue") int blue) {
         super();
-        this.color = new Color(red, green, blue);
+        this.color = new Color((((red % 256) + 256) % 256), (((green % 256) + 256) % 256), (((blue % 256) + 256) % 256));
     }
 
     @Override public String toString() {

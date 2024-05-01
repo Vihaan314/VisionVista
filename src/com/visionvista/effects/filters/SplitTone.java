@@ -16,15 +16,10 @@ public class SplitTone extends Filter {
 
     @Override protected int applyEffect(int red, int green, int blue) {
         //Spit tone conversion formula
-        int newRed = 0, newGreen = 0, newBlue = 0;
-        if (red + green + blue > 382) {
-            newRed = ColorManipulator.truncate(red + 40);
-            newGreen = ColorManipulator.truncate(green + 40);
-        } else {
-            newBlue = ColorManipulator.truncate(blue + 50);
-        }
+        int newRed = ColorManipulator.truncate((int) (red * 0.5));
+        int newBlue = ColorManipulator.truncate((int) (blue * 1.5));
 
-        return (newRed << 16 | newGreen << 8 | newBlue);
+        return (newRed << 16 | green << 8 | newBlue);
     }
 
     @Override public String toString() {

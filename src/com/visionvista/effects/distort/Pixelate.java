@@ -62,11 +62,12 @@ public class Pixelate extends Distort {
 
         BufferedImage pixelatedImage = getEmptyImage(image);
 
-        for (int y = 0; y < height; y += pixelSize) {
-            for (int x = 0; x < width; x += pixelSize) {
+        int adjustedPixelSize = pixelSize * 3/4;
+        for (int y = 0; y < height; y += adjustedPixelSize) {
+            for (int x = 0; x < width; x += adjustedPixelSize) {
                 //Get the average color of the current pixel block
-                Color avgColor = averageColor(image, x, y, pixelSize);
-                fillPixelBlock(pixelatedImage, x, y, pixelSize, avgColor);
+                Color avgColor = averageColor(image, x, y, adjustedPixelSize);
+                fillPixelBlock(pixelatedImage, x, y, adjustedPixelSize, avgColor);
             }
         }
 

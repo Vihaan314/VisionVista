@@ -135,7 +135,9 @@ image manipulation.
 1. Create class in respective effect sub/class and inherit that superclass.<br>
 2. Implement all superclass methods and the getRandomInstance for the random effect feature.<br>
 3. Add to EffectType enum with classifications and parameters for UI type and bounds.<br>
-4. Add class type to RandomEffect class effectClasses list.<br>
+4. If the effect requires a parameter, add a @JsonProperty("value") directly before the parameter in the constructor of the effect. <br>
+5. In the Effect superclass, add this line (with every other effect) with respect to your effect: @JsonSubTypes.Type(value = {theneweffect}.class, name = "neweffectname"). <br>
+6. Add to AI prompt for stylize feature (temporary). <br>
 
 <br>
 

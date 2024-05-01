@@ -46,6 +46,7 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = Temperature.class, name = "Temperature"),
         @JsonSubTypes.Type(value = Vignette.class, name = "Vignette"),
         @JsonSubTypes.Type(value = Sepia.class, name = "Sepia"),
+        @JsonSubTypes.Type(value = Grain.class, name = "Grain"),
         //Enhance
         @JsonSubTypes.Type(value = EdgeEnhance.class, name = "Edge Enhance"),
         @JsonSubTypes.Type(value = Sharpen.class, name = "Sharpen"),

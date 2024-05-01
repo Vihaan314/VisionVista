@@ -23,7 +23,7 @@ public class Vignette extends Filter {
 
     @Override public BufferedImage run(BufferedImage image) {
         BufferedImage vignetteImage = getEmptyImage(image);
-        double adjustedIntensity = Math.sqrt(intensity/10);
+        double adjustedIntensity = Math.sqrt(intensity/18);
 
         int width = image.getWidth();
         int height = image.getHeight();
