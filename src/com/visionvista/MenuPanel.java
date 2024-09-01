@@ -19,7 +19,8 @@ import java.util.Map;
 
 public class MenuPanel {
     private JMenuBar menuBar;
-    private Map<String, JMenuItem> menuItems = new HashMap<String, JMenuItem>();
+    private Map<String, JMenu> categoryMenus = new HashMap<>();
+    private JMenu effectsMenu;
 
     private ImageDisplay imageDisplay;
     private ImageTimeline imageTimeline;
@@ -32,9 +33,10 @@ public class MenuPanel {
         this.imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
         this.imageTimeline = (ImageTimeline) stateBasedUIComponentGroup.getUIComponent(ImageTimeline.class);
         this.effectControls = (EffectControls) stateBasedUIComponentGroup.getUIComponent(EffectControls.class);
+        setDefaultMenuItems();
     }
 
-    public void addItemToMenu(String title, String menuItemTitle, Command command) {
+    public void addItemToMenu(String title, String menuItemTitle, Command command, boolean isEffectMenu) {
         JMenu menu = getMenu(title); //Gets the sub-menu
         //Create sub menu if it doesn't exist
         if (menu == null) {
@@ -49,20 +51,22 @@ public class MenuPanel {
                 throw new RuntimeException(ex);
             }
         });
-        menuItems.put(menuItemTitle, menuItem);
+        if (isEffectMenu) {
+            categoryMenus.put(title, menu);
+        }
         menu.add(menuItem);
     }
 
-    public void addItemToMenu(String title, String menuItemTitle, Command command, KeyStroke keyStroke) {
-        JMenu menu = getMenu(title); //Gets the sub-menu
+    public void addItemToMenu(String title, String menuItemTitle, Command command, KeyStroke keyStroke, boolean isEffectMenu) {
+        JMenu categoryMenu = getMenu(title); //Gets the sub-menu
         //Create sub menu if it doesn't exist
-        if (menu == null) {
-            menu = new JMenu(title);
-            menuBar.add(menu);
+        if (categoryMenu == null) {
+            categoryMenu = new JMenu(title);
+            menuBar.add(categoryMenu);
         }
         JMenuItem menuItem = new JMenuItem(menuItemTitle);
         menuItem.setMnemonic(keyStroke.getKeyChar());
-        //Setting the accelerator:
+        //Setting the accelerator (for the keystroke):
         menuItem.setAccelerator(keyStroke);
 
         menuItem.addActionListener(e -> {
@@ -72,13 +76,15 @@ public class MenuPanel {
                 throw new RuntimeException(ex);
             }
         });
-        menuItems.put(menuItemTitle, menuItem);
-        menu.add(menuItem);
+        if (isEffectMenu) {
+            categoryMenus.put(title, categoryMenu);
+        }
+        categoryMenu.add(menuItem);
     }
 
-    public JMenuItem getMenuItem(String menuItemTitle) {
-        return menuItems.get(menuItemTitle);
-    }
+//    public JMenuItem getMenuItem(String menuItemTitle) {
+//        return categoryMenus.get(menuItemTitle);
+//    }
 
     //Returns the specific sub-menu of a JMenu
     private JMenu getMenu(String title) {
@@ -94,35 +100,44 @@ public class MenuPanel {
         return this.menuBar;
     }
 
+    private void moveCategoriesToEffectsCategory() {
+        effectsMenu = new JMenu("Effects");
+        menuBar.add(effectsMenu);
+        for (Map.Entry<String, JMenu> entry : categoryMenus.entrySet()) {
+            effectsMenu.add(entry.getValue());
+        }
+    }
+
+
     public void setDefaultMenuItems() {
         FileCommands fileCommands = new FileCommands(stateBasedUIComponentGroup);
-        addItemToMenu("File", "Open Image", fileCommands.createOpenImageCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
-        addItemToMenu("File", "Open URL", fileCommands.createOpenImageFromUrlCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));
-        addItemToMenu("File", "Open Project", fileCommands.createOpenProjectCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
-        addItemToMenu("File", "New Blank Image", fileCommands.createNewBlankImageCommand());
-        addItemToMenu("File", "Save", fileCommands.createSaveImageCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
-        addItemToMenu("File", "Save with Text", fileCommands.createSaveImageWithTextCommand());
+        addItemToMenu("File", "Open Image", fileCommands.createOpenImageCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK), false);
+        addItemToMenu("File", "Open URL", fileCommands.createOpenImageFromUrlCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK), false);
+        addItemToMenu("File", "Open Project", fileCommands.createOpenProjectCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK), false);
+        addItemToMenu("File", "New Blank Image", fileCommands.createNewBlankImageCommand(), false);
+        addItemToMenu("File", "Save", fileCommands.createSaveImageCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK), false);
+        addItemToMenu("File", "Save with Text", fileCommands.createSaveImageWithTextCommand(), false);
 
         SerializingCommands serializingCommands = new SerializingCommands(stateBasedUIComponentGroup);
-        addItemToMenu("Project", "Save Project", serializingCommands.createEffectHistorySerializeCommand());
-        addItemToMenu("Project", "Load Project", serializingCommands.createEffectHistoryLoadCommand());
-        addItemToMenu("Project", "Save Effect Sequence", serializingCommands.createEffectSerializeCommand());
-        addItemToMenu("Project", "Load Effect Sequence", serializingCommands.createEffectLoadCommand());
+        addItemToMenu("Project", "Save Project", serializingCommands.createEffectHistorySerializeCommand(), false);
+        addItemToMenu("Project", "Load Project", serializingCommands.createEffectHistoryLoadCommand(), false);
+        addItemToMenu("Project", "Save Effect Sequence", serializingCommands.createEffectSerializeCommand(), false);
+        addItemToMenu("Project", "Load Effect Sequence", serializingCommands.createEffectLoadCommand(), false);
 
         EffectHistoryCommands effectHistoryCommands = new EffectHistoryCommands(stateBasedUIComponentGroup);
-        addItemToMenu("Edit", "Timeline", imageTimeline::show);
-        addItemToMenu("Edit", "Undo", effectHistoryCommands.createUndoCommand());
-        addItemToMenu("Edit", "Redo", effectHistoryCommands.createRedoCommand());
-        addItemToMenu("Edit", "Reset", effectHistoryCommands.createResetCommand());
+        addItemToMenu("Edit", "Timeline", imageTimeline::show, false);
+        addItemToMenu("Edit", "Undo", effectHistoryCommands.createUndoCommand(), false);
+        addItemToMenu("Edit", "Redo", effectHistoryCommands.createRedoCommand(), false);
+        addItemToMenu("Edit", "Reset", effectHistoryCommands.createResetCommand(), false);
 
         MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
-        addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand());
-        addItemToMenu("Apply", "Random effect (multiple)", miscCommands.createMultipleRandomEffectsCommand());
+        addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand(), false);
+        addItemToMenu("Apply", "Random effect (multiple)", miscCommands.createMultipleRandomEffectsCommand(), false);
 
         AICommands aiCommands = new AICommands();
         aiCommands.setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
-        addItemToMenu("Generate", "Style", aiCommands.createImageStylizeCommand());
-        addItemToMenu("Generate", "Image", aiCommands.createImageGenerationCommand(null));
+        addItemToMenu("Generate", "Style", aiCommands.createImageStylizeCommand(), false);
+        addItemToMenu("Generate", "Image", aiCommands.createImageGenerationCommand(null), false);
     }
 
     public void setupSliderMenuItems() {
@@ -139,7 +154,7 @@ public class MenuPanel {
             //Get category label for effect
             String effectCategory = effect.getEffect((lower + upper) / 2.0).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             Command effectActionListener = sliderEffectWindow.sliderValuesEffect();
-            addItemToMenu(effectCategory, effect.toString(), effectActionListener); //Add effect to category in menu with corresponding action listener to apply the effect
+            addItemToMenu(effectCategory, effect.toString(), effectActionListener, true); //Add effect to category in menu with corresponding action listener to apply the effect
         }
     }
 
@@ -149,7 +164,7 @@ public class MenuPanel {
             ColorEffectWindow colorEffectWindow = new ColorEffectWindow(effect, stateBasedUIComponentGroup);
             String effectCategory = effect.getEffect(new Color(0, 0, 0)).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             Command effectActionListener = colorEffectWindow.colorPickerEffect();
-            addItemToMenu(effectCategory, effect.toString(), effectActionListener);
+            addItemToMenu(effectCategory, effect.toString(), effectActionListener, true);
         }
     }
 
@@ -160,7 +175,7 @@ public class MenuPanel {
             InputEffectWindow inputEffectWindow = new InputEffectWindow(effect, effectLabels, imageDisplay);
             String effectCategory = effect.getEffect(MiscHelper.createZerosArray(effect.getTextFieldParams().length)).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             Command effectActionListener = inputEffectWindow.inputValuesEffect();
-            addItemToMenu(effectCategory, effect.toString(), effectActionListener);
+            addItemToMenu(effectCategory, effect.toString(), effectActionListener, true);
         }
     }
 
@@ -170,15 +185,15 @@ public class MenuPanel {
             String effectCategory = effect.getEffect().getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
             miscCommands.setEffect(effect.getEffect());
-            addItemToMenu(effectCategory, effect.toString(), miscCommands.createUpdateEffectCommand());
+            addItemToMenu(effectCategory, effect.toString(), miscCommands.createUpdateEffectCommand(), true);
         }
     }
 
     public void setupMenuPanel() {
-        setDefaultMenuItems();
         setupSliderMenuItems();
         setupColorMenuItems();
         setupTextFieldMenuItems();
         setupNoParamMenuItems();
+        moveCategoriesToEffectsCategory();
     }
 }

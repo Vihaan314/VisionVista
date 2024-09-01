@@ -29,6 +29,8 @@ public class ImageStylizeAI {
 
     private BufferedImage userImage;
 
+    ObjectMapper mapper = new ObjectMapper();
+
     public void setUserPrompt(String prompt) {
         this.userPrompt = prompt;
     }
@@ -47,7 +49,7 @@ public class ImageStylizeAI {
             - Vignette (0, 50) - quite intense even at smaller values
             - Oil Painting (0, 50)
             - Color Splash (0, 50) - Adds random paint splashes
-            - Pixel sort (0, 255) - Creates epic glitched effect
+            - Pixel sort (0, 255) - Creates epic glitched effect, most effect around 150
             - Pixelate (0, 50)
             - Chromatic Aberration (0, 10) - Creates color fringing to simulate a 3D effect
             - Anaglyph 3D (0, 30)
@@ -68,7 +70,6 @@ public class ImageStylizeAI {
             - Heat map - Visualizes image as thermal colors
             - Infrared - Simulates infrared photography
             - Halftone - Reproduces images with dots for a printed look
-            - Duotone
             - Watercolor
             - Cyberpunk - Accentuates futuristic blue tones to the image
             - Pencil sketch
@@ -108,10 +109,11 @@ public class ImageStylizeAI {
     public void generateEffectsList() throws Exception {
         String prompt = generatePrompt();
         userImage = EditorState.getInstance().getImage();
+        System.out.println(userImage);
         String imageURL = "data:image/jpeg;base64," + MiscHelper.imageToBase64(userImage);
         System.out.println(prompt);
         VisionApiResponse responseobj = new EasyVisionService().VisionAPI(System.getenv("OPENAI-GPT4-KEY"), new EasyVisionRequest()
-                .setModel("gpt-4-vision-preview")
+                .setModel("gpt-4o-2024-08-06")
                 .setPrompt(prompt)
                 .setMaxtokens(500)
                 .setImageUrls(new ArrayList<>() {{
@@ -123,22 +125,7 @@ public class ImageStylizeAI {
 
     private void extractEffects() throws JsonProcessingException {
         effectsList = new ArrayList<>();
-//        response = """
-//                [
-//                    {"effect": "Contrast", "value": 50},
-//                    {"effect": "Saturation", "value": 0},
-//                    {"effect": "Hue", "red": 0, "green": 255, "blue": 0},
-//                    {"effect": "Temperature", "value": 15},
-//                    {"effect": "Vignette", "value": 20},
-//                    {"effect": "Pixelate", "value": 25},
-//                    {"effect": "Chromatic Aberration", "value": 7},
-//                    {"effect": "Gaussian Blur", "value": 3},
-//                    {"effect": "Sharpen", "value": 5},
-//                    {"effect": "Grain", "value": 80},
-//                    {"effect": "Cyberpunk"},
-//                    {"effect": "Split Tone"}
-//                ]
-//                """;
+
         //Extract only the JSON part
         Pattern pattern = Pattern.compile("\\[(.*?)\\]", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(response);
@@ -147,8 +134,7 @@ public class ImageStylizeAI {
             System.out.println(response);
         }
 
-        //Create object mapper
-        ObjectMapper mapper = new ObjectMapper();
+        //Configure object mapper
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //Convert JSON to instances of effects
         effectsList = Arrays.asList(mapper.readerFor(Effect[].class).readValue(response));

@@ -29,7 +29,7 @@ public class Pixelate extends Distort {
         return "Applied pixelating. Amount: " + pixelSize;
     }
 
-    private static Color averageColor(BufferedImage image, int x, int y, int pixelSize) {
+    private static int averageColor(BufferedImage image, int x, int y, int pixelSize) {
         int red = 0;
         int green = 0;
         int blue = 0;
@@ -44,14 +44,17 @@ public class Pixelate extends Distort {
                 count++;
             }
         }
-
-        return new Color(red / count, green / count, blue / count);
+        int newRed = red / count;
+        int newGreen = green / count;
+        int newBlue = blue / count;
+        int alpha = 0xFF << 24;
+        return alpha | (newRed << 16) | (newGreen << 8) | newBlue;
     }
 
-    private static void fillPixelBlock(BufferedImage image, int x, int y, int pixelSize, Color color) {
+    private static void fillPixelBlock(BufferedImage image, int x, int y, int pixelSize, int color) {
         for (int x2 = x; x2 < x + pixelSize && x2 < image.getWidth(); x2++) {
             for (int y2 = y; y2 < y + pixelSize && y2 < image.getHeight(); y2++) {
-                image.setRGB(x2, y2, color.getRGB());
+                image.setRGB(x2, y2, color);
             }
         }
     }
@@ -66,7 +69,7 @@ public class Pixelate extends Distort {
         for (int y = 0; y < height; y += adjustedPixelSize) {
             for (int x = 0; x < width; x += adjustedPixelSize) {
                 //Get the average color of the current pixel block
-                Color avgColor = averageColor(image, x, y, adjustedPixelSize);
+                int avgColor = averageColor(image, x, y, adjustedPixelSize);
                 fillPixelBlock(pixelatedImage, x, y, adjustedPixelSize, avgColor);
             }
         }

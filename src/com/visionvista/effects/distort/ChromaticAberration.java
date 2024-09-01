@@ -26,9 +26,9 @@ public class ChromaticAberration extends Distort {
         int px = Math.min(x + offset, image.getWidth() - 1);
         int nx = Math.max(x - offset, 0);
 
-        int newRed = new Color(image.getRGB(px, y)).getRed();
-        int newGreen = new Color(image.getRGB(x, y)).getGreen();
-        int newBlue = new Color(image.getRGB(nx, y)).getBlue();
+        int newRed = ((image.getRGB(px, y)) >> 16) & 0xFF;
+        int newGreen = ((image.getRGB(x, y)) >> 8) & 0xFF;
+        int newBlue = ((image.getRGB(nx, y))) & 0xFF;
 
         return (newRed << 16 | newGreen << 8 | newBlue);
     }
