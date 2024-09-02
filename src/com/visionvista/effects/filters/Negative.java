@@ -16,7 +16,7 @@ public class Negative extends Filter {
     }
 
     @Override protected int applyEffect(int red, int green, int blue) {
-        //Heatmap conversion formula
+        //Negative conversion formula
         int newRed = 255 - red;
         int newGreen = 255 - green;
         int newBlue = 255 - blue;
