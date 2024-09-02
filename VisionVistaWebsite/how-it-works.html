@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Vision Vista</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/TextPlugin.min.js"></script>
+</head>
+<body>
+    <div class="menu-bar">
+        <ul>
+            <li>File
+                <ul>
+                    <li onclick="randomEffect()">Random Effect</li>
+                    <li onclick="resetEffects()">Reset Effects</li>
+                </ul>
+            </li>
+            <li>Edit
+                <ul>
+                    <li onclick="crazyMode()">Crazy Mode</li>
+                </ul>
+            </li>
+            <li>Effects
+                <ul>
+                    <li onclick="applyEffect('solarize')">Solarize</li>
+                    <li onclick="applyEffect('bokeh')">Bokeh Blur</li>
+                    <li onclick="applyEffect('posterize')">Posterize</li>
+                    <li onclick="applyEffect('vibrance')">Vibrance</li>
+                    <li onclick="applyEffect('rotate')">Rotate</li>
+                    <li onclick="applyEffect('pencilsketch')">Pencil Sketch</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="editor-mockup">
+        <div class="content-area">
+            <h1 class="animate__animated animate__fadeInDown">How It Works: From blueprint to bits</h1>            
+            <section id="features">
+                <div class="brush-container">
+                    <div class="brush" style="background-image: url('/icons/paintbrush.png');"></div>
+                    <div class="brush-text">
+                        <h2>Notable Features</h2>
+                        <p class="animate__animated animate__fadeInUp">Here you will find detailed and thorough explanations of the numerous elements of Vision Vista.</p>
+                        <ul>
+                            <li>- 50+ Advanced image effects, from transformations (resize, rotate, etc.) to artistic styles (oil painting, pencil sketch, etc.)</li>
+                            <li>- Apply random effects</li>
+                            <li>- Live effect previews</li>
+                            <li>- Timeline of edits with navigational capabilities</li>
+                            <li>- Saving and loading sequences of effects</li>
+                            <li>- Saving and loading projects</li>
+                            <li>- Fully editable AI-Generated image</li>
+                            <li>- Custom AI-Powered styling</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+           
+            <section id="overview" class="morph-section">
+                <h2 class="morph-text">High-Level Overview</h2>
+                <ul class="morph-text-content" id="patterns">
+                    <li>Class hierarchies & inheritance: Every effect is part of a class hierarchy with an abstract <code>Effect</code> superclass and abstract sub-superclasses for each category of effect. 
+                        <span class="more-text">
+                            For instance, Transformation.java is an abstract superclass but a subclass of Effect.java, and effects like 
+                            Resize and Rotate are subclasses of Transformation. Every effect has some data methods and most importantly a public BufferedImage run(BufferedImage image). Once an effect instance is created with its necessary parameters, it can be used for any image.
+                            The class diagram looks like this:
+                            <div class="class-diagram">
+                                <div class="class-diagram-box">
+                                    <div class="class-name">Effect</div>
+                                </div>
+                                <div class="class-connector">
+                                    <div class="vertical-line"></div>
+                                    <div class="horizontal-line"></div>
+                                </div>
+                                <div class="sub-classes">
+                                    <div class="class-diagram-box">
+                                        <div class="class-name">Transformation</div>
+                                        <div class="class-connector">
+                                            <div class="sub-vertical-line"></div>
+                                            <div class="horizontal-line"></div>
+                                        </div>
+                                        <div class="sub-classes">
+                                            <div class="class-diagram-box">
+                                                <div class="class-name">Resize</div>
+                                            </div>
+                                            <div class="class-diagram-box">
+                                                <div class="class-name">Rotate</div>
+                                            </div>
+                                            <div class="class-diagram-box">
+                                                <div class="class-name">...</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="class-diagram-box">
+                                        <div class="class-name">Filter</div>
+                                        <div class="class-connector">
+                                            <div class="sub-vertical-line"></div>
+                                            <div class="horizontal-line"></div>
+                                        </div>
+                                        <div class="sub-classes">
+                                            <div class="class-diagram-box">
+                                                <div class="class-name">Grayscale</div>
+                                            </div>
+                                            <div class="class-diagram-box">
+                                                <div class="class-name">Sepia</div>
+                                            </div>
+                                            <div class="class-diagram-box">
+                                                <div class="class-name">...</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                    <li>Command pattern: This provides the functionality to every feature, from an undo or redo to saving an image. 
+                        <span class="more-text">
+                            This is not the logic itself but the code that executes it in the form of an anonymous lambda expression. Each category of commands implements the Command interface. If this pattern was not used, lengthy ActionListeners would have been used in classes, cluttering them. Additionally, this interface allows for a factory pattern (below), so that any class can obtain a particular action.
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                    <li>Factory pattern: The categories of commands have create methods, such as <code>createUndoCommand</code>, returning command objects, which can be executed with .execute()</li>
+                    <li>Observer pattern: A <code>StateBasedUIComponentGroup</code> class which contains many <code>StateBasedUIComponents</code> (interface), such as <code>ImageTimeline</code>, <code>ImageDisplay</code>. 
+                        <span class="more-text">
+                            Every time a change in a UI component is made, a <code>updateAllUIFromState</code> method is triggered which triggers each updateFromState method implemented by all state-based UI components. It also remains in sync with the EditorState.
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                    <li>Singleton pattern: An EditorState class to keep track of the current image and effect history. 
+                        <span class="more-text">
+                            Every time an effect is applied, the UI is updated and the new image and effect history is stored in the EditorState. It is essential that there is only one instance of this class so that the most recent and important information, namely the current image and effect history is accessible to every class.
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                    <li>Enums: The main enum, <code>EffectType</code>, houses all metadata for every effect, such as parameter bounds, and the <code>EffectUIType</code> (enum) that is used to control the effect's parameters.</li>
+                    <li>Functional interface: The enums contain anonymous lambda expressions (e.g. <code>(param) -> new BoxBlur((Double) param)</code>) to streamline the creation of the appropriate effect classes with their respective parameters. 
+                        <span class="more-text">
+                            For instance, in the custom Slider UI component, the getEffect method: <code>Effect chosenEffect = effect.getEffect((double) effect_amount[0]);</code> can create an instance of the effect with the given parameter without even knowing what it is!
+                            <br>
+                            However, upon reflecting on this technique, I realized that categorizing the effects by their UI type in the Enum is not entirely scalable, as having an effect with two or more parameters poses a challenge.
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                    <li>Custom serialization: Vision Vista implements custom serialization to save effect sequences (which can be applied to any image) and projects (image + its effect sequence). 
+                        <span class="more-text">
+                            For the projects, the serialization involves encoding the initial image and the sequence of effects applied to it. This allows a singular image to be stored, rather than saving a new image for each effect. While this saves storage, it may take longer to load in a project.
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                    <li>Builder: Vision Vista uses the builder pattern for structuring the creation of the correct Image Generation API call based on user preferences, such as the model type and quality. 
+                        <span class="more-text">
+                            I slightly modified the original concept to have the buildGeneration method, which not only creates the instance of the object, but also generates the image with that instance:
+                            <pre>
+                                ImageGenerationAI.builder()
+                                    .prompt(prompt)
+                                    .model(model)
+                                    .quality(quality)
+                                    .buildGeneration();
+                            </pre>
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                    <li>Templating pattern: Many effect categories in Vision Vista leverage the templating pattern. For each abstract super class (e.g. Distort), "template" methods - essentially the backbone of an algorithm - are defined, with only a single <code>protected int applyEffect(int red, int green, int blue, BufferedImage image, int x, int y)</code> method to be implemented by subclasses. 
+                        <span class="more-text">
+                            This ensures all subclasses follow a consistent algorithm while minimizing redundant code. If an effect requires a different algorithm, the subclass can simply override one of the template methods. Initially, I wasn't aware of this pattern; it was only after writing this code that I realized that my approach closely aligned with the description of the template pattern on Wikipedia (https://en.wikipedia.org/wiki/Template_method_pattern). Consider the Distort category of effects, we have a run method which loops through every pixel in the image, and runs these two simple lines of code:
+                            <pre>
+                                int newRGB = applyEffectAtPixel(image.getRGB(x, y), image, x, y);
+                                result.setRGB(x, y, newRGB);
+                            </pre>
+                            In the applyEffectAtPixel, this line is used:
+                            <code>int newRGB = applyEffect(red, green, blue, image, x, y);</code>
+                            Which calls this:
+                            <pre>
+                                protected int applyEffect(int red, int green, int blue, BufferedImage image, int x, int y) {
+                                    return (red << 16 | green << 8 | blue);
+                                }
+                            </pre>
+                            Now, a subclass of Distort - ChromaticAberration - simply has to override the applyEffect method, avoiding writing the redundant loop code and code to create the new pixel value.                        
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                </ul>
+            </section>
+            
+            <section id="libraries">
+                <h2>Notable Libraries</h2>
+                <ul>
+                    <li><strong><a target="_blank" href="https://github.com/classgraph/classgraph">ClassGraph</a>:</strong> This library allows you to obtain information about classes in your project, particularly those that meet a specific criteria. 
+                        <span class="more-text">
+                            In the case of Vision Vista, the ClassGraph library was used to create a list of every effect class. In terms of a criteria, this translates to all classes that extend the Effect superclass: <code>ClassInfo classInfo : scanResult.getSubclasses(Effect.class.getName())</code>. Then, use this condition to filter out unwanted classes (e.g. super class, abstract class): <code>!Modifier.isAbstract(cls.getModifiers()) && !cls.isEnum() && !cls.isInterface() && !cls.isAnnotation()</code>
+                            . Thus, ClassGraph allows me to dynamically create a list of every effect, which currently is used for applying a random effect.
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                    <li><strong><a target="_blank" href="https://github.com/namankhurpia/Easy-open-ai">EasyOpenAI</a>:</strong> Provides funtionality for OpenAI's API in Java. Vision Vista uses the Vision API and Image Generation API. 
+                        <span class="more-text">
+                            A combination of clever prompting in the EasyOpenAI and Jackson's object mapper for the response form the architecture for the AI-stylize feature.
+                            I spent a significant amount of time to finding a library for OpenAI's API that supported the most up-to-date features, namely, the VisionAPI. EasyOpenAI not only met this criteria but it is as simple as: 
+                            <pre>
+                                VisionApiResponse responseobj = new EasyVisionService().VisionAPI(System.getenv("OPENAI-GPT4-KEY"), new EasyVisionRequest()
+                                        .setModel("gpt-4o-2024-08-06")
+                                        .setPrompt(prompt)
+                                        .setMaxtokens(500)
+                                        .setImageUrls(new ArrayList<>() {{
+                                            add(imageURL);
+                                        }}));
+                                this.response = responseobj.getChoices().get(0).getSystemMessage().content;
+                            </pre>
+                            , where the imageURL is encoded into base 64, and the prompt includes a description of every effect and an example response to ensure the correct JSON format is followed.
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                    <li><strong><a target="_blank" href="https://github.com/FasterXML/jackson">Jackson</a>:</strong> Vision Vista specifically used Jackson ObjectMapper with Jackson Annotations to parse the response given by the OpenAI Vision API and convert it into a sequence of appliable effects.
+                        <span class="more-text">
+                            In order to have a standard way of parsing the response, we specify that it must be in a JSON format. Subsequently, Jackson's object mapper will be used convert each JSON element into an Effect instance with the necessary parameters. 
+                            An example response looks like:
+                            <pre>
+                                [
+                                    {"effect": "Brightness", "value": 50},
+                                    {"effect": "Split Tone"},
+                                    {"effect": "Gaussian Blur", "value": 5},
+                                    {"effect": "Grayscale"},
+                                    {"effect": "Hue", "red": 50, "green": 50, "blue": 125}
+                                ]
+                            </pre>
+                            This is the most mindblowing part. In order to convert this String JSON into a list of Effect objects, we just need one line of code:
+                            <pre>
+                                effectsList = Arrays.asList(mapper.readerFor(Effect[].class).readValue(response));
+                            </pre>
+                            However, this is somewhat an illusion as many more lines of code hide behind this one line to make it work - we need to add an annotation for every Effect in the Effect superclass:
+                            <pre>
+                                @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "effect", visible = true)
+                                @JsonSubTypes({
+                                        @JsonSubTypes.Type(value = Brightness.class, name = "Brightness"),
+                                        @JsonSubTypes.Type(value = Contrast.class, name = "Contrast"),
+                                        @JsonSubTypes.Type(value = Saturation.class, name = "Saturation"),
+                                        @JsonSubTypes.Type(value = Vibrance.class, name = "Vibrance"),
+                                        @JsonSubTypes.Type(value = Hue.class, name = "Hue"),
+                                        ... More classes ...
+                            </pre>
+                            Then, in each effect class, if there is a parameter, we annotate it in the constructor of the class. For instance:
+                            <pre>
+                                public Grain(@JsonProperty("value") double intensity) {
+                                    super();
+                                    this.intensity = intensity;
+                                }
+                            </pre>
+                            Let's go through the process of converting the JSON into Effect instances in a very simplified way. Take: {"effect": "Brightness", "value": 50}. The reader (<code>(mapper.readerFor(Effect[].class)</code>) will refer to this annotation: <code>@JsonSubTypes.Type(value = Brightness.class, name = "Brightness")</code> to obtain the Brightness class object. 
+                            Then, in the brightness constructor, we have: 
+                            <pre>
+                                public Brightness(@JsonProperty("value") double intensity) {
+                                    this.intensity = intensity;
+                                }                            
+                            </pre> 
+                            The reader concludes that the <code>"value": 50</code> must be the intensity parameter. Now, with the class object, and its necessary parameters, the instance can be created.
+                            Something interesting that makes this feature unique is that none of the GPT vision models can do this task - if you are looking to achieve a style for an image, it will completely alter the initial image, with nothing tangible to understand the changes it made.
+                            <br>
+                            This was my favorite part of the project, as it is the coolest feature, and uses the coolest underlying tech.
+                        </span>
+                        <span class="toggle-more" onclick="toggleReadMore(this)">
+                            <span class="toggle-text">Read More</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                    </li>
+                </ul>
+            </section>
+            
+            <section id="visualization" class="visualization-section">
+                <h2>The actual effects: Efficiency & Techniques</h2>
+                <p>
+                    Vision Vista employs a variety of techniques to apply a given effect to an image.
+                    <ol>
+                        <li>
+                            Bitwise operations for extracting colors and creating RGB values: Vision Vista avoids using Color objects, as they increase memory usage. Instead, bitwise operations (bit shifts and bitwise operators) are used to extract specific color channels (red, green, blue, alpha), and combine color channels into a single RGB or ARGB integer.
+                            <span class="more-text">
+                                Let us break down one example - Grain.java:
+                                <br>
+                                We employ the same templating pattern to improve the readability of the Grain class, focusing solely on the algorithm to create the grain. This is done by abstracting away the higher-level details of iterating through an image or changing its pixels, as they don't inherently matter to the Grain class.
+                               
+                                <pre>
+                                    public class Grain extends Filter {
+                                        ... Other code ...
+                                        @Override
+                                        protected int applyEffect(int red, int green, int blue) {
+                                            Random random = new Random();
+                                            int noise = (int) (random.nextGaussian() * intensity/3);
+                                    
+                                            int newRed = ColorManipulator.truncate(red + noise);
+                                            int newGreen = ColorManipulator.truncate(green + noise);
+                                            int newBlue = ColorManipulator.truncate(blue + noise);
+                                    
+                                            return (newRed << 16 | newGreen << 8 | newBlue);
+                                        }
+                                        ... More code ...
+                                    }
+                                </pre>
+                               
+                                The <code>applyEffect</code> method is called in <code>applyEffectAtPixel</code>, defined in the Effect superclass:
+                                <pre>
+                                    protected int applyEffectAtPixel(int rgb) {
+                                        int alpha = (rgb >>> 24);
+                                        int red = (rgb >> 16) & 0xFF;
+                                        int green = (rgb >> 8) & 0xFF;
+                                        int blue = rgb & 0xFF;
+                                        int newRGB = applyEffect(red, green, blue);
+                                        return (alpha << 24) | newRGB;
+                                    }
+                                </pre>
+                        
+                                <h1 class="sub-header" onclick="toggleSubSection(this)">Learn about bit shifts</h1>
+                                <div class="sub-section">
+                                    Now let's break down what these esoteric-looking operators really do. The grain works by adding some noise (a random number) to each color channel, scaled by some intensity parameter. We obtain these color channels through bit shifts, as evident in the first four lines. 
+                                    <br>
+                                    But what is a bit shift? To understand this, first note that an ARGB value (which represents a color) is a 32-bit integer. Assume that an ARGB value is structured in the following way (in hexadecimal): <br> 
+                                    <code>rgb = 0xAARRGGBB</code>, where AA represents the alpha (transparency), RR represents the red channel, and so on.
+                                    <br> Take: <code>rgb = 0x64FF1280</code>. <br> This is a pinkish color (to see this, remove the alpha channel and put the remaining six characters into <a href="https://www.w3schools.com/colors/colors_hexadecimal.asp">this website</a>), and in binary, this would be:
+                                    <pre>01100100 11111111 00010010 10000000</pre>
+                                    where the alpha - <code>(0xAA) = 0x64</code> - is the <code>01100100</code>,
+                                    <br>
+                                    red - <code>(0xRR) = 0xFF</code> - is the <code>11111111</code>, and so on.
+                                    <br>
+                                    We now see why an ARGB integer is 32 bits - it is originally an 8 digit hexadecimal number. <br>
+                                    Then, <code>int alpha = (rgb >>> 24)</code> uses three right arrows to shift the bits 24 positions to the right, disregarding the sign (if we wanted to preserve the sign, it would be two right arrows (>>)). Because each channel corresponds to 8 bits, this shift leaves the first three channels as 0s, and the first 8 bits now as the last 8 bits:
+                                    <pre>
+                                        Original:   01100100 11111111 00010010 10000000
+                                        Shifted:    00000000 00000000 00000000 01100100
+                                    </pre>
+                                    However, in binary, this just leaves us with 01100100. From this, we can convert this to hex and get the alpha as 0x64 and perform any necessary manipulations.<br>
+                                    The process is similar with the remaining channels. Take:
+                                    <br>
+                                    <code>int red = (rgb >> 16) & 0xFF;</code>
+                                    This gives:
+                                    <pre>
+                                        Original:   01100100 11111111 00010010 10000000
+                                        Shifted:    00000000 00000000 01100100 11111111
+                                    </pre>
+                                    Now, the first 16 bits are all 0s, and the first 16 bits shifted to the last 16 bits. We then use the bitwise AND (&) with 0xFF to only keep the last 8 bits, giving us only the red channel. 
+                                </div>
+                        
+                                <h1 class="sub-header" onclick="toggleSubSection(this)">Learn about the bitwise AND (&) operator</h1>
+                                <div class="sub-section">
+                                    The & operator works by comparing each bit of two numbers and outputting another bit.
+                                    The resulting bit is a '1' if and only if both bits are '1', and otherwise, '0'.
+                                    0xFF in binary is 11111111, however, because we are comparing this to a 32-bit integer, it can also be thought of like this: 
+                                    <pre>
+                                        rgb    = 01100100 11111111 00010010 10000000
+                                        0xFF   = 00000000 00000000 00000000 11111111
+                                    </pre>
+                                    Notice the 24 '0's in 0xFF will collapse the first 24 bits in the rgb to '0's, and the final 8 '1's act as a kind of identity operation, as it will return what it is being compared to - 10000000 (you can logically verify this yourself).
+                                    That is why we don't need to shift the blue channel at all, as it is in the last 8 bits, where can just use the & operator with 0xFF to directly obtain the last 8 bits.
+                                    <br>
+                                    This also explains the necessity of standardizing the ordering of the letters in RGB. Without this, extracting color channels would be ambiguous, as the bit shifts could result in different channels being extracted.
+                                    <br>
+                                </div>
+                                
+                                <h1 class="sub-header" onclick="toggleSubSection(this)">Learn about the bitwise OR (|) operator</h1>
+                                <div class="sub-section">
+                                    Then, once we want to combine the new channels, the bitwise OR (|) combines the bits using this rule: '1' if either bit is a '1', and '0' if both bits are '0'. This essentially just takes the highest bit out of the two.
+                                    Let's look at this example to see how this is OR operator is used: <code>return (newRed << 16 | newGreen << 8 | newBlue);</code>. This is the exact reverse process to extracting the channels - 
+                                    since we have the individual channels, we use the '<<' left shift operator to move each channel into its correct position. Here there is no alpha channel, which is why we only shift the red channel 16 and the green channel 8 bits to the left (-8 bits that used to be in the alpha channel).
+                                    Then, we use the bitwise OR to combine them. Take an example:
+                                    <pre>
+                                        newRed = 0x12 = 0b00010010 
+                                        newGreen = 0x34 = 0b00110100 
+                                        newBlue = 0x56 = 0b01010110 
+                                    </pre>
+                                    Then the shift (just one to get an idea) of newRed << 16:
+                                    <pre>
+                                        Original:   00000000 00000000 00010010
+                                        Shifted:    00010010 00000000 00000000
+                                    </pre>
+                                    After all sfhits, we will have:
+                                    <pre>
+                                        00010010 00000000 00000000  (0x120000) (shifted red)
+                                        00000000 00110100 00000000  (0x003400) (shifted green)
+                                        00000000 00000000 01010110  (0x000056) (shifted blue)
+                                    </pre>
+                                    When combined: 
+                                    <pre>
+                                        00010010 00110100 01010110
+                                        = 0x123456
+                                    </pre>
+                                </div>
+                                <h1>To summarize:</h1> '>>' and '>>>' are the right and unsigned right bit shift operators respectively, while the '<<' is the left bit shift operator. The bitwise AND (&) is used to isolate specific bits in a number, effectively filtering out the bits you don't want, while the bitwise OR (|) is used to combine bits from two numbers, taking the highest bit from each number at every position.
+                            </span>
+                            <span class="toggle-more" onclick="toggleReadMore(this)">
+                                <span class="toggle-text">Read More</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                    <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                                </svg>
+                            </span>
+                        </li>                        
+                        
+                        <li>Image kernals and convolutions: These are an integral part of image manipulation. In Vision Vista, we have the simple applications of kernals such as sharpen and edge enhance, but more complex uses in the Guassian blur.
+                            <span class="more-text">
+                                I recommend <a href="https://setosa.io/ev/image-kernels/">this website</a> for understanding image kernals. 
+                                <br>
+                                Taking an example, in the Sharpen class, we create a sharpen kernal:
+                                <pre>
+                                    float[] SHARPEN3x3 = {
+                                        0.0f, -1.0f, 0.0f,
+                                        -1.0f,  5.0f, -1.0f,
+                                        0.0f, -1.0f, 0.0f
+                                };
+                                </pre>
+                                and then scale the values in the kernal by a reasonable amount based on the input amount. Then we use the existing Java ConvolveOp and Kernal classes to apply the kernal:
+                                <pre>
+                                    ConvolveOp convolve = new ConvolveOp(new Kernel(3, 3, SHARPEN3x3), ConvolveOp.EDGE_NO_OP, null);
+                                    convolve.filter(image, sharpenedImg);
+                                </pre>
+                                <br>A kernal is simply a matrix that is element-wise multiplied with a block of pixels in an image. Think of it like weights for the effect. A convolution transforms the image by sliding this kernal over each block of pixels across the entire image.
+                                A next step in Vision Vista would be to implement these kernal and convolution classes myself. 
+                                <br> The more interesting class is the GaussianBlur class. I first created a 1D Gaussian kernal, using the Gaussian function with the input sigma:
+                                <p>
+                                    <math>
+                                        <mi>K</mi><mo>(</mo><mi>i</mi><mo>)</mo>
+                                        <mo>=</mo>
+                                        <mfrac>
+                                            <mn>1</mn>
+                                            <mrow>
+                                                <mi>&#x03C3;</mi>
+                                                <mo>&#x221A;</mo>
+                                                <mo>(</mo><mn>2</mn><mi>&#x03C0;</mi><mo>)</mo>
+                                            </mrow>
+                                        </mfrac>
+                                        <mo>&#x22C5;</mo>
+                                        <msup>
+                                            <mi>e</mi>
+                                            <mrow>
+                                                <mo>-</mo>
+                                                <mfrac>
+                                                    <msup><mi>i</mi><mn>2</mn></msup>
+                                                    <mrow><mn>2</mn><msup><mi>&#x03C3;</mi><mn>2</mn></msup></mrow>
+                                                </mfrac>
+                                            </mrow>
+                                        </msup>
+                                    </math>
+                                </p>                                
+                                Also note that this requires a radius (how far out from the center pixel you want to consider), which is computed from the sigma input.
+                                For efficiency, we use a separable filter; instead of applying a 2D Gaussian blur directly, which would require many calculations for each pixel, we use a separable filter. 
+                                This means that we first blur the image horizontally with a 1D Gaussian kernel and then blur the result vertically with the same kernel. This significantly reduces the number of operations from 
+                                <p>
+                                    <math>
+                                        <mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo>
+                                        <mo>&rarr;</mo>
+                                        <mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo>
+                                    </math>
+                                </p>
+                            </span>
+                            <span class="toggle-more" onclick="toggleReadMore(this)">
+                                <span class="toggle-text">Read More</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="arrow-icon">
+                                    <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
+                                </svg>
+                            </span>
+                        </li>
+                    </ol>
+                    <p class="last">Below is an interactive demo which showcases the method behind most of the effects in Vision Vista, from Sepia to SplitTone.</p>
+                </p>
+                <div class="interactive-demo">
+                    <img src="images/New_york_times_square-terabass.jpg" alt="Sample Image" id="sampleImage" width="100" height="75">
+                    <div class="controls">
+                        <div class="input-group">
+                            <label for="red-function">Red Function:</label>
+                            <input type="text" id="red-function" placeholder="e.g., red * 0.8">
+                        </div>
+                        <div class="input-group">
+                            <label for="green-function">Green Function:</label>
+                            <input type="text" id="green-function" placeholder="e.g., green + 30">
+                        </div>
+                        <div class="input-group">
+                            <label for="blue-function">Blue Function:</label>
+                            <input type="text" id="blue-function" placeholder="e.g., blue - 50">
+                        </div>
+                        <div class="button-row">
+                            <button onclick="startPixelManipulation()">Apply Effect</button>
+                            <button onclick="pauseManipulation()">Pause</button>
+                            <button onclick="resumeManipulation()">Play</button>
+                            <button onclick="restartManipulation()">Replay</button>
+                            <button onclick="resetManipulation()">Reset</button>
+                        </div>
+                    </div>
+                    <label for="speed">Speed:</label>
+                    <input type="range" id="speed" min="1" max="90" value="45" onchange="adjustSpeed(this.value)">                    
+                </div>
+            </section>
+
+            <button onclick="location.href='index.html'" class="back-button">←</button>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>    
+    <script src="js/menuBarEffects.js"></script>
+    <script src="js/howItWorksAnimations.js"></script>
+    <script src="js/visualize.js"></script>
+</body>
+</html>

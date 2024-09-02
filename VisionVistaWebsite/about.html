@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Vision Vista</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/TextPlugin.min.js"></script>
+</head>
+<body>
+    <div class="menu-bar">
+        <ul>
+            <li>File
+                <ul>
+                    <li onclick="randomEffect()">Random Effect</li>
+                    <li onclick="resetEffects()">Reset Effects</li>
+                </ul>
+            </li>
+            <li>Edit
+                <ul>
+                    <li onclick="crazyMode()">Crazy Mode</li>
+                </ul>
+            </li>
+            <li>Effects
+                <ul>
+                    <li onclick="applyEffect('solarize')">Solarize</li>
+                    <li onclick="applyEffect('bokeh')">Bokeh Blur</li>
+                    <li onclick="applyEffect('posterize')">Posterize</li>
+                    <li onclick="applyEffect('vibrance')">Vibrance</li>
+                    <li onclick="applyEffect('rotate')">Rotate</li>
+                    <li onclick="applyEffect('pencilsketch')">Pencil Sketch</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="editor-mockup">
+        <div class="content-area">
+            <section id="about">
+                <h1>About Vision Vista</h1>
+                <p>
+                    Vision Vista is an innovative image editor that ... through advanced effects, easy-to-use tools, and AI-powered styling.
+                    <br>
+                    It is made in Java, uses Java Swing for the UI and Java's BufferedImage class for image manipulation.
+                </p>
+            </section>
+
+            <section id="controls">
+                <h2>All controls</h2>
+                <b>File</b>
+                <ul>
+                <li>Open - opens local image</li>
+                <li>Open URL - opens image given URL</li>
+                <li>Open Project - open serialized Vision Vista project</li>
+                <li>Generate Image - generates image based on user prompt and opens in editor</li>
+                <li>Save</li>
+                <li>Save with text - saves edited image as well as a log of all edits and file information.</li>
+                </ul>
+                <b>Apply</b>
+                <ul>
+                <li> Random effect - applies random effect to image.</li>
+                <li> Random effect (multiple) - applies multiple number random effects specified by the user</li>
+                </ul>
+                <b>Image</b>
+                <ul>
+                <li> Save effect sequence - saves current sequence of effects independent from the image</li>
+                <li> Load effect sequence - load effect sequence</li>
+                <li> Save project - saves the entire project of the sequence of images with the effects</li>
+                <li> Load project - loads a project containing the sequence of images and effects</li>
+                </ul>
+                <b>Edit</b>
+                <ul>
+                <li> Undo - effects applied in an undo state will override the existing ones</li>
+                <li> Redo</li>
+                <li> Reset - reverts the image to its original state and removes all history</li>
+                <li> Timeline - displays a timeline of every effect applied with labels, and the ability to navigate the effects.</li>
+                </ul>
+                <b>Generate</b>
+                <ul>
+                <li> Style - Generates a sequence of effects to meet a desired style the user enters through a prompt.</li>
+                <li> Image - Generates image based on prompt and opens in editor.</li>
+                </ul>
+
+                <h2>AI Stylize feature</h2>
+                <p>Because this feature relies on an API request to one of OpenAI's APIs, you must provide an API key in the UI in order for the AI-stylize to work.</p>
+
+            </section>
+
+            <section id="effects">
+                <h2>A list of every effect in Vision Vista</h2>
+                <details open>
+                    <summary><b>Supported effects</b></summary>
+                    <details style="margin-left: 20px;">
+                        <summary>Standard effects</summary>
+                        <ul>
+                        <li>Contrast</li>
+                        <li>Brightness</li>
+                        <li>Saturation</li>
+                        <li>Vibrance</li>
+                        <li>Hue</li>
+                        </ul>
+                    </details>
+                    <details style="margin-left: 20px;">
+                        <summary>Filters</summary>
+                        <ul>
+                        <li>Temperature</li>
+                        <li>Sepia</li>
+                        <li>Glow</li>
+                        <li>Vignette</li>
+                        <li>Grayscale</li>
+                        <li>Negative</li>
+                        <li>Cross process</li>
+                        <li>Solarize</li>
+                        <li>Split tone</li>
+                        <li>Heat map</li>
+                        <li>Infrared</li>
+                        <li>Halftone</li>
+                        <li>Duotone (beta)</li>
+                        </ul>
+                    </details>
+                    
+                    <details style="margin-left: 20px;">
+                        <summary>Artistic</summary>
+                        <ul>
+                        <li>Watercolor (beta)</li>
+                        <li>Oil Painting</li>
+                        <li>Cyberpunk</li>
+                        <li>Pencil sketch</li>
+                        <li>Posterize</li>
+                        <li>Lomography</li>
+                        <li>Color Splash</li>
+                        </ul>
+                    </details>
+                    
+                    <details style="margin-left: 20px;">
+                        <summary>Distort</summary>
+                        <ul>
+                        <li>Pixel sort</li>
+                        <li>Pixelate</li>
+                        <li>Chromatic Aberration</li>
+                        <li>Anaglyph 3D</li>
+                        </ul>
+                    </details>
+                    
+                    <details style="margin-left: 20px;">
+                        <summary>Blur</summary>
+                        <ul>
+                        <li>Box Blur</li>
+                        <li>Gaussian Blur</li>
+                        <li>Bokeh Blur</li>
+                        <li>Tilt shift</li>
+                        </ul>
+                    </details>
+                    <details style="margin-left: 20px;">
+                        <summary>Transformations</summary>
+                        <ul>
+                        <li>Resize</li>
+                        <li>Flip vertical</li>
+                        <li>Flip horizontal</li>
+                        <li>Rotate (beta)</li>
+                        </ul>
+                    </details>
+                    
+                    <details style="margin-left: 20px;">
+                        <summary>Enhance</summary>
+                        <ul>
+                        <li>Sharpen</li>
+                        <li>Edge Enhance</li>
+                        </ul>
+                    </details>
+                </details>
+
+                <p>The effects in this list are constantly expanding. Please feel free to recommend an implementation of an effect in the Github.</p>
+            </section>
+
+            <section id="modification">
+                <h2>Procedures for addition</h2>
+                <b> Adding an effect </b><br>
+                1. Create class in respective effect sub/class and inherit that superclass.<br>
+                2. Implement all superclass methods and the getRandomInstance for the random effect feature.<br>
+                3. Add to EffectType enum with classifications and parameters for UI type and bounds.<br>
+                4. If the effect requires a parameter, add a @JsonProperty("value") directly before the parameter in the constructor of the effect. <br>
+                5. In the Effect superclass, add this line (with every other effect) with respect to your effect: @JsonSubTypes.Type(value = {theneweffect}.class, name = "neweffectname"). <br>
+                6. Add to AI prompt for stylize feature (temporary). <br>
+                <br>
+                <b> Adding an effect category </b><br>
+                1. Create new package in the effects directory.<br>
+                2. Create abstract super class for that category that extends Effect to make the effect identifiable under that category and have the opportunity to define any methods specific to that category.<br>
+                3. Just follow the procedure for <b> adding an effect </b> to create effects in that category.<br>
+                4. Make sure that these effects extend the category specific abstract superclass.<br>
+            </section>
+            
+            <section id="remarks">
+                <h2>How the project started</h2>
+                <p>
+                    Vision Vista started in my 8th grade summer, where it initially was a fun side project to solidify my Java skills. However, upon discovering the art of writing scalable code and the magic behind image manipulation,
+                    this quickly transformed into a much larger-scale project. I continued working on this project at random parts in 9th grade.
+                </p>
+                <!-- <h2>Final notes</h2>
+                <p>
+                    
+                </p> -->
+            </section>
+
+        </div>
+        <button onclick="location.href='index.html'" class="back-button">←</button>
+    </div>
+
+    <script src="js/menuBarEffects.js"></script>
+    <script src="js/aboutAnimations.js"></script>
+</body>
+</html>
