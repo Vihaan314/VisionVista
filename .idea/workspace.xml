@@ -5,24 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61be1baa-d2af-4601-81e5-39379323f518" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/about.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/css/FlatIntelliJLaf.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/how-it-works.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/icons/ai.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/icons/angles-right-solid.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/icons/camera.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/icons/paintbrush.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/images/Blurry-low-quality-female-portrait-picture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/images/New_york_times_square-terabass.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/images/VisionVistaDemoImage.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/js/aboutAnimations.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/js/howItWorksAnimations.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/js/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/js/menuBarEffects.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VisionVistaWebsite/js/visualize.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,7 +1,10 @@
 # VisionVista
-Image editor program made with java.
-Uses Java Swing for the UI and BufferedImage for 
-image manipulation.
+Vision Vista is an innovative image editor that is designed to enhance your images through advanced effects, easy-to-use tools, and AI-powered styling.
+<br>
+It is made in Java, uses Java Swing for the UI and Java's BufferedImage class for image manipulation.
+
+# To download Vision Vista and learn a lot about how it was made, visit the Vision Vista website!
+# https://vihaan314.github.io/VisionVistaWebsite/
 
 # Notable Features:
 <b>File</b>
@@ -129,6 +132,9 @@ image manipulation.
   <p>Effects are expanding</p>
 
 </details>
+
+# AI-Stylize feature:
+This feature relies on an API request to one of OpenAI's APIs, and thus, you must provide an OpenAI API (<a target="_blank" href="https://platform.openai.com/docs/quickstart">how to create it</a>) key in the UI (when clicking on the stylize) in order for the AI-stylize to work.
 
 # Procedures
 <b> Adding an effect </b><br>
