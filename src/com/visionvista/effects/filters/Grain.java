@@ -24,7 +24,7 @@ public class Grain extends Filter {
     @Override
     protected int applyEffect(int red, int green, int blue) {
         Random random = new Random();
-        int noise = (int) (random.nextGaussian() * intensity/3);
+        int noise = (int) (random.nextGaussian() * intensity/4);
 
         int newRed = ColorManipulator.truncate(red + noise);
         int newGreen = ColorManipulator.truncate(green + noise);

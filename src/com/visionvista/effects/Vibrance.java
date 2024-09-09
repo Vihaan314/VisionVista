@@ -32,7 +32,7 @@ public class Vibrance extends Effect{
         double max = Math.max(Math.max(unGammaR, unGammaG), unGammaB);
         double min = Math.min(Math.min(unGammaR, unGammaG), unGammaB);
 
-        double scale = 0.5*amount;
+        double scale = amount/3.2;
 
         if (max == unGammaR) {
             double t = (max == min) ? 0 : (unGammaG - unGammaB) / (max - min);

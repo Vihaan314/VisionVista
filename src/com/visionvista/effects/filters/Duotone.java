@@ -1,11 +1,10 @@
 package com.visionvista.effects.filters;
 
-import com.visionvista.effects.Hue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.Serial;
 
 public class Duotone extends Filter {
@@ -19,6 +18,11 @@ public class Duotone extends Filter {
         super();
         this.color1 = color1;
         this.color2 = color2;
+    }
+
+    public Duotone(@JsonProperty("red1") int red1, @JsonProperty("green1") int green1, @JsonProperty("blue1") int blue1, @JsonProperty("red2") int red2, @JsonProperty("green2") int green2, @JsonProperty("blue2") int blue2) {
+        this.color1 = new Color((((red1 % 256) + 256) % 256), (((green1 % 256) + 256) % 256), (((blue1 % 256) + 256) % 256));
+        this.color2 = new Color((((red2 % 256) + 256) % 256), (((green2 % 256) + 256) % 256), (((blue2 % 256) + 256) % 256));
     }
 
     @Override protected int applyEffect(int red, int green, int blue) {

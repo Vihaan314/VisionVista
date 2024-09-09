@@ -45,39 +45,40 @@ public class ImageStylizeAI {
             - Hue (RGB)
             - Temperature (0, 100)
             - Sepia (0, 10) - yellow-grayish look
+            - Duotone (RGB1, RGB2)
             - Glow (0, 10)
             - Vignette (0, 50) - quite intense even at smaller values
             - Oil Painting (0, 50)
             - Color Splash (0, 50) - Adds random paint splashes
-            - Pixel sort (0, 255) - Creates epic glitched effect, most effect around 150
+            - Pixel Sort (0, 255) - Creates epic glitched effect, most effect around 150
             - Pixelate (0, 50)
             - Chromatic Aberration (0, 10) - Creates color fringing to simulate a 3D effect
             - Anaglyph 3D (0, 30)
             - Box Blur (0, 10)
             - Gaussian Blur (0, 10)
             - Bokeh Blur (0, 20) - Adds soft, fuzzy, dream-like blur
-            - Tilt shift (0, 10) - Soft blur to edges of image
+            - Tilt Shift (0, 10) - Soft blur to edges of image
             - Sharpen (0, 10)
             - Rotate (degrees)
             - Grain (0, 100)
+            - Watercolor (0, 20)
+            - Halftone (0, 20) - Reproduces image with circular dots for a printed look
     
             Fixed effects:
             - Grayscale
             - Negative
-            - Cross process - Brighter blue tones
+            - Cross Process - Brighter blue tones
             - Solarize - Inverts tones in an image, creating surreal effects
             - Split tone - Applies an intense blue-yellowish filter
             - Heat map - Visualizes image as thermal colors
             - Infrared - Simulates infrared photography
-            - Halftone - Reproduces images with dots for a printed look
-            - Watercolor
             - Cyberpunk - Accentuates futuristic blue tones to the image
-            - Pencil sketch
+            - Pencil Sketch
             - Posterize - Turns darker, black / red tones,
             - Lomography - Brighter green tone
             - Resize
-            - Flip vertical
-            - Flip horizontal
+            - Flip Vertical
+            - Flip Horizontal
             - Edge Enhance
             """;
         //Include edge cases in example
@@ -89,11 +90,12 @@ public class ImageStylizeAI {
                     {"effect": "Gaussian Blur", "value": 5},
                     {"effect": "Grayscale"},
                     {"effect": "Hue", "red": 50, "green": 50, "blue": 125}
+                    {"effect": "Duotone", "red1": 50, "green1": 50, "blue1": 125, red2": 22, "green2": 70, "blue2": 12}
                 ]
                 """;
 
         return """
-            Given the desired image style (e.g., "Nostalgic and cinematic look"), create a JSON with the effects and parameters. Provide 12 effects maximum. For colors, refer to the example, for multi-word effect, write in capitalized case. Provide no other text but just the JSON, like the example. Use only the effects listed.
+            Given the desired image style (e.g., "Nostalgic and cinematic look"), create a JSON with the effects and parameters. Provide 12 effects maximum (12 not required). For colors, refer to the example, for multi-word effect, write in capitalized case. Provide no other text but just the JSON, like the example. Use only the effects listed.
             """
                 + respondJson +
             """
@@ -109,10 +111,11 @@ public class ImageStylizeAI {
     public void generateEffectsList() throws Exception {
         String prompt = generatePrompt();
         userImage = EditorState.getInstance().getImage();
-        System.out.println(userImage);
+//        System.out.println(userImage);
         String imageURL = "data:image/jpeg;base64," + MiscHelper.imageToBase64(userImage);
-        System.out.println(prompt);
-        VisionApiResponse responseobj = new EasyVisionService().VisionAPI(System.getenv("OPENAI-GPT4-KEY"), new EasyVisionRequest()
+//        System.out.println(prompt);
+        System.out.println(System.getProperty("OPENAI-GPT4-KEY"));
+        VisionApiResponse responseobj = new EasyVisionService().VisionAPI(System.getProperty("OPENAI-GPT4-KEY"), new EasyVisionRequest()
                 .setModel("gpt-4o-2024-08-06")
                 .setPrompt(prompt)
                 .setMaxtokens(500)
@@ -123,17 +126,19 @@ public class ImageStylizeAI {
         System.out.println(response);
     }
 
-    private void extractEffects() throws JsonProcessingException {
-        effectsList = new ArrayList<>();
-
-        //Extract only the JSON part
+    private void parseResponse() {
         Pattern pattern = Pattern.compile("\\[(.*?)\\]", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(response);
         if (matcher.find()) {
             response = matcher.group(0);
             System.out.println(response);
         }
+    }
 
+    private void extractEffects() throws JsonProcessingException {
+        effectsList = new ArrayList<>();
+        //Extract only from when the JSON part starts
+        parseResponse();
         //Configure object mapper
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //Convert JSON to instances of effects
@@ -145,8 +150,4 @@ public class ImageStylizeAI {
         extractEffects();
         return effectsList;
     }
-//
-//    public static void main(String[] args) throws JsonProcessingException {
-//        extractEffects();
-//    }
 }

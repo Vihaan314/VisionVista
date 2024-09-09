@@ -11,12 +11,15 @@ public class PromptWindow {
     private String selectedModel;
     private String selectedQuality;
 
+    private String apiKey;
+
     private JDialog promptDialog;
 
     private static final String[] models = {"dall-e-3", "dall-e-2"};
     private static final String[] qualities = {"hd", "medium", "low"};
 
-    private boolean modelDisplay = true;
+    private boolean modelDisplay = false;
+    private boolean apiKeyDisplay = false;
 
     public PromptWindow(String description, String buttonText, JFrame parentFrame) {
         this.description = description;
@@ -26,6 +29,10 @@ public class PromptWindow {
 
     public void setModelDisplay(boolean modelDisplay) {
         this.modelDisplay = modelDisplay;
+    }
+
+    public void setApiKeyDisplay(boolean apiKeyDisplay) {
+        this.apiKeyDisplay = apiKeyDisplay;
     }
 
     public void createPromptWindow() {
@@ -40,6 +47,9 @@ public class PromptWindow {
         JComboBox<String> modelComboBox = new JComboBox<>(models);
         JComboBox<String> qualityComboBox = new JComboBox<>(qualities);
 
+        JLabel apiFieldLabel = new JLabel("Enter your API key");
+        JTextField apiKeyField = new JTextField();
+
         //Give model choosing options if model mode is true
         if (modelDisplay) {
             modelComboBox.setSelectedIndex(0);
@@ -52,15 +62,26 @@ public class PromptWindow {
             prompt = promptField.getText();
             selectedModel = (String) modelComboBox.getSelectedItem();
             selectedQuality = (String) qualityComboBox.getSelectedItem();
+
+            if (apiKeyDisplay) {
+                apiKey = apiKeyField.getText();
+                System.setProperty("OPENAI-GPT4-KEY", apiKey);
+            }
             promptDialog.dispose();
         });
 
-        promptDialog.add(titleLabel);
-        promptDialog.add(promptField);
         if (modelDisplay) {
             promptDialog.add(modelComboBox);
             promptDialog.add(qualityComboBox);
         }
+        if (apiKeyDisplay & System.getProperty("OPENAI-GPT4-KEY") == null) {
+            promptDialog.add(apiFieldLabel);
+            promptDialog.add(apiKeyField);
+        }
+
+        promptDialog.add(titleLabel);
+        promptDialog.add(promptField);
+
         promptDialog.add(generateButton);
 
         promptDialog.setLocationRelativeTo(parentFrame);

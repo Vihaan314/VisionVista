@@ -1,6 +1,7 @@
 package com.visionvista.effects.filters;
 
 import com.visionvista.effects.EffectType;
+import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
@@ -9,48 +10,56 @@ import java.awt.image.BufferedImage;
 import java.io.Serial;
 
 public class Halftone extends Filter {
-
     @Serial
     private static final long serialVersionUID = -4159776900599531080L;
 
-    public Halftone() {
+    private double dotSize;
+
+    public Halftone(double dotSize) {
         super();
+        this.dotSize = dotSize;
     }
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage result = getEmptyImage(image);
+        int width = image.getWidth();
+        int height = image.getHeight();
+        BufferedImage halftoneImage = getEmptyImage(image);
 
-        int radius = 2; //Size of the dots
-        for (int y = 0; y < image.getHeight(); y += radius * 2) {
-            for (int x = 0; x < image.getWidth(); x += radius * 2) {
-                int areaAvg = getAverageColor(image, x, y, radius);
-                int diameter = (int) (radius * 2 * areaAvg / 255.0);
-                Graphics2D g2d = result.createGraphics();
-                g2d.setColor(Color.BLACK);
-                g2d.fillOval(x, y, diameter, diameter);
-                g2d.dispose();
+        Graphics2D graphics = halftoneImage.createGraphics();
+        graphics.setColor(Color.WHITE);
+        graphics.fillRect(0, 0, width, height);
+
+        int adjustedDotSize = (dotSize == 0) ? 0 : ((int) dotSize+2);
+        if (adjustedDotSize == 0) {
+            return image;
+        }
+        for (int y = 0; y < height; y += adjustedDotSize) {
+            for (int x = 0; x < width; x += adjustedDotSize) {
+                Color avgColor = getAverageColor(image, x, y, adjustedDotSize);
+                graphics.setColor(avgColor);
+                graphics.fillOval(x, y, adjustedDotSize, adjustedDotSize);
             }
         }
 
-        return result;
+        graphics.dispose();
+        return halftoneImage;
     }
 
-    private int getAverageColor(BufferedImage image, int x, int y, int radius) {
-        int sum = 0;
-        int count = 0;
+    private Color getAverageColor(BufferedImage image, int xStart, int yStart, int dotSize) {
+        int redSum = 0, greenSum = 0, blueSum = 0, count = 0;
 
-        for (int dy = -radius; dy <= radius; dy++) {
-            for (int dx = -radius; dx <= radius; dx++) {
-                if (x + dx >= 0 && x + dx < image.getWidth() && y + dy >= 0 && y + dy < image.getHeight()) {
-                    Color color = new Color(image.getRGB(x + dx, y + dy));
-                    int gray = (color.getRed() + color.getGreen() + color.getBlue()) / 3;
-                    sum += gray;
-                    count++;
-                }
+        for (int y = yStart; y < yStart + dotSize && y < image.getHeight(); y++) {
+            for (int x = xStart; x < xStart + dotSize && x < image.getWidth(); x++) {
+                Color pixelColor = new Color(image.getRGB(x, y));
+                redSum += pixelColor.getRed();
+                greenSum += pixelColor.getGreen();
+                blueSum += pixelColor.getBlue();
+                count++;
             }
         }
-        return count > 0 ? sum / count : 0;
+
+        return new Color(redSum / count, greenSum / count, blueSum / count);
     }
 
     @Override
@@ -59,6 +68,7 @@ public class Halftone extends Filter {
     }
 
     public static Halftone getRandomInstance() {
-        return new Halftone();
+        Pair<Integer, Integer> bounds = EffectType.HALFTONE.getSliderBounds();
+        return new Halftone(ImageHelper.getRandomParameter(bounds));
     }
 }

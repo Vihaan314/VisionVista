@@ -24,9 +24,9 @@ public class EdgeEnhance extends Enhance {
     @Override
     public BufferedImage run(BufferedImage image) {
         float[] edgeKernel = {
-                0f, -1f, 0f,
-                -1f, 5f, -1f,
-                0f, -1f, 0f
+                0f, -0.5f, 0f,
+                -0.5f, 3f, -0.5f,
+                0f, -0.5f, 0f
         };
         Kernel kernel = new Kernel(3, 3, edgeKernel);
         ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
@@ -37,3 +37,4 @@ public class EdgeEnhance extends Enhance {
         return new EdgeEnhance();
     }
 }
+

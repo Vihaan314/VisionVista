@@ -28,7 +28,7 @@ public class BokehBlur extends Blur {
 
     @Override
     public BufferedImage run(BufferedImage image) {
-        BufferedImage blurredImage = new GaussianBlur(intensity).run(image);
+        BufferedImage blurredImage = new GaussianBlur((double) intensity / 1.6).run(image);
         BufferedImage result = getEmptyImage(image);
 
         //Enhance bokeh effect by merging with original based on luminance

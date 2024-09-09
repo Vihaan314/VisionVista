@@ -5,9 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61be1baa-d2af-4601-81e5-39379323f518" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageGenerationAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageGenerationAI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/ImageStylizeAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/ImageStylizeAI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/commands/AICommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/components/PromptWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/components/PromptWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Effect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Effect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/EffectType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/EffectType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/Vibrance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/Vibrance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/OilPainting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/OilPainting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/Watercolor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/artistic/Watercolor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/blur/BokehBlur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/blur/BokehBlur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/blur/TiltShift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/blur/TiltShift.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/enhance/EdgeEnhance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/enhance/EdgeEnhance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/enhance/Sharpen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/enhance/Sharpen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Duotone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Duotone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Grain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Grain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Halftone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/effects/filters/Halftone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/visionvista/utils/ColorManipulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/visionvista/utils/ColorManipulator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,9 +152,6 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
-      <envs>
-        <env name="OPENAI-GPT4-KEY" value="sk-proj-TS6ndXE6WQBpYLZWmW9pT3BlbkFJrkTFMlQfFFewq9jxncRG" />
-      </envs>
       <option name="MAIN_CLASS_NAME" value="com.visionvista.Main" />
       <module name="VisionVista" />
       <extension name="coverage">

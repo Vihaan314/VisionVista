@@ -39,12 +39,15 @@ public class Sharpen extends Enhance {
                 -1.0f,  5.0f, -1.0f,
                 0.0f, -1.0f, 0.0f
         };
+
+        float scaledAmount = (float) (amount / 10);
+
         for (int i = 0; i < SHARPEN3x3.length; i++) {
             if (i != 4) {
-                SHARPEN3x3[i] *= (float) amount;
+                SHARPEN3x3[i] *= scaledAmount;
             }
         }
-        SHARPEN3x3[4] = 1.0f + 4.0f * Math.abs((float) amount);
+        SHARPEN3x3[4] = 1.0f + 4.0f * Math.abs(scaledAmount);
 
         ConvolveOp convolve = new ConvolveOp(new Kernel(3, 3, SHARPEN3x3), ConvolveOp.EDGE_NO_OP, null);
         convolve.filter(image, sharpenedImg);

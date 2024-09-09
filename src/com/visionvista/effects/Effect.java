@@ -35,6 +35,7 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = FlipVertical.class, name = "Flip Vertical"),
         @JsonSubTypes.Type(value = FlipHorizontal.class, name = "Flip Horizontal"),
         //Filters
+        @JsonSubTypes.Type(value=Duotone.class, name = "Duotone"),
         @JsonSubTypes.Type(value = Grayscale.class, name = "Grayscale"),
         @JsonSubTypes.Type(value = Heatmap.class, name = "Heatmap"),
         @JsonSubTypes.Type(value = Infrared.class, name = "Infrared"),

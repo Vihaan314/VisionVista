@@ -50,14 +50,18 @@ public class ImageGenerationAI {
 
     public static void generateImage(String userPrompt, String model, String quality) throws Exception {
         System.out.println(userPrompt);
+        //Build the image request with desired parameters
         ImageRequest imageRequest  = ImageRequest.builder()
                 .prompt(userPrompt)
                 .model(model)
                 .quality(quality)
                 .build();
         ImageResponse response = new EasyopenaiService(new DAOImpl()).createImage(System.getenv("OPENAI-GPT4-KEY"),imageRequest);
+        //Convert response to URL
         URL imageURL = new URI(response.getData().get(0).getUrl()).toURL();
+        //Get the image from the URL
         BufferedImage generatedImage = new Resize(983, 983).run(ImageIO.read(imageURL));
+        //Create the editor to display the generated image
         EditorState.getInstance().setImage(generatedImage);
         EffectHistory effectHistory = new EffectHistory();
         effectHistory.add(null, generatedImage);
