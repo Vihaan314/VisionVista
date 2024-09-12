@@ -153,6 +153,11 @@ public class Watercolor extends Artistic {
         return "Applied Watercolor";
     }
 
+    public String getDescription() {
+        return "Watercolor (0, 12): ";
+    }
+
+
     public static Watercolor getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.WATERCOLOR.getSliderBounds();
         return new Watercolor(ImageHelper.getRandomParameter(bounds));

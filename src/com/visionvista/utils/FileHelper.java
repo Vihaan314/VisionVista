@@ -36,8 +36,13 @@ public class FileHelper {
         JFileChooser f = new JFileChooser();
         f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         f.showSaveDialog(null);
-
-        return String.valueOf(f.getSelectedFile());
+        int result = f.showSaveDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            return String.valueOf(f.getSelectedFile());
+        } else if (result == JFileChooser.CANCEL_OPTION) {
+            System.out.println("Cancel was selected");
+        }
+        return null;
     }
 
     public static JFileChooser addFileFilter(String[] extensions, String description) {
@@ -52,7 +57,6 @@ public class FileHelper {
     }
 
     public static String chooseFile(String[] extensions, String description) {
-        //Get path to chosen file
         JFileChooser f = new JFileChooser();
         ListFileFilter listFileFilter = new ListFileFilter(extensions, description);
 
@@ -61,8 +65,16 @@ public class FileHelper {
 
         int result = f.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
-            return f.getSelectedFile().getAbsolutePath();
+            File selectedFile = f.getSelectedFile();
+            if (selectedFile == null || !selectedFile.exists()) {
+                JOptionPane.showMessageDialog(null, "Invalid file selected. Please choose a valid file.", "Error", JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
+            return selectedFile.getAbsolutePath();
+        } else if (result == JFileChooser.CANCEL_OPTION || result == JFileChooser.ERROR_OPTION) {
+            JOptionPane.showMessageDialog(null, "No file chosen.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
         return null;
     }
+
 }

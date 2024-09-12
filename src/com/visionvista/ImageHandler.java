@@ -33,20 +33,26 @@ public class ImageHandler {
     }
 
     public void openImage() {
+        //Only allow image files to be opened
         String[] imageFormats = {"jpg", "jpeg", "png", "gif", "bmp"};
         JFileChooser fileChooser = FileHelper.addFileFilter(imageFormats, "Images");
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
+            //If no selected file, return error
+            if (selectedFile == null || !selectedFile.exists()) {
+                JOptionPane.showMessageDialog(null, "Invalid file selected. Please choose a valid image file.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             String fileNameRaw = selectedFile.getName();
             //Splits by necessary parts of file name - name and extension
             fileNameBroken = fileNameRaw.split("[.]");
-
             try {
+                //Fit image to window
                 BufferedImage image = ImageHelper.fitImageToWindow(ImageIO.read(selectedFile));
                 //Set the original image to be displayed
                 EditorState.getInstance().setImage(image);
-                //Add and keep to effect history
+                //Add to effect history
                 effectHistory.add(null, image);
                 EditorState.getInstance().setState(effectHistory);
 
@@ -76,10 +82,15 @@ public class ImageHandler {
 
         openImageButton.addActionListener(e -> {
             try {
+                //If no URL, display error
+                if (urlField.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid URL.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 //Process URL to necessary file parts
                 URL imageURL = new URI(urlField.getText()).toURL();
                 fileNameBroken = urlField.getText().split("/");
-                fileNameBroken = fileNameBroken[fileNameBroken.length-1].split("[.]");
+                fileNameBroken = fileNameBroken[fileNameBroken.length - 1].split("[.]");
                 //Setup editor
                 BufferedImage image = ImageHelper.fitImageToWindow(ImageIO.read(imageURL));
                 EditorState.getInstance().setImage(image);
@@ -89,6 +100,7 @@ public class ImageHandler {
                 editor = new ImageEditor("Vision Vista", fileNameBroken);
                 editor.show();
             } catch (IOException | URISyntaxException ex) {
+                JOptionPane.showMessageDialog(null, "Error loading image from URL. Please check the URL and try again.", "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         });
@@ -100,11 +112,17 @@ public class ImageHandler {
         urlFrame.setVisible(true);
     }
 
+
     public void openRecentProject() {
-        JFileChooser fileChooser = FileHelper.addFileFilter(new String[] {".dat"}, "Vision Vista Project");
+        JFileChooser fileChooser = FileHelper.addFileFilter(new String[]{".dat"}, "Vision Vista Project");
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
+            //Process error
+            if (selectedFile == null || !selectedFile.exists()) {
+                JOptionPane.showMessageDialog(null, "Invalid project file selected. Please choose a valid project file.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             String fileNameRaw = selectedFile.getName();
             //Splits by necessary parts of file name - name and extension
             fileNameBroken = fileNameRaw.split("[.]");
@@ -113,12 +131,13 @@ public class ImageHandler {
                 //Read serialized project
                 EffectHistorySerializer deserialized = new EffectHistorySerializer();
                 deserialized.readEffects(selectedFile);
-                //Extract necessary components to generate history sequence and run editor
+                //Extract components (image + effects list) to create the effect history and run the editor
                 ArrayList<Effect> effectsList = deserialized.getEffectsList();
                 BufferedImage initialImage = deserialized.getInitialImage();
                 effectHistory = new EffectHistory();
                 effectHistory.setEffectSequence(effectsList, initialImage);
                 EditorState.getInstance().setState(effectHistory);
+
                 editor = new ImageEditor("Vision Vista", fileNameBroken);
                 editor.show();
             } catch (Exception ex) {

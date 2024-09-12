@@ -49,7 +49,6 @@ public class ImageGenerationAI {
 
 
     public static void generateImage(String userPrompt, String model, String quality) throws Exception {
-        System.out.println(userPrompt);
         //Build the image request with desired parameters
         ImageRequest imageRequest  = ImageRequest.builder()
                 .prompt(userPrompt)

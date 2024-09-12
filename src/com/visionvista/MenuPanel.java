@@ -11,6 +11,7 @@ import com.visionvista.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -119,24 +120,24 @@ public class MenuPanel {
         addItemToMenu("File", "Save with Text", fileCommands.createSaveImageWithTextCommand(), false);
 
         SerializingCommands serializingCommands = new SerializingCommands(stateBasedUIComponentGroup);
-        addItemToMenu("Project", "Save Project", serializingCommands.createEffectHistorySerializeCommand(), false);
-        addItemToMenu("Project", "Load Project", serializingCommands.createEffectHistoryLoadCommand(), false);
-        addItemToMenu("Project", "Save Effect Sequence", serializingCommands.createEffectSerializeCommand(), false);
-        addItemToMenu("Project", "Load Effect Sequence", serializingCommands.createEffectLoadCommand(), false);
+        addItemToMenu("Project", "Save Project", serializingCommands.createEffectHistorySerializeCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK), false);
+        addItemToMenu("Project", "Load Project", serializingCommands.createEffectHistoryLoadCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK), false);
+        addItemToMenu("Project", "Save Effect Sequence", serializingCommands.createEffectSerializeCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK), false);
+        addItemToMenu("Project", "Load Effect Sequence", serializingCommands.createEffectLoadCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK), false);
 
         EffectHistoryCommands effectHistoryCommands = new EffectHistoryCommands(stateBasedUIComponentGroup);
-        addItemToMenu("Edit", "Timeline", imageTimeline::show, false);
-        addItemToMenu("Edit", "Undo", effectHistoryCommands.createUndoCommand(), false);
-        addItemToMenu("Edit", "Redo", effectHistoryCommands.createRedoCommand(), false);
-        addItemToMenu("Edit", "Reset", effectHistoryCommands.createResetCommand(), false);
+        addItemToMenu("Edit", "Timeline", imageTimeline::show, KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_DOWN_MASK), false);
+        addItemToMenu("Edit", "Undo", effectHistoryCommands.createUndoCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK), false);
+        addItemToMenu("Edit", "Redo", effectHistoryCommands.createRedoCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_DOWN_MASK), false);
+        addItemToMenu("Edit", "Reset", effectHistoryCommands.createResetCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK), false);
 
         MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
-        addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand(), false);
-        addItemToMenu("Apply", "Random effect (multiple)", miscCommands.createMultipleRandomEffectsCommand(), false);
+        addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK), false);
+        addItemToMenu("Apply", "Random effect (multiple)", miscCommands.createMultipleRandomEffectsCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK), false);
 
         AICommands aiCommands = new AICommands();
         aiCommands.setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
-        addItemToMenu("Generate", "Style", aiCommands.createImageStylizeCommand(), false);
+        addItemToMenu("Generate", "Style", aiCommands.createImageStylizeCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK | InputEvent.ALT_DOWN_MASK), false);
         addItemToMenu("Generate", "Image", aiCommands.createImageGenerationCommand(null), false);
     }
 

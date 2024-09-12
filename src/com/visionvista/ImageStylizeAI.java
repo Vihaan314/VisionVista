@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.visionvista.effects.Effect;
 import com.visionvista.utils.MiscHelper;
+import com.visionvista.utils.Pair;
 import io.github.namankhurpia.Pojo.MyModels.EasyVisionRequest;
 import io.github.namankhurpia.Pojo.Vision.VisionApiResponse;
 import io.github.namankhurpia.Service.EasyVisionService;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,7 +71,7 @@ public class ImageStylizeAI {
             - Negative
             - Cross Process - Brighter blue tones
             - Solarize - Inverts tones in an image, creating surreal effects
-            - Split tone - Applies an intense blue-yellowish filter
+            - Split tone - Applies an intense cool blue filter
             - Heat map - Visualizes image as thermal colors
             - Infrared - Simulates infrared photography
             - Cyberpunk - Accentuates futuristic blue tones to the image
@@ -111,9 +113,7 @@ public class ImageStylizeAI {
     public void generateEffectsList() throws Exception {
         String prompt = generatePrompt();
         userImage = EditorState.getInstance().getImage();
-//        System.out.println(userImage);
         String imageURL = "data:image/jpeg;base64," + MiscHelper.imageToBase64(userImage);
-//        System.out.println(prompt);
         System.out.println(System.getProperty("OPENAI-GPT4-KEY"));
         VisionApiResponse responseobj = new EasyVisionService().VisionAPI(System.getProperty("OPENAI-GPT4-KEY"), new EasyVisionRequest()
                 .setModel("gpt-4o-2024-08-06")
@@ -123,7 +123,6 @@ public class ImageStylizeAI {
                     add(imageURL);
                 }}));
         this.response = responseobj.getChoices().get(0).getSystemMessage().content;
-        System.out.println(response);
     }
 
     private void parseResponse() {
@@ -131,7 +130,6 @@ public class ImageStylizeAI {
         Matcher matcher = pattern.matcher(response);
         if (matcher.find()) {
             response = matcher.group(0);
-            System.out.println(response);
         }
     }
 
@@ -142,8 +140,16 @@ public class ImageStylizeAI {
         //Configure object mapper
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //Convert JSON to instances of effects
-        effectsList = Arrays.asList(mapper.readerFor(Effect[].class).readValue(response));
-        System.out.println((effectsList));
+        try {
+            effectsList = Arrays.asList(mapper.readerFor(Effect[].class).readValue(response));
+            System.out.println((effectsList));
+        }
+        catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "Unable to parse response. Trying again");
+            generatePrompt();
+            effectsList = Arrays.asList(mapper.readerFor(Effect[].class).readValue(response));
+            System.out.println((effectsList));
+        }
     }
 
     public List<Effect> getEffectsList() throws JsonProcessingException {

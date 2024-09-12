@@ -2,6 +2,7 @@ package com.visionvista.effects.blur;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectType;
+import com.visionvista.utils.FocusAreaDetector;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
@@ -35,6 +36,8 @@ public class TiltShift extends Blur {
         //Estimate the focus area of the image (will not be blurred)
         int focusAreaStart = image.getHeight() / 3;
         int focusAreaEnd = 2 * image.getHeight() / 3;
+        FocusAreaDetector focusAreaDetector = new FocusAreaDetector();
+        Rectangle focusArea = focusAreaDetector.getFocusRegion(image);
 
         BufferedImage blurredImage = new GaussianBlur(intensity).run(image);
         BufferedImage result = getEmptyImage(image);

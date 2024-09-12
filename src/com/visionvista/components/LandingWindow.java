@@ -31,7 +31,7 @@ public class LandingWindow {
         gbc.weightx = 1.0;
         gbc.weighty = 0.2;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(100, 0, 0, 0);  //Top padding
+        gbc.insets = new Insets(100, 0, 0, 0);
 
         JLabel openingText = new JLabel("Vision Vista");
         openingText.setFont(new Font("Arial", Font.BOLD, 24));

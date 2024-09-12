@@ -5,6 +5,7 @@ import com.visionvista.utils.FileHelper;
 import com.visionvista.utils.Pair;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
@@ -39,14 +40,15 @@ public class EffectHistorySerializer implements Serializable {
         effectsList = EditorState.getInstance().getEffectHistory().extractEffectsList();
         initialImage = EditorState.getInstance().getEffectHistory().getFirstImage();
         String directory = FileHelper.chooseDirectory();
-        filename = directory + File.separator + FileHelper.getEditedFile(directory, filename, "dat", "_project-sequence").getName();
-        System.out.println(filename);
-        File serializeFile = new File(filename);
+        if (directory != null) {
+            filename = directory + File.separator + FileHelper.getEditedFile(directory, filename, "dat", "_project-sequence").getName();
+            File serializeFile = new File(filename);
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(serializeFile))) {
-            writeObject(out);
-        } catch (IOException e) {
-            e.printStackTrace();
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(serializeFile))) {
+                writeObject(out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -66,7 +68,6 @@ public class EffectHistorySerializer implements Serializable {
     public void readEffects(File serializedFile) {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(serializedFile))) {
             readObject(in);
-            System.out.println(effectsList);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -74,8 +75,12 @@ public class EffectHistorySerializer implements Serializable {
 
     public void readSerializedEffects() {
         String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista project");
-        File serializedFile = new File(filename);
-        readEffects(serializedFile);
+        if (filename != null) {
+            File serializedFile = new File(filename);
+            readEffects(serializedFile);
+        }
+//        else {
+//            JOptionPane.showMessageDialog(null, "Invalid file selected. Please choose a valid file.", "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
-
 }

@@ -95,17 +95,4 @@ public class EffectHistory implements Serializable {
         return this.effectSequence.get(index).left();
     }
 
-    public Effect getLastEffectInstance(EffectType effect) {
-        ArrayList<Pair<Effect, BufferedImage>> temp = new ArrayList<>(this.getEffectSequence());
-        Collections.reverse(temp);
-        for (Pair<Effect, BufferedImage> effectInstance : temp) {
-            if ((effectInstance.left() != null)) {
-                System.out.println(EffectType.fromLabel(effectInstance.left().getClass().getSimpleName()));
-                if (EffectType.fromLabel(effectInstance.left().getClass().getSimpleName()) == effect) {
-                    return effectInstance.left();
-                }
-            }
-        }
-        return null;
-    }
 }

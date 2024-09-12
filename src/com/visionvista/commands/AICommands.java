@@ -25,7 +25,6 @@ public class AICommands {
             promptWindow.setApiKeyDisplay(true);
             promptWindow.createPromptWindow();
             promptWindow.show();
-            System.out.println(System.getProperty("OPENAI-GPT4-KEY"));
             String prompt = promptWindow.getPrompt();
             if (prompt != null) {
                 //Create Stylize AI
