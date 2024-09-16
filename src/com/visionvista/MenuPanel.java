@@ -135,7 +135,7 @@ public class MenuPanel {
         addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK), false);
         addItemToMenu("Apply", "Random effect (multiple)", miscCommands.createMultipleRandomEffectsCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK), false);
 
-        //TODO
+        //TODO 
         addItemToMenu("Effects", "Search", miscCommands.createEffectSearchCommand(), true);
 
         AICommands aiCommands = new AICommands();
