@@ -1,12 +1,15 @@
 package com.visionvista.effects.filters;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectDescription;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 
 import java.awt.*;
 import java.io.Serial;
 
+@EffectParameter(parameters = "RGB1, RGB2")
 public class Duotone extends Filter {
     @Serial
     private static final long serialVersionUID = -25512245131277779L;

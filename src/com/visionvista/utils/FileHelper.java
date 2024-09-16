@@ -56,8 +56,9 @@ public class FileHelper {
         return f;
     }
 
-    public static String chooseFile(String[] extensions, String description) {
+    public static String chooseFile(String[] extensions, String description, String dialogTitle) {
         JFileChooser f = new JFileChooser();
+        f.setDialogTitle(dialogTitle);
         ListFileFilter listFileFilter = new ListFileFilter(extensions, description);
 
         f.setFileFilter(listFileFilter);

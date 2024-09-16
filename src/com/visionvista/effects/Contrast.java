@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectParameter(parameters = "-100, 100")
 public class Contrast extends Effect{
     @Serial
     private static final long serialVersionUID = 7444703618395475853L;

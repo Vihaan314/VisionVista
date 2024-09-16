@@ -2,6 +2,7 @@ package com.visionvista.effects.filters;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.blending.ColorDodge;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.effects.blur.GaussianBlur;
 import com.visionvista.utils.ImageHelper;
@@ -10,6 +11,7 @@ import com.visionvista.utils.Pair;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectParameter(parameters = "0, 10")
 public class Glow extends Filter {
     @Serial
     private static final long serialVersionUID = 3829537176814306081L;

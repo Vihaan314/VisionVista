@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectParameter(parameters = "RGB")
 public class Hue extends Effect{
     @Serial
     private static final long serialVersionUID = -5079533650035834989L;

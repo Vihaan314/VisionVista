@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectParameter(parameters = "0, 100")
 public class Saturation extends Effect{
     @Serial
     private static final long serialVersionUID = 1219410747444288209L;

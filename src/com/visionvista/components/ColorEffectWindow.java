@@ -6,6 +6,7 @@ import com.visionvista.ImageTimeline;
 import com.visionvista.StateBasedUIComponentGroup;
 import com.visionvista.commands.Command;
 import com.visionvista.effects.*;
+import com.visionvista.utils.KeyBinder;
 
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
@@ -15,6 +16,8 @@ import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
 public class ColorEffectWindow {
@@ -25,14 +28,21 @@ public class ColorEffectWindow {
     private JPanel colorPanel = new JPanel();
     final Color[] chosenColor = {null};
 
-    private final StateBasedUIComponentGroup stateBasedUIComponentGroup;
+    private StateBasedUIComponentGroup stateBasedUIComponentGroup;
 
-    public JFrame setupColorFrame(EffectType effect) {
-        JFrame colorFrame = new JFrame(effect.toString() + " color chooser");
+    private Command onWindowClose = () -> stateBasedUIComponentGroup.updateAllUIFromState();
+
+    public void setupColorFrame(EffectType effect) {
+        colorFrame = new JFrame(effect.toString() + " color chooser");
         colorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         colorFrame.setSize(650, 400);
         colorFrame.setLocationRelativeTo(null);
-        return colorFrame;
+        colorFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                stateBasedUIComponentGroup.updateAllUIFromState();
+            }
+        });
     }
 
     public JPanel getColorPanel() {
@@ -89,7 +99,8 @@ public class ColorEffectWindow {
 
     public ColorEffectWindow(EffectType effect, StateBasedUIComponentGroup stateBasedUIComponentGroup) {
         this.effect = effect;
-        this.colorFrame = setupColorFrame(effect);
+        setupColorFrame(effect);
+        KeyBinder.addCtrlWCloseKeyBinding(colorFrame, onWindowClose);
         this.colorChooser = setupColorChooser();
         this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
     }
@@ -119,9 +130,9 @@ public class ColorEffectWindow {
             //Set new states
             EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
             EditorState.getInstance().setImage(finalImage);
-            // Update the display with the final image
+            //Update the display with the final image
             stateBasedUIComponentGroup.updateAllUIFromState();
-            // Close slider window when submit pressed
+            //Close slider window when submit pressed
             getColorFrame().dispose();
         };
     }

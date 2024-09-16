@@ -1,7 +1,9 @@
 package com.visionvista.effects.artistic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectDescription;
 import com.visionvista.effects.EffectType;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.blur.GaussianBlur;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
@@ -14,6 +16,7 @@ import java.util.Random;
 
 import static com.visionvista.utils.ColorManipulator.clampCoordinate;
 
+@EffectParameter(parameters = "0, 12")
 public class Watercolor extends Artistic {
     @Serial
     private static final long serialVersionUID = -3395732790973255657L;
@@ -152,11 +155,6 @@ public class Watercolor extends Artistic {
     public String toString() {
         return "Applied Watercolor";
     }
-
-    public String getDescription() {
-        return "Watercolor (0, 12): ";
-    }
-
 
     public static Watercolor getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.WATERCOLOR.getSliderBounds();

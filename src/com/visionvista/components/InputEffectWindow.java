@@ -2,9 +2,11 @@ package com.visionvista.components;
 
 import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
+import com.visionvista.StateBasedUIComponentGroup;
 import com.visionvista.commands.Command;
 import com.visionvista.effects.Effect;
 import com.visionvista.effects.EffectType;
+import com.visionvista.utils.KeyBinder;
 import com.visionvista.utils.MiscHelper;
 
 import javax.swing.*;
@@ -25,15 +27,21 @@ public class InputEffectWindow {
 
     private ImageDisplay imageDisplay;
 
-    public InputEffectWindow(EffectType effect, String[] paramLabels, ImageDisplay imageDisplay) {
+    private StateBasedUIComponentGroup stateBasedUIComponentGroup;
+
+    private Command onWindowClose = () -> stateBasedUIComponentGroup.updateAllUIFromState();
+
+    public InputEffectWindow(EffectType effect, String[] paramLabels, StateBasedUIComponentGroup stateBasedUIComponentGroup) {
         this.effect = effect;
         this.inputFrame = setupInputFrame();
+        KeyBinder.addCtrlWCloseKeyBinding(inputFrame, onWindowClose);
         this.paramLabels = paramLabels;
         this.labelLength = paramLabels.length;
         this.inputPanel = new JPanel(new GridLayout(this.labelLength+1, this.labelLength));
         this.textFields = new ArrayList<>(this.labelLength);
         this.fieldLabels = new ArrayList<>(this.labelLength);
-        this.imageDisplay = imageDisplay;
+        this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
+        this.imageDisplay = (ImageDisplay) stateBasedUIComponentGroup.getUIComponent(ImageDisplay.class);
         this.submitButton = new JButton("Enter");
         setupTextFields();
     }

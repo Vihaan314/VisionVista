@@ -60,7 +60,7 @@ public class EffectSerializer implements Serializable {
 
     public void readSerializedEffects() {
         //Allow user to chooser serialized (.dat) files
-        String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista Effect Sequence");
+        String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista Effect Sequence", "Select a Vision Vista effect sequence");
         File effectSerialize = new File(filename);
         try {
             FileInputStream effectInFile = new FileInputStream(effectSerialize.getAbsoluteFile());

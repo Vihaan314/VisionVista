@@ -67,6 +67,14 @@ public class ImageEditor {
 //        toolsPanel.show();
     }
 
+    public JFrame getEditorFrame() {
+        return editorFrame;
+    }
+
+    public void close() {
+        editorFrame.dispose();
+    }
+
     public void show() {
         editorFrame.pack();
         editorFrame.setVisible(true);

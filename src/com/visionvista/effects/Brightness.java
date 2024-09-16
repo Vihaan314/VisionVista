@@ -8,6 +8,7 @@ import com.visionvista.utils.Pair;
 
 import java.io.Serial;
 
+@EffectParameter(parameters = "-100, 100")
 public class Brightness extends Effect {
     @Serial
     private static final long serialVersionUID = 2796306533054543227L;

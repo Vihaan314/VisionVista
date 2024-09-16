@@ -1,5 +1,7 @@
 package com.visionvista.effects.filters;
 
+import com.visionvista.effects.EffectDescription;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
@@ -9,6 +11,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectDescription(description = "Reproduces image with circular dots for a printed look")
+@EffectParameter(parameters = "0, 12")
 public class Halftone extends Filter {
     @Serial
     private static final long serialVersionUID = -4159776900599531080L;

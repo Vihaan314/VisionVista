@@ -1,6 +1,8 @@
 package com.visionvista.effects.blur;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectDescription;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -9,6 +11,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectDescription(description = "Adds soft, fuzzy, dream-like blur")
+@EffectParameter(parameters = "0, 20")
 public class BokehBlur extends Blur {
 
     @Serial

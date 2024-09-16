@@ -1,6 +1,8 @@
 package com.visionvista.effects.filters;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectDescription;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
@@ -8,6 +10,8 @@ import com.visionvista.utils.Pair;
 
 import java.io.Serial;
 
+@EffectDescription(description = "yellow-grayish look")
+@EffectParameter(parameters = "0, 10")
 public class Sepia extends Filter {
     @Serial
     private static final long serialVersionUID = -1859549826646856909L;

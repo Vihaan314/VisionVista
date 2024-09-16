@@ -1,6 +1,7 @@
 package com.visionvista.effects.blur;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -9,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.Kernel;
 import java.io.Serial;
 
+@EffectParameter(parameters = "0, 10")
 public class GaussianBlur extends Blur {
     @Serial
     private static final long serialVersionUID = 135736375166258763L;

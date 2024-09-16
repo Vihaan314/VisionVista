@@ -1,11 +1,13 @@
 package com.visionvista.effects.filters;
 
+import com.visionvista.effects.EffectDescription;
 import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectDescription(description = "Applies an intense cool blue filter")
 public class SplitTone extends Filter {
     @Serial
     private static final long serialVersionUID = 1957385647116092992L;

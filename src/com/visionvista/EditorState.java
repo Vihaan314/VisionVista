@@ -13,6 +13,10 @@ public class EditorState {
     private EditorState() {
     }
 
+    public void resetHistory() {
+
+    }
+
     public void setImage(BufferedImage image) {
         this.image = image;
     }

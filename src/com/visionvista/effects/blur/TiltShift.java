@@ -1,6 +1,8 @@
 package com.visionvista.effects.blur;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectDescription;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.FocusAreaDetector;
 import com.visionvista.utils.ImageHelper;
@@ -10,6 +12,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectDescription(description = "Soft blur to edges of image")
+@EffectParameter(parameters = "0, 10")
 public class TiltShift extends Blur {
 
     @Serial

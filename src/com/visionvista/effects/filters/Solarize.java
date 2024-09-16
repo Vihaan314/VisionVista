@@ -1,11 +1,13 @@
 package com.visionvista.effects.filters;
 
+import com.visionvista.effects.EffectDescription;
 import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectDescription(description = "Inverts tones in an image, creating surreal effects")
 public class Solarize extends Filter {
     @Serial
     private static final long serialVersionUID = -9223227824919724810L;

@@ -7,6 +7,7 @@ import com.visionvista.ToolsPanel;
 import com.visionvista.commands.Command;
 import com.visionvista.effects.Effect;
 import com.visionvista.effects.EffectType;
+import com.visionvista.utils.KeyBinder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +31,8 @@ public class SliderEffectWindow {
 
     private StateBasedUIComponentGroup stateBasedUIComponentGroup;
 
+    private Command onWindowClose = () -> stateBasedUIComponentGroup.updateAllUIFromState();
+
     public void setupSliderFrame(EffectType effect) {
         this.sliderFrame = new JFrame(effect.toString() + " Slider");
 
@@ -49,6 +52,7 @@ public class SliderEffectWindow {
         this.lower = lower;
         this.upper = upper;
         setupSliderFrame(effect);
+        KeyBinder.addCtrlWCloseKeyBinding(sliderFrame, onWindowClose);
         this.stateBasedUIComponentGroup = stateBasedUIComponentGroup;
     }
 
@@ -106,15 +110,14 @@ public class SliderEffectWindow {
             stateBasedUIComponentGroup.updateAllUIFromState();
         });
 
-        // Panel to hold Enter and Cancel buttons
+        //Panel to hold Enter and Cancel buttons
         JPanel enterCancelPanel = new JPanel();
         enterCancelPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
         enterCancelPanel.add(submitButton);
         enterCancelPanel.add(cancelButton);
 
-        // Adjust slider panel layout
         sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
-        sliderPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); // Add padding
+        sliderPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         //Add all components to panel in order
         sliderPanel.add(status);

@@ -1,6 +1,8 @@
 package com.visionvista.effects.artistic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectDescription;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -11,6 +13,7 @@ import java.io.Serial;
 import java.util.HashMap;
 import java.util.Map;
 
+@EffectParameter(parameters = "0, 50")
 public class OilPainting extends Artistic {
 
     @Serial

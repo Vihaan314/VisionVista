@@ -65,4 +65,10 @@ public class MiscCommands {
             numberInputWindow.initializeUI();
         };
     }
+
+    public Command createEffectSearchCommand() {
+        return () -> {
+
+        };
+    }
 }

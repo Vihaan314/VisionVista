@@ -11,6 +11,7 @@ import java.io.Serial;
 
 import static com.visionvista.utils.ColorManipulator.*;
 
+@EffectParameter(parameters = "0, 10")
 public class Vibrance extends Effect{
     @Serial
     private static final long serialVersionUID = 8424016703702832725L;

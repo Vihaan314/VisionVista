@@ -4,6 +4,7 @@ import com.visionvista.ImageHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.Supplier;
 
 public class LandingWindow {
     private JFrame landingFrame;
@@ -86,9 +87,12 @@ public class LandingWindow {
         setupButtonActions();
     }
 
-    private void executeCommand(Runnable action) {
-        action.run();
-        landingFrame.dispose();
+    private void executeCommand(Supplier<Boolean> action) {
+        boolean success = action.get();
+        System.out.println(success);
+        if (success) {
+            landingFrame.dispose();
+        }
     }
 
     public void show() {

@@ -1,5 +1,6 @@
 package com.visionvista.effects.artistic;
 
+import com.visionvista.effects.EffectDescription;
 import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ColorManipulator;
 
@@ -7,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectDescription(description = "Brighter green tone")
 public class Lomography extends Artistic {
     @Serial
     private static final long serialVersionUID = -612951579289507412L;

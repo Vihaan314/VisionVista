@@ -135,6 +135,9 @@ public class MenuPanel {
         addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK), false);
         addItemToMenu("Apply", "Random effect (multiple)", miscCommands.createMultipleRandomEffectsCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK), false);
 
+        //TODO
+        addItemToMenu("Effects", "Search", miscCommands.createEffectSearchCommand(), true);
+
         AICommands aiCommands = new AICommands();
         aiCommands.setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
         addItemToMenu("Generate", "Style", aiCommands.createImageStylizeCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK | InputEvent.ALT_DOWN_MASK), false);
@@ -173,7 +176,7 @@ public class MenuPanel {
         ArrayList<EffectType> textFieldEffects = EffectType.getEffectTypeFromComponent(EffectUIType.TEXT_FIELD);
         for (EffectType effect : textFieldEffects) {
             String[] effectLabels = effect.getTextFieldParams();
-            InputEffectWindow inputEffectWindow = new InputEffectWindow(effect, effectLabels, imageDisplay);
+            InputEffectWindow inputEffectWindow = new InputEffectWindow(effect, effectLabels, stateBasedUIComponentGroup);
             String effectCategory = effect.getEffect(MiscHelper.createZerosArray(effect.getTextFieldParams().length)).getClass().getSuperclass().getSimpleName(); //Get the name of the super class which will be the category for the effect
             Command effectActionListener = inputEffectWindow.inputValuesEffect();
             addItemToMenu(effectCategory, effect.toString(), effectActionListener, true);

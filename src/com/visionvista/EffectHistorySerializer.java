@@ -74,7 +74,7 @@ public class EffectHistorySerializer implements Serializable {
     }
 
     public void readSerializedEffects() {
-        String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista project");
+        String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista project", "Select a Vision Vista Project");
         if (filename != null) {
             File serializedFile = new File(filename);
             readEffects(serializedFile);

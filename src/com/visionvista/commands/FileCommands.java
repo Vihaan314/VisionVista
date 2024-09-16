@@ -1,9 +1,10 @@
 package com.visionvista.commands;
 
+import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
 import com.visionvista.ImageHandler;
-import com.visionvista.utils.ImageSaver;
 import com.visionvista.StateBasedUIComponentGroup;
+import com.visionvista.utils.ImageSaver;
 
 public class FileCommands {
     private final ImageDisplay imageDisplay;
@@ -14,9 +15,14 @@ public class FileCommands {
         this.imageHandler = new ImageHandler();
     }
 
+    public void resetEditor() {
+        imageHandler.closeEditor();
+    }
+
     public Command createOpenImageCommand() {
         return () -> {
             imageHandler.openImage();
+            resetEditor();
             imageDisplay.updateFromState();
         };
     }

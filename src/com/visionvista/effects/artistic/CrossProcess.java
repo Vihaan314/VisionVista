@@ -1,10 +1,12 @@
 package com.visionvista.effects.artistic;
 
+import com.visionvista.effects.EffectDescription;
 import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ColorManipulator;
 
 import java.io.Serial;
 
+@EffectDescription(description = "Brighter blue tones")
 public class CrossProcess extends Artistic {
     @Serial
     private static final long serialVersionUID = -3731413825978193805L;

@@ -71,7 +71,7 @@ public class ToolsPanel implements StateBasedUIComponent{
         tabPanel.addTab("Tools", toolsPage);
 //        tabPanel.addTab("Layers", layersPage);
 
-        toolsFrame.getContentPane().add(tabPanel); // Add tabPanel to the frame's content pane
+        toolsFrame.getContentPane().add(tabPanel); //Add tabPanel to the frame's content pane
     }
 
     public void show() {

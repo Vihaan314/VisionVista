@@ -1,14 +1,17 @@
 package com.visionvista.effects.distort;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectDescription;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectDescription(description = "Creates color fringing to simulate a 3D effect")
+@EffectParameter(parameters = "0, 10")
 public class ChromaticAberration extends Distort {
 
     @Serial

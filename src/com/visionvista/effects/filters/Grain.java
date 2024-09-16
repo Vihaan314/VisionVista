@@ -1,15 +1,16 @@
 package com.visionvista.effects.filters;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
-import java.awt.image.BufferedImage;
 import java.io.Serial;
 import java.util.Random;
 
+@EffectParameter(parameters = "0, 100")
 public class Grain extends Filter {
     @Serial
     private static final long serialVersionUID = 5105217091907693112L;

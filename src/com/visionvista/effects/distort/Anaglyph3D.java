@@ -1,6 +1,8 @@
 package com.visionvista.effects.distort;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectDescription;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -8,6 +10,7 @@ import com.visionvista.utils.Pair;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectParameter(parameters = "0, 30")
 public class Anaglyph3D extends Distort {
 
     @Serial

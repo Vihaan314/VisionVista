@@ -1,6 +1,8 @@
 package com.visionvista.effects.filters;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectDescription;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
@@ -10,6 +12,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectDescription(description = "quite intense even at smaller values")
+@EffectParameter(parameters = "0, 50")
 public class Vignette extends Filter {
     @Serial
     private static final long serialVersionUID = 3842634112664032347L;

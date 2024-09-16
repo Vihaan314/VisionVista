@@ -1,6 +1,7 @@
 package com.visionvista.effects.transformation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
@@ -8,6 +9,7 @@ import com.visionvista.utils.Pair;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectParameter(parameters = "degrees")
 public class Rotate extends Transformation {
     @Serial
     private static final long serialVersionUID = 2979754438467683733L;

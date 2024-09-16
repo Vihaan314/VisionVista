@@ -1,11 +1,13 @@
 package com.visionvista.effects.filters;
 
+import com.visionvista.effects.EffectDescription;
 import com.visionvista.utils.ColorManipulator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 
+@EffectDescription(description = "Visualizes image as thermal colors")
 public class Heatmap extends Filter {
     @Serial
     private static final long serialVersionUID = -348520464103120836L;

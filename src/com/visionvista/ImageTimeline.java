@@ -1,10 +1,14 @@
 package com.visionvista;
 
 import com.visionvista.effects.Effect;
+import com.visionvista.utils.KeyBinder;
 import com.visionvista.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -38,6 +42,7 @@ public class ImageTimeline implements StateBasedUIComponent{
         this.timelinePanel.setLayout(new BoxLayout(this.timelinePanel, BoxLayout.Y_AXIS));
 
         this.timelineFrame = setupTimelineFrame();
+        KeyBinder.addCtrlWCloseKeyBinding(timelineFrame, null);
 
         this.effectButtons = new ArrayList<>();
         this.effectLabels = new ArrayList<>();
@@ -49,13 +54,16 @@ public class ImageTimeline implements StateBasedUIComponent{
         int rowHeight = 35;
         int maxHeight = 7 * rowHeight;
         int currentHeight = effectLength * rowHeight;
-        return Math.min(maxHeight, currentHeight);
+        //Minimum height to display no effects message
+        int minHeight = 2 * rowHeight;
+
+        return Math.max(minHeight, Math.min(maxHeight, currentHeight));
     }
 
     private JFrame setupTimelineFrame() {
         JFrame frame = new JFrame("Effect Timeline");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(450, calculatePanelHeight()+100);
+        frame.setSize(450, calculatePanelHeight() + 50);
 
         JScrollPane scrollPane = new JScrollPane(timelinePanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -66,39 +74,51 @@ public class ImageTimeline implements StateBasedUIComponent{
         return frame;
     }
 
+
     private void setupEffectComponents() {
         timelinePanel.removeAll();
         timelinePanel.setLayout(new BorderLayout());
 
-        // Panel for the effects and labels (center)
+        //Panel for the effects and labels
         JPanel effectsPanel = new JPanel();
         effectsPanel.setLayout(new BoxLayout(effectsPanel, BoxLayout.Y_AXIS));
         int verticalGap = 2;
 
-        // Get all effects from effect history
-        for (int i = effectLength - 1; i >= 0; i--) {
-            JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, verticalGap));
-            JButton effectButton = new JButton("Effect " + (i));
-            String label = (i == 0) ? "Original image" : effectSequence.get(i).left().toString();
-            JLabel effectLabel = new JLabel(label);
-            if (i == currentImageIndex) {
-                effectButton.setBackground(new Color(100, 149, 237));
-                effectLabel = new JLabel(label + " - CURRENT");
+        if (effectLength == 1) {
+            //No effects have been applied
+            JLabel noEffectsLabel = new JLabel("No effects applied yet.");
+            noEffectsLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+            noEffectsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            effectsPanel.add(Box.createVerticalGlue());
+            effectsPanel.add(noEffectsLabel);
+            effectsPanel.add(Box.createVerticalGlue());
+        } else {
+            //Get all effects from effect history
+            for (int i = effectLength - 1; i >= 0; i--) {
+                JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, verticalGap));
+                //Label each effect
+                JButton effectButton = new JButton("Effect " + (i));
+                String label = (i == 0) ? "Original image" : effectSequence.get(i).left().toString();
+                JLabel effectLabel = new JLabel(label);
+                if (i == currentImageIndex) {
+                    effectButton.setBackground(new Color(100, 149, 237));
+                    effectLabel = new JLabel(label + " - CURRENT");
+                }
+                //Navigate to each effect by going back in the effect history
+                int finalI = i;
+                effectButton.addActionListener(e -> {
+                    effectHistory.setCurrentImageIndex(finalI);
+                    imageDisplay.updateFromState();
+                    updateFromState();
+                });
+
+                rowPanel.add(effectButton);
+                rowPanel.add(effectLabel);
+
+                effectsPanel.add(rowPanel);
+                effectButtons.add(effectButton);
+                effectLabels.add(effectLabel);
             }
-
-            int finalI = i;
-            effectButton.addActionListener(e -> {
-                effectHistory.setCurrentImageIndex(finalI);
-                imageDisplay.updateFromState();
-                updateFromState();
-            });
-
-            rowPanel.add(effectButton);
-            rowPanel.add(effectLabel);
-
-            effectsPanel.add(rowPanel);
-            effectButtons.add(effectButton);
-            effectLabels.add(effectLabel);
         }
 
         //Panel for timeline navigation buttons
@@ -131,7 +151,6 @@ public class ImageTimeline implements StateBasedUIComponent{
         navigationPanel.add(Box.createVerticalStrut(10));
         navigationPanel.add(navigateDown);
 
-        //Align panels
         timelinePanel.add(effectsPanel, BorderLayout.CENTER);
         timelinePanel.add(navigationPanel, BorderLayout.EAST);
 
@@ -156,7 +175,7 @@ public class ImageTimeline implements StateBasedUIComponent{
 
         SwingUtilities.invokeLater(() -> {
             timelineFrame.pack();
-            timelineFrame.setSize(450, calculatePanelHeight());
+            timelineFrame.setSize(450, calculatePanelHeight()+50);
             timelineFrame.revalidate();
         });
     }
