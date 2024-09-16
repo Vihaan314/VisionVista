@@ -176,9 +176,6 @@
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="ImageGenerationAPI" type="Application" factoryName="Application">
-      <envs>
-        <env name="OPENAI-GPT4-KEY" value="sk-proj-TS6ndXE6WQBpYLZWmW9pT3BlbkFJrkTFMlQfFFewq9jxncRG" />
-      </envs>
       <option name="MAIN_CLASS_NAME" value="com.visionvista.ImageGenerationAI" />
       <module name="VisionVista" />
       <method v="2">
@@ -186,9 +183,6 @@
       </method>
     </configuration>
     <configuration name="ImageStylize" type="Application" factoryName="Application">
-      <envs>
-        <env name="OPENAI-GPT4-KEY" value="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" />
-      </envs>
       <option name="MAIN_CLASS_NAME" value="com.visionvista.ImageStylizeAI" />
       <module name="VisionVista" />
       <method v="2">
