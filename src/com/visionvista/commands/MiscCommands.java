@@ -2,6 +2,7 @@ package com.visionvista.commands;
 
 import com.visionvista.*;
 import com.visionvista.components.EffectTextBox;
+import com.visionvista.components.FindEffectDialog;
 import com.visionvista.components.NumberInputWindow;
 import com.visionvista.effects.Effect;
 
@@ -68,7 +69,8 @@ public class MiscCommands {
 
     public Command createEffectSearchCommand() {
         return () -> {
-
+            FindEffectDialog findEffectDialog = new FindEffectDialog();
+            findEffectDialog.initializeUI();
         };
     }
 }

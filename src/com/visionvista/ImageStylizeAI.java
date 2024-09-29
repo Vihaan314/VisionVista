@@ -38,14 +38,6 @@ public class ImageStylizeAI {
         this.userPrompt = prompt;
     }
 
-    public static String formatEffectName(String effectName) {
-        //Insert a space before any uppercase letter or digit that follows a lowercase letter
-        return effectName
-                .replaceAll("([a-z])([A-Z])", "$1 $2")  //lowercase then uppercase
-                .replaceAll("([a-zA-Z])([0-9])", "$1 $2")  //letter then digit
-                .replaceAll("([0-9])([A-Z])", "$1 $2");   //digit then uppercase letter
-    }
-
     public String generateEffectDescriptions() {
         StringBuilder effectsList = new StringBuilder();
         try (ScanResult scanResult = new ClassGraph()
@@ -55,11 +47,11 @@ public class ImageStylizeAI {
             for (ClassInfo classInfo : scanResult.getSubclasses(Effect.class.getName())) {
                 Class<?> cls = classInfo.loadClass();
                 if (!Modifier.isAbstract(cls.getModifiers()) && !cls.isEnum() && !cls.isInterface() && !cls.isAnnotation()) {
-                    effectsList.append("- ").append(formatEffectName(cls.getSimpleName()));
+                    effectsList.append("- ").append(MiscHelper.formatEffectName(cls.getSimpleName()));
                     if (cls.isAnnotationPresent(EffectParameter.class)) {
                         EffectParameter effectParameter = cls.getAnnotation(EffectParameter.class);
                         String parameters = effectParameter.parameters();
-                        effectsList.append(" (" + parameters + ")");
+                        effectsList.append(" (").append(parameters).append(")");
                     }
                     if (cls.isAnnotationPresent(EffectDescription.class)) {
                         EffectDescription effectDescription = cls.getAnnotation(EffectDescription.class);
@@ -107,8 +99,8 @@ public class ImageStylizeAI {
         String prompt = generatePrompt();
         System.out.println(prompt);
         userImage = EditorState.getInstance().getImage();
+        System.out.println("USER IMAGE " + userImage);
         String imageURL = "data:image/jpeg;base64," + MiscHelper.imageToBase64(userImage);
-        System.out.println("API KEY: " + System.getProperty("OPENAI-GPT4-KEY"));
         VisionApiResponse responseobj = new EasyVisionService().VisionAPI(System.getProperty("OPENAI-GPT4-KEY"), new EasyVisionRequest()
                 .setModel("gpt-4o-2024-08-06")
                 .setPrompt(prompt)
@@ -133,16 +125,14 @@ public class ImageStylizeAI {
         parseResponse();
         //Configure object mapper
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        //Convert JSON to instances of effects
         try {
+            //Convert JSON to instances of effects using reader
             effectsList = Arrays.asList(mapper.readerFor(Effect[].class).readValue(response));
             System.out.println((effectsList));
         }
         catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "Unable to parse response. Trying again");
-//            generatePrompt();
-//            effectsList = Arrays.asList(mapper.readerFor(Effect[].class).readValue(response));
-//            System.out.println((effectsList));
+            //TODO exception handle
         }
     }
 

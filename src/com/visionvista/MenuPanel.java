@@ -2,6 +2,7 @@ package com.visionvista;
 
 import com.visionvista.commands.*;
 import com.visionvista.components.ColorEffectWindow;
+import com.visionvista.components.ImageTimeline;
 import com.visionvista.components.InputEffectWindow;
 import com.visionvista.components.SliderEffectWindow;
 import com.visionvista.effects.EffectType;
@@ -11,7 +12,6 @@ import com.visionvista.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -37,14 +37,21 @@ public class MenuPanel {
         setDefaultMenuItems();
     }
 
-    public void addItemToMenu(String title, String menuItemTitle, Command command, boolean isEffectMenu) {
-        JMenu menu = getMenu(title); //Gets the sub-menu
+    public void addSeparatorToMenu(String menuTitle) {
+        JMenu menu = getMenu(menuTitle);
+        if (menu != null) {
+            menu.addSeparator();
+        }
+    }
+
+    public void addItemToMenu(String menuTitle, String menuItemName, Command command, boolean isEffectMenu) {
+        JMenu menu = getMenu(menuTitle); //Gets the sub-menu
         //Create sub menu if it doesn't exist
         if (menu == null) {
-            menu = new JMenu(title);
+            menu = new JMenu(menuTitle);
             menuBar.add(menu);
         }
-        JMenuItem menuItem = new JMenuItem(menuItemTitle);
+        JMenuItem menuItem = new JMenuItem(menuItemName);
         menuItem.addActionListener(e -> {
             try {
                 command.execute();
@@ -53,19 +60,19 @@ public class MenuPanel {
             }
         });
         if (isEffectMenu) {
-            categoryMenus.put(title, menu);
+            categoryMenus.put(menuTitle, menu);
         }
         menu.add(menuItem);
     }
 
-    public void addItemToMenu(String title, String menuItemTitle, Command command, KeyStroke keyStroke, boolean isEffectMenu) {
-        JMenu categoryMenu = getMenu(title); //Gets the sub-menu
+    public void addItemToMenu(String menuTitle, String menuItemName, Command command, KeyStroke keyStroke, boolean isEffectMenu) {
+        JMenu categoryMenu = getMenu(menuTitle); //Gets the sub-menu
         //Create sub menu if it doesn't exist
         if (categoryMenu == null) {
-            categoryMenu = new JMenu(title);
+            categoryMenu = new JMenu(menuTitle);
             menuBar.add(categoryMenu);
         }
-        JMenuItem menuItem = new JMenuItem(menuItemTitle);
+        JMenuItem menuItem = new JMenuItem(menuItemName);
         menuItem.setMnemonic(keyStroke.getKeyChar());
         //Setting the accelerator (for the keystroke):
         menuItem.setAccelerator(keyStroke);
@@ -78,14 +85,10 @@ public class MenuPanel {
             }
         });
         if (isEffectMenu) {
-            categoryMenus.put(title, categoryMenu);
+            categoryMenus.put(menuTitle, categoryMenu);
         }
         categoryMenu.add(menuItem);
     }
-
-//    public JMenuItem getMenuItem(String menuItemTitle) {
-//        return categoryMenus.get(menuItemTitle);
-//    }
 
     //Returns the specific sub-menu of a JMenu
     private JMenu getMenu(String title) {
@@ -102,7 +105,21 @@ public class MenuPanel {
     }
 
     private void moveCategoriesToEffectsCategory() {
+        MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
+
         effectsMenu = new JMenu("Effects");
+        JMenuItem findEffectItem = new JMenuItem("Find effect");
+        findEffectItem.addActionListener(e -> {
+            try {
+                miscCommands.createEffectSearchCommand().execute();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        //TODO
+//        effectsMenu.add(findEffectItem);
+//        effectsMenu.addSeparator();
+
         menuBar.add(effectsMenu);
         for (Map.Entry<String, JMenu> entry : categoryMenus.entrySet()) {
             effectsMenu.add(entry.getValue());
@@ -134,9 +151,6 @@ public class MenuPanel {
         MiscCommands miscCommands = new MiscCommands(stateBasedUIComponentGroup);
         addItemToMenu("Apply", "Random effect", miscCommands.createRandomEffectCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK), false);
         addItemToMenu("Apply", "Random effect (multiple)", miscCommands.createMultipleRandomEffectsCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK), false);
-
-        //TODO 
-        addItemToMenu("Effects", "Search", miscCommands.createEffectSearchCommand(), true);
 
         AICommands aiCommands = new AICommands();
         aiCommands.setStateBasedUIComponentGroup(stateBasedUIComponentGroup);

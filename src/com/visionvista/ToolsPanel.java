@@ -1,6 +1,7 @@
 package com.visionvista;
 
 import com.visionvista.components.DraggableTabbedPane;
+import com.visionvista.components.ImageTimeline;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,7 +72,7 @@ public class ToolsPanel implements StateBasedUIComponent{
         tabPanel.addTab("Tools", toolsPage);
 //        tabPanel.addTab("Layers", layersPage);
 
-        toolsFrame.getContentPane().add(tabPanel); //Add tabPanel to the frame's content pane
+        toolsFrame.getContentPane().add(tabPanel);
     }
 
     public void show() {

@@ -3,6 +3,7 @@ package com.visionvista.utils;
 import com.visionvista.components.PlaceholderTextField;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.image.BufferedImage;
@@ -43,6 +44,14 @@ public class MiscHelper {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "jpg", outputStream);
         return Base64.getEncoder().encodeToString(outputStream.toByteArray());
+    }
+
+    public static String formatEffectName(String effectName) {
+        //Insert a space before any uppercase letter or digit that follows a lowercase letter
+        return effectName
+                .replaceAll("([a-z])([A-Z])", "$1 $2")  //lowercase then uppercase
+                .replaceAll("([a-zA-Z])([0-9])", "$1 $2")  //letter then digit
+                .replaceAll("([0-9])([A-Z])", "$1 $2");   //digit then uppercase letter
     }
 
     public static boolean isString(String str) {

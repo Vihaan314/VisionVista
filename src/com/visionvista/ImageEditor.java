@@ -1,21 +1,12 @@
 package com.visionvista;
 
+import com.visionvista.components.ImageTimeline;
+
 import javax.swing.*;
 
 public class ImageEditor {
     //For main frame
     private final JFrame editorFrame;
-
-    //NOTE: Procedure for applying effect:
-    /*
-    Effect effect = new Effect();
-    BufferedImage currentImage = EditorState.getInstance().getImage();
-    currentImage = effect.run(currentImage);
-    EditorState.getInstance().getEffectHistory().add((effect, currentImage);
-    EditorState.getInstance().setImage(currentImage);
-    imageDisplay.updateImageFromState();
-    imageTimeline.refreshTimeline();
-     */
 
     public ImageEditor(String title, String[] fileNameBroken) {
         /*

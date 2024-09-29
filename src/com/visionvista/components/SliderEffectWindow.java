@@ -8,6 +8,8 @@ import com.visionvista.commands.Command;
 import com.visionvista.effects.Effect;
 import com.visionvista.effects.EffectType;
 import com.visionvista.utils.KeyBinder;
+import com.visionvista.utils.TaskWithLoadingDialog;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +18,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.util.Hashtable;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 
 public class SliderEffectWindow {
     private JFrame sliderFrame;
@@ -186,32 +190,57 @@ public class SliderEffectWindow {
         submitButton.addActionListener(submitEffectListener);
     }
 
-    public ActionListener createSubmitActionListener() {
-        return e -> {
-            BufferedImage currentImage = EditorState.getInstance().getImage();
-            //Get final effect
-            double effectAmount = getEffectAmount();
-            if (effectAmount != 0) {
-                Effect chosenEffect = effect.getEffect(effectAmount);
-                //Apply effect
-                BufferedImage finalImage = chosenEffect.run(currentImage);
-                //Set new states
-                EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
-                EditorState.getInstance().setImage(finalImage);
-                //Update the display with the final image
-                ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
-                stateBasedUIComponentGroup.updateAllUIFromState();
-            }
+    @NotNull
+    private TaskWithLoadingDialog<BufferedImage> getTasksForLoadingSliderEffect() {
+        BufferedImage currentImage = EditorState.getInstance().getImage();
+        //Get final effect amount and create effect
+        double effectAmount = getEffectAmount();
+        Effect chosenEffect = effect.getEffect(effectAmount);
+
+        //The task - apply the effect to the current image
+        //Use a callable to run in the background and have its output accessible when it is done with get()
+        Callable<BufferedImage> task = () -> chosenEffect.run(currentImage);
+
+        //What to do after the task is completed successfully (the effect is applied) - update the UI and history
+        //We can define consumers for custom actions that are executed after a background task is completed
+        Consumer<BufferedImage> onSuccess = (finalImage) -> {
+            //Set new states
+            EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
+            EditorState.getInstance().setImage(finalImage);
+            //Update the display with the final image
+            ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
+            stateBasedUIComponentGroup.updateAllUIFromState();
             //Close slider window when submit pressed
             getSliderFrame().dispose();
         };
+
+        //What to do if an error occurs - display it
+        Consumer<Exception> onError = (ex) -> {
+            JOptionPane.showMessageDialog(getSliderFrame(), "An error occurred while applying the effect: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        };
+
+        //Create and return the task with loading dialog
+        TaskWithLoadingDialog<BufferedImage> taskWithLoadingDialog = new TaskWithLoadingDialog<>(
+                getSliderFrame(), "Applying effect. Please wait...", task, onSuccess, onError);
+        return taskWithLoadingDialog;
     }
 
-    public void show() {
-        sliderFrame.add(sliderPanel);
-        sliderFrame.pack();
-        sliderFrame.setVisible(true);
+    public ActionListener createSubmitActionListener() {
+        return e -> {
+            double effectAmount = getEffectAmount();
+            if (effectAmount != 0) {
+                //Execute tasks
+                TaskWithLoadingDialog<BufferedImage> taskWithLoadingDialog = getTasksForLoadingSliderEffect();
+                taskWithLoadingDialog.execute();
+            } else {
+                //If effect amount is 0, just close slider window when submit pressed
+                getSliderFrame().dispose();
+            }
+        };
     }
+
 
     public Command sliderValuesEffect() {
         //Command to create slider and show
@@ -220,5 +249,11 @@ public class SliderEffectWindow {
             setupSubmitButton(createSubmitActionListener());
             show();
         };
+    }
+
+    public void show() {
+        sliderFrame.add(sliderPanel);
+        sliderFrame.pack();
+        sliderFrame.setVisible(true);
     }
 }

@@ -141,10 +141,8 @@ This feature relies on an API request to one of OpenAI's APIs, and thus, you mus
 1. Create class in respective effect sub/class and inherit that superclass.<br>
 2. Implement all superclass methods and the getRandomInstance for the random effect feature.<br>
 3. Add to EffectType enum with classifications and parameters for UI type and bounds.<br>
-4. If the effect requires a parameter, add a @JsonProperty("value") directly before the parameter in the constructor of the effect. <br>
-5. In the Effect superclass, add this line (with every other effect) with respect to your effect: @JsonSubTypes.Type(value = {theneweffect}.class, name = "neweffectname"). <br>
-6. Add to AI prompt for stylize feature (temporary). <br>
-
+4. (For AI Stylize) If the effect requires a parameter, add a @JsonProperty("value") directly before the parameter in the constructor of the effect. <br>
+5. (For AI Stylize) In the Effect superclass, add this line (with every other effect) with respect to your effect: @JsonSubTypes.Type(value = {theneweffect}.class, name = "neweffectname"). <br>
 <br>
 
 <b> Adding an effect category </b><br>

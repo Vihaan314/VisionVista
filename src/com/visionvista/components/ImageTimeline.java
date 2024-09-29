@@ -1,5 +1,9 @@
-package com.visionvista;
+package com.visionvista.components;
 
+import com.visionvista.EditorState;
+import com.visionvista.EffectHistory;
+import com.visionvista.ImageDisplay;
+import com.visionvista.StateBasedUIComponent;
 import com.visionvista.effects.Effect;
 import com.visionvista.utils.KeyBinder;
 import com.visionvista.utils.Pair;
@@ -12,7 +16,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class ImageTimeline implements StateBasedUIComponent{
+public class ImageTimeline implements StateBasedUIComponent {
     private Dimension screenSize;
     private int screenWidth;
     private int screenHeight;

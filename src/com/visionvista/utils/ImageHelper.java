@@ -57,6 +57,16 @@ public class ImageHelper {
         return image;
     }
 
+    public static float[] flatten2D(float[][] matrix) {
+        float[] flatArr = new float[matrix.length*matrix[0].length];
+        for (int i = 0; i < matrix[0].length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                flatArr[i*matrix[0].length+j] = matrix[i][j];
+            }
+        }
+        return flatArr;
+    }
+
     public static boolean isBlankImage(BufferedImage image) {
         BufferedImage blankImage = createBlankImage();
 

@@ -35,6 +35,10 @@ public class PromptWindow {
         this.apiKeyDisplay = apiKeyDisplay;
     }
 
+    public JFrame getParentFrame() {
+        return parentFrame;
+    }
+
     public void createPromptWindow() {
         //Prompt window
         promptDialog = new JDialog(parentFrame, "Generate Image", true);
@@ -63,7 +67,7 @@ public class PromptWindow {
             selectedModel = (String) modelComboBox.getSelectedItem();
             selectedQuality = (String) qualityComboBox.getSelectedItem();
 
-            if (apiKeyDisplay) {
+            if (apiKeyDisplay & System.getProperty("OPENAI-GPT4-KEY") == null) {
                 apiKey = apiKeyField.getText();
                 System.setProperty("OPENAI-GPT4-KEY", apiKey);
             }

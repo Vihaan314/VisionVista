@@ -1,10 +1,10 @@
 package com.visionvista.commands;
 
 import com.visionvista.*;
+import com.visionvista.components.ImageTimeline;
 import com.visionvista.effects.Effect;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 
 public class SerializingCommands {

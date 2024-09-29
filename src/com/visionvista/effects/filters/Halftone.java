@@ -1,9 +1,9 @@
 package com.visionvista.effects.filters;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.effects.EffectDescription;
 import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.EffectType;
-import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
@@ -19,7 +19,7 @@ public class Halftone extends Filter {
 
     private double dotSize;
 
-    public Halftone(double dotSize) {
+    public Halftone(@JsonProperty("value") double dotSize) {
         super();
         this.dotSize = dotSize;
     }
