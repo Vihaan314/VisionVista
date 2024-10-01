@@ -191,7 +191,7 @@ public class SliderEffectWindow {
     }
 
     @NotNull
-    private TaskWithLoadingDialog<BufferedImage> getTasksForLoadingSliderEffect() {
+    private TaskWithLoadingDialog<Void> getTasksForLoadingSliderEffect() {
         BufferedImage currentImage = EditorState.getInstance().getImage();
         //Get final effect amount and create effect
         double effectAmount = getEffectAmount();
@@ -199,20 +199,21 @@ public class SliderEffectWindow {
 
         //The task - apply the effect to the current image
         //Use a callable to run in the background and have its output accessible when it is done with get()
-        Callable<BufferedImage> task = () -> chosenEffect.run(currentImage);
-
-        //What to do after the task is completed successfully (the effect is applied) - update the UI and history
-        //We can define consumers for custom actions that are executed after a background task is completed
-        Consumer<BufferedImage> onSuccess = (finalImage) -> {
+        Callable<Void> task = () -> {
+            BufferedImage finalImage = chosenEffect.run(currentImage);
             //Set new states
             EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
             EditorState.getInstance().setImage(finalImage);
             //Update the display with the final image
             ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
             stateBasedUIComponentGroup.updateAllUIFromState();
-            //Close slider window when submit pressed
-            getSliderFrame().dispose();
+
+            return null;
         };
+
+        //What to do after the task is completed successfully (the effect is applied and UI is updated) - close the slider
+        //We can define consumers for custom actions that are executed after a background task is completed
+        Consumer<Void> onSuccess = (v) -> getSliderFrame().dispose(); //Close slider window when submit pressed
 
         //What to do if an error occurs - display it
         Consumer<Exception> onError = (ex) -> {
@@ -222,7 +223,7 @@ public class SliderEffectWindow {
         };
 
         //Create and return the task with loading dialog
-        TaskWithLoadingDialog<BufferedImage> taskWithLoadingDialog = new TaskWithLoadingDialog<>(
+        TaskWithLoadingDialog<Void> taskWithLoadingDialog = new TaskWithLoadingDialog<>(
                 getSliderFrame(), "Applying effect. Please wait...", task, onSuccess, onError);
         return taskWithLoadingDialog;
     }
@@ -232,7 +233,7 @@ public class SliderEffectWindow {
             double effectAmount = getEffectAmount();
             if (effectAmount != 0) {
                 //Execute tasks
-                TaskWithLoadingDialog<BufferedImage> taskWithLoadingDialog = getTasksForLoadingSliderEffect();
+                TaskWithLoadingDialog<Void> taskWithLoadingDialog = getTasksForLoadingSliderEffect();
                 taskWithLoadingDialog.execute();
             } else {
                 //If effect amount is 0, just close slider window when submit pressed

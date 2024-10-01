@@ -1,13 +1,20 @@
 package com.visionvista.commands;
 
-import com.visionvista.*;
+import com.visionvista.ImageDisplay;
+import com.visionvista.RandomEffect;
+import com.visionvista.StateBasedUIComponentGroup;
+import com.visionvista.ToolsPanel;
 import com.visionvista.components.EffectTextBox;
 import com.visionvista.components.FindEffectDialog;
 import com.visionvista.components.NumberInputWindow;
 import com.visionvista.effects.Effect;
+import com.visionvista.utils.MiscHelper;
+import com.visionvista.utils.TaskWithLoadingDialog;
+import okhttp3.internal.concurrent.Task;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 
 //Misc commands is temporary to be sorted commands
 public class MiscCommands {
@@ -28,21 +35,37 @@ public class MiscCommands {
     public Command createUpdateEffectCommand() {
         return () -> {
             //Update editor with effect
-            imageDisplay.updateImageByEffect(effect);
-            ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
-            stateBasedUIComponentGroup.updateAllUIFromState();
+            Callable<Void> task = () -> {
+                imageDisplay.updateImageByEffect(effect);
+                ((ToolsPanel) stateBasedUIComponentGroup.getUIComponent(ToolsPanel.class)).setStateBasedUIComponentGroup(stateBasedUIComponentGroup);
+                stateBasedUIComponentGroup.updateAllUIFromState();
+
+                return null;
+            };
+            //Add loading dialog while effect applies to image
+            TaskWithLoadingDialog<Void> taskWithLoadingDialog = new TaskWithLoadingDialog<>(null,
+                    "Applying " + MiscHelper.formatEffectName(effect.getClass().getSimpleName()) + ". Please wait...", task, null, null);
+            taskWithLoadingDialog.execute();
         };
     }
 
     public Command createRandomEffectCommand() {
         return () -> {
-            //Get random effect and update editor
-            this.effect = new RandomEffect().getRandomEffect();
-            imageDisplay.updateImageByEffect(effect);
-            stateBasedUIComponentGroup.updateAllUIFromState();
-            //Display random effect information
-            EffectTextBox randomEffectBox = new EffectTextBox(this.effect);
-            randomEffectBox.show();
+            Callable<EffectTextBox> task = () -> {
+                //Get random effect and update editor
+                this.effect = new RandomEffect().getRandomEffect();
+                imageDisplay.updateImageByEffect(effect);
+                stateBasedUIComponentGroup.updateAllUIFromState();
+                //Display random effect information
+                EffectTextBox randomEffectBox = new EffectTextBox(this.effect);
+                return randomEffectBox;
+            };
+            //Show effects text box if random effect successful
+            Consumer<EffectTextBox> onSuccess = EffectTextBox::show;
+
+            TaskWithLoadingDialog<EffectTextBox> taskWithLoadingDialog = new TaskWithLoadingDialog<>(null,
+                    "Applying random effect. Please wait...", task, onSuccess, null);
+            taskWithLoadingDialog.execute();
         };
     }
 
@@ -50,19 +73,26 @@ public class MiscCommands {
         return () -> {
             //Apply random effects from specified amount
             NumberInputWindow numberInputWindow = new NumberInputWindow(number -> {
-                ArrayList<Effect> effects = new ArrayList<>();
-                RandomEffect randomEffectGenerator = new RandomEffect();
-                for (int i = 0; i < number; i++) {
-                    //Generate random effect, store in list and update
-                    Effect effect = randomEffectGenerator.getRandomEffect();
-                    effects.add(effect);
-                    imageDisplay.updateImageByEffect(effect);
-                }
-                //Display all random effects
-                stateBasedUIComponentGroup.updateAllUIFromState();
-                EffectTextBox effectTextBox = new EffectTextBox(effects);
-                effectTextBox.show();
-            });
+                Callable<EffectTextBox> task = () -> {
+                    ArrayList<Effect> effects = new ArrayList<>();
+                    RandomEffect randomEffectGenerator = new RandomEffect();
+                    for (int i = 0; i < number; i++) {
+                        //Generate random effect, store in list and update
+                        Effect effect = randomEffectGenerator.getRandomEffect();
+                        effects.add(effect);
+                        imageDisplay.updateImageByEffect(effect);
+                    }
+                    //Display all random effects
+                    stateBasedUIComponentGroup.updateAllUIFromState();
+                    EffectTextBox effectTextBox = new EffectTextBox(effects);
+
+                    return effectTextBox;
+                };
+                Consumer<EffectTextBox> onSuccess = EffectTextBox::show;
+                TaskWithLoadingDialog<EffectTextBox> taskWithLoadingDialog = new TaskWithLoadingDialog<>(null,
+                        "Applying random effects. Please wait...", task, onSuccess, null);
+                taskWithLoadingDialog.execute();
+            }, "Enter number of effects");
             numberInputWindow.initializeUI();
         };
     }

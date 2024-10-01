@@ -132,9 +132,8 @@ public class MenuPanel {
         addItemToMenu("File", "Open Image", fileCommands.createOpenImageCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK), false);
         addItemToMenu("File", "Open URL", fileCommands.createOpenImageFromUrlCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK), false);
         addItemToMenu("File", "Open Project", fileCommands.createOpenProjectCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK), false);
-        addItemToMenu("File", "New Blank Image", fileCommands.createNewBlankImageCommand(), false);
         addItemToMenu("File", "Save", fileCommands.createSaveImageCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK), false);
-        addItemToMenu("File", "Save with Text", fileCommands.createSaveImageWithTextCommand(), false);
+        addItemToMenu("File", "Save with Text", fileCommands.createSaveImageWithTextCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK | InputEvent.ALT_DOWN_MASK), false);
 
         SerializingCommands serializingCommands = new SerializingCommands(stateBasedUIComponentGroup);
         addItemToMenu("Project", "Save Project", serializingCommands.createEffectHistorySerializeCommand(), KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK), false);

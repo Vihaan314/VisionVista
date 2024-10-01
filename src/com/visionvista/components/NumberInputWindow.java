@@ -7,14 +7,16 @@ public class NumberInputWindow {
     private JFrame frame;
     private JTextField textField;
     private JButton enterButton;
+    private String title;
     private Consumer<Integer> onNumberSubmitted;
 
-    public NumberInputWindow(Consumer<Integer> onNumberSubmitted) {
+    public NumberInputWindow(Consumer<Integer> onNumberSubmitted, String title) {
         this.onNumberSubmitted = onNumberSubmitted;
+        this.title = title;
     }
 
     public void initializeUI() {
-        frame = new JFrame("Enter Number");
+        frame = new JFrame(title);
         textField = new JTextField(10);
         enterButton = new JButton("Enter");
 

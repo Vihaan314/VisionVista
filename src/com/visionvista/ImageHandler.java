@@ -4,6 +4,7 @@ import com.visionvista.commands.AICommands;
 import com.visionvista.effects.Effect;
 import com.visionvista.utils.FileHelper;
 import com.visionvista.utils.ImageHelper;
+import com.visionvista.utils.TaskWithLoadingDialog;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,7 +16,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
 public class ImageHandler {
     public EffectHistory effectHistory;
@@ -146,10 +149,13 @@ public class ImageHandler {
             //Splits by necessary parts of file name - name and extension
             fileNameBroken = fileNameRaw.split("[.]");
 
-            try {
+            final AtomicBoolean success = new AtomicBoolean(false);
+
+            Callable<Void> task = () -> {
                 //Read serialized project
                 EffectHistorySerializer deserialized = new EffectHistorySerializer();
                 deserialized.readEffects(selectedFile);
+
                 //Extract components (image + effects list) to create the effect history and run the editor
                 ArrayList<Effect> effectsList = deserialized.getEffectsList();
                 BufferedImage initialImage = deserialized.getInitialImage();
@@ -157,15 +163,29 @@ public class ImageHandler {
                 effectHistory.setEffectSequence(effectsList, initialImage);
                 EditorState.getInstance().setState(effectHistory);
 
+                //Create the editor, only show it in success call, so this is part of the loading
                 editor = new ImageEditor("Vision Vista", fileNameBroken);
-                editor.show();
 
-                return true;
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error loading project.");
+                return null;
+            };
+            Consumer<Void> onSuccess = (v) -> {
+                editor.show();
+                success.set(true);
+            };
+
+            Consumer<Exception> onError = (ex) -> {
+                JOptionPane.showMessageDialog(null, "An error occurred while loading the project: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
-                return false;
-            }
+            };
+            TaskWithLoadingDialog<Void> taskWithLoadingDialog = new TaskWithLoadingDialog<>(null, "Loading " + fileNameBroken[0] + ". Please wait...",
+                    task,
+                    onSuccess,
+                    onError
+            );
+            taskWithLoadingDialog.execute();
+
+            return success.get();
         }
         else {
             return false;

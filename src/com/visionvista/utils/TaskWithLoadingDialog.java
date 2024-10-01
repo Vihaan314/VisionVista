@@ -31,7 +31,6 @@ public class TaskWithLoadingDialog<T> {
                 //Executed in a background thread
                 return task.call();
             }
-
             @Override
             protected void done() {
                 //This is called on the EDT after the background task is completed

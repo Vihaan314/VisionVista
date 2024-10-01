@@ -12,11 +12,13 @@ public class EffectSerializer implements Serializable {
     @Serial
     private static final long serialVersionUID = 1705697157231620585L;
 
+    private String filename;
     transient ArrayList<Effect> effectsList = new ArrayList<>();
 
     public ArrayList<Effect> getEffectsList() {
         return this.effectsList;
     }
+
 
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
@@ -60,7 +62,7 @@ public class EffectSerializer implements Serializable {
 
     public void readSerializedEffects() {
         //Allow user to chooser serialized (.dat) files
-        String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista Effect Sequence", "Select a Vision Vista effect sequence");
+        filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista Effect Sequence", "Select a Vision Vista effect sequence");
         File effectSerialize = new File(filename);
         try {
             FileInputStream effectInFile = new FileInputStream(effectSerialize.getAbsoluteFile());
@@ -76,5 +78,9 @@ public class EffectSerializer implements Serializable {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getEffectSequenceName() {
+        return new File(filename).getName().split("\\.")[0];
     }
 }

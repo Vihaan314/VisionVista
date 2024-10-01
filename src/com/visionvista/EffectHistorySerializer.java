@@ -14,6 +14,8 @@ public class EffectHistorySerializer implements Serializable {
     @Serial
     private static final long serialVersionUID = -1993788387174167380L;
 
+    private String filename;
+
     private transient ArrayList<Effect> effectsList = new ArrayList<>();
     private transient BufferedImage initialImage;
 
@@ -74,13 +76,14 @@ public class EffectHistorySerializer implements Serializable {
     }
 
     public void readSerializedEffects() {
-        String filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista project", "Select a Vision Vista Project");
+        filename = FileHelper.chooseFile(new String[]{".DAT"}, "Vision Vista project", "Select a Vision Vista Project");
         if (filename != null) {
             File serializedFile = new File(filename);
             readEffects(serializedFile);
         }
-//        else {
-//            JOptionPane.showMessageDialog(null, "Invalid file selected. Please choose a valid file.", "Error", JOptionPane.ERROR_MESSAGE);
-//        }
+    }
+
+    public String getProjectName() {
+        return new File(filename).getName().split("\\.")[0];
     }
 }

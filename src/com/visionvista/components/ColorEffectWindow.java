@@ -4,8 +4,10 @@ import com.visionvista.EditorState;
 import com.visionvista.ImageDisplay;
 import com.visionvista.StateBasedUIComponentGroup;
 import com.visionvista.commands.Command;
-import com.visionvista.effects.*;
+import com.visionvista.effects.Effect;
+import com.visionvista.effects.EffectType;
 import com.visionvista.utils.KeyBinder;
+import com.visionvista.utils.TaskWithLoadingDialog;
 
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
@@ -16,6 +18,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 
 public class ColorEffectWindow {
     private JFrame colorFrame;
@@ -112,25 +116,37 @@ public class ColorEffectWindow {
         colorFrame.setVisible(true);
     }
 
-    public JFrame getColorFrame() {
-        return this.colorFrame;
-    }
-
     public ActionListener createSubmitActionListener() {
         return e -> {
             BufferedImage currentImage = EditorState.getInstance().getImage();
             //Get final effect
             Color chosenColor1 = getColor();
             Effect chosenEffect = effect.getEffect(chosenColor1);
-            //Apply effect
-            BufferedImage finalImage = chosenEffect.run(currentImage);
-            //Set new states
-            EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
-            EditorState.getInstance().setImage(finalImage);
-            //Update the display with the final image
-            stateBasedUIComponentGroup.updateAllUIFromState();
-            //Close slider window when submit pressed
-            getColorFrame().dispose();
+            //Background task - apply the effect and update UI + history
+            Callable<Void> task = () -> {
+                //Apply effect
+                BufferedImage finalImage = chosenEffect.run(currentImage);
+                //Set new states
+                EditorState.getInstance().getEffectHistory().add(chosenEffect, finalImage);
+                EditorState.getInstance().setImage(finalImage);
+                //Update the display with the final image
+                stateBasedUIComponentGroup.updateAllUIFromState();
+
+                return null;
+            };
+            //Close slider window if effect successfully applied
+            Consumer<Void> onSuccess = (v) -> colorFrame.dispose();
+            //If an error occurs with the task
+            Consumer<Exception> onError = (ex) -> {
+                JOptionPane.showMessageDialog(colorFrame, "An error occurred while applying the effect: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            };
+
+            //Create and return the task with loading dialog
+            TaskWithLoadingDialog<Void> taskWithLoadingDialog = new TaskWithLoadingDialog<>(
+                    colorFrame, "Applying effect. Please wait...", task, onSuccess, onError);
+            taskWithLoadingDialog.execute();
         };
     }
 

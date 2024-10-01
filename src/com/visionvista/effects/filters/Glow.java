@@ -10,9 +10,13 @@ import com.visionvista.utils.ImageHelper;
 import com.visionvista.utils.Pair;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 @EffectParameter(parameters = "0, 10")
 public class Glow extends Filter {
+    @Serial
+    private static final long serialVersionUID = 3829537176814306081L;
+
     private double intensity;
 
     public Glow(@JsonProperty("intensity") double intensity) {
