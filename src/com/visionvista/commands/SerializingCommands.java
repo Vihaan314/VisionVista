@@ -1,12 +1,13 @@
 package com.visionvista.commands;
 
 import com.visionvista.*;
-import com.visionvista.components.ImageTimeline;
 import com.visionvista.effects.Effect;
+import com.visionvista.utils.FileHelper;
 import com.visionvista.utils.TaskWithLoadingDialog;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
@@ -27,7 +28,13 @@ public class SerializingCommands {
 
     public Command createEffectSerializeCommand() {
         return () -> {
-            effectSerializer.serializeEffects(imageDisplay.getFileNameDetails()[0]);
+            String defaultFileName = imageDisplay.getFileNameDetails()[0];
+            String directory = FileHelper.chooseDirectory();
+            if (directory != null) {
+                File editedFile = FileHelper.getEditedFile(directory, defaultFileName, "dat", "_effects-sequence");
+                String fullFilePath = editedFile.getAbsolutePath();
+                effectSerializer.serializeEffects(fullFilePath);
+            }
         };
     }
 
@@ -72,9 +79,16 @@ public class SerializingCommands {
 
     public Command createEffectHistorySerializeCommand() {
         return () -> {
-            effectHistorySerializer.serializeEffects(imageDisplay.getFileNameDetails()[0]);
+            String defaultFileName = imageDisplay.getFileNameDetails()[0];
+            String directory = FileHelper.chooseDirectory();
+            if (directory != null) {
+                File editedFile = FileHelper.getEditedFile(directory, defaultFileName, "dat", "_project-sequence");
+                String fullFilePath = editedFile.getAbsolutePath();
+                effectHistorySerializer.serializeEffects(fullFilePath);
+            }
         };
     }
+
 
     public Command createEffectHistoryLoadCommand() {
         return () -> {

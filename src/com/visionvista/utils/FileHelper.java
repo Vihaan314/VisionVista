@@ -35,7 +35,6 @@ public class FileHelper {
     public static String chooseDirectory() {
         JFileChooser f = new JFileChooser();
         f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        f.showSaveDialog(null);
         int result = f.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             return String.valueOf(f.getSelectedFile());
@@ -44,6 +43,7 @@ public class FileHelper {
         }
         return null;
     }
+
 
     public static JFileChooser addFileFilter(String[] extensions, String description) {
         //Return JFileChooser with filter

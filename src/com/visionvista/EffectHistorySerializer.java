@@ -38,14 +38,11 @@ public class EffectHistorySerializer implements Serializable {
         return initialImage;
     }
 
-    public void serializeEffects(String filename) {
+    public void serializeEffects(String filePath) {
         effectsList = EditorState.getInstance().getEffectHistory().extractEffectsList();
         initialImage = EditorState.getInstance().getEffectHistory().getFirstImage();
-        String directory = FileHelper.chooseDirectory();
-        if (directory != null) {
-            filename = directory + File.separator + FileHelper.getEditedFile(directory, filename, "dat", "_project-sequence").getName();
-            File serializeFile = new File(filename);
-
+        if (filePath != null) {
+            File serializeFile = new File(filePath);
             try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(serializeFile))) {
                 writeObject(out);
             } catch (IOException e) {
@@ -53,6 +50,7 @@ public class EffectHistorySerializer implements Serializable {
             }
         }
     }
+
 
 
     @SuppressWarnings("unchecked")

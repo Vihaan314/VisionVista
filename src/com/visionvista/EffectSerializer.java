@@ -38,18 +38,13 @@ public class EffectSerializer implements Serializable {
         }
     }
 
-    public void serializeEffects(String filename) {
+    public void serializeEffects(String filePath) {
         effectsList = EditorState.getInstance().getEffectHistory().extractEffectsList();
-        //Choose directory to save sequence in
-        String directory = FileHelper.chooseDirectory();
-        if (directory != null) {
-            filename = directory + File.separator + FileHelper.getEditedFile(directory, filename, "dat", "_effects-sequence").getName();
-            File effectSerialize = new File(filename);
-
+        if (filePath != null) {
+            File effectSerialize = new File(filePath);
             try {
                 FileOutputStream effectOutputFile = new FileOutputStream(effectSerialize.getAbsoluteFile());
                 ObjectOutputStream effectOut = new ObjectOutputStream(effectOutputFile);
-
                 effectOut.writeObject(this);
 
                 effectOut.close();
