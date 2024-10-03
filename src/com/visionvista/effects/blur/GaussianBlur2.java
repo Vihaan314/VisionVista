@@ -53,7 +53,7 @@ public class GaussianBlur2 extends Blur {
         }
     }
 
-    public static GaussianBlur2 getRandomInstance(BufferedImage image) {
+    public static GaussianBlur2 getRandomInstance() {
         Pair<Integer, Integer> bounds = EffectType.GAUSSIAN_BLUR.getSliderBounds();
         return new GaussianBlur2(ImageHelper.getRandomParameter(bounds));
     }

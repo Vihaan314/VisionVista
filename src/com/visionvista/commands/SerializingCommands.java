@@ -29,11 +29,10 @@ public class SerializingCommands {
     public Command createEffectSerializeCommand() {
         return () -> {
             String defaultFileName = imageDisplay.getFileNameDetails()[0];
-            String directory = FileHelper.chooseDirectory();
-            if (directory != null) {
-                File editedFile = FileHelper.getEditedFile(directory, defaultFileName, "dat", "_effects-sequence");
-                String fullFilePath = editedFile.getAbsolutePath();
-                effectSerializer.serializeEffects(fullFilePath);
+            File editedFile = FileHelper.getEditedFile(FileHelper.getDefaultFileChooserDirectory().getAbsolutePath(), defaultFileName, "dat", "_effect-sequence");
+            File saveFile = FileHelper.chooseSaveFile(editedFile.getName().split("\\.")[0], "dat", "Effect Sequence Files (*.dat)");
+            if (saveFile != null) {
+                effectSerializer.serializeEffects(saveFile.getAbsolutePath());
             }
         };
     }
@@ -68,7 +67,7 @@ public class SerializingCommands {
             };
             //Create the loading task
             TaskWithLoadingDialog<Void> taskWithLoadingDialog = new TaskWithLoadingDialog<>(null,
-                    "Loading " + effectSequenceName + "Please wait...",
+                    "Loading " + effectSequenceName + ". Please wait...",
                     task,
                     null,
                     onError
@@ -77,18 +76,17 @@ public class SerializingCommands {
         };
     }
 
+
     public Command createEffectHistorySerializeCommand() {
         return () -> {
             String defaultFileName = imageDisplay.getFileNameDetails()[0];
-            String directory = FileHelper.chooseDirectory();
-            if (directory != null) {
-                File editedFile = FileHelper.getEditedFile(directory, defaultFileName, "dat", "_project-sequence");
-                String fullFilePath = editedFile.getAbsolutePath();
-                effectHistorySerializer.serializeEffects(fullFilePath);
+            File editedFile = FileHelper.getEditedFile(FileHelper.getDefaultFileChooserDirectory().getAbsolutePath(), defaultFileName, "dat", "_project");
+            File saveFile = FileHelper.chooseSaveFile(editedFile.getName().split("\\.")[0], "dat", "Project Files (*.dat)");
+            if (saveFile != null) {
+                effectHistorySerializer.serializeEffects(saveFile.getAbsolutePath());
             }
         };
     }
-
 
     public Command createEffectHistoryLoadCommand() {
         return () -> {

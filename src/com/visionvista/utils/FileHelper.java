@@ -1,6 +1,7 @@
 package com.visionvista.utils;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
 public class FileHelper {
@@ -30,6 +31,28 @@ public class FileHelper {
             editedFile = new File(directoryConstant + editedFile.getName().split("[.]")[0]);
         }
         return editedFile;
+    }
+
+    public static File chooseSaveFile(String defaultFileName, String extension, String description) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save As");
+        fileChooser.setSelectedFile(new File(defaultFileName + "." + extension));
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(description, extension);
+        fileChooser.setFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+
+        int userSelection = fileChooser.showSaveDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            if (!fileToSave.getName().toLowerCase().endsWith("." + extension)) {
+                fileToSave = new File(fileToSave.getParentFile(), fileToSave.getName() + "." + extension);
+            }
+            return fileToSave;
+        } else {
+            //The user canceled the save
+            return null;
+        }
     }
 
     public static String chooseDirectory() {
@@ -78,4 +101,8 @@ public class FileHelper {
         return null;
     }
 
+    public static File getDefaultFileChooserDirectory() {
+        JFileChooser fileChooser = new JFileChooser();
+        return fileChooser.getCurrentDirectory();
+    }
 }
