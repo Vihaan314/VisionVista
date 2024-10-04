@@ -31,7 +31,7 @@ public class ImageSaver {
         imageLogs.add("Original File name: " + fileName + "." + fileExtension);
         imageLogs.add("Directory saving in: " + textFile.getParent());
         imageLogs.add("File type: " + fileExtension);
-        imageLogs.add("Edited file name: " + textFile.getName().replace("_log", ""));
+        imageLogs.add("Edited file name: " + textFile.getName().replace("_log", "").replace("txt", fileExtension));
         imageLogs.add("\nEdits log:");
         //Add each applied effect as formatted string
         for (Pair<Effect, BufferedImage> edit : EditorState.getInstance().getEffectHistory().getEffectSequence()) {
@@ -45,20 +45,23 @@ public class ImageSaver {
         }
     }
 
-    private void saveImgToFile(String directory, String fileName, String fileExtension) {
+    private void saveImgToFile(File imageFile) {
         try {
-            File imageFile = FileHelper.getEditedFile(directory, fileName, fileExtension, "");
-            ImageIO.write(image, "png", new File(imageFile.getAbsolutePath()));
+            ImageIO.write(image, "png", imageFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
     public void saveImage() {
-        String fileName = fileNameBroken[0];
+        String defaultFileName = fileNameBroken[0];
         String fileExtension = fileNameBroken[1];
-        String directory = FileHelper.chooseDirectory();
-        saveImgToFile(directory, fileName, fileExtension);
-        if (withText) saveTextToFile(directory, fileName, fileExtension);
+        File editedFile = FileHelper.getEditedFile(FileHelper.getDefaultFileChooserDirectory().getAbsolutePath(), defaultFileName, fileExtension, "");
+        File saveFile = FileHelper.chooseSaveFile(editedFile.getName().split("\\.")[0], "png", "Image Files (*jpg, *jpeg, *png, *gif, *bmp)");
+        if (saveFile != null) {
+            saveImgToFile(saveFile);
+            if (withText) saveTextToFile(saveFile.getParent(), defaultFileName, fileExtension);
+        }
     }
 }
