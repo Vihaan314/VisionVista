@@ -1,11 +1,8 @@
 package com.visionvista.effects.artistic;
 
 import com.visionvista.effects.EffectDescription;
-import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ColorManipulator;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.Serial;
 
 @EffectDescription(description = "Brighter green tone")
@@ -19,9 +16,9 @@ public class Lomography extends Artistic {
 
     @Override protected int applyEffect(int red, int green, int blue) {
         //Lomography conversion formula
-        int newRed = ColorManipulator.truncate((int) (red + (red * 0.2) - (green * 0.1)));
-        int newGreen = ColorManipulator.truncate((int) (green + (green * 0.1) + (blue * 0.1)));
-        int newBlue = ColorManipulator.truncate((int) (blue + (blue * 0.2) - (red * 0.1)));
+        int newRed = ColorManipulator.clamp((int) (red + (red * 0.2) - (green * 0.1)));
+        int newGreen = ColorManipulator.clamp((int) (green + (green * 0.1) + (blue * 0.1)));
+        int newBlue = ColorManipulator.clamp((int) (blue + (blue * 0.2) - (red * 0.1)));
 
         return (newRed << 16 | newGreen << 8 | newBlue);
     }

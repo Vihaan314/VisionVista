@@ -3,8 +3,6 @@ package com.visionvista.effects.filters;
 import com.visionvista.effects.EffectDescription;
 import com.visionvista.utils.ColorManipulator;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.Serial;
 
 @EffectDescription(description = "Applies an intense cool blue filter")
@@ -18,8 +16,8 @@ public class SplitTone extends Filter {
 
     @Override protected int applyEffect(int red, int green, int blue) {
         //Spit tone conversion formula
-        int newRed = ColorManipulator.truncate((int) (red * 0.5));
-        int newBlue = ColorManipulator.truncate((int) (blue * 1.5));
+        int newRed = ColorManipulator.clamp((int) (red * 0.5));
+        int newBlue = ColorManipulator.clamp((int) (blue * 1.5));
 
         return (newRed << 16 | green << 8 | newBlue);
     }

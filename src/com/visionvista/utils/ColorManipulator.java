@@ -1,8 +1,5 @@
 package com.visionvista.utils;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 public class ColorManipulator {
     //Color correction
     public static double unGamma(double value) {
@@ -18,11 +15,11 @@ public class ColorManipulator {
     }
 
     //Helper
-    public static int truncate(int value) {
+    public static int clamp(int value) {
         return Math.max(0, Math.min(255, value));
     }
 
-    public static int truncate(double value) {
+    public static int clamp(double value) {
         int newVal = (int) value;
         return Math.max(0, Math.min(255, newVal));
     }

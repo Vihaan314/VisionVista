@@ -43,9 +43,9 @@ public class Vignette extends Filter {
                 double distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
                 double factor = adjustedIntensity * Math.max(0, (distance - 0) / (maxDistance - 0));
 
-                int red = ColorManipulator.truncate(((rgb >> 16) & 0xFF) * (1 - factor));
-                int green = ColorManipulator.truncate(((rgb >> 8) & 0xFF) * (1 - factor));
-                int blue = ColorManipulator.truncate((rgb & 0xFF) * (1 - factor));
+                int red = ColorManipulator.clamp(((rgb >> 16) & 0xFF) * (1 - factor));
+                int green = ColorManipulator.clamp(((rgb >> 8) & 0xFF) * (1 - factor));
+                int blue = ColorManipulator.clamp((rgb & 0xFF) * (1 - factor));
 
                 vignetteImage.setRGB(x, y, new Color(red, green, blue).getRGB());
             }

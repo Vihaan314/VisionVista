@@ -1,7 +1,6 @@
 package com.visionvista.effects.artistic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.visionvista.effects.EffectDescription;
 import com.visionvista.effects.EffectType;
 import com.visionvista.effects.EffectParameter;
 import com.visionvista.effects.blur.GaussianBlur;
@@ -64,9 +63,9 @@ public class Watercolor extends Artistic {
                 //Noise to simulate paper texture
                 int noise = rand.nextInt(textureIntensity) - (textureIntensity / 2);
                 Color color = new Color(rgb);
-                int r = ColorManipulator.truncate(color.getRed() + noise);
-                int g = ColorManipulator.truncate(color.getGreen() + noise);
-                int b = ColorManipulator.truncate(color.getBlue() + noise);
+                int r = ColorManipulator.clamp(color.getRed() + noise);
+                int g = ColorManipulator.clamp(color.getGreen() + noise);
+                int b = ColorManipulator.clamp(color.getBlue() + noise);
                 texturedImage.setRGB(x, y, new Color(r, g, b).getRGB());
             }
         }
@@ -113,9 +112,9 @@ public class Watercolor extends Artistic {
                 //Darken image
                 if (edgeVal > 20) {
                     edgeDarkenedImage.setRGB(x, y, new Color(
-                            ColorManipulator.truncate(edgeColor.getRed() - darkenAmount),
-                            ColorManipulator.truncate(edgeColor.getGreen() - darkenAmount),
-                            ColorManipulator.truncate(edgeColor.getBlue() - darkenAmount)).getRGB());
+                            ColorManipulator.clamp(edgeColor.getRed() - darkenAmount),
+                            ColorManipulator.clamp(edgeColor.getGreen() - darkenAmount),
+                            ColorManipulator.clamp(edgeColor.getBlue() - darkenAmount)).getRGB());
                 } else {
                     edgeDarkenedImage.setRGB(x, y, image.getRGB(x, y));
                 }
@@ -136,9 +135,9 @@ public class Watercolor extends Artistic {
                 int noise = rand.nextInt(noiseIntensity) - ((noiseIntensity-1)/2);
                 Color color = new Color(rgb);
 
-                int r = ColorManipulator.truncate(color.getRed() + noise);
-                int g = ColorManipulator.truncate(color.getGreen() + noise);
-                int b = ColorManipulator.truncate(color.getBlue() + noise);
+                int r = ColorManipulator.clamp(color.getRed() + noise);
+                int g = ColorManipulator.clamp(color.getGreen() + noise);
+                int b = ColorManipulator.clamp(color.getBlue() + noise);
                 dispersedImage.setRGB(x, y, new Color(r, g, b).getRGB());
             }
         }

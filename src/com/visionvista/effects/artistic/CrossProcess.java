@@ -1,7 +1,6 @@
 package com.visionvista.effects.artistic;
 
 import com.visionvista.effects.EffectDescription;
-import com.visionvista.effects.filters.Filter;
 import com.visionvista.utils.ColorManipulator;
 
 import java.io.Serial;
@@ -17,9 +16,9 @@ public class CrossProcess extends Artistic {
 
     @Override protected int applyEffect(int red, int green, int blue) {
         //Cross-processing conversion formula
-        int newRed = ColorManipulator.truncate((int) (red + (red * 0.3) - (green * 0.3)));
-        int newGreen = ColorManipulator.truncate((int) (green + (green * 0.2) - (blue * 0.15)));
-        int newBlue = ColorManipulator.truncate((int) (blue + (red * 0.15) + (green * 0.1)));
+        int newRed = ColorManipulator.clamp((int) (red + (red * 0.3) - (green * 0.3)));
+        int newGreen = ColorManipulator.clamp((int) (green + (green * 0.2) - (blue * 0.15)));
+        int newBlue = ColorManipulator.clamp((int) (blue + (red * 0.15) + (green * 0.1)));
 
         return (newRed << 16 | newGreen << 8 | newBlue);
     }

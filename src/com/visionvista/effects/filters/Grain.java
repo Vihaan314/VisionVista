@@ -27,9 +27,9 @@ public class Grain extends Filter {
         Random random = new Random();
         int noise = (int) (random.nextGaussian() * intensity/4);
 
-        int newRed = ColorManipulator.truncate(red + noise);
-        int newGreen = ColorManipulator.truncate(green + noise);
-        int newBlue = ColorManipulator.truncate(blue + noise);
+        int newRed = ColorManipulator.clamp(red + noise);
+        int newGreen = ColorManipulator.clamp(green + noise);
+        int newBlue = ColorManipulator.clamp(blue + noise);
 
         return (newRed << 16 | newGreen << 8 | newBlue);
     }

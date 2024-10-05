@@ -1,6 +1,5 @@
 package com.visionvista.effects;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
@@ -21,9 +20,9 @@ public class Brightness extends Effect {
 
     @Override protected int applyEffect(int red, int green, int blue) {
         //Brightness conversion formula - increase RGB values by intensity
-        int newRed = ColorManipulator.truncate(red + intensity);
-        int newGreen = ColorManipulator.truncate(green + intensity);
-        int newBlue = ColorManipulator.truncate(blue + intensity);
+        int newRed = ColorManipulator.clamp(red + intensity);
+        int newGreen = ColorManipulator.clamp(green + intensity);
+        int newBlue = ColorManipulator.clamp(blue + intensity);
 
         return (newRed << 16 | newGreen << 8 | newBlue);
     }

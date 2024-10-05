@@ -3,8 +3,6 @@ package com.visionvista.effects.filters;
 import com.visionvista.effects.EffectDescription;
 import com.visionvista.utils.ColorManipulator;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.Serial;
 
 @EffectDescription(description = "Simulates infrared photography")
@@ -18,7 +16,7 @@ public class Infrared extends Filter {
 
     @Override protected int applyEffect(int red, int green, int blue) {
         //Infrared conversion formula
-        int newRed = ColorManipulator.truncate(red + green + blue) / 3;
+        int newRed = ColorManipulator.clamp(red + green + blue) / 3;
         int newGreen = green / 2;
         int newBlue = blue / 2;
 

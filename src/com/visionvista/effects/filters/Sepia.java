@@ -24,9 +24,9 @@ public class Sepia extends Filter {
 
     @Override protected int applyEffect(int red, int green, int blue) {
         //Sepia conversion formula - apply formula and blend with original
-        int newRed = ColorManipulator.truncate( (red * 0.393) + (green * 0.769) + (blue * 0.189));
-        int newGreen = ColorManipulator.truncate((red * 0.349) + (green * 0.686) + (blue * 0.168));
-        int newBlue = ColorManipulator.truncate((red * 0.272) + (green * 0.534) + (blue * 0.131));
+        int newRed = ColorManipulator.clamp( (red * 0.393) + (green * 0.769) + (blue * 0.189));
+        int newGreen = ColorManipulator.clamp((red * 0.349) + (green * 0.686) + (blue * 0.168));
+        int newBlue = ColorManipulator.clamp((red * 0.272) + (green * 0.534) + (blue * 0.131));
 
         newRed = (int) ((newRed * intensity / 10) + (red * (10 - intensity) / 10));
         newGreen = (int) ((newGreen * intensity / 10) + (green * (10 - intensity) / 10));

@@ -2,11 +2,8 @@ package com.visionvista.effects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.visionvista.utils.Pair;
-import com.visionvista.utils.ColorManipulator;
 import com.visionvista.utils.ImageHelper;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.Serial;
 
 import static com.visionvista.utils.ColorManipulator.*;
@@ -57,9 +54,9 @@ public class Vibrance extends Effect{
             unGammaB *= grayRatio;
         }
 
-        int newRed = truncate((int) Gamma(unGammaR));
-        int newGreen = truncate((int) Gamma(unGammaG));
-        int newBlue = truncate((int) Gamma(unGammaB));
+        int newRed = clamp((int) Gamma(unGammaR));
+        int newGreen = clamp((int) Gamma(unGammaG));
+        int newBlue = clamp((int) Gamma(unGammaB));
 
         return (newRed << 16 | newGreen << 8 | newBlue);
     }
