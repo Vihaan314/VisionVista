@@ -81,7 +81,7 @@ It is made in Java, uses Java Swing for the UI and Java's BufferedImage class fo
   <details style="margin-left: 20px;">
     <summary>Artistic</summary>
     <ul>
-	  <li>Watercolor (beta)</li>
+	  <li>Watercolor</li>
 	  <li>Oil Painting</li>
 	  <li>Cyberpunk</li>
 	  <li>Pencil sketch</li>
@@ -117,7 +117,7 @@ It is made in Java, uses Java Swing for the UI and Java's BufferedImage class fo
       <li>Resize</li>
       <li>Flip vertical</li>
       <li>Flip horizontal</li>
-	  <li>Rotate (beta)</li>
+	  <li>Rotate</li>
     </ul>
   </details>
   
@@ -141,8 +141,11 @@ This feature relies on an API request to one of OpenAI's APIs, and thus, you mus
 1. Create class in respective effect sub/class and inherit that superclass.<br>
 2. Implement all superclass methods and the getRandomInstance for the random effect feature.<br>
 3. Add to EffectType enum with classifications and parameters for UI type and bounds.<br>
-4. (For AI Stylize) If the effect requires a parameter, add a @JsonProperty("value") directly before the parameter in the constructor of the effect. <br>
-5. (For AI Stylize) In the Effect superclass, add this line (with every other effect) with respect to your effect: @JsonSubTypes.Type(value = {theneweffect}.class, name = "neweffectname"). <br>
+4. (For AI Stylize) If the effect requires a parameter, add a @JsonProperty("value") directly before the parameter in the constructor of the effect. Also add an EffectParameter annotation at the top of the declaration of the class itself, e.g. @EffectParameter(parameters = "-100, 100"), to provide context in the AI prompt. <br>
+5. (For AI Stylize) If necessary, also add a description annotation in the same location as the parameter annotation above the class, e.g. @EffectDescription(description = "Visualizes image as thermal colors").
+6. (For AI Stylize) In the Effect superclass, add this line (with every other effect) with respect to your effect: @JsonSubTypes.Type(value = {theneweffect}.class, name = "neweffectname"). 
+<br>
+This can all be referenced from existing effect classes.<br>
 <br>
 
 <b> Adding an effect category </b><br>
